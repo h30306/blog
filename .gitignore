@@ -1,0 +1,11 @@
+#others
+node_modules
+.hugo_build.lock
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+
+# Hugo pages
+public
+resources

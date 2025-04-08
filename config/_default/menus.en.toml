@@ -1,0 +1,66 @@
+# config/_default/menus.toml
+
+[[main]]
+  name = "Blog"
+  pageRef = "tags/blog"
+  weight = 10
+
+[[main]]
+  name = "Categories"
+  pageRef = "categories"
+  weight = 20
+
+# Sub Menu for Categories
+[[main]]
+  name = "Backend"
+  parent = "Categories"
+  pageRef = "tags/backend"
+  weight = 21
+
+[[main]]
+  name = "Database"
+  parent = "Categories"
+  pageRef = "tags/database"
+  weight = 22
+
+[[main]]
+  name = "DistributionSystem"
+  parent = "Categories"
+  pageRef = "tags/distribution-system"
+  weight = 23
+
+[[main]]
+  name = "Internship"
+  parent = "Categories"
+  pageRef = "tags/intern"
+  weight = 24
+
+[[main]]
+  name = "Leetcode"
+  parent = "Categories"
+  pageRef = "tags/leetcode"
+  weight = 25
+
+[[main]]
+  name = "Paper"
+  parent = "Categories"
+  pageRef = "tags/paper"
+  weight = 26
+
+[[main]]
+  name = "Tags"
+  parent = "Categories"
+  pageRef = "tags"
+  weight = 25
+
+[[main]]
+  pre = "github"
+  identifier = "github"
+  url = "https://github.com/h30306"
+  weight = 30
+
+[[main]]
+  pre = "linkedin"
+  identifier = "linkedin"
+  url = "https://www.linkedin.com/in/howard-w-chung"
+  weight = 40

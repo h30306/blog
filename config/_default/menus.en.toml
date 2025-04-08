@@ -30,28 +30,34 @@
   weight = 23
 
 [[main]]
+  name = "Interview"
+  parent = "Categories"
+  pageRef = "tags/interview"
+  weight = 24
+
+[[main]]
   name = "Internship"
   parent = "Categories"
   pageRef = "tags/intern"
-  weight = 24
+  weight = 25
 
 [[main]]
   name = "Leetcode"
   parent = "Categories"
   pageRef = "tags/leetcode"
-  weight = 25
+  weight = 26
 
 [[main]]
   name = "Paper"
   parent = "Categories"
   pageRef = "tags/paper"
-  weight = 26
+  weight = 27
 
 [[main]]
   name = "Tags"
   parent = "Categories"
   pageRef = "tags"
-  weight = 25
+  weight = 28
 
 [[main]]
   pre = "github"

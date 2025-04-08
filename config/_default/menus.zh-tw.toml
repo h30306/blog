@@ -6,52 +6,58 @@
   weight = 10
 
 [[main]]
-  name = "類別"
+  name = "分類"
   pageRef = "categories"
   weight = 20
 
 # Sub Menu for Categories
 [[main]]
   name = "後端技術"
-  parent = "Categories"
+  parent = "分類"
   pageRef = "tags/backend"
   weight = 21
 
 [[main]]
   name = "資料庫"
-  parent = "Categories"
+  parent = "分類"
   pageRef = "tags/database"
   weight = 22
 
 [[main]]
   name = "分散式系統"
-  parent = "Categories"
+  parent = "分類"
   pageRef = "tags/distribution-system"
   weight = 23
 
 [[main]]
-  name = "實習經歷"
-  parent = "Categories"
-  pageRef = "tags/intern"
+  name = "面試經歷"
+  parent = "分類"
+  pageRef = "tags/interview"
   weight = 24
 
 [[main]]
-  name = "Leetcode"
-  parent = "Categories"
-  pageRef = "tags/leetcode"
+  name = "實習經歷"
+  parent = "分類"
+  pageRef = "tags/intern"
   weight = 25
 
 [[main]]
-  name = "論文發表"
-  parent = "Categories"
-  pageRef = "tags/paper"
+  name = "Leetcode"
+  parent = "分類"
+  pageRef = "tags/leetcode"
   weight = 26
 
 [[main]]
-  name = "文章標籤"
-  parent = "Categories"
+  name = "論文發表"
+  parent = "分類"
+  pageRef = "tags/paper"
+  weight = 27
+
+[[main]]
+  name = "所有標籤"
+  parent = "分類"
   pageRef = "tags"
-  weight = 25
+  weight = 28
 
 [[main]]
   pre = "github"

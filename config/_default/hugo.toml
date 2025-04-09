@@ -21,7 +21,7 @@ buildDrafts = false
 buildFuture = false
 
 
-googleAnalytics = ""
+googleAnalytics = "G-KT0B92779Z"
 
 # [imaging]
 # anchor = 'Center'

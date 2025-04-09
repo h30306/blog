@@ -42,7 +42,7 @@
   weight = 25
 
 [[main]]
-  name = "Leetcode"
+  name = "LeetCode"
   parent = "分類"
   pageRef = "tags/leetcode"
   weight = 26

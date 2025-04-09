@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Blowfish! :tada:"
-description: "This page was built using the Blowfish theme for Hugo."
+title: "Howard's Personal Website"
+description: "This page is Howard's Personal Website."
 ---
 

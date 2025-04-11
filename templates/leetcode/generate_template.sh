@@ -1,12 +1,12 @@
 # check param
-if [ "$#" -ne 4 ]; then
-  echo "Usage: $0 <Generate-Template-Type> <LeetCode-ID> <Problem-Title> <Difficulty>"
+if [ "$#" -ne 3 ]; then
+  echo "Usage: $0 <LeetCode-ID> <Problem-Title> <Difficulty>"
   exit 1
 fi
 
-LEETCODE_ID=$2
-PROBLEM_TITLE=$3
-DIFFICULTY=$4
+LEETCODE_ID=$1
+PROBLEM_TITLE=$2
+DIFFICULTY=$3
 DATE=$(date +%Y-%m-%d)
 TARGET_DIR="content/leetcode/LeetCode-${LEETCODE_ID}"
 

@@ -14,7 +14,7 @@ enableCodeCopy = true
 
 replyByEmail = false
 
-mainSections = ["database","distribution-system","backend","intern","interview","paper","leetcode"]
+mainSections = ["algorithm", "database","distribution-system","backend","intern","interview","paper","leetcode"]
 
 disableImageOptimization = false
 disableTextInHeader = false

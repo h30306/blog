@@ -12,61 +12,67 @@
 
 # Sub Menu for Categories
 [[main]]
+  name = "演算法"
+  parent = "分類"
+  pageRef = "tags/algorithm"
+  weight = 22
+
+[[main]]
   name = "後端技術"
   parent = "分類"
   pageRef = "tags/backend"
-  weight = 21
+  weight = 24
 
 [[main]]
   name = "資料庫"
   parent = "分類"
   pageRef = "tags/database"
-  weight = 22
+  weight = 26
 
 [[main]]
   name = "分散式系統"
   parent = "分類"
   pageRef = "tags/distribution-system"
-  weight = 23
+  weight = 28
 
 [[main]]
   name = "面試經歷"
   parent = "分類"
   pageRef = "tags/interview"
-  weight = 24
+  weight = 30
 
 [[main]]
   name = "實習經歷"
   parent = "分類"
   pageRef = "tags/intern"
-  weight = 25
+  weight = 32
 
 [[main]]
   name = "LeetCode"
   parent = "分類"
   pageRef = "tags/leetcode"
-  weight = 26
+  weight = 34
 
 [[main]]
   name = "論文發表"
   parent = "分類"
   pageRef = "tags/paper"
-  weight = 27
+  weight = 36
 
 [[main]]
   name = "所有標籤"
   parent = "分類"
   pageRef = "tags"
-  weight = 28
+  weight = 38
 
 [[main]]
   pre = "github"
   identifier = "github"
   url = "https://github.com/h30306"
-  weight = 30
+  weight = 40
 
 [[main]]
   pre = "linkedin"
   identifier = "linkedin"
   url = "https://www.linkedin.com/in/howard-w-chung"
-  weight = 40
+  weight = 50

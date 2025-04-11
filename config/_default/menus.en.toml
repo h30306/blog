@@ -12,61 +12,67 @@
 
 # Sub Menu for Categories
 [[main]]
+  name = "Algorithm"
+  parent = "Categories"
+  pageRef = "tags/algorithm"
+  weight = 22
+
+[[main]]
   name = "Backend"
   parent = "Categories"
   pageRef = "tags/backend"
-  weight = 21
+  weight = 24
 
 [[main]]
   name = "Database"
   parent = "Categories"
   pageRef = "tags/database"
-  weight = 22
+  weight = 26
 
 [[main]]
   name = "DistributionSystem"
   parent = "Categories"
   pageRef = "tags/distribution-system"
-  weight = 23
+  weight = 28
 
 [[main]]
   name = "Interview"
   parent = "Categories"
   pageRef = "tags/interview"
-  weight = 24
+  weight = 30
 
 [[main]]
   name = "Internship"
   parent = "Categories"
   pageRef = "tags/intern"
-  weight = 25
+  weight = 32
 
 [[main]]
   name = "LeetCode"
   parent = "Categories"
   pageRef = "tags/leetcode"
-  weight = 26
+  weight = 34
 
 [[main]]
   name = "Paper"
   parent = "Categories"
   pageRef = "tags/paper"
-  weight = 27
+  weight = 36
 
 [[main]]
   name = "Tags"
   parent = "Categories"
   pageRef = "tags"
-  weight = 28
+  weight = 38
 
 [[main]]
   pre = "github"
   identifier = "github"
   url = "https://github.com/h30306"
-  weight = 30
+  weight = 40
 
 [[main]]
   pre = "linkedin"
   identifier = "linkedin"
   url = "https://www.linkedin.com/in/howard-w-chung"
-  weight = 40
+  weight = 50

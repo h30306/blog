@@ -14,7 +14,7 @@ enableCodeCopy = true
 
 replyByEmail = false
 
-mainSections = ["algorithm", "database","distribution-system","backend","intern","interview","paper","leetcode"]
+mainSections = ["algorithm","database","distribution-system","backend","intern","interview","paper"]
 
 disableImageOptimization = false
 disableTextInHeader = false
@@ -39,7 +39,7 @@ smartTOCHideUnfocusedChildren = false
 
 [homepage]
   layout = "background" # valid options: page, profile, custom
-  #homepageImage = "img/background.jpg"
+  homepageImage = "img/background.svg"
   showRecent = true # show recent items, show `mainSections` items
   showRecentItems = 12
   showMoreLink = true

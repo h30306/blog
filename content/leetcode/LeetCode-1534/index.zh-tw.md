@@ -3,7 +3,7 @@ title: "LeetCode 1534: Count Good Triplets"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-14
-tags: ["LeetCode", "blog", "daily", "easy"]
+tags: ["LeetCode", "blog", "daily", "easy", "prefix sum"]
 
 cascade:
   showEdit: true
@@ -109,7 +109,7 @@ class Solution:
 ```
 
 
-## 學習
+## 收穫
 這個技巧的關鍵在於動態更新 prefix sum，在遍歷元素的同時即時取得符合條件的數量。
 
 ## 遇到的問題

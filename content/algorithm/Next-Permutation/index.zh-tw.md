@@ -3,7 +3,7 @@ title: "Next Permutation"
 summary: "Next Permutation 介紹"
 description: "演算法學習"
 date: 2025-04-13
-tags: ["algorithm"]
+tags: ["algorithm", "next permutation"]
 
 cascade:
   showEdit: true

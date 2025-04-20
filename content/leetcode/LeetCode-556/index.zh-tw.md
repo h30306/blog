@@ -3,7 +3,7 @@ title: "LeetCode 556: Next Greater Element III"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode"
 date: 2025-04-13
-tags: ["LeetCode", "blog", "medium"]
+tags: ["LeetCode", "blog", "medium", "next permutation"]
 
 cascade:
   showEdit: true
@@ -47,7 +47,7 @@ class Solution:
 
         return res if res < 1<<31 else -1
 ```
-## 學習
+## 收穫
 1. `1 << 32` 表示將數字 1 左移到第 32 個位元位置，等價於計算 2 的 32 次方。
 
 

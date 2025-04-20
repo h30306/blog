@@ -45,7 +45,7 @@ class Solution:
         return (pow(5, even_count, mod)*pow(4, odd_count, mod)) % mod
 ```
 
-## 學習
+## 收穫
 1. 一開始我是用比較笨的方法來計算奇數與偶數索引的數量，
 但其實可以簡化成以下這段程式碼：
 

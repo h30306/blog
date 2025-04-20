@@ -38,7 +38,7 @@ class Solution:
         return 0
 ```
 
-## 學習
+## 收穫
 NA
 
 ## 遇到的問題

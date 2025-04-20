@@ -5,7 +5,7 @@ description: "LeetCode 雙周賽 154"
 date: 2025-04-12
 series: ["LeetCode Bi-Weekly Contest 154"]
 series_order: 2
-tags: ["LeetCode", "blog", "bi-weekly", "medium", "unsolved"]
+tags: ["LeetCode", "blog", "bi-weekly", "medium", "unsolved", "bit"]
 
 cascade:
   showEdit: true
@@ -67,7 +67,7 @@ class Solution:
         return len(dfs(0, 0, 0))
 ```
 
-## 學習
+## 收穫
 1. 可能的 `xor_result` 結果集合太大，導致在這種作法下快取命中率非常低，最終會造成 TLE（Time Limit Exceeded）。
 
 

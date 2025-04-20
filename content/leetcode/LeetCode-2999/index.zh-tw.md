@@ -3,7 +3,7 @@ title: "LeetCode 2999: Count the Number of Powerful Integers"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-11
-tags: ["LeetCode", "blog", "daily", "hard"]
+tags: ["LeetCode", "blog", "daily", "hard", "digit DP"]
 
 cascade:
   showEdit: true
@@ -27,7 +27,7 @@ draft: false
 
 ## 解法
 
-```
+```python
 class Solution:
     def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
 
@@ -60,7 +60,7 @@ class Solution:
         return count_powerful(finish) - count_powerful(start-1)
 ```
 
-## 學習
+## 收穫
 在實作 `max_digit` 的邏輯時，`limit` 是用來限制所有的數字位。  
 因此，在計算下一個 `is_tight` 值時，應該加入一個條件來檢查 `limit` 是否大於或等於 `digits[position]`。
 

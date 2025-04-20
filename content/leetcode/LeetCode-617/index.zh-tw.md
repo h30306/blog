@@ -3,7 +3,7 @@ title: "LeetCode 617: Merge Two Binary Trees"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-10
-tags: ["LeetCode", "blog", "daily", "easy"]
+tags: ["LeetCode", "blog", "daily", "easy", "tree"]
 
 cascade:
   showEdit: true
@@ -69,7 +69,7 @@ class Solution:
         return additionNodes(root1, root2)
 ```
 
-## 學習
+## 收穫
 
 我原本的解法會遍歷所有的葉節點直到 `root1` 和 `root2` 都為 None 為止。但後來我發現，其實如果其中一個是 None，就可以直接回傳另一棵不為空的樹，沒必要再繼續遞迴下去。這樣可以減少遞迴次數，也稍微優化整體效能。
 

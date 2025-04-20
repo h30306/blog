@@ -41,7 +41,7 @@ class Solution:
         return left_sorted+middle_str+left_sorted[::-1]
 ```
 
-## 學習
+## 收穫
 NA
 
 ## 遇到的問題

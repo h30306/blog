@@ -3,7 +3,7 @@ title: "LeetCode 2999: Count the Number of Powerful Integers"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-11
-tags: ["LeetCode", "blog", "daily", "hard"]
+tags: ["LeetCode", "blog", "daily", "hard", "digit DP"]
 
 cascade:
   showEdit: true
@@ -27,7 +27,7 @@ Unlike most Digit DP problems, this one requires an **extra comparison after rea
 
 ## Approach
 
-```
+```python
 class Solution:
     def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
 

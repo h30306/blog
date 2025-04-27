@@ -20,7 +20,7 @@ First Attempt: 2025-04-13
 
 ## Intuition
 
-This is the classic [Next Permutation]({{< relref "Next-Permutation.md" >}}) problem, but with one additional constraint:  
+This is the classic [Next Permutation]({{< relref "algorithm/Next-Permutation/index.en.md" >}}) problem, but with one additional constraint:  
 the number must fit within a 32-bit signed integer.  
 Therefore, we need to perform an extra check at the end of the algorithm to ensure the result is valid.
 

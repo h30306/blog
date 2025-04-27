@@ -20,7 +20,7 @@ draft: false
 
 ## 解題思路
 
-這是一個經典的 Next Permutation 問題，但額外多了一個限制條件：  
+這是一個經典的 [Next Permutation]({{< relref "algorithm/Next-Permutation/index.zh-tw.md" >}}) 問題，但額外多了一個限制條件：  
 最終結果必須符合 32 位元有號整數的範圍。  
 因此，在演算法的最後，我們需要額外進行一次判斷，以確保結果是有效的。
 

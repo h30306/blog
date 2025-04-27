@@ -20,7 +20,7 @@ draft: false
 
 ## 解題思路
 
-解單的[Prefix Sum]({{< relref "Prefix-Sum.md" >}})問題
+解單的[Prefix Sum]({{< relref "algorithm/Prefix-Sum/index.zh-tw.md" >}})問題
 
 ## 解法
 

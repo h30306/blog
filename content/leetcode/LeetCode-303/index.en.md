@@ -20,7 +20,7 @@ First Attempt: 2025-04-19
 
 ## Intuition
 
-Just a simple [Prefix Sum]({{< relref "Prefix-Sum.md" >}}) problem
+Just a simple [Prefix Sum]({{< relref "algorithm/Prefix-Sum/index.en.md" >}}) problem
 
 ## Approach
 

@@ -21,5 +21,6 @@ mkdir -p "$TARGET_DIR"
 sed "s/{{DATE}}/$DATE/g; s/XXXX/$LEETCODE_ID/g; s/Problem Title/$PROBLEM_TITLE/g; s/difficulty/$DIFFICULTY/g" ./templates/leetcode/template.en.md > "$TARGET_DIR/index.en.md"
 
 sed "s/{{DATE}}/$DATE/g; s/XXXX/$LEETCODE_ID/g; s/Problem Title/$PROBLEM_TITLE/g; s/difficulty/$DIFFICULTY/g" ./templates/leetcode/template.zh-tw.md > "$TARGET_DIR/index.zh-tw.md"
+cp ./templates/leetcode/featured.png "$TARGET_DIR/featured.png"
 
 echo "Templates generated successfully in $TARGET_DIR"

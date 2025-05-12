@@ -21,4 +21,6 @@ sed "s/{{DATE}}/$DATE/g; s/XXXX/$ALGORITHM/g" ./templates/algorithm/template.en.
 
 sed "s/{{DATE}}/$DATE/g; s/XXXX/$ALGORITHM/g" ./templates/algorithm/template.zh-tw.md > "$TARGET_DIR/index.zh-tw.md"
 
+cp ./templates/algorithm/featured.png "$TARGET_DIR/featured.png"
+
 echo "Templates generated successfully in $TARGET_DIR"

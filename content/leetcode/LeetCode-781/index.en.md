@@ -16,7 +16,7 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2025-04-20
-- Total time: 00:00.00
+- Total time: 10:00.00
 
 
 ## Intuition

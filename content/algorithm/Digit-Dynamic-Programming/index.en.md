@@ -33,6 +33,40 @@ The most important concept in Digit DP is the `tight` (or `is_tight`) parameter,
 For example, suppose we are building a number from left to right and the target number is `125`. As long as we choose the digits that match `1`, `2`, ... etc., we are still *tight*. The moment we choose a smaller digit (like `0` instead of `1`), we are **no longer tight**, and future digits can range freely from 0 to 9.
 
 ---
+## Time Complexity
+
+The time complexity of Digit DP depends on:
+
+1. **Number of Digits** in the target number (denoted as `d`)
+2. **States** maintained in the DP (e.g., digit sum, parity, previous digit, etc.)
+
+---
+
+### General Case
+
+If:
+- `d` = number of digits in the number `n` (e.g., 10^18 has ~18 digits),
+- `s` = number of possible states in the custom `some_state` parameter,
+
+Then the total time complexity is roughly:
+
+```
+O(d × s)
+```
+
+Because:
+- We call the recursive `dfs()` once for each combination of position (`0 ~ d`) and state,
+- And each position explores at most `10` digit branches (`0~9`),
+- But thanks to memoization (`lru_cache`), overlapping subproblems are not recomputed.
+
+---
+
+### Space Complexity
+
+Also `O(d × s)` due to memoization of recursive calls and the call stack.
+
+---
+
 
 ## Template
 

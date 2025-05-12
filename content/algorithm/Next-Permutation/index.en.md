@@ -29,6 +29,43 @@ The goal is to find the next permutation in lexicographic (dictionary) order. Th
 
 If no such `i` exists (i.e., the array is in descending order), then the current permutation is the last one. In that case, simply reverse the entire array to get the first permutation.
 
+## Time Complexity
+
+The **Next Permutation** algorithm has the following time complexity characteristics:
+
+- **Step 1 (Find the pivot)**:  
+  We scan from right to left to find the first decreasing element — this takes **O(n)** in the worst case.
+
+- **Step 2 (Find the swap index)**:  
+  Another linear scan from the end to the pivot — also **O(n)** in the worst case.
+
+- **Step 3 (Swap)**:  
+  A single constant-time operation — **O(1)**.
+
+- **Step 4 (Reverse the suffix)**:  
+  Reversing the tail of the array from `i + 1` to the end — worst-case **O(n)**.
+
+---
+
+### Overall Time Complexity:
+
+```
+O(n)
+```
+
+Where `n` is the length of the input array.
+
+---
+
+### Space Complexity:
+
+```
+O(1)
+```
+
+The algorithm performs in-place swaps and reversals without using extra space.
+
+
 
 ## Template
 

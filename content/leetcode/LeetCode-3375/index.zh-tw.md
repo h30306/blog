@@ -3,7 +3,7 @@ title: "LeetCode 3375: Minimum Operations to Make Array Values Equal to K"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-09
-tags: ["LeetCode", "blog", "daily"]
+tags: ["LeetCode", "daily"]
 
 cascade:
   showEdit: true

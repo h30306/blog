@@ -3,7 +3,7 @@ title: "LeetCode 1109: Corporate Flight Bookings"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-27
-tags: ["LeetCode", "blog", "difference array", "medium"]
+tags: ["LeetCode", "difference array", "medium"]
 
 cascade:
   showEdit: true

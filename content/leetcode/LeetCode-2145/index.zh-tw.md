@@ -3,7 +3,7 @@ title: "LeetCode 2145: Count the Hidden Sequences"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-21
-tags: ["LeetCode", "blog", "daily", "medium"]
+tags: ["LeetCode", "daily", "medium"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 1202: Smallest String With Swaps"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-05-06
-tags: ["LeetCode", "blog", "Union Find", "medium"]
+tags: ["LeetCode", "Union Find", "medium"]
 
 cascade:
   showEdit: true

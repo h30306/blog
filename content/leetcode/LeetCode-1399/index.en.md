@@ -3,7 +3,7 @@ title: "LeetCode 1399: Count Largest Group"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-23
-tags: ["LeetCode", "blog", "daily", "easy", "hash map"]
+tags: ["LeetCode", "daily", "easy", "hash map"]
 
 cascade:
   showEdit: true

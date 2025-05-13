@@ -3,7 +3,7 @@ title: "LeetCode 1550: Three Consecutive Odds"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-05-11
-tags: ["LeetCode", "blog", "array", "easy"]
+tags: ["LeetCode", "array", "easy"]
 
 cascade:
   showEdit: true

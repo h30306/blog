@@ -3,7 +3,7 @@ title: "LeetCode 684: Redundant Connection"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-05-04
-tags: ["LeetCode", "blog", "daily", "medium"]
+tags: ["LeetCode", "daily", "medium"]
 
 cascade:
   showEdit: true

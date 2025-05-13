@@ -3,7 +3,7 @@ title: "LeetCode 947: Most Stones Removed with Same Row or Column"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-05-10
-tags: ["LeetCode", "blog", "Union Find", "medium"]
+tags: ["LeetCode", "Union Find", "medium"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 2843: Count Symmetric Integers"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-11
-tags: ["LeetCode", "blog", "daily", "easy", "digit DP"]
+tags: ["LeetCode", "daily", "easy", "digit DP"]
 
 cascade:
   showEdit: true

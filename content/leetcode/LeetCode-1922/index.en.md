@@ -3,7 +3,7 @@ title: "LeetCode 1922: Count Good Numbers"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-13
-tags: ["LeetCode", "blog", "daily", "medium"]
+tags: ["LeetCode", "daily", "medium"]
 
 cascade:
   showEdit: true

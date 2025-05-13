@@ -3,7 +3,7 @@ title: "LeetCode XXXX: Problem Title"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: {{DATE}}
-tags: ["LeetCode", "blog", "daily", "difficulty"]
+tags: ["LeetCode", "daily", "difficulty"]
 
 cascade:
   showEdit: true

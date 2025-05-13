@@ -3,7 +3,7 @@ title: "LeetCode 2381: Shifting Letters II"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-20
-tags: ["LeetCode", "blog", "medium", "difference array"]
+tags: ["LeetCode", "medium", "difference array"]
 
 cascade:
   showEdit: true

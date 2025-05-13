@@ -3,7 +3,7 @@ title: "XXXX"
 summary: "Introduction to XXXX"
 description: "Algorithm Learning"
 date: {{DATE}}
-tags: ["algorithm"]
+tags: ["blog", "algorithm"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "Union Find"
 summary: "Introduction to Union Find"
 description: "Algorithm Learning"
 date: 2025-04-28
-tags: ["algorithm"]
+tags: ["blog", "algorithm", "union find"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "Prefix Sum"
 summary: "Prefix Sum 介紹"
 description: "演算法學習"
 date: 2025-04-19
-tags: ["algorithm", "prefix sum"]
+tags: ["blog", "algorithm", "prefix sum"]
 
 cascade:
   showEdit: true

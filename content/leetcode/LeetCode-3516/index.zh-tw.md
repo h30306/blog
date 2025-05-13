@@ -5,7 +5,7 @@ description: "LeetCode Weekly Contest 445"
 date: 2025-04-13
 series: ["LeetCode Weekly Contest 445"]
 series_order: 1
-tags: ["LeetCode", "blog", "weekly", "easy"]
+tags: ["LeetCode", "weekly", "easy"]
 
 cascade:
   showEdit: true

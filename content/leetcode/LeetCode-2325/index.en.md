@@ -3,7 +3,7 @@ title: "LeetCode 2325: Decode the Message"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-22
-tags: ["LeetCode", "blog", "hash map", "easy"]
+tags: ["LeetCode", "hash map", "easy"]
 
 cascade:
   showEdit: true

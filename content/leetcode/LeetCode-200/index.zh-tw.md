@@ -3,7 +3,7 @@ title: "LeetCode 200: Number of Islands"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-05-10
-tags: ["LeetCode", "blog", "DFS", "medium"]
+tags: ["LeetCode", "DFS", "medium"]
 
 cascade:
   showEdit: true

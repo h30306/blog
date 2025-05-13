@@ -3,7 +3,7 @@ title: "LeetCode 990: Satisfiability of Equality Equations"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-05-10
-tags: ["LeetCode", "blog", "Union Find", "medium"]
+tags: ["LeetCode", "Union Find", "medium"]
 
 cascade:
   showEdit: true

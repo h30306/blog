@@ -3,7 +3,7 @@ title: "LeetCode 724: Find Pivot Index"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-19
-tags: ["LeetCode", "blog", "daily", "easy", "prefix sum"]
+tags: ["LeetCode", "daily", "easy", "prefix sum"]
 
 cascade:
   showEdit: true

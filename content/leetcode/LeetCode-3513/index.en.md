@@ -5,7 +5,7 @@ description: "LeetCode Bi-Weekly Contest 154"
 date: 2025-04-12
 series: ["LeetCode Bi-Weekly Contest 154"]
 series_order: 2
-tags: ["LeetCode", "blog", "bi-weekly", "medium", "unsolved", "bit"]
+tags: ["LeetCode", "bi-weekly", "medium", "unsolved", "bit"]
 
 cascade:
   showEdit: true

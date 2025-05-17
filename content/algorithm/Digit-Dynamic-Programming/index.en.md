@@ -61,7 +61,7 @@ Because:
 
 ---
 
-### Space Complexity
+## Space Complexity
 
 Also `O(d × s)` due to memoization of recursive calls and the call stack.
 

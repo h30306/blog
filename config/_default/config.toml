@@ -2,3 +2,8 @@ baseURL = "https://h30306.github.io/blog/"
 languageCode = "en"
 
 googleAnalytics = "G-Z03ZPGPCK7"
+
+
+[highlight]
+  noClasses = false
+  style = "monokai"

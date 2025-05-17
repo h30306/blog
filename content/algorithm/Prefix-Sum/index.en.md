@@ -50,7 +50,7 @@ sum_ = prefix[j+1] - prefix[i]
 ## Examples
 
 classic prefix sum
-```
+```python
 class NumArray:
 
     def __init__(self, nums: List[int]):

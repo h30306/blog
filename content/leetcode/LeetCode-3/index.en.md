@@ -14,7 +14,7 @@ draft: false
 
 ## Meta Data
 
-Difficulty: medium
+Difficulty: Medium
 First Attempt: 2025-08-02
 - Total time: 00:00.00
 

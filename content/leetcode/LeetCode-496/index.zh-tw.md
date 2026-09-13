@@ -3,7 +3,7 @@ title: "LeetCode 496: Next Greater Element I"
 summary: "單調遞減堆疊處理 nums2，預先建立下一個更大元素對照表，回答 nums1 查詢。"
 description: "使用單調堆疊在線性時間內計算下一個更大元素；包含複雜度與常見陷阱。"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "easy", "array", "stack", "monotonic stack", "hash map", "next greater element"]
+tags: ["leetcode", "daily", "easy", "array", "stack", "monotonic-stack", "hash-map", "next-greater-element"]
 
 cascade:
   showEdit: true

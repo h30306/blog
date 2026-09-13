@@ -3,7 +3,7 @@ title: "LeetCode 713: Subarray Product Less Than K"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-08-02
-tags: ["LeetCode", "daily", "medium", "sliding window"]
+tags: ["leetcode", "daily", "medium", "sliding-window"]
 
 cascade:
   showEdit: true

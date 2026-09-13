@@ -3,7 +3,7 @@ title: "LeetCode 155: Min Stack"
 summary: "使用元組方法實現具有 O(1) 最小值檢索的堆疊"
 description: "LeetCode 每日挑戰 - 最小堆疊的實現與常數時間操作"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "Medium", "stack", "design", "data-structure", "tuple", "constant-time", "堆疊", "設計", "資料結構", "元組", "常數時間"]
+tags: ["leetcode", "daily", "medium", "stack", "constant-time", "data-structures", "design", "tuple"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 1094: Car Pooling"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-27
-tags: ["LeetCode", "difference array", "medium"]
+tags: ["leetcode", "medium", "difference-array"]
 
 cascade:
   showEdit: true

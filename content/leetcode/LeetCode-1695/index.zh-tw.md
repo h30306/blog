@@ -3,7 +3,7 @@ title: "LeetCode 1695: Maximum Erasure Value (Sliding Window)"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "medium", "sliding-window", "two-pointers", "array", "hashset"]
+tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "hash-set"]
 
 cascade:
   showEdit: true

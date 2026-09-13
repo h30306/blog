@@ -3,7 +3,7 @@ title: "LeetCode 209: Minimum Size Subarray Sum"
 summary: "滑動視窗與雙指針，最小化子陣列長度（總和 ≥ target）。"
 description: "以滑動視窗解最小長度連續子陣列（總和 ≥ target），包含複雜度與重點心得。"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "medium", "array", "sliding-window", "two-pointers", "prefix-sum", "binary-search"]
+tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "prefix-sum", "binary-search"]
 
 cascade:
   showEdit: true

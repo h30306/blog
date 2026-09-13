@@ -3,7 +3,7 @@ title: "LeetCode 643: Maximum Average Subarray I"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-08-02
-tags: ["LeetCode", "daily", "easy", "Sliding Window"]
+tags: ["leetcode", "daily", "easy", "sliding-window"]
 
 cascade:
   showEdit: true

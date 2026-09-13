@@ -3,7 +3,7 @@ title: "LeetCode 1004: Max Consecutive Ones III"
 summary: "LeetCode Problem Solving - Variable Size Sliding Window with Zero Counting"
 description: "LeetCode Daily - Find longest subarray with at most K zeros using sliding window"
 date: 2025-08-03
-tags: ["LeetCode", "daily", "medium", "sliding window", "array", "two pointers", "binary array"]
+tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "binary-array"]
 
 cascade:
   showEdit: true

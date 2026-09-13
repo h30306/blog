@@ -3,7 +3,7 @@ title: "LeetCode 1497: Check If Array Pairs Are Divisible by k (Remainder Pairin
 summary: "Remainder pairing with a hash map; handle 0 and k/2 remainders carefully."
 description: "Use modulo and complement counts to verify if the array can be fully paired; includes complexity and common pitfalls."
 date: 2025-08-09
-tags: ["LeetCode", "daily", "medium", "array", "hash map", "modulo", "math", "counting", "complement"]
+tags: ["leetcode", "daily", "medium", "array", "hash-map", "complement", "counting", "math", "modulo"]
 
 cascade:
   showEdit: true

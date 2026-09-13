@@ -3,7 +3,7 @@ title: "LeetCode 30: Substring with Concatenation of All Words (Brute Force → 
 summary: "Three approaches: brute force, counting optimization, and sliding window over word-length offsets."
 description: "Progression from brute force to a frequency-controlled sliding window using word-length stepping; includes complexity and key insights."
 date: 2025-08-09
-tags: ["LeetCode", "daily", "hard", "string", "sliding-window", "two-pointers", "hash-map", "frequency-counter", "brute-force"]
+tags: ["leetcode", "daily", "hard", "string", "sliding-window", "two-pointers", "hash-map", "brute-force", "frequency-counting"]
 
 cascade:
   showEdit: true

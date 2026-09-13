@@ -3,7 +3,7 @@ title: "LeetCode 303: Range Sum Query - Immutable"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-19
-tags: ["LeetCode", "easy", "prefix sum"]
+tags: ["leetcode", "easy", "prefix-sum"]
 
 cascade:
   showEdit: true

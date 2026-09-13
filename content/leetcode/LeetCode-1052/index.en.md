@@ -3,7 +3,7 @@ title: "LeetCode 1052: Grumpy Bookstore Owner"
 summary: "LeetCode Problem Solving - Fixed Window with Customer Satisfaction Optimization"
 description: "LeetCode Daily - Maximize customer satisfaction using sliding window technique"
 date: 2025-08-03
-tags: ["LeetCode", "daily", "medium", "sliding window", "array", "optimization", "fixed window"]
+tags: ["leetcode", "daily", "medium", "array", "sliding-window", "fixed-window", "optimization"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 20: Valid Parentheses"
 summary: "Solving the Valid Parentheses problem using stack-based approach"
 description: "LeetCode Daily Challenge - Check if a string of parentheses is valid using efficient stack algorithm"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "easy", "stack", "string", "parentheses", "validation", "algorithm", "data-structure"]
+tags: ["leetcode", "daily", "easy", "algorithm", "string", "stack", "data-structures", "parentheses", "validation"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 84: Largest Rectangle in Histogram"
 summary: "使用單調堆疊解決直方圖中最大矩形面積問題"
 description: "LeetCode 每日挑戰 - 使用高效的堆疊演算法找出直方圖中能形成的最大矩形面積"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "hard", "stack", "monotonic-stack", "array", "histogram", "geometry", "algorithm", "dynamic-programming", "直方圖", "堆疊", "幾何", "演算法"]
+tags: ["leetcode", "daily", "hard", "algorithm", "array", "stack", "monotonic-stack", "dynamic-programming", "geometry", "histogram"]
 
 cascade:
   showEdit: true

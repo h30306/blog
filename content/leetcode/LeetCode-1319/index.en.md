@@ -3,7 +3,7 @@ title: "LeetCode 1319: Number of Operations to Make Network Connected"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-05-06
-tags: ["LeetCode", "Union Find", "medium"]
+tags: ["leetcode", "medium", "union-find"]
 
 cascade:
   showEdit: true

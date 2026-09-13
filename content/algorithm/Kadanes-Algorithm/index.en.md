@@ -3,7 +3,7 @@ title: "Kadane's Algorithm"
 summary: "Introduction to Kadane's Algorithm"
 description: "Algorithm Learning"
 date: 2025-07-25
-tags: ["blog", "algorithm"]
+tags: ["algorithm"]
 
 cascade:
   showEdit: true

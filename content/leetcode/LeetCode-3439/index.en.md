@@ -3,7 +3,7 @@ title: "LeetCode 3439: Reschedule Meetings for Maximum Free Time (Sliding Window
 summary: "Sliding window over meetings; track total duration in a k-sized window and compute free span between boundaries."
 description: "LeetCode Daily"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "medium", "sliding-window", "two-pointers", "intervals", "array"]
+tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "intervals"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 22: Generate Parentheses"
 summary: "使用回溯法生成所有有效的括號組合"
 description: "LeetCode 每日挑戰 - 生成括號問題的回溯解法"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "medium", "backtracking", "recursion", "string", "parentheses", "combinatorics", "回溯", "遞迴", "字串", "括號", "組合數學"]
+tags: ["leetcode", "daily", "medium", "string", "backtracking", "recursion", "combinatorics", "parentheses"]
 
 cascade:
   showEdit: true

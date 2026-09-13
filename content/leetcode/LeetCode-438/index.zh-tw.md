@@ -3,7 +3,7 @@ title: "LeetCode 438: Find All Anagrams in a String"
 summary: "LeetCode 解題紀錄 - 使用字符頻率的滑動窗口"
 description: "LeetCode Daily - 使用滑動窗口技巧在字符串中尋找模式的所有變位詞"
 date: 2025-08-02
-tags: ["LeetCode", "daily", "medium", "sliding window", "hash table", "string", "anagram", "frequency counting"]
+tags: ["leetcode", "daily", "medium", "string", "sliding-window", "hash-map", "anagram", "frequency-counting"]
 
 cascade:
   showEdit: true

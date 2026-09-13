@@ -3,7 +3,7 @@ title: "LeetCode 904: Fruit Into Baskets"
 summary: "LeetCode 解題紀錄 - 可變大小滑動窗口與雜湊表"
 description: "LeetCode Daily - 使用滑動窗口尋找最多兩種水果的最大數量"
 date: 2025-08-05
-tags: ["LeetCode", "daily", "medium", "sliding window", "hash map", "two pointers", "variable window"]
+tags: ["leetcode", "daily", "medium", "sliding-window", "variable-window", "two-pointers", "hash-map"]
 
 cascade:
   showEdit: true

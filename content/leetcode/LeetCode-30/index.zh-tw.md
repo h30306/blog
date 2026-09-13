@@ -3,7 +3,7 @@ title: "LeetCode 30: Substring with Concatenation of All Words"
 summary: "三種作法：暴力、計數優化、偏移量滑動視窗。"
 description: "從暴力到以 word_len 為步長的滑動視窗，透過頻率控制維持有效視窗；包含複雜度與心得。"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "hard", "string", "sliding-window", "two-pointers", "hash-map", "frequency-counter", "brute-force"]
+tags: ["leetcode", "daily", "hard", "string", "sliding-window", "two-pointers", "hash-map", "brute-force", "frequency-counting"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "Union Find"
 summary: "Union Find 介紹"
 description: "演算法學習"
 date: 2025-04-28
-tags: ["blog", "algorithm", "union find"]
+tags: ["algorithm", "union-find"]
 
 cascade:
   showEdit: true

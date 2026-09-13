@@ -3,7 +3,7 @@ title: "LeetCode 3: Longest Substring Without Repeating Characters"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-08-02
-tags: ["LeetCode", "daily", "medium", "sliding window", "hashmap"]
+tags: ["leetcode", "daily", "medium", "sliding-window", "hash-map"]
 
 cascade:
   showEdit: true

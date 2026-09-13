@@ -3,7 +3,7 @@ title: "LeetCode 1071: Greatest Common Divisor of Strings"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "easy", "字串", "數學", "GCD"]
+tags: ["leetcode", "daily", "easy", "string", "gcd", "math"]
 
 cascade:
   showEdit: true

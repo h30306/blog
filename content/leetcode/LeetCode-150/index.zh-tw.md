@@ -3,7 +3,7 @@ title: "LeetCode 150: Evaluate Reverse Polish Notation"
 summary: "使用堆疊解決逆波蘭表示法求值問題"
 description: "LeetCode 每日挑戰 - 使用高效的堆疊演算法求值逆波蘭表示法的數學表達式"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "medium", "stack", "expression-evaluation", "reverse-polish-notation", "postfix-notation", "mathematics", "algorithm", "data-structure", "逆波蘭表示法", "堆疊", "表達式求值", "數學", "演算法"]
+tags: ["leetcode", "daily", "medium", "algorithm", "stack", "data-structures", "expression-evaluation", "math", "postfix-notation", "reverse-polish-notation"]
 
 cascade:
   showEdit: true

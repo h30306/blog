@@ -3,7 +3,7 @@ title: "LeetCode 781: Rabbits in Forest"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-20
-tags: ["LeetCode", "daily", "medium"]
+tags: ["leetcode", "daily", "medium"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "LeetCode 901: Online Stock Span"
 summary: "使用單調堆疊解決股票價格跨度問題"
 description: "LeetCode 每日挑戰 - 實作計算股票價格跨度的 StockSpanner 類別"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "medium", "stack", "monotonic-stack", "design", "data-structure", "algorithm", "股票", "堆疊", "設計模式"]
+tags: ["leetcode", "daily", "medium", "algorithm", "stack", "monotonic-stack", "data-structures", "design", "design-patterns", "stock"]
 
 cascade:
   showEdit: true

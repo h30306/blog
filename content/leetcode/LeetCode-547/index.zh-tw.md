@@ -3,7 +3,7 @@ title: "LeetCode 547: Number of Provinces"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-05-04
-tags: ["LeetCode", "Union Find", "medium"]
+tags: ["leetcode", "medium", "union-find", "dfs"]
 
 cascade:
   showEdit: true

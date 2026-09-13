@@ -3,7 +3,7 @@ title: "LeetCode 739: Daily Temperatures"
 summary: "Solving the Daily Temperatures problem using monotonic stack approach"
 description: "LeetCode Daily Challenge - Find the number of days to wait for a warmer temperature using efficient stack-based algorithm"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "medium", "stack", "monotonic-stack", "array", "temperature", "waiting-time", "algorithm", "data-structure"]
+tags: ["leetcode", "daily", "medium", "algorithm", "array", "stack", "monotonic-stack", "data-structures", "temperature", "waiting-time"]
 
 cascade:
   showEdit: true

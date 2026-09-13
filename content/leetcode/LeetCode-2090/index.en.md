@@ -3,7 +3,7 @@ title: "LeetCode 2090: K Radius Subarray Averages"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-08-02
-tags: ["LeetCode", "daily", "medium", "Sliding Window"]
+tags: ["leetcode", "daily", "medium", "sliding-window"]
 
 cascade:
   showEdit: true

@@ -3,7 +3,7 @@ title: "Sliding Window"
 summary: "Introduction to Sliding Window"
 description: "Algorithm Learning"
 date: 2025-07-04
-tags: ["blog", "algorithm", "Sliding Window"]
+tags: ["algorithm", "sliding-window"]
 
 cascade:
   showEdit: true

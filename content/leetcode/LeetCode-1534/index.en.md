@@ -3,7 +3,7 @@ title: "LeetCode 1534: Count Good Triplets"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-14
-tags: ["LeetCode", "daily", "easy", "prefix sum"]
+tags: ["leetcode", "daily", "easy", "prefix-sum"]
 
 cascade:
   showEdit: true

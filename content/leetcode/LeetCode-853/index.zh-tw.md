@@ -3,7 +3,7 @@ title: "LeetCode 853: Car Fleet"
 summary: "使用堆疊方法解決車隊問題"
 description: "LeetCode 每日挑戰 - 車隊問題的詳細解題思路與實作"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "medium", "stack", "sorting", "simulation", "greedy", "array", "堆疊", "排序", "模擬", "貪心", "陣列"]
+tags: ["leetcode", "daily", "medium", "array", "stack", "greedy", "simulation", "sorting"]
 
 cascade:
   showEdit: true

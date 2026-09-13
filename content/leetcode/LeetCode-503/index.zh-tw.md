@@ -3,7 +3,7 @@ title: "LeetCode 503: Next Greater Element II（單調棧）"
 summary: "單調棧、環狀陣列"
 description: "兩種單調棧解法，處理環狀陣列的 Next Greater Element"
 date: 2025-08-09
-tags: ["LeetCode", "daily", "medium", "monotonic-stack", "stack", "array", "circular-array", "單調棧", "環狀陣列"]
+tags: ["leetcode", "daily", "medium", "array", "stack", "monotonic-stack", "circular-array"]
 
 cascade:
   showEdit: true

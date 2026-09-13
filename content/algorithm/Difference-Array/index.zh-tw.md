@@ -3,7 +3,7 @@ title: "Difference Array"
 summary: "Difference Array 介紹"
 description: "演算法學習"
 date: 2025-04-27
-tags: ["blog", "algorithm", "difference array"]
+tags: ["algorithm", "difference-array"]
 
 cascade:
   showEdit: true

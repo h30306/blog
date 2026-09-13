@@ -3,7 +3,7 @@ title: "LeetCode 2999: Count the Number of Powerful Integers"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-11
-tags: ["LeetCode", "daily", "hard", "digit DP"]
+tags: ["leetcode", "daily", "hard", "digit-dp"]
 
 cascade:
   showEdit: true

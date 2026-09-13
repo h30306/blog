@@ -3,7 +3,7 @@ title: "LeetCode 20: Valid Parentheses"
 summary: "使用堆疊解決有效括號問題"
 description: "LeetCode 每日挑戰 - 使用高效的堆疊演算法檢查括號字串是否有效"
 date: 2025-08-10
-tags: ["LeetCode", "daily", "easy", "stack", "string", "parentheses", "validation", "algorithm", "data-structure", "括號", "堆疊", "字串", "驗證", "演算法"]
+tags: ["leetcode", "daily", "easy", "algorithm", "string", "stack", "data-structures", "parentheses", "validation"]
 
 cascade:
   showEdit: true

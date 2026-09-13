@@ -14,49 +14,49 @@
 [[main]]
   name = "Algorithm"
   parent = "Categories"
-  pageRef = "tags/algorithm"
+  pageRef = "algorithm"
   weight = 22
 
 [[main]]
   name = "Backend"
   parent = "Categories"
-  pageRef = "tags/backend"
+  pageRef = "backend"
   weight = 24
 
 [[main]]
   name = "Database"
   parent = "Categories"
-  pageRef = "tags/database"
+  pageRef = "database"
   weight = 26
 
 [[main]]
   name = "DistributionSystem"
   parent = "Categories"
-  pageRef = "tags/distribution-system"
+  pageRef = "distribution-system"
   weight = 28
 
 [[main]]
   name = "Interview"
   parent = "Categories"
-  pageRef = "tags/interview"
+  pageRef = "interview"
   weight = 30
 
 [[main]]
   name = "Internship"
   parent = "Categories"
-  pageRef = "tags/intern"
+  pageRef = "intern"
   weight = 32
 
 [[main]]
   name = "LeetCode"
   parent = "Categories"
-  pageRef = "tags/leetcode"
+  pageRef = "leetcode"
   weight = 34
 
 [[main]]
   name = "Paper"
   parent = "Categories"
-  pageRef = "tags/paper"
+  pageRef = "paper"
   weight = 36
 
 [[main]]

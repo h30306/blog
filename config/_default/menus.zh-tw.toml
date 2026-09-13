@@ -14,49 +14,49 @@
 [[main]]
   name = "演算法"
   parent = "分類"
-  pageRef = "tags/algorithm"
+  pageRef = "algorithm"
   weight = 22
 
 [[main]]
   name = "後端技術"
   parent = "分類"
-  pageRef = "tags/backend"
+  pageRef = "backend"
   weight = 24
 
 [[main]]
   name = "資料庫"
   parent = "分類"
-  pageRef = "tags/database"
+  pageRef = "database"
   weight = 26
 
 [[main]]
   name = "分散式系統"
   parent = "分類"
-  pageRef = "tags/distribution-system"
+  pageRef = "distribution-system"
   weight = 28
 
 [[main]]
   name = "面試經歷"
   parent = "分類"
-  pageRef = "tags/interview"
+  pageRef = "interview"
   weight = 30
 
 [[main]]
   name = "實習經歷"
   parent = "分類"
-  pageRef = "tags/intern"
+  pageRef = "intern"
   weight = 32
 
 [[main]]
   name = "LeetCode"
   parent = "分類"
-  pageRef = "tags/leetcode"
+  pageRef = "leetcode"
   weight = 34
 
 [[main]]
   name = "論文發表"
   parent = "分類"
-  pageRef = "tags/paper"
+  pageRef = "paper"
   weight = 36
 
 [[main]]

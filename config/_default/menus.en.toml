@@ -2,7 +2,7 @@
 
 [[main]]
   name = "Blog"
-  pageRef = "tags/blog"
+  url = "/"
   weight = 10
 
 [[main]]

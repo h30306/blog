@@ -1,5 +1,11 @@
 {{ $disableImageOptimization := .Page.Site.Params.disableImageOptimization | default false }}
-{{ $featured := partial "featured-image.html" (dict "page" . "kind" "background" "defaultImage" .Site.Params.defaultBackgroundImage) }}
+{{ $isParentList := eq (.Scratch.Get "scope") "list"  }}
+{{ $featured := false }}
+{{ if $isParentList }}
+  {{ $featured = partial "featured-image.html" (dict "page" . "kind" "background" "defaultImage" .Site.Params.defaultBackgroundImage "ignorePageImages" true) }}
+{{ else }}
+  {{ $featured = partial "featured-image.html" (dict "page" . "kind" "background" "defaultImage" .Site.Params.defaultBackgroundImage) }}
+{{ end }}
 
 {{- with $featured -}}
     {{ if or $disableImageOptimization (strings.HasSuffix $featured ".svg")}}

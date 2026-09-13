@@ -1,16 +1,19 @@
 {{ $page := .page }}
 {{ $kind := .kind | default "feature" }}
 {{ $defaultImage := .defaultImage }}
+{{ $ignorePageImages := .ignorePageImages | default false }}
 {{ $featured := false }}
 
-{{ $images := $page.Resources.ByType "image" }}
-{{ if eq $kind "background" }}
-  {{ $featured = $images.GetMatch "*background*" }}
+{{ if not $ignorePageImages }}
+  {{ $images := $page.Resources.ByType "image" }}
+  {{ if eq $kind "background" }}
+    {{ $featured = $images.GetMatch "*background*" }}
+  {{ end }}
+  {{ if not $featured }}{{ $featured = $images.GetMatch "*feature*" }}{{ end }}
+  {{ if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end }}
 {{ end }}
-{{ if not $featured }}{{ $featured = $images.GetMatch "*feature*" }}{{ end }}
-{{ if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end }}
 
-{{ if and $page.Params.featureimage (not $featured) }}
+{{ if and (not $ignorePageImages) $page.Params.featureimage (not $featured) }}
   {{ $url := $page.Params.featureimage }}
   {{ if or (strings.HasPrefix $url "http:") (strings.HasPrefix $url "https:") }}
     {{ $featured = resources.GetRemote $url }}

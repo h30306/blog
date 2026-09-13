@@ -23,7 +23,7 @@ draft: false
 - Selectivity、cardinality、projection width、full scan reasoning
 - B+Tree insert、leaf split、separator propagation、root split
 - Index 為什麼讓 writes 變慢：page split、redo/WAL、buffer churn、write amplification
-- 如何用 ASUS / hospital-style query 做完整 index defense
+- 如何用 hospital-style query 做完整 index defense
 
 ## Tier A/S 判斷
 
@@ -449,7 +449,7 @@ WHERE created_at >= TIMESTAMP '2026-05-12 00:00:00'
 - negative predicate: `status != 'DELETED'`
 - low-selectivity predicate
 
-## ASUS / Hospital Query
+## Hospital Query
 
 假設 hospital scheduling endpoint：
 

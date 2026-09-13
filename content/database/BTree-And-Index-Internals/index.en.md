@@ -23,7 +23,7 @@ draft: false
 - Selectivity, cardinality, projection width, and full-scan reasoning
 - B+Tree insert, leaf split, separator propagation, and root split
 - Why indexes slow writes: page splits, redo/WAL, buffer churn, and write amplification
-- How to defend an ASUS / hospital-style query index end to end
+- How to defend a hospital-style query index end to end
 
 ## Tier A/S Readiness
 
@@ -447,7 +447,7 @@ Common index killers:
 - negative predicate: `status != 'DELETED'`
 - low-selectivity predicate
 
-## ASUS / Hospital Query
+## Hospital Query
 
 Assume a hospital scheduling endpoint:
 

@@ -1,4 +1,5 @@
 {{ $disableImageOptimization := .Page.Site.Params.disableImageOptimization | default false }}
+{{ $featureImageClass := cond (.Params.featureImageContain | default false) " topic-feature-image" "" }}
 {{ with .Params.externalUrl }}
 <a href="{{ . }}" target="_blank" rel="external" class="min-w-full">
   {{ else }}
@@ -15,11 +16,11 @@
       {{- with $featured -}}
       {{ if or $disableImageOptimization (strings.HasSuffix $featured ".svg")}}
         {{ with . }}
-        <div class="w-full thumbnail_card nozoom" style="background-image:url({{ .RelPermalink }});"></div>
+        <div class="w-full thumbnail_card nozoom{{ $featureImageClass }}" style="background-image:url({{ .RelPermalink }});"></div>
         {{ end }}
       {{ else }}
         {{ with .Resize "600x" }}
-        <div class="w-full thumbnail_card nozoom" style="background-image:url({{ .RelPermalink }});"></div>
+        <div class="w-full thumbnail_card nozoom{{ $featureImageClass }}" style="background-image:url({{ .RelPermalink }});"></div>
         {{ end }}
       {{ end }}
       {{- else -}}

@@ -9,6 +9,6 @@ cascade:
   showEdit: true
   showSummary: true
   hideFeatureImage: false
+  featureImageContain: true
 draft: false
 ---
-

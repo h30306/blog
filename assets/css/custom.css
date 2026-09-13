@@ -1,0 +1,25 @@
+.thumbnail.topic-feature-image,
+.thumbnail_card.topic-feature-image,
+.thumbnail_card_related.topic-feature-image {
+  background-size: auto 72%;
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.thumbnail_card_related.topic-feature-image {
+  background-size: auto 68%;
+}
+
+.single_hero_basic.topic-feature-image {
+  background-size: auto 72%;
+}
+
+.single_hero_background.topic-feature-image {
+  background-size: min(420px, 58vw) auto;
+  background-position: center 32%;
+}
+
+@media (max-width: 640px) {
+  .single_hero_background.topic-feature-image {
+    background-size: min(320px, 72vw) auto;
+  }
+}

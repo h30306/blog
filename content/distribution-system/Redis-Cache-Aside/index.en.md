@@ -1,9 +1,9 @@
 ---
-title: "Redis Cache-Aside And Query Fixes"
-summary: "When Redis is the right fix, and when it only hides query, index, or schema problems"
-description: "Review notes for cache-aside, invalidation, stale reads, hot keys, and Redis vs DB fixes"
+title: "Redis Cache-Aside"
+summary: "Cache-aside, invalidation, stale reads, hot keys, and Redis outage fallback"
+description: "Distributed cache review notes for cache-aside, invalidation, stale reads, hot keys, and Redis fallback"
 date: 2026-05-28
-tags: ["distributed-systems", "redis", "cache-aside", "caching", "database-scaling"]
+tags: ["distributed-systems", "redis", "cache-aside", "caching", "consistency"]
 categories: ["distribution-system"]
 cascade:
   showEdit: true

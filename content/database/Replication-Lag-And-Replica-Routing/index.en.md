@@ -1,10 +1,12 @@
 ---
 title: "Replication Lag And Replica Routing"
-summary: "Read replicas as a freshness and routing problem, not just read scaling"
-description: "Distributed systems review notes for primary/replica, replication lag, and read-after-write consistency"
+summary: "Database replication as a freshness and routing problem, not just read scaling"
+description: "Database scaling review notes for primary/replica, replication lag, and read-after-write consistency"
 date: 2026-05-26
-tags: ["distributed-systems", "database-scaling", "replication", "read-replica", "consistency"]
-categories: ["distribution-system"]
+tags: ["database", "database-scaling", "replication", "read-replica", "consistency"]
+categories: ["database"]
+aliases:
+  - /distribution-system/replication-lag-and-replica-routing/
 cascade:
   showEdit: true
   showSummary: true

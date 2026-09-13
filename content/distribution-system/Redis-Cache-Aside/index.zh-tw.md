@@ -1,9 +1,9 @@
 ---
-title: "Redis Cache-Aside And Query Fixes"
-summary: "Redis 什麼時候是正確解，什麼時候只是遮住 query/index/schema 問題"
-description: "Cache-aside、invalidation、stale reads、hot keys、Redis vs DB fixes 的複習筆記"
+title: "Redis Cache-Aside"
+summary: "Cache-aside、invalidation、stale reads、hot keys 與 Redis outage fallback"
+description: "分散式 cache 的 cache-aside、invalidation、stale reads、hot keys 與 Redis fallback 複習筆記"
 date: 2026-05-28
-tags: ["distributed-systems", "redis", "cache-aside", "caching", "database-scaling"]
+tags: ["distributed-systems", "redis", "cache-aside", "caching", "consistency"]
 categories: ["distribution-system"]
 cascade:
   showEdit: true

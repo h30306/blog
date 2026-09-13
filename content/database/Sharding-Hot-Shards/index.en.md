@@ -1,10 +1,12 @@
 ---
 title: "Sharding, Hot Shards, And Cross-Shard Pain"
 summary: "Shard-key choice as workload design, not just picking a column"
-description: "Distributed systems review notes for shard-key choice, hot shards, cross-shard queries, and resharding"
+description: "Database scaling review notes for shard-key choice, hot shards, cross-shard queries, and resharding"
 date: 2026-05-27
-tags: ["distributed-systems", "database-scaling", "sharding", "hot-shard", "multi-tenant"]
-categories: ["distribution-system"]
+tags: ["database", "database-scaling", "sharding", "hot-shard", "multi-tenant"]
+categories: ["database"]
+aliases:
+  - /distribution-system/sharding-hot-shards/
 cascade:
   showEdit: true
   showSummary: true

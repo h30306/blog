@@ -1,10 +1,12 @@
 ---
 title: "Sharding, Hot Shards, And Cross-Shard Pain"
 summary: "Shard key 不是選一個欄位而已，而是承擔 workload、skew、routing 和 transaction trade-off"
-description: "Shard key choice、hot shard、cross-shard query、resharding 的分散式系統複習筆記"
+description: "Shard key choice、hot shard、cross-shard query、resharding 的資料庫擴展複習筆記"
 date: 2026-05-27
-tags: ["distributed-systems", "database-scaling", "sharding", "hot-shard", "multi-tenant"]
-categories: ["distribution-system"]
+tags: ["database", "database-scaling", "sharding", "hot-shard", "multi-tenant"]
+categories: ["database"]
+aliases:
+  - /zh-tw/distribution-system/sharding-hot-shards/
 cascade:
   showEdit: true
   showSummary: true

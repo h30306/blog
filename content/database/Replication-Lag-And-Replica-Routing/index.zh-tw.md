@@ -1,10 +1,12 @@
 ---
 title: "Replication Lag And Replica Routing"
 summary: "把 read replica 從讀流量擴充，講到 read-after-write correctness 和 routing policy"
-description: "Primary/replica、replication lag、read-after-write consistency 的分散式系統複習筆記"
+description: "Primary/replica、replication lag、read-after-write consistency 的資料庫擴展複習筆記"
 date: 2026-05-26
-tags: ["distributed-systems", "database-scaling", "replication", "read-replica", "consistency"]
-categories: ["distribution-system"]
+tags: ["database", "database-scaling", "replication", "read-replica", "consistency"]
+categories: ["database"]
+aliases:
+  - /zh-tw/distribution-system/replication-lag-and-replica-routing/
 cascade:
   showEdit: true
   showSummary: true

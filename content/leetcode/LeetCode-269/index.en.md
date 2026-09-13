@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 269: Alien Dictionary"
-summary: "LeetCode Problem Solving - Topological sort on characters"
-description: "LeetCode study note from 2026-04-26"
+summary: "LeetCode note for Alien Dictionary, rebuilt from the original learning note"
+description: "Cleaned LeetCode 269 article from 2026-04-26 with note repair points and final solution"
 date: 2026-04-26
 tags: ["hard", "graph", "topological-sort"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 Difficulty: hard
 First Attempt: 2026-04-26
-Source Note: `notes/day12-week3-day4-dp-speed-l4-l7.md`
+Source: Day 12 learning note
 
-## Intuition
+## Study Context
 
-I build a directed graph over characters using adjacent word pairs only. For each pair, the first different character gives the ordering edge. If the first word is a strict prefix extension of the second, the order is in
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: Topological sort on characters
+## Related Reminders From The Note
 
-## Approach
+- **LC 269 Alien Dictionary:** Good enough explanation; implementation can still be cleaned up with set adjacency later.
 
+## Learning Note Extract
+
+#### Problem 2 - LC 269 Alien Dictionary Review
+- **Status:** Good enough pattern recognition; implementation detail still needs care.
 - **Pattern:** Topological sort on characters.
 
-## Correct Graph Construction
+#### Correct Graph Construction
 - initialize all characters as graph nodes
 - compare adjacent word pairs only
 - use only the first different character
@@ -37,7 +41,7 @@ Pattern: Topological sort on characters
 ["abc", "ab"] -> ""
 ```
 
-## Cycle Detection
+#### Cycle Detection
 Use Kahn's topological sort.
 
 If the result length is smaller than the number of unique characters:
@@ -45,7 +49,7 @@ If the result length is smaller than the number of unique characters:
 cycle exists -> return ""
 ```
 
-## Important Implementation Detail
+#### Important Implementation Detail
 Today’s code using list adjacency is still workable, because duplicate indegree increments are matched by duplicate decrements later.
 
 But interview-cleaner version is:
@@ -55,121 +59,54 @@ use set adjacency to avoid parallel-edge bookkeeping
 
 That is easier to explain and less fragile.
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 I build a directed graph over characters using adjacent word pairs only. For each pair, the first different character gives the ordering edge. If the first word is a strict prefix extension of the second, the order is invalid and I return an empty string. Then I run Kahn's topological sort. If I cannot process all characters, there is a cycle.
 
-## Topic - L4 vs L7 Load Balancer
+## Clean Solution
 
-## Concrete Traffic Path
-Use this scenario:
-```text
-Browser -> Load Balancer -> FastAPI backend
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
+
+```python
+from collections import deque
+from typing import List
+
+class Solution:
+    def alienOrder(self, words: List[str]) -> str:
+        graph = {c: set() for word in words for c in word}
+        indeg = {c: 0 for c in graph}
+
+        for w1, w2 in zip(words, words[1:]):
+            if len(w1) > len(w2) and w1.startswith(w2):
+                return ''
+            for a, b in zip(w1, w2):
+                if a != b:
+                    if b not in graph[a]:
+                        graph[a].add(b)
+                        indeg[b] += 1
+                    break
+
+        q = deque(c for c in indeg if indeg[c] == 0)
+        order = []
+        while q:
+            c = q.popleft()
+            order.append(c)
+            for nei in graph[c]:
+                indeg[nei] -= 1
+                if indeg[nei] == 0:
+                    q.append(nei)
+
+        return ''.join(order) if len(order) == len(indeg) else ''
 ```
 
-Example request:
-```text
-https://api.hospital.com/patients/123
-```
+## Complexity
 
-## L4 Load Balancer
-An L4 load balancer sees:
-```text
-IP + port + TCP connection information
-```
+Time O(total characters + edges), Space O(unique characters + edges).
 
-It does **not** see:
-- HTTP path
-- headers
-- cookies
-- method
+## Mistakes To Watch
 
-Choose L4 when:
-- need transport-level balancing only
-- non-HTTP protocol
-- want TLS pass-through / client-to-backend end-to-end TLS
-- do not need path or header-based routing
+- Using every differing character instead of only the first.
+- Missing invalid prefix case like abc before ab.
 
-## Interview-Ready L4 Example
-If the load balancer only needs to forward traffic to one of several FastAPI backends based on TCP connection information, and we want TLS to remain opaque all the way to the backend, choose L4.
+## Final Interview Explanation
 
-## L7 Load Balancer
-An L7 load balancer sees:
-```text
-HTTP host + path + headers + cookies + method
-```
-
-For HTTPS traffic, it must first terminate TLS to inspect the request.
-
-Choose L7 when:
-- need host/path/header routing
-- centralized certificate management
-- WAF / auth / rate limiting
-- request-level logging and observability
-
-## Interview-Ready L7 Example
-If requests to:
-```text
-/patients/*
-```
-
-should go to one backend but:
-```text
-/billing/*
-```
-
-should go to another, the load balancer must inspect the HTTP path, so choose L7 and terminate TLS there.
-
-## TLS Termination vs TLS Re-Encryption
-
-## TLS Termination
-Meaning:
-```text
-the client's TLS session ends at the load balancer
-```
-
-Model:
-```text
-Browser --TLS--> LB --HTTP--> FastAPI
-```
-
-The LB:
-- decrypts the request
-- inspects HTTP data
-- forwards plain HTTP internally
-
-## TLS Re-Encryption
-Meaning:
-```text
-the LB terminates the client TLS session, then creates a second TLS session to the backend
-```
-
-Model:
-```text
-Browser --TLS #1--> LB --TLS #2--> FastAPI
-```
-
-This protects the backend leg too, but it is:
-```text
-not one end-to-end client-to-backend TLS session
-```
-
-It is:
-```text
-two separate TLS sessions
-```
-
-## One-Minute Answer
-
-An L4 load balancer works at the transport layer and routes based on IP, port, and TCP connection information. It cannot inspect HTTP path or headers, so it is suitable for simple transport-level balancing or TLS pass-through. An L7 load balancer works at the application layer and can route based on host, path, headers, cookies, or method. For HTTPS traffic, it must terminate TLS first so it can inspect the HTTP request.
-
-TLS termination means the client TLS session ends at the load balancer, for example `Browser --TLS--> LB --HTTP--> FastAPI`. TLS re-encryption means the load balancer terminates client TLS, then starts a second TLS session to the backend, for example `Browser --TLS #1--> LB --TLS #2--> FastAPI`. That protects the backend leg, but it is still not one end-to-end TLS session.
-
-## Findings
-
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
-
-## Encountered Problems
-
-Good enough pattern recognition; implementation detail still needs care.
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

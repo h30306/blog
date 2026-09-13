@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 207: Course Schedule"
-summary: "LeetCode Problem Solving - Topological Sort (Kahn's BFS) Key insight: If a valid topological ordering exists → no cycle → return true Approach: Build adjacency list + indegree array. Add all nodes with indegree 0 to queue. Process queue —"
-description: "LeetCode study note from 2026-04-08"
+summary: "LeetCode note for Course Schedule, rebuilt from the original learning note"
+description: "Cleaned LeetCode 207 article from 2026-04-08 with note repair points and final solution"
 date: 2026-04-08
 tags: ["medium", "graph", "topological-sort"]
 categories: ["leetcode"]
@@ -16,28 +16,64 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2026-04-08
-Source Note: `notes/day1-topological-sort-osi-model.md`
+Source: Day 1 learning note
 
-## Intuition
+## Study Context
 
-Pattern: Topological Sort (Kahn's BFS) Key insight: If a valid topological ordering exists → no cycle → return true Approach: Build adjacency list + indegree array. Add all nodes with indegree 0 to queue. Process queue —
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: Topological Sort (Kahn's BFS)
+## Learning Note Extract
 
-## Approach
-
+#### LC 207 — Course Schedule (Topological Sort / Cycle Detection)
 - **Pattern:** Topological Sort (Kahn's BFS)
 - **Key insight:** If a valid topological ordering exists → no cycle → return true
 - **Approach:** Build adjacency list + in-degree array. Add all nodes with in-degree 0 to queue. Process queue — for each node, reduce neighbor's in-degree; if it hits 0, add to queue. If completed == numCourses → no cycle.
 - **Complexity:** Time O(V+E), Space O(V+E)
 - **Why deque over list:** `list.pop(0)` is O(n) — shifts all elements. `deque.popleft()` is O(1) — moves a pointer.
 
-## Findings
+#### LC 210 — Course Schedule II (Topological Sort / Return Order)
+- **Pattern:** Same as LC 207 but return the actual ordering
+- **Key insight:** The order nodes are popped from the queue IS the topological order
+- **Difference from LC 207:** Append each popped node to result list. If `len(result) == numCourses` → valid order exists.
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+## Clean Solution
 
-## Encountered Problems
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-Captured from the learning note; no separate failure note was recorded.
+```python
+from collections import deque
+from typing import List
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        graph = [[] for _ in range(numCourses)]
+        indeg = [0] * numCourses
+        for course, pre in prerequisites:
+            graph[pre].append(course)
+            indeg[course] += 1
+
+        q = deque(i for i in range(numCourses) if indeg[i] == 0)
+        seen = 0
+        while q:
+            node = q.popleft()
+            seen += 1
+            for nei in graph[node]:
+                indeg[nei] -= 1
+                if indeg[nei] == 0:
+                    q.append(nei)
+
+        return seen == numCourses
+```
+
+## Complexity
+
+Time O(V+E), Space O(V+E).
+
+## Mistakes To Watch
+
+- Reversing edge direction inconsistently.
+- Returning true before checking all nodes.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

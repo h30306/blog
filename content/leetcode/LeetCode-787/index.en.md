@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 787: Cheapest Flights Within K Stops"
-summary: "LeetCode Problem Solving - Cheapest Flights Within K Stops"
-description: "LeetCode study note from 2026-04-25"
+summary: "LeetCode note for Cheapest Flights Within K Stops, rebuilt from the original learning note"
+description: "Cleaned LeetCode 787 article from 2026-04-25 with note repair points and final solution"
 date: 2026-04-25
 tags: ["medium", "graph", "bellman-ford", "shortest-path"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2026-04-25
-Source Note: `notes/day11-week3-day3-delete-and-earn-cert-validation.md`
+Source: Day 11 learning note
 
-## Intuition
+## Study Context
 
-Current understanding: Plain Dijkstra with visited = set(city) is wrong. Why Plain visited = set(city) Is Wrong The state is not only the city. Reaching the same city with: can be worse than: because the second route may
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: see the study notes below.
+## Related Reminders From The Note
 
-## Approach
+- 5. Explain why `LC 787` cannot use plain `visited = set(city)`.
 
+## Learning Note Extract
+
+#### Problem 3 - LC 787 Cheapest Flights Within K Stops Review
+- **Status:** Partial repair only; full Bellman-Ford practice deferred.
 - **Current understanding:** Plain Dijkstra with `visited = set(city)` is wrong.
 
-## Why Plain `visited = set(city)` Is Wrong
+#### Why Plain `visited = set(city)` Is Wrong
 The state is not only the city.
 
 Reaching the same city with:
@@ -53,7 +57,7 @@ or:
 (city, edges_used)
 ```
 
-## Week 3 Decision
+#### Week 3 Decision
 Do not force Bellman-Ford learning in a rushed way.
 
 Move full Bellman-Ford intro and full `LC 787` practice to:
@@ -61,56 +65,38 @@ Move full Bellman-Ford intro and full `LC 787` practice to:
 Week 3 Weekend Day 2
 ```
 
-## Topic - Certificate Chain Validation vs Server Private-Key Proof
+## Clean Solution
 
-## The Two Checks Are Different
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## 1. Certificate Chain Validation
-Purpose:
-```text
-Check whether the certificate is trusted.
+```python
+from typing import List
+
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        inf = float('inf')
+        dist = [inf] * n
+        dist[src] = 0
+
+        for _ in range(k + 1):
+            ndist = dist[:]
+            for u, v, price in flights:
+                if dist[u] != inf and dist[u] + price < ndist[v]:
+                    ndist[v] = dist[u] + price
+            dist = ndist
+
+        return -1 if dist[dst] == inf else dist[dst]
 ```
 
-The client verifies:
-- certificate chain up to a trusted root CA
-- hostname matches the requested domain
-- certificate is not expired
+## Complexity
 
-Correct wording:
-```text
-CA public keys verify certificate trust.
-```
+Time O((K+1)*E), Space O(V).
 
-## 2. Server Private-Key Proof
-Purpose:
-```text
-Check whether the server actually owns the private key matching the certificate's public key.
-```
+## Mistakes To Watch
 
-The server signs handshake data with its private key.
+- Using city-only visited in Dijkstra and pruning cheaper paths with more stops incorrectly.
+- Doing K rather than K+1 edge layers.
 
-The client verifies that signature using the server public key from the certificate.
+## Final Interview Explanation
 
-Correct wording:
-```text
-server public key verifies the server's handshake signature
-```
-
-## Mistakes To Avoid
-- Do not say the client asks the CA during every handshake.
-- Do not say the public key decrypts the signature.
-- Do not collapse both checks into one vague sentence like `the certificate is valid`.
-
-## One-Minute Answer
-
-Certificate chain validation checks whether the server certificate is trusted. The client verifies the certificate chain to a trusted root CA, and also checks the hostname and expiry. Server private-key proof is a separate check. It verifies that the server actually owns the private key corresponding to the public key in the certificate. The server signs handshake data with its private key, and the client verifies that signature using the server public key.
-
-## Findings
-
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
-
-## Encountered Problems
-
-Partial repair only; full Bellman-Ford practice deferred.
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

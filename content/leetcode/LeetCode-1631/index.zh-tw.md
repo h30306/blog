@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 1631: Path With Minimum Effort"
-summary: "LeetCode 解題筆記：Path With Minimum Effort"
-description: "2026-04-25 的 LeetCode 學習紀錄"
+summary: "LeetCode 1631 解題筆記，依照原始 learning note 重新整理"
+description: "2026-04-25 的 LeetCode 1631 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-04-25
 tags: ["medium", "graph", "dijkstra", "shortest-path"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-04-25
-來源筆記：`notes/day10-week3-day2-dp-repair-tls-handshake.md`
+來源：Day 10 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Path With Minimum Effort 的解題筆記，重點放在 Dijkstra on a grid with non-sum path cost、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- 4. Explain why `LC 1631` is still Dijkstra even though the path cost is not a sum.
 
+## 當天筆記摘錄
+
+#### Problem 3 - LC 1631 Path With Minimum Effort Review
+- **Status:** Good enough after wording repair.
 - **Pattern:** Dijkstra on a grid with non-sum path cost.
 
-## Why Dijkstra Still Works
+#### Why Dijkstra Still Works
 The path cost is not the sum of edge weights.
 
 Instead:
@@ -45,100 +49,74 @@ not strictly increasing.
 
 That monotonic property is why Dijkstra still works.
 
-## Heap State
+#### Heap State
 ```text
 (effort, row, col)
 ```
 
-## Transition
+#### Transition
 For each neighbor:
 ```text
 new_effort = max(current_effort, abs(heights[r][c] - heights[nr][nc]))
 ```
 
-## Finalization Rule
+#### Finalization Rule
 ```text
 when a cell is popped from the min-heap for the first time, its minimum effort is finalized
 ```
 
-## Complexity
+#### Complexity
 ```text
 Time: O(R * C * log(R * C))
 Space: O(R * C)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - Do not say the effort strictly increases.
 - Do not say time is just `O(R * C)`; heap operations add a log factor.
 - Do not say a public key decrypts a signature in the TLS analogy. That was a separate wording issue from the topic block.
 
-## Topic - TLS Handshake Precision
+## 正確解法
 
-## Correct Order
-After TCP is established:
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-```text
-ClientHello
--> ServerHello + certificate chain + selected parameters + key exchange info
--> client validates certificate chain, hostname, expiry
--> server proves private-key ownership by signing handshake data
--> client verifies that signature with server public key
--> both sides derive symmetric session keys
--> encrypted HTTP traffic begins
+```python
+from heapq import heappop, heappush
+from typing import List
+
+class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        m, n = len(heights), len(heights[0])
+        dist = [[float('inf')] * n for _ in range(m)]
+        dist[0][0] = 0
+        heap = [(0, 0, 0)]
+        dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+
+        while heap:
+            effort, r, c = heappop(heap)
+            if (r, c) == (m - 1, n - 1):
+                return effort
+            if effort != dist[r][c]:
+                continue
+            for dr, dc in dirs:
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < m and 0 <= nc < n:
+                    ne = max(effort, abs(heights[r][c] - heights[nr][nc]))
+                    if ne < dist[nr][nc]:
+                        dist[nr][nc] = ne
+                        heappush(heap, (ne, nr, nc))
+        return 0
 ```
 
-## ClientHello Must-Know Fields
-- supported TLS versions
-- cipher suites
-- random data
-- SNI
-- key exchange information
+## 複雜度
 
-## Server Reply Must-Know Fields
-- selected TLS parameters
-- server random data
-- certificate chain
-- key exchange information
+Time O(mn log(mn)), Space O(mn).
 
-## Certificate Validation
-The client checks:
-- chain to a trusted root CA
-- hostname matches requested domain
-- certificate is not expired
+## 要特別避免的錯誤
 
-## Server Private-Key Proof
-The server signs handshake data with its private key.
+- Summing edge weights instead of taking max.
+- Using plain BFS despite weighted efforts.
 
-The client:
-```text
-verifies the signature using the server public key
-```
+## 面試口說整理
 
-## After Verification
-Do not say the random data itself becomes the encryption key.
-
-Correct wording:
-```text
-client and server derive shared symmetric session keys from the key exchange and handshake values
-```
-
-Those symmetric keys are then used for encrypted HTTP traffic.
-
-## Mistakes To Avoid
-- Do not say the public key decrypts the signature.
-- Do not say the certificate must be signed directly by a root CA.
-- Do not say HTTP traffic uses a random-data key directly.
-
-## One-Minute TLS Answer
-
-After TCP is established, the client sends `ClientHello` with supported TLS versions, cipher suites, random data, SNI, and key exchange information. The server replies with selected parameters, its own random data, key exchange information, and its certificate chain. The client validates the certificate chain, hostname, and expiry. Then the server proves it owns the private key matching the certificate by signing handshake data, and the client verifies that signature using the server public key. After that, both sides derive shared symmetric session keys and use them to encrypt HTTP traffic.
-
-## 收穫
-
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
-
-## 遇到的問題
-
-Good enough after wording repair.
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

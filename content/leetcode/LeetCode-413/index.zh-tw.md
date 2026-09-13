@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 413: Arithmetic Slices"
-summary: "LeetCode 解題筆記：Arithmetic Slices"
-description: "2026-05-10 的 LeetCode 學習紀錄"
+summary: "LeetCode 413 解題筆記，依照原始 learning note 重新整理"
+description: "2026-05-10 的 LeetCode 413 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-05-10
 tags: ["medium", "dynamic-programming"]
 categories: ["leetcode"]
@@ -16,25 +16,30 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-05-10
-來源筆記：`notes/day21-week4-weekend-day2-api-recall-speed-round.md`
+來源：Day 21 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Arithmetic Slices 的解題筆記，重點放在 1D streak DP on contiguous subarrays、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- 4. Explain why `LC 413` adds previous streak plus one new length-3 slice.
+- **LC 413 Arithmetic Slices:** Pass.
 
+## 當天筆記摘錄
+
+#### Problem 2 - LC 413 Arithmetic Slices
+- **Status:** Pass.
 - **Pattern:** 1D streak DP on contiguous subarrays.
 
-## Correct State
+#### Correct State
 ```text
 curr = number of arithmetic slices ending at the current index
 total = total number of arithmetic slices seen so far
 ```
 
-## Why This State Fits
+#### Why This State Fits
 The problem is about:
 ```text
 contiguous subarrays
@@ -61,7 +66,7 @@ If the difference breaks:
 curr = 0
 ```
 
-## Initialization
+#### Initialization
 ```text
 curr = total = 0
 ```
@@ -71,21 +76,21 @@ Why:
 fewer than 3 elements cannot form an arithmetic slice
 ```
 
-## Complexity
+#### Complexity
 ```text
 Time: O(n)
 Space: O(1)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - confusing contiguous subarrays with subsequences
 - saying only the new length-3 slice matters and forgetting earlier slices can extend
 - using extra state that duplicates the rolling DP meaning
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 This is streak DP on contiguous subarrays. I define `curr` as the number of arithmetic slices ending at the current index, and `total` as the total number of arithmetic slices seen so far. Starting from index `2`, if the last 2 adjacent differences are equal, then every arithmetic slice ending at `i - 1` can extend to `i`, and the last 3 elements form one new slice, so I do `curr += 1` and `total += curr`. Otherwise the streak breaks and `curr = 0`. The time complexity is `O(n)` and the space complexity is `O(1)`.
 
-## Code
+#### Code
 ```python
 class Solution:
     def numberOfArithmeticSlices(self, nums: List[int]) -> int:
@@ -102,234 +107,34 @@ class Solution:
         return total
 ```
 
-## Problem 3 - Patch Problem: LC 91 Decode Ways
-- **Pattern:** Prefix DP with one-digit and two-digit transitions.
+## 正確解法
 
-## Correct State
-```text
-dp[i] = number of ways to decode prefix s[:i]
-```
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## Base Case
-```text
-dp[0] = 1
-```
-
-Why:
-```text
-the empty prefix has one valid decoding: choose nothing
-```
-
-## Transitions
-One-digit decode:
-```text
-if s[i - 1] != '0':
-    dp[i] += dp[i - 1]
-```
-
-Two-digit decode:
-```text
-if i >= 2 and 10 <= int(s[i - 2:i]) <= 26:
-    dp[i] += dp[i - 2]
-```
-
-## Important Zero Rule
-```text
-'0' cannot decode by itself
-```
-
-It only works as part of:
-- `10`
-- `20`
-
-## Complexity
-```text
-Time: O(n)
-Space: O(n)
-```
-
-## Common Mistakes
-- mixing character-index thinking with prefix-index thinking
-- forgetting `dp[0] = 1`
-- letting `'0'` contribute through the one-digit transition
-- saying return value is anything other than `dp[n]`
-
-## Interview-Ready Explanation
-This is prefix DP. I define `dp[i]` as the number of ways to decode the prefix `s[:i]`. The base case is `dp[0] = 1`, because the empty prefix has one valid decoding. For each position `i`, if `s[i - 1]` is not `'0'`, then the last character can decode by itself, so I add `dp[i - 1]`. If `i >= 2` and the last 2 characters form a valid number from `10` to `26`, then they can decode together, so I add `dp[i - 2]`. The answer is `dp[n]`.
-
-## Code
 ```python
+from typing import List
+
 class Solution:
-    def numDecodings(self, s: str) -> int:
-        if s[0] == "0":
-            return 0
-
-        n = len(s)
-        dp = [0] * (n + 1)
-        dp[0] = 1
-
-        for i in range(1, n + 1):
-            if s[i - 1] != "0":
-                dp[i] += dp[i - 1]
-
-            if i >= 2 and 10 <= int(s[i - 2:i]) <= 26:
-                dp[i] += dp[i - 2]
-
-        return dp[n]
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        curr = total = 0
+        for i in range(2, len(nums)):
+            if nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]:
+                curr += 1
+                total += curr
+            else:
+                curr = 0
+        return total
 ```
 
-## Topic - API Failure Recall Speed Round
+## 複雜度
 
-## First Judgment
-The topic recall is now:
-```text
-good enough for Day 21
-```
+Time O(n), Space O(1).
 
-The main remaining weakness is not core understanding.
+## 要特別避免的錯誤
 
-It is:
-```text
-first-answer precision under interview pressure
-```
+- Counting only length-3 slices.
+- Not resetting when the difference changes.
 
-The user usually reaches the right answer after pushback, but Tier A/S signal improves if the first answer is already cleaner and more exact.
+## 面試口說整理
 
-## `PUT` vs `PATCH`
-
-### Strong Answer Components
-`PUT` usually means:
-- replace the full resource representation at a known URI
-- repeated same full request should be idempotent
-
-`PATCH` usually means:
-- apply partial updates to an existing resource
-- may or may not be idempotent depending on patch semantics
-
-Real production nuance:
-- the bigger issue is stale-write prevention, not only verb trivia
-- both often need optimistic concurrency like `version`, `ETag`, or `If-Match`
-
-### Main Risk
-If a client sends partial data through a full-replacement contract:
-```text
-omitted fields may be accidentally cleared or overwritten
-```
-
-## `412` vs `409` vs `422`
-
-### Strong Split
-`412 Precondition Failed`:
-- the client supplied an explicit precondition such as `If-Match`
-- that precondition no longer holds
-- precise stale-write answer
-
-`409 Conflict`:
-- the request conflicts with current server or resource state
-- example: modifying a cancelled appointment into `checked_in`
-
-`422 Unprocessable Entity`:
-- payload shape is acceptable
-- submitted data is semantically invalid
-- example: `discharge_time < admission_time`
-
-### Practical Rule
-- `412` = stale precondition
-- `409` = state conflict
-- `422` = semantically invalid payload
-
-## Retry-Safe `POST`
-
-### Strong Answer Components
-Use:
-- durable idempotency key
-- request fingerprint:
-  - method
-  - path
-  - normalized payload or payload hash
-- status such as `processing` and `completed`
-- replay of original response for completed retries
-
-### Core Contract
-Same key + same payload + `completed`:
-- replay original response and original status code
-
-Same key + same payload + `processing`:
-- return in-progress contract, often `202 Accepted`
-
-Same key + different payload:
-- reject, usually `409 Conflict`
-
-No record:
-- atomically create idempotency record first
-- then perform side effect
-
-### Why Durable Storage Matters
-In-memory-only state is unsafe because of:
-- process restart
-- multi-instance routing
-- TTL / eviction
-- inability to prove whether the original side effect already committed
-
-## REST vs gRPC
-
-### Strong Split
-REST is usually better externally because:
-- broad client interoperability
-- easier debugging
-- easier JSON / HTTP tooling
-
-gRPC is usually better internally because:
-- strong schema contracts
-- code generation
-- efficient binary transport
-- deadlines and service-to-service control in a controlled environment
-
-### Important Nuance
-Do not say:
-```text
-gRPC is just faster than HTTP
-```
-
-Safer answer:
-```text
-gRPC is often a better operational fit for internal service-to-service communication
-```
-
-## Full Request Path And Timeout Ambiguity
-
-### Strong Path
-1. browser / client resolves DNS
-2. TCP connection established
-3. TLS handshake
-4. request reaches edge / LB / gateway
-5. edge can apply rate limiting, trace propagation, and some authn checks
-6. FastAPI app validates request and trusted identity context
-7. app applies authorization and business logic
-8. app checks idempotency or concurrency controls where needed
-9. app uses DB connection pool and transaction boundary to talk to Oracle
-10. response returns through the edge to the client
-
-### Timeout Ambiguity
-If the client times out, the backend may have:
-- never received the request
-- still be processing it
-- already committed the DB write
-- already generated the response but lost it on the way back
-
-So:
-```text
-client timeout does not prove the side effect failed
-```
-
-That is why retries need idempotency and the request path needs traceability.
-
-## 收穫
-
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
-
-## 遇到的問題
-
-Pass.
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

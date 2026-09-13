@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 343: Integer Break"
-summary: "LeetCode Problem Solving - Partition DP / max-product DP"
-description: "LeetCode study note from 2026-05-07"
+summary: "LeetCode note for Integer Break, rebuilt from the original learning note"
+description: "Cleaned LeetCode 343 article from 2026-05-07 with note repair points and final solution"
 date: 2026-05-07
 tags: ["medium", "dynamic-programming"]
 categories: ["leetcode"]
@@ -16,19 +16,19 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2026-05-07
-Source Note: `notes/day20-week4-weekend-day1-retry-safe-create-api.md`
+Source: Day 20 learning note
 
-## Intuition
+## Study Context
 
-This is partition DP. I define dp[i] as the maximum product obtainable by breaking integer i into at least two positive integers. For each i, I try every split j and i j. For each side, I choose either to keep it as a ra
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: Partition DP / max-product DP
+## Learning Note Extract
 
-## Approach
-
+#### Problem 1 - LC 343 Integer Break
+- **Status:** Good enough.
 - **Pattern:** Partition DP / max-product DP.
 
-## Why DP Fits
+#### Why DP Fits
 For each integer `i`, we try every split:
 ```text
 i = j + (i - j)
@@ -41,18 +41,18 @@ Important nuance:
 each side of the split may be kept raw or broken further
 ```
 
-## State
+#### State
 ```text
 dp[i] = maximum product obtainable by breaking integer i into at least two positive integers
 ```
 
-## Base Case
+#### Base Case
 ```text
 dp[1] = 1
 dp[2] = 1
 ```
 
-## Transition
+#### Transition
 For each split `j` from `1` to `i - 1`:
 ```text
 dp[i] = max(dp[i], max(j, dp[j]) * max(i - j, dp[i - j]))
@@ -69,26 +69,44 @@ correct product is 2 * 1 = 2
 but dp[2] * dp[1] = 1 * 1 = 1
 ```
 
-## Complexity
+#### Complexity
 ```text
 Time: O(n^2)
 Space: O(n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - forcing both sides to use `dp[...]` instead of allowing raw factors
 - forgetting that the problem requires at least one break
 - using `j = 0` split even though all parts must be positive
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 This is partition DP. I define `dp[i]` as the maximum product obtainable by breaking integer `i` into at least two positive integers. For each `i`, I try every split `j` and `i - j`. For each side, I choose either to keep it as a raw number or break it further, so the transition is `dp[i] = max(dp[i], max(j, dp[j]) * max(i - j, dp[i - j]))`. The time complexity is `O(n^2)` and the space complexity is `O(n)`.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+class Solution:
+    def integerBreak(self, n: int) -> int:
+        dp = [0] * (n + 1)
+        for x in range(2, n + 1):
+            for a in range(1, x):
+                b = x - a
+                dp[x] = max(dp[x], max(a, dp[a]) * max(b, dp[b]))
+        return dp[n]
+```
 
-Good enough.
+## Complexity
+
+Time O(n^2), Space O(n).
+
+## Mistakes To Watch
+
+- Forgetting n must be broken into at least two positive integers.
+- Only considering fully broken subparts.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

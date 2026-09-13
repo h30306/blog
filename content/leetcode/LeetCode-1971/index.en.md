@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 1971: Find if Path Exists in Graph"
-summary: "LeetCode Problem Solving - BFS/DFS OR UnionFind Critical: This is an undirected graph — add both directions when building adjacency list BFS approach: Standard BFS from source. Return true if destination is reached. UnionFind approach: Gr"
-description: "LeetCode study note from 2026-04-08"
+summary: "LeetCode note for Find if Path Exists in Graph, rebuilt from the original learning note"
+description: "Cleaned LeetCode 1971 article from 2026-04-08 with note repair points and final solution"
 date: 2026-04-08
 tags: ["easy", "graph", "union-find"]
 categories: ["leetcode"]
@@ -16,16 +16,15 @@ draft: false
 
 Difficulty: easy
 First Attempt: 2026-04-08
-Source Note: `notes/day2-topological-sort-dag-union-find-dns-http.md`
+Source: Day 2 learning note
 
-## Intuition
+## Study Context
 
-Pattern: BFS/DFS OR UnionFind Critical: This is an undirected graph — add both directions when building adjacency list BFS approach: Standard BFS from source. Return true if destination is reached. UnionFind approach: Gr
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: BFS/DFS OR Union-Find
+## Learning Note Extract
 
-## Approach
-
+#### LC 1971 — Find if Path Exists in Graph
 - **Pattern:** BFS/DFS OR Union-Find
 - **Critical:** This is an **undirected** graph — add both directions when building adjacency list
 - **BFS approach:** Standard BFS from source. Return true if destination is reached.
@@ -62,54 +61,49 @@ def union(x, y):
 
 - **Trade-off:** BFS = simpler, good for single query. Union-Find = better for multiple path queries on same graph (near O(1) per query after O(V+E) build).
 
-## Topic — Networking
+## Clean Solution
 
-## DNS Resolution — 8 Steps
-1. Browser cache
-2. OS cache / /etc/hosts
-3. Recursive Resolver (ISP or 8.8.8.8)
-4. Root Server — "who handles .com?"
-5. TLD Server — "who handles google.com?"
-6. Authoritative Server — returns actual IP
-7. Resolver returns IP + caches with TTL
-8. Browser connects to IP
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## DNS Key Concepts
-- **TTL (Time To Live):** How long to cache the DNS result. Stale cache = browser connects to old IP after server migration. Fix: lower TTL before planned IP change. User fix: flush DNS cache.
-- **Why UDP:** DNS queries are tiny (<512 bytes). TCP handshake overhead not worth it. Falls back to TCP for large responses.
-- **Recursive vs Iterative:** Recursive Resolver does all the work for you — browser makes one request, gets back the final IP.
-- **Root Servers:** 13 clusters (A–M), 1500+ physical machines worldwide using Anycast. Only knows which TLD server handles each extension.
-- **DNS operates at L7** — uses UDP at L4 as transport (transport ≠ operating layer)
+```python
+from typing import List
 
-## HTTP/1.1 vs HTTP/2 vs HTTP/3
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        parent = list(range(n))
+        rank = [0] * n
 
-| | HTTP/1.1 | HTTP/2 | HTTP/3 |
-|---|---|---|---|
-| Transport | TCP | TCP | UDP (QUIC) |
-| Requests | One at a time | Multiplexed (streams) | Multiplexed |
-| HOL blocking | Yes — HTTP level | Partial — TCP level | No |
-| Header compression | No | Yes (HPACK) | Yes (QPACK) |
-| Connection setup | TCP + TLS (2 RTT) | TCP + TLS (2 RTT) | QUIC (1 RTT) |
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
 
-- **HOL Blocking:** One slow response/packet blocks everything behind it
-- **HTTP/1.1 problem:** One request at a time per connection. Browser workaround: 6 parallel TCP connections per domain (still slow — each costs a handshake)
-- **HTTP/2 solution:** Multiplexing — breaks requests/responses into frames tagged with stream IDs, interleaved over one TCP connection. Still has TCP-level HOL blocking.
-- **HTTP/3 solution:** Replaces TCP with QUIC (over UDP). Each stream is independent — lost packet only blocks its own stream. Also adds connection migration (WiFi → 4G keeps connection).
-- **Why HTTP/3 uses UDP:** QUIC reimplements reliability (retransmission, ordering, flow control) per stream on top of UDP, without TCP's connection-wide blocking.
-- **QUIC advantage:** Combines transport + TLS 1.3 handshake into 1 RTT (vs TCP + TLS = 2 RTT)
-- **In practice:** Browsers only support HTTP/2 and HTTP/3 over HTTPS (TLS enforced)
+        def union(a, b):
+            ra, rb = find(a), find(b)
+            if ra == rb:
+                return
+            if rank[ra] < rank[rb]:
+                ra, rb = rb, ra
+            parent[rb] = ra
+            if rank[ra] == rank[rb]:
+                rank[ra] += 1
 
-## Terminology Precision
-- TCP operates at L4 → unit is **segment**, not packet
-- When a "TCP packet is lost" — technically the **packet** (L3) carrying the **segment** (L4) is lost
-- Precise version: "If a packet is lost at L3, TCP at L4 detects the missing segment and triggers retransmission"
+        for a, b in edges:
+            union(a, b)
 
-## Findings
+        return find(source) == find(destination)
+```
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+## Complexity
 
-## Encountered Problems
+Time O((n+e) alpha(n)), Space O(n).
 
-Captured from the learning note; no separate failure note was recorded.
+## Mistakes To Watch
+
+- Treating the graph as directed.
+- Forgetting path compression / union is enough for connectivity.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 576: Out of Boundary Paths"
-summary: "LeetCode 解題筆記：Out of Boundary Paths"
-description: "2026-07-05 的 LeetCode 學習紀錄"
+summary: "LeetCode 576 解題筆記，依照原始 learning note 重新整理"
+description: "2026-07-05 的 LeetCode 576 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-07-05
 tags: ["medium", "dynamic-programming", "grid-dp"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-07-05
-來源筆記：`notes/day34-week6-weekend-day1-min-falling-path-sum-ii-out-of-boundary-paths-query-triage.md`
+來源：Day 34 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Out of Boundary Paths 的解題筆記，重點放在 DP / memoization on position plus remaining moves、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- `LC 576`: pass after base-case precision repair
+- explain `LC 576` with the exact `(moves_left, row, col)` state and why leaving the grid returns `1`
 
+## 當天筆記摘錄
+
+#### Problem 2 - LC 576 Out of Boundary Paths
 - **Pattern:** DP / memoization on position plus remaining moves.
 
-## Why This Fits
+#### Why This Fits
 The target is not a destination cell.
 
 The real question is:
@@ -40,14 +44,14 @@ That makes the stable state:
 - current position
 - moves remaining
 
-## Core State / Invariant
+#### Core State / Invariant
 For memo DFS:
 ```text
 dp(moves_left, r, c) = number of ways to move out of the grid
 starting from (r, c) with moves_left remaining
 ```
 
-## Base Cases
+#### Base Cases
 If already out of bounds:
 ```text
 return 1
@@ -63,7 +67,7 @@ If no moves remain and still in bounds:
 return 0
 ```
 
-## Transition
+#### Transition
 Try all four directions:
 ```text
 up, down, left, right
@@ -80,257 +84,63 @@ dp(moves_left, r, c) =
 
 Take modulo at each step.
 
-## Complexity
+#### Complexity
 With memo:
 ```text
 Time: O(maxMove * m * n)
 Space: O(maxMove * m * n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - using a destination-style grid DP state
 - forgetting that leaving the grid is a success state
 - not memoizing and blowing up exponentially
 - forgetting modulo
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 I model the state as `(moves_left, row, col)` because the number of valid ways depends on both the current position and how many moves I still have. If I step out of bounds, that contributes one successful path. If I run out of moves while still inside the grid, that contributes zero. From each in-bounds state, I try the four directions and sum the number of ways from the smaller subproblems. With memoization, each `(moves_left, row, col)` state is solved once, so the complexity becomes `O(maxMove * m * n)`.
 
-## Problem 3 - Timed 2-Problem Grid DP Set
-- **Pattern:** pattern discrimination under time pressure.
+## 正確解法
 
-## Why This Matters
-By Weekend Day 1, Week 6 should no longer feel like:
-```text
-everything is just 2D DP somehow
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
+
+```python
+from typing import List
+
+class Solution:
+    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
+        mod = 10 ** 9 + 7
+        dp = [[0] * n for _ in range(m)]
+        dp[startRow][startColumn] = 1
+        ans = 0
+        dirs = [(1,0), (-1,0), (0,1), (0,-1)]
+
+        for _ in range(maxMove):
+            ndp = [[0] * n for _ in range(m)]
+            for r in range(m):
+                for c in range(n):
+                    if dp[r][c] == 0:
+                        continue
+                    for dr, dc in dirs:
+                        nr, nc = r + dr, c + dc
+                        if 0 <= nr < m and 0 <= nc < n:
+                            ndp[nr][nc] = (ndp[nr][nc] + dp[r][c]) % mod
+                        else:
+                            ans = (ans + dp[r][c]) % mod
+            dp = ndp
+
+        return ans
 ```
 
-You should be able to tell immediately:
-- local square-growth DP
-- fixed-predecessor path DP
-- row-summary optimized DP
-- position-plus-move-budget counting DP
+## 複雜度
 
-## Timed Set Options
-Use any two of:
-- `LC 64`
-- `LC 221`
-- `LC 931`
-- `LC 1277`
+Time O(maxMove * m * n), Space O(mn).
 
-## Pass Standard
-Before coding each problem, say:
-```text
-state =
-base case =
-transition =
-answer =
-```
+## 要特別避免的錯誤
 
-## Topic - Query Triage Across 3 ASUS-Style Queries
+- Returning ways to reach a boundary cell instead of leaving the grid.
+- Missing modulo.
 
-## First Judgment
-If your answer for all three queries is:
-```text
-add a composite index
-```
+## 面試口說整理
 
-that is below Tier A/S mid-level bar.
-
-The real test is whether you can classify each slow query by the **type of fix** it actually needs.
-
-## What A Strong Mid-Level Candidate Must Know
-- query rewrite comes before index change when the current query is not SARGable or the projection is obviously wasteful
-- index change comes before schema change when the query shape is already reasonable but the access path is poor
-- schema change is justified only when the workload pattern repeatedly exceeds what query rewrite plus sane indexing can handle
-- stats / cardinality quality affects whether the optimizer even trusts a good index
-- write-heavy systems need stricter evidence before adding new or wider indexes
-
-## Strong Answer Components
-- state what the query is trying to achieve
-- say whether the current query shape is healthy or flawed
-- classify the first move:
-  - query rewrite
-  - index change
-  - schema change
-  - no change
-- say what evidence would make you escalate to the next heavier fix
-- mention read/write trade-off and operational cost
-
-## Query 1 - Query Shape Problem
-```sql
-SELECT *
-FROM appointments
-WHERE TRUNC(scheduled_at) = :day
-  AND hospital_id = :hid
-ORDER BY created_at DESC
-FETCH FIRST 100 ROWS ONLY;
-```
-
-### First Move
-```text
-query rewrite first
-```
-
-### Why
-- `TRUNC(scheduled_at)` is a SARGability problem
-- `SELECT *` may be wider than the client actually needs
-- a cheaper fix may make the existing or a simpler index usable
-
-### Better Query Shape
-```sql
-SELECT appointment_id, scheduled_at, status, created_at
-FROM appointments
-WHERE hospital_id = :hid
-  AND scheduled_at >= :day_start
-  AND scheduled_at < :next_day_start
-ORDER BY created_at DESC
-FETCH FIRST 100 ROWS ONLY;
-```
-
-### What To Measure
-- latency before and after rewrite
-- rows examined vs rows returned
-- logical reads / buffer gets
-- whether the plan shape improves before adding any index
-
-## Query 2 - Index Shape Problem
-```sql
-SELECT appointment_id, scheduled_at, status
-FROM appointments
-WHERE hospital_id = :hid
-  AND doctor_id = :did
-  AND scheduled_at >= :start
-  AND scheduled_at < :end
-ORDER BY scheduled_at
-FETCH FIRST 50 ROWS ONLY;
-```
-
-Assume:
-- query is already SARGable
-- projection is already narrow
-- table is large
-- current index is only `(hospital_id, scheduled_at)`
-
-### First Move
-```text
-index change first
-```
-
-### Why
-- query shape is already healthy
-- access path is probably missing the `doctor_id` narrowing
-- schema change would be overkill before fixing the obvious index-shape mismatch
-
-### Candidate Index
-```text
-(hospital_id, doctor_id, scheduled_at)
-```
-
-Covering can be considered later only if row fetch is the proven remaining bottleneck.
-
-### What To Measure
-- plan shape before and after the new index
-- rows examined vs rows returned
-- latency improvement
-- write overhead after adding the index
-
-## Query 3 - Schema / Workload Mismatch
-```sql
-SELECT hospital_id, doctor_id, COUNT(*) AS appointment_count
-FROM appointments
-WHERE scheduled_at >= :month_start
-  AND scheduled_at < :next_month_start
-  AND status = 'COMPLETED'
-GROUP BY hospital_id, doctor_id
-ORDER BY appointment_count DESC;
-```
-
-Assume:
-- this powers a dashboard hit frequently during the day
-- the base table is large and hot for writes
-- query rewrite and a reasonable index still miss latency targets
-
-### First Move
-```text
-schema / workload change becomes reasonable
-```
-
-### Why
-- this is trending analytical / aggregation-heavy, not point-read transactional access
-- repeatedly aggregating a hot large OLTP table can remain expensive even with decent indexes
-- a summary table, materialized aggregation, or reporting replica may fit the workload better
-
-### Possible Schema-Level Fixes
-- pre-aggregated summary table by day / month
-- materialized view if the platform and refresh model fit
-- reporting path separated from OLTP path
-
-### What To Measure
-- dashboard frequency and freshness requirement
-- base-table read pressure caused by the aggregation
-- write-path cost of keeping the summary structure updated
-- whether latency and concurrency targets improve enough to justify the added complexity
-
-## Failure Cases And Edge Cases
-- stale stats make Query 2 look like an index failure when the real problem is plan quality
-- Query 1 may still need an index after rewrite; rewrite first does not mean rewrite only
-- Query 3 may not justify schema change if freshness is lax and traffic is low
-- broad `OR`, low selectivity, or wide projection can make all index discussions weaker
-
-## Trade-Offs
-- query rewrite:
-  - cheapest and safest first move when it restores SARGability or reduces waste
-- index change:
-  - good middle-layer fix when query shape is already healthy
-  - permanently taxes writes
-- schema change:
-  - highest leverage when the workload shape truly changed
-  - highest migration and operational burden
-
-## What Breaks At Scale
-- too many query-specific indexes hurt hot writes and complicate tuning
-- stale stats create plan instability and bad conclusions
-- summary-table or denormalized solutions add correctness and freshness maintenance cost
-- teams optimize one dashboard and accidentally worsen the broader transactional system
-
-## What To Log Or Measure
-- p50 / p95 / p99 query latency
-- rows examined vs rows returned
-- logical reads / buffer gets
-- plan shape changes after each intervention
-- write latency and throughput after adding indexes or summary maintenance
-- endpoint traffic frequency and freshness requirements
-
-## Interviewer Pushback Questions
-1. Why is Query 1 a query-shape problem before it is an index problem?
-2. Why is Query 2 not a schema problem first?
-3. When does Query 3 justify a summary table instead of one more index?
-4. How do stale stats make you choose the wrong fix?
-5. What evidence would make you stop after query rewrite and not add an index?
-
-## Strong 60-90 Second Answer
-I would not apply one universal fix to all three queries. Query 1 is a query-shape problem first because the predicate is not SARGable and the projection may be too wide, so I would rewrite that before adding an index. Query 2 is an index-shape problem because the query is already healthy, but the current index is missing important filtering structure, so I would try a better composite index before touching schema. Query 3 looks like a workload or schema-fit problem because it is repeated aggregation on a large hot transactional table, so after query rewrite and sane indexing fail, a summary path becomes reasonable. For each step, I would prove the fix with plan shape, rows examined versus returned, latency, and write-side impact.
-
-## Deliverables
-
-By the end of W6 Weekend Day 1, you should be able to:
-
-- explain `LC 1289` with the exact state and why the min/second-min optimization is needed
-- explain `LC 576` with the exact `(moves_left, row, col)` state and why leaving the grid returns `1`
-- complete one timed 2-problem grid DP set without mixing pattern families
-- classify three realistic backend queries into:
-  - query rewrite first
-  - index change first
-  - schema change first
-- defend each first move with concrete measurements and trade-offs
-
-## 收穫
-
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
-
-## 遇到的問題
-
-原始筆記沒有另外紀錄失誤點。
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

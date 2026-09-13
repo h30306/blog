@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 377: Combination Sum IV"
-summary: "LeetCode Problem Solving - Unbounded counting DP for ordered sequences"
-description: "LeetCode study note from 2026-05-03"
+summary: "LeetCode note for Combination Sum IV, rebuilt from the original learning note"
+description: "Cleaned LeetCode 377 article from 2026-05-03 with note repair points and final solution"
 date: 2026-05-03
 tags: ["medium", "dynamic-programming", "unbounded-knapsack"]
 categories: ["leetcode"]
@@ -16,19 +16,19 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2026-05-03
-Source Note: `notes/day18-week4-day4-request-path.md`
+Source: Day 18 learning note
 
-## Intuition
+## Study Context
 
-This is an unbounded counting DP problem where order matters. I define dp[i] as the number of ordered sequences that sum to i. The base case is dp[0] = 1, because there is exactly one way to make sum 0, which is choosing
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: Unbounded counting DP for ordered sequences
+## Learning Note Extract
 
-## Approach
-
+#### Problem 2 - LC 377 Combination Sum IV
+- **Status:** Good enough.
 - **Pattern:** Unbounded counting DP for ordered sequences.
 
-## Why DP Fits
+#### Why DP Fits
 For each target sum `i`, we can pick any `num` as the last element of the sequence.
 
 That means:
@@ -48,12 +48,12 @@ So:
 1 + 2 and 2 + 1 are different answers
 ```
 
-## State
+#### State
 ```text
 dp[i] = number of ordered sequences that sum to i
 ```
 
-## Base Case
+#### Base Case
 ```text
 dp[0] = 1
 ```
@@ -63,7 +63,7 @@ Reason:
 there is exactly one way to make sum 0: choose nothing
 ```
 
-## Transition
+#### Transition
 For each total `i` from `1` to `target`:
 ```text
 for num in nums:
@@ -71,7 +71,7 @@ for num in nums:
         dp[i] += dp[i - num]
 ```
 
-## Why Loop Order Matters
+#### Why Loop Order Matters
 Use:
 ```text
 outer loop on total, inner loop on nums
@@ -91,27 +91,50 @@ Example with `nums = [1, 2]`, `target = 3`:
 
 If you use coin-first loop order, you undercount by collapsing different permutations into one combination.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(target * len(nums))
 Space: O(target)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - saying `dp[i]` is number of combinations instead of ordered sequences
 - setting `dp[0] = 0` instead of `1`
 - using coin-first loop order and counting combinations instead of permutations
 - using min-count transition like `+ 1` instead of counting transition `+=`
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 This is an unbounded counting DP problem where order matters. I define `dp[i]` as the number of ordered sequences that sum to `i`. The base case is `dp[0] = 1`, because there is exactly one way to make sum `0`, which is choosing nothing. Then for each total `i` from `1` to `target`, I iterate through `nums`, and if `i >= num`, I do `dp[i] += dp[i - num]`. The important nuance is that looping total first and nums second counts permutations, so `[1, 2]` and `[2, 1]` are different answers. The time complexity is `O(target * len(nums))` and the space complexity is `O(target)`.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List
 
-Good enough.
+class Solution:
+    def combinationSum4(self, nums: List[int], target: int) -> int:
+        dp = [0] * (target + 1)
+        dp[0] = 1
+
+        for t in range(1, target + 1):
+            for num in nums:
+                if num <= t:
+                    dp[t] += dp[t - num]
+
+        return dp[target]
+```
+
+## Complexity
+
+Time O(target * len(nums)), Space O(target).
+
+## Mistakes To Watch
+
+- Using coin outer loop, which counts combinations not permutations.
+- Confusing this with LC 518.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

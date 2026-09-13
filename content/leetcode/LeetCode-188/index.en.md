@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 188: Best Time to Buy and Sell Stock IV"
-summary: "LeetCode Problem Solving - generalized multi-transaction state-machine DP"
-description: "LeetCode study note from 2026-05-17"
+summary: "LeetCode note for Best Time to Buy and Sell Stock IV, rebuilt from the original learning note"
+description: "Cleaned LeetCode 188 article from 2026-05-17 with note repair points and final solution"
 date: 2026-05-17
 tags: ["hard", "dynamic-programming", "state-machine"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 Difficulty: hard
 First Attempt: 2026-05-17
-Source Note: `notes/day24-week5-day3-stock-iii-iv-index-vs-full-scan.md`
+Source: Day 24 learning note
 
-## Intuition
+## Study Context
 
-I generalize Stock III by turning the hardcoded buy/sell stages into arrays over transaction count. For each stage t, I track the best profit if I end today holding a stock and the best profit if I end today not holding
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: generalized multi-transaction state-machine DP
+## Related Reminders From The Note
 
-## Approach
+- `LC 188` is not a different family from `LC 123`.
+- explain why `LC 188` is the generalized transaction-stage version of `LC 123`
 
+## Learning Note Extract
+
+#### Problem 2 - LC 188 Best Time to Buy and Sell Stock IV
 - **Pattern:** generalized multi-transaction state-machine DP.
 
-## Why This Fits
+#### Why This Fits
 `LC 188` is not a different family from `LC 123`.
 
 It is:
@@ -36,7 +40,7 @@ It is:
 the same state-machine idea, repeated for every transaction stage up to k
 ```
 
-## Core State / Invariant
+#### Core State / Invariant
 One clean definition:
 ```text
 hold[t] = best profit if I end today holding one stock after having completed t - 1 sells
@@ -54,7 +58,7 @@ This is why:
 LC 123 is just LC 188 with k = 2 hardcoded into named variables
 ```
 
-## Transition Pattern
+#### Transition Pattern
 In words:
 - `hold[t]` either keeps holding from yesterday, or buys today using the best non-holding profit after `t - 1` completed transactions
 - `cash[t]` either keeps the realized profit from yesterday, or sells today from the corresponding holding state and completes transaction `t`
@@ -65,7 +69,7 @@ buy from previous cash stage
 sell from matching hold stage
 ```
 
-## Initialization Intuition
+#### Initialization Intuition
 Use arrays sized `k + 1` so transaction stage `0` is a real baseline:
 - `cash[0] = 0`
 - higher `cash` states start at `0` or unreachable depending on formulation
@@ -76,7 +80,7 @@ The main benefit of `k + 1` indexing is:
 hold[1] can cleanly buy from cash[0]
 ```
 
-## Large-k Optimization
+#### Large-k Optimization
 If:
 ```text
 k >= n // 2
@@ -93,7 +97,7 @@ That means the problem collapses to:
 unlimited transactions
 ```
 
-## Why Unlimited-Transactions Greedy Works
+#### Why Unlimited-Transactions Greedy Works
 On any increasing run such as:
 ```text
 1 -> 3 -> 5 -> 8
@@ -108,27 +112,54 @@ Those are equal.
 
 So once the transaction cap stops mattering, summing all positive day-to-day gains captures the full profit of each upward trend.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(nk)
 Space: O(k)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - saying the extra dimension means days instead of transaction stage
 - getting the stage indexing wrong and accidentally reading `cash[-1]`
 - mutating a previous stage too early and corrupting the transition meaning
 - forgetting the `k >= n // 2` optimization
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 I generalize Stock III by turning the hardcoded buy/sell stages into arrays over transaction count. For each stage `t`, I track the best profit if I end today holding a stock and the best profit if I end today not holding after completing `t` sells. The recurrence stays the same as Stock III; I just repeat it for every transaction stage up to `k`.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List
 
-Captured from the learning note; no separate failure note was recorded.
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        n = len(prices)
+        if k >= n // 2:
+            return sum(max(0, prices[i] - prices[i - 1]) for i in range(1, n))
+
+        hold = [float('-inf')] * (k + 1)
+        cash = [0] * (k + 1)
+
+        for price in prices:
+            for t in range(1, k + 1):
+                hold[t] = max(hold[t], cash[t - 1] - price)
+                cash[t] = max(cash[t], hold[t] + price)
+
+        return cash[k]
+```
+
+## Complexity
+
+Time O(nk), Space O(k).
+
+## Mistakes To Watch
+
+- Forgetting the unlimited shortcut when k >= n/2.
+- Mixing transaction count at buy vs sell time.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

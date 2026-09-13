@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 1449: Form Largest Integer With Digits That Add Up To Target"
-summary: "LeetCode Problem Solving - unbounded knapsack optimization plus greedy reconstruction"
-description: "LeetCode study note from 2026-08-19"
+summary: "LeetCode note for Form Largest Integer With Digits That Add Up To Target, rebuilt from the original learning note"
+description: "Cleaned LeetCode 1449 article from 2026-08-19 with note repair points and final solution"
 date: 2026-08-19
 tags: ["hard", "dynamic-programming", "knapsack"]
 categories: ["leetcode"]
@@ -16,19 +16,22 @@ draft: false
 
 Difficulty: hard
 First Attempt: 2026-08-19
-Source Note: `notes/day46-week8-day4-profitable-schemes-form-largest-integer-redis-vs-query-fix.md`
+Source: Day 46 learning note
 
-## Intuition
+## Study Context
 
-This is an unbounded knapsack on digit cost. I first use DP to maximize how many digits can be formed for each total cost, because any number with more digits is always numerically larger than a shorter valid number. So
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: unbounded knapsack optimization plus greedy reconstruction
+## Related Reminders From The Note
 
-## Approach
+- explain `LC 1449` as unbounded cost DP plus greedy reconstruction
 
+## Learning Note Extract
+
+#### Problem 2 - LC 1449 Form Largest Integer With Digits That Add Up To Target
 - **Pattern:** unbounded knapsack optimization plus greedy reconstruction.
 
-## Why This Fits
+#### Why This Fits
 Each digit `1..9` has:
 - a cost
 - unlimited reuse
@@ -47,14 +50,14 @@ That means:
 1. maximize digit count first
 2. among equal-length answers, reconstruct the lexicographically largest digit sequence
 
-## Core State / Invariant
+#### Core State / Invariant
 ```text
 dp[t] = maximum number of digits we can build with total cost t
 ```
 
 Use a very negative sentinel for unreachable states.
 
-## Base Case
+#### Base Case
 ```text
 dp[0] = 0
 ```
@@ -64,7 +67,7 @@ Reason:
 cost 0 can form a number with 0 digits
 ```
 
-## Transition
+#### Transition
 For a digit with cost `c`:
 ```text
 dp[t] = max(dp[t], dp[t - c] + 1)
@@ -72,7 +75,7 @@ dp[t] = max(dp[t], dp[t - c] + 1)
 
 Iterate target cost forward because digit reuse is allowed.
 
-## Reconstruction
+#### Reconstruction
 After DP, rebuild from digit `9` down to `1`.
 
 Greedy rule:
@@ -82,27 +85,56 @@ take digit d if its cost fits and dp[remaining] == dp[remaining - cost[d]] + 1
 
 This preserves max length while making the leftmost digits as large as possible.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(9 * target)
 Space: O(target)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - solving only feasibility and forgetting reconstruction
 - optimizing digit value directly instead of digit count first
 - using backward loop and accidentally turning it into `0/1`
 - not handling unreachable target cleanly
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 This is an unbounded knapsack on digit cost. I first use DP to maximize how many digits can be formed for each total cost, because any number with more digits is always numerically larger than a shorter valid number. So `dp[t]` stores the maximum digit count for cost `t`, with `dp[0] = 0` and unreachable states set to negative infinity. Since digits can be reused, the transition is unbounded: `dp[t] = max(dp[t], dp[t - cost] + 1)`. After I know the maximum digit count for the target, I reconstruct greedily from digit `9` down to `1`, taking a digit whenever it preserves the optimal count. That gives the lexicographically largest number among all max-length answers.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List, Optional
 
-Captured from the learning note; no separate failure note was recorded.
+class Solution:
+    def largestNumber(self, cost: List[int], target: int) -> str:
+        dp: List[Optional[str]] = [None] * (target + 1)
+        dp[0] = ''
+
+        def better(a: str, b: Optional[str]) -> str:
+            if b is None or len(a) > len(b) or (len(a) == len(b) and a > b):
+                return a
+            return b
+
+        for t in range(1, target + 1):
+            for digit in range(1, 10):
+                c = cost[digit - 1]
+                if t >= c and dp[t - c] is not None:
+                    dp[t] = better(dp[t - c] + str(digit), dp[t])
+
+        return dp[target] if dp[target] is not None else '0'
+```
+
+## Complexity
+
+Time O(9 * target * answer_length), Space O(target * answer_length).
+
+## Mistakes To Watch
+
+- Maximizing digit value before length; a longer number is always larger.
+- Forgetting unreachable states.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

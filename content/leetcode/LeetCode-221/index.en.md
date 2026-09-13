@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 221: Maximal Square"
-summary: "LeetCode Problem Solving - 2D DP on local square geometry"
-description: "LeetCode study note from 2026-06-30"
+summary: "LeetCode note for Maximal Square, rebuilt from the original learning note"
+description: "Cleaned LeetCode 221 article from 2026-06-30 with note repair points and final solution"
 date: 2026-06-30
 tags: ["medium", "dynamic-programming", "grid-dp"]
 categories: ["leetcode"]
@@ -16,19 +16,24 @@ draft: false
 
 Difficulty: medium
 First Attempt: 2026-06-30
-Source Note: `notes/day31-week6-day3-maximal-square-dungeon-game-covering-index-full-scan.md`
+Source: Day 31 learning note
 
-## Intuition
+## Study Context
 
-I define dp[r][c] as the side length of the largest all1 square ending at cell (r, c). If the current cell is 0, no square can end here. If it is 1, the square can only grow if the top, left, and topleft neighbors can al
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: 2D DP on local square geometry
+## Related Reminders From The Note
 
-## Approach
+- `LC 221`: pass after wording repair
+- `LC 221` and `LC 174` are both 2D DP, but they are not the same recurrence family as the earlier grid problems.
+- explain `LC 221` with the exact state, why the diagonal matters, and why the recurrence uses `min`
 
+## Learning Note Extract
+
+#### Problem 1 - LC 221 Maximal Square
 - **Pattern:** 2D DP on local square geometry.
 
-## Why This Fits
+#### Why This Fits
 To know the largest all-`1` square ending at `(r, c)`, it is not enough to know one direction.
 
 The cell can only extend a larger square if:
@@ -39,7 +44,7 @@ The cell can only extend a larger square if:
 
 This is a clean local-structure DP.
 
-## Core State / Invariant
+#### Core State / Invariant
 ```text
 dp[r][c] = side length of the largest all-1 square whose bottom-right corner is (r, c)
 ```
@@ -51,7 +56,7 @@ the largest square area anywhere in the matrix
 
 If we know the best square ending at every cell, the global maximum is easy to track.
 
-## Transition
+#### Transition
 If `matrix[r][c] == '0'`:
 ```text
 dp[r][c] = 0
@@ -67,7 +72,7 @@ Boundary cells with `1` have:
 dp[r][c] = 1
 ```
 
-## Why The `min(...)` Is Correct
+#### Why The `min(...)` Is Correct
 The new square can only be as large as its weakest supporting side:
 - top limits vertical extension
 - left limits horizontal extension
@@ -75,7 +80,7 @@ The new square can only be as large as its weakest supporting side:
 
 If any one of those is smaller, the larger square is impossible.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(m * n)
 Space: O(m * n)
@@ -86,22 +91,52 @@ Can be compressed to:
 Space: O(n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - using `max(...)` instead of `min(...)`
 - forgetting the state is side length, not area
 - failing to special-case first row / first column
 - saying the diagonal is optional
 - returning the max side length instead of squaring it for area
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 I define `dp[r][c]` as the side length of the largest all-1 square ending at cell `(r, c)`. If the current cell is `0`, no square can end here. If it is `1`, the square can only grow if the top, left, and top-left neighbors can all support a square of the smaller size. That is why the recurrence is `1 + min(top, left, diagonal)`. I track the largest side seen and square it at the end to get the area.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List
 
-Captured from the learning note; no separate failure note was recorded.
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        dp = [0] * (n + 1)
+        best = 0
+
+        for r in range(1, m + 1):
+            prev_diag = 0
+            for c in range(1, n + 1):
+                old = dp[c]
+                if matrix[r - 1][c - 1] == '1':
+                    dp[c] = 1 + min(dp[c], dp[c - 1], prev_diag)
+                    best = max(best, dp[c])
+                else:
+                    dp[c] = 0
+                prev_diag = old
+
+        return best * best
+```
+
+## Complexity
+
+Time O(mn), Space O(n).
+
+## Mistakes To Watch
+
+- Returning side length instead of area.
+- Ignoring the diagonal dependency.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

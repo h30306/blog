@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 879: Profitable Schemes"
-summary: "LeetCode Problem Solving - counting 0/1 knapsack with member capacity and capped profit threshold"
-description: "LeetCode study note from 2026-08-19"
+summary: "LeetCode note for Profitable Schemes, rebuilt from the original learning note"
+description: "Cleaned LeetCode 879 article from 2026-08-19 with note repair points and final solution"
 date: 2026-08-19
 tags: ["hard", "dynamic-programming", "knapsack"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 Difficulty: hard
 First Attempt: 2026-08-19
-Source Note: `notes/day46-week8-day4-profitable-schemes-form-largest-integer-redis-vs-query-fix.md`
+Source: Day 46 learning note
 
-## Intuition
+## Study Context
 
-This is a counting 0/1 knapsack. Each crime can be taken once, it consumes some members, and it contributes profit. The state I used is dp[p][m] = number of schemes that achieve at least profit p using at most m members.
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: counting `0/1` knapsack with member capacity and capped profit threshold
+## Related Reminders From The Note
 
-## Approach
+- `LC 879`: pass after state-definition repair
+- explain `LC 879` with a state definition that exactly matches the code
 
+## Learning Note Extract
+
+#### Problem 1 - LC 879 Profitable Schemes
 - **Pattern:** counting `0/1` knapsack with member capacity and capped profit threshold.
 
-## Why This Fits
+#### Why This Fits
 Each crime can be:
 ```text
 taken once or skipped
@@ -47,7 +51,7 @@ It is:
 how many subsets satisfy members <= n and profit >= minProfit?
 ```
 
-## Core State / Invariant
+#### Core State / Invariant
 For the implemented version used today:
 ```text
 dp[p][m] = number of schemes that achieve at least profit p using at most m members
@@ -58,7 +62,7 @@ Profit is capped into:
 0..minProfit
 ```
 
-## Base Case
+#### Base Case
 For every member limit `m`:
 ```text
 dp[0][m] = 1
@@ -69,7 +73,7 @@ Reason:
 the empty set already achieves profit at least 0 and fits under any member cap
 ```
 
-## Transition
+#### Transition
 For a crime needing `g` members and giving profit `earn`:
 ```text
 prevProfit = max(0, p - earn)
@@ -78,7 +82,7 @@ dp[p][m] += dp[prevProfit][m - g]
 
 with modulo.
 
-## Why Profit Is Capped
+#### Why Profit Is Capped
 Once a scheme already achieves:
 ```text
 profit >= minProfit
@@ -91,27 +95,54 @@ So all larger profits can be merged into:
 the minProfit bucket
 ```
 
-## Complexity
+#### Complexity
 ```text
 Time: O(len(group) * n * minProfit)
 Space: O(n * minProfit)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - mixing `exactly m members` with `at most m members`
 - using a state explanation that does not match the code
 - forgetting why `dp[0][m] = 1` is valid in the `at most` formulation
 - not capping profit at `minProfit`
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 This is a counting `0/1` knapsack. Each crime can be taken once, it consumes some members, and it contributes profit. The state I used is `dp[p][m] = number of schemes that achieve at least profit p using at most m members`. I cap the profit dimension at `minProfit` because once a scheme reaches that threshold, extra profit does not change whether it is valid. I initialize `dp[0][m] = 1` for all member limits because the empty set already satisfies profit at least `0`. Then for each crime I iterate both dimensions backward and add the previous-state count from `dp[max(0, p - earn)][m - g]`.
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List
 
-Captured from the learning note; no separate failure note was recorded.
+class Solution:
+    def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        dp = [[0] * (n + 1) for _ in range(minProfit + 1)]
+        dp[0][0] = 1
+
+        for members, gain in zip(group, profit):
+            for p in range(minProfit, -1, -1):
+                for used in range(n - members, -1, -1):
+                    if dp[p][used] == 0:
+                        continue
+                    np = min(minProfit, p + gain)
+                    dp[np][used + members] = (dp[np][used + members] + dp[p][used]) % mod
+
+        return sum(dp[minProfit]) % mod
+```
+
+## Complexity
+
+Time O(crimes * minProfit * n), Space O(minProfit * n).
+
+## Mistakes To Watch
+
+- Iterating forward and using a crime multiple times.
+- Not capping profit at minProfit.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

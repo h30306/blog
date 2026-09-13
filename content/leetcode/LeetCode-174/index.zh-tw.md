@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 174: Dungeon Game"
-summary: "LeetCode 解題筆記：Dungeon Game"
-description: "2026-06-30 的 LeetCode 學習紀錄"
+summary: "LeetCode 174 解題筆記，依照原始 learning note 重新整理"
+description: "2026-06-30 的 LeetCode 174 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-06-30
 tags: ["hard", "dynamic-programming", "grid-dp"]
 categories: ["leetcode"]
@@ -16,19 +16,24 @@ draft: false
 
 難易度: hard
 第一次嘗試：2026-06-30
-來源筆記：`notes/day31-week6-day3-maximal-square-dungeon-game-covering-index-full-scan.md`
+來源：Day 31 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Dungeon Game 的解題筆記，重點放在 reverse 2D DP with minimum required resource、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- `LC 174`: pass after wording repair
+- `LC 221` and `LC 174` are both 2D DP, but they are not the same recurrence family as the earlier grid problems.
+- explain `LC 174` with reverse DP and the `minimum required health on entry` state
 
+## 當天筆記摘錄
+
+#### Problem 2 - LC 174 Dungeon Game
 - **Pattern:** reverse 2D DP with minimum required resource.
 
-## Why This Fits
+#### Why This Fits
 Forward DP feels tempting but usually creates the wrong state question.
 
 The real requirement is not:
@@ -43,14 +48,14 @@ what minimum health must I have when entering this cell so that I can still surv
 
 That naturally points backward from the destination.
 
-## Core State / Invariant
+#### Core State / Invariant
 ```text
 dp[r][c] = minimum health required upon entering cell (r, c) to guarantee survival through the destination
 ```
 
 This is the interview-safe state because it encodes the safety guarantee directly.
 
-## Transition
+#### Transition
 Let the cheaper required next state be:
 ```text
 need_next = min(dp[r + 1][c], dp[r][c + 1])
@@ -66,7 +71,7 @@ Why:
 - if the current cell deals damage, required entry health rises
 - health can never be below `1`
 
-## Base Case
+#### Base Case
 At the destination:
 ```text
 dp[last_row][last_col] = max(1, 1 - dungeon[last_row][last_col])
@@ -75,7 +80,7 @@ dp[last_row][last_col] = max(1, 1 - dungeon[last_row][last_col])
 Reason:
 - after processing the last cell, the knight must still have at least `1` health
 
-## Complexity
+#### Complexity
 ```text
 Time: O(m * n)
 Space: O(m * n)
@@ -86,195 +91,46 @@ Can be compressed to:
 Space: O(n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - trying to maximize remaining health instead of minimizing required entry health
 - doing forward DP with an unstable state
 - forgetting the clamp to `1`
 - using `max(down, right)` instead of `min(down, right)` for the required next state
 - getting the destination base case wrong
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 I solve this backward because the meaningful state is the minimum health required when entering a cell so that I can still reach the princess alive. From each cell, I only care about the cheaper of the two required next states, right or down. Then I subtract the current cell value because healing reduces the needed entry health and damage increases it. Finally I clamp the result to at least `1`, because the knight can never be dead or at zero health.
 
-## Problem 3 - Timed Re-solve: LC 63 Or LC 64
-- **Pattern:** Week 6 table-discipline maintenance.
+## 正確解法
 
-## Why This Review Matters
-`LC 221` and `LC 174` are both 2D DP, but they are not the same recurrence family as the earlier grid problems.
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-The timed review checks that you still:
-- define state before recurrence
-- handle boundaries deliberately
-- separate counting DP from optimization DP
-- do not mix illegal directions into the transition
+```python
+from typing import List
 
-## Must-Hit Spoken Lines
-For `LC 63`:
-```text
-once an obstacle blocks the first row or first column, the rest of that boundary is unreachable from that direction
+class Solution:
+    def calculateMinimumHP(self, dungeon: List[List[int]]) -> int:
+        m, n = len(dungeon), len(dungeon[0])
+        dp = [float('inf')] * (n + 1)
+        dp[n - 1] = 1
+
+        for r in range(m - 1, -1, -1):
+            for c in range(n - 1, -1, -1):
+                need = min(dp[c], dp[c + 1]) - dungeon[r][c]
+                dp[c] = max(1, need)
+
+        return dp[0]
 ```
 
-For `LC 64`:
-```text
-the state is minimum path sum to reach this cell, so the boundary is accumulated cost, not all ones
-```
+## 複雜度
 
-## Pass Standard
-Before coding, say:
-```text
-state =
-base case =
-transition =
-return value =
-```
+Time O(mn), Space O(n).
 
-## Topic - Covering Index, Index-Only Access, And When Full Scan Is Still Acceptable
+## 要特別避免的錯誤
 
-## First Judgment
-If your answer is only:
-```text
-covering index means the query reads from the index only, so it is faster
-```
+- Forward DP cannot know future minimum health constraints cleanly.
+- Forgetting health must always be at least 1.
 
-that is still below Tier A/S mid-level bar.
+## 面試口說整理
 
-A stronger answer must explain:
-- which columns are used for filtering
-- which columns are used for ordering
-- which columns are returned
-- whether the plan can avoid base-row fetches
-- how many rows will likely match
-- whether the extra index width is worth the permanent write cost
-
-## What A Strong Mid-Level Candidate Must Know
-- a plan is only truly index-only if all needed columns can be satisfied from the index path
-- avoiding `TABLE ACCESS BY INDEX ROWID` matters most when many matched rows would otherwise trigger scattered row fetches
-- covering is most valuable for:
-  - hot narrow endpoints
-  - read-heavy workloads
-  - ordered top-N queries
-- covering is much less attractive when:
-  - the query returns wide rows or `SELECT *`
-  - the table is write-heavy
-  - selectivity is weak and a large fraction of the table is needed anyway
-- a full scan is not automatically bad when:
-  - the table is small
-  - the predicate is low-selectivity
-  - most rows are needed
-  - the covering index would be too wide or still not solve the true bottleneck
-- Oracle-style reasoning should connect:
-  - `INDEX RANGE SCAN`
-  - `INDEX FAST FULL SCAN` when relevant
-  - `TABLE ACCESS BY INDEX ROWID`
-  - `TABLE ACCESS FULL`
-
-## Strong Answer Components
-- start with one concrete endpoint and query shape
-- say whether the current index already narrows well
-- say whether the expensive step is the index scan itself or the subsequent row fetches
-- say whether adding returned columns to the index would remove that expensive step
-- say what write penalty and storage growth you are accepting
-- say what proof you want from `EXPLAIN` and from production metrics
-
-## Concrete ASUS / Hospital Example
-Suppose the endpoint is:
-```sql
-SELECT appointment_id, scheduled_at, status
-FROM appointments
-WHERE hospital_id = :hid
-  AND doctor_id = :did
-  AND scheduled_at >= :start
-  AND scheduled_at < :end
-ORDER BY scheduled_at
-FETCH FIRST 50 ROWS ONLY;
-```
-
-Start with the narrow candidate:
-```text
-(hospital_id, doctor_id, scheduled_at)
-```
-
-Why start here:
-- it matches the equality filters first
-- it supports the time-range scan and ordered read
-- it is cheaper on writes and storage than jumping straight to a wider covering index
-
-If this endpoint is genuinely hot and the real remaining bottleneck is base-row fetch after the index match, then a wider covering candidate is:
-```text
-(hospital_id, doctor_id, scheduled_at, status, appointment_id)
-```
-
-Reasoning:
-- `hospital_id` and `doctor_id` are equality filters
-- `scheduled_at` supports the range and ordered scan
-- `status` and `appointment_id` may allow the endpoint to be satisfied from the index alone
-- for a hot read path returning only `50` narrow rows, avoiding base-row fetches can be a real win
-
-But the same index may be a bad idea if:
-- appointments are updated very frequently
-- the endpoint later becomes `SELECT *`
-- another existing index already serves the hot path well enough
-
-## Failure Cases And Edge Cases
-- query returns one extra non-indexed column, so row fetches still happen
-- low-selectivity filter causes the index plan to touch a large fraction of rows anyway
-- `ORDER BY` does not align with the usable index order, so sort cost reappears
-- a function or expression on the indexed column makes the access path non-SARGable
-- pagination endpoint evolves and now needs wider projection than the original index covers
-
-## Trade-Offs
-- wider covering index:
-  - better narrow read latency
-  - worse insert/update/delete cost
-  - more storage and cache pressure
-- narrower non-covering index:
-  - cheaper writes
-  - may still require many scattered row fetches
-- full scan:
-  - can be cheaper when the query needs many rows or most pages anyway
-  - can be the right plan for analytics-style or low-selectivity access
-
-## What Breaks At Scale
-- too many overlapping covering indexes turn every write into index-maintenance work
-- index bloat reduces cache effectiveness
-- write p95 rises because hot tables now update multiple wide indexes
-- teams start adding endpoint-specific indexes without workload discipline
-
-## What To Log Or Measure
-- query p50 / p95 / p99 latency
-- rows examined vs rows returned
-- logical reads / buffer gets
-- percent of executions using `TABLE ACCESS BY INDEX ROWID`
-- insert/update/delete latency after adding the index
-- index size growth and usage frequency
-
-## Interviewer Pushback Questions
-1. When does a covering index help materially, and when is it mostly noise?
-2. Why might the optimizer still choose a full scan even though the index covers the query?
-3. Would you widen the index, narrow the query projection, or change the endpoint contract first?
-4. What if the endpoint is hot for reads but the table is also hot for writes?
-5. How would you prove that row-fetch elimination, not something else, was the real win?
-
-## Strong 60-90 Second Answer
-A covering index matters when the expensive part of the current plan is not finding matching index entries but fetching many base rows afterward. I would usually start with the narrow composite index that matches the equality filters and ordered range scan, then widen it only if the endpoint is hot and row-fetch elimination is the real win. If the filter, order, and returned columns can all be satisfied from one composite index, the engine may avoid `TABLE ACCESS BY INDEX ROWID`, which is especially useful for narrow, read-heavy, top-N endpoints. But I would not widen indexes blindly. If the query is low-selectivity, returns wide rows, or the table is write-heavy, a full scan or a narrower index can still be the better overall choice. I would confirm with plan shape, rows examined vs returned, logical reads, and write-latency impact after the change.
-
-## Deliverables
-
-By the end of W6D3, you should be able to:
-
-- explain `LC 221` with the exact state, why the diagonal matters, and why the recurrence uses `min`
-- explain `LC 174` with reverse DP and the `minimum required health on entry` state
-- timed re-solve `LC 63` or `LC 64` without boundary mistakes
-- explain one ASUS-style query where covering index is worth it
-- explain one case where a full scan is still rational even if an index exists
-- answer whether you would change the index, the query projection, or neither, and defend the trade-off
-
-## 收穫
-
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
-
-## 遇到的問題
-
-原始筆記沒有另外紀錄失誤點。
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

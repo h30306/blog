@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 474: Ones and Zeroes"
-summary: "LeetCode 解題筆記：Ones and Zeroes"
-description: "2026-08-19 的 LeetCode 學習紀錄"
+summary: "LeetCode 474 解題筆記，依照原始 learning note 重新整理"
+description: "2026-08-19 的 LeetCode 474 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-08-19
 tags: ["medium", "dynamic-programming", "knapsack"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-08-19
-來源筆記：`notes/day45-week8-day3-ones-and-zeroes-last-stone-redis-cache-aside.md`
+來源：Day 45 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Ones and Zeroes 的解題筆記，重點放在 two-capacity `0/1` knapsack maximization、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- `LC 474`: pass after invariant wording repair
+- explain `LC 474` as a two-capacity `0/1` knapsack with backward loops in both dimensions
 
+## 當天筆記摘錄
+
+#### Problem 1 - LC 474 Ones and Zeroes
 - **Pattern:** two-capacity `0/1` knapsack maximization.
 
-## Why This Fits
+#### Why This Fits
 Each string can be picked:
 ```text
 at most once
@@ -43,13 +47,13 @@ The value of picking it is:
 +1 string in the subset
 ```
 
-## Core State / Invariant
+#### Core State / Invariant
 ```text
 dp[i][j] = maximum number of strings we can pick from the strings processed so far
 using at most i zeros and j ones
 ```
 
-## Base Case
+#### Base Case
 Initialize the whole table to:
 ```text
 0
@@ -60,13 +64,13 @@ Reason:
 before processing any strings, the best answer is 0
 ```
 
-## Transition
+#### Transition
 For a string with `zeros` and `ones`:
 ```text
 dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1)
 ```
 
-## Why Both Loops Go Backward
+#### Why Both Loops Go Backward
 The transition reads:
 ```text
 dp[i - zeros][j - ones]
@@ -79,27 +83,51 @@ previous strings only
 
 If either capacity loop goes forward, the same string can be reused again in the same iteration.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(len(strs) * m * n)
 Space: O(m * n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - forgetting this is two-capacity, not one-capacity
 - saying the value is zeros or ones instead of number of strings chosen
 - going forward in one dimension and backward in the other
 - omitting `processed so far` from the invariant
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 This is a two-capacity `0/1` knapsack. Each string is an item, its cost is `(zeroCount, oneCount)`, and its value is `1` because taking that string increases the answer by one. I use `dp[i][j]` to mean the maximum number of strings I can pick from the strings processed so far using at most `i` zeros and `j` ones. For each string, I count its zeros and ones, then iterate both capacities backward and update `dp[i][j] = max(dp[i][j], dp[i - zeros][j - ones] + 1)`. Both loops must go backward so the current string is only used once.
 
-## 收穫
+## 正確解法
 
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## 遇到的問題
+```python
+from typing import List
 
-原始筆記沒有另外紀錄失誤點。
+class Solution:
+    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        for s in strs:
+            zeros = s.count('0')
+            ones = len(s) - zeros
+            for z in range(m, zeros - 1, -1):
+                for o in range(n, ones - 1, -1):
+                    dp[z][o] = max(dp[z][o], dp[z - zeros][o - ones] + 1)
+
+        return dp[m][n]
+```
+
+## 複雜度
+
+Time O(len(strs)*m*n), Space O(m*n).
+
+## 要特別避免的錯誤
+
+- Iterating capacities forward and reusing the same string.
+- Tracking only one capacity.
+
+## 面試口說整理
+
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

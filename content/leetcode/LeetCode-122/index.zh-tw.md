@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 122: Best Time To Buy And Sell Stock II"
-summary: "LeetCode 解題筆記：Best Time To Buy And Sell Stock II"
-description: "2026-05-17 的 LeetCode 學習紀錄"
+summary: "LeetCode 122 解題筆記，依照原始 learning note 重新整理"
+description: "2026-05-17 的 LeetCode 122 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-05-17
 tags: ["medium", "dynamic-programming", "greedy", "state-machine"]
 categories: ["leetcode"]
@@ -16,19 +16,18 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-05-17
-來源筆記：`notes/day22-week5-day1-stock-i-ii-btree-index-internals.md`
+來源：Day 22 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Best Time To Buy And Sell Stock II 的解題筆記，重點放在 unlimited-transactions state machine、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 當天筆記摘錄
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
-
+#### Problem 2 - LC 122 Best Time To Buy And Sell Stock II
 - **Pattern:** unlimited-transactions state machine.
 
-## Why This Fits
+#### Why This Fits
 This is the simplest full stock-state problem:
 - `hold = best profit while holding a stock after day i`
 - `cash = best profit while not holding a stock after day i`
@@ -38,26 +37,45 @@ Because transactions are unlimited, the key difference from Stock I is:
 after selling, you are allowed to re-enter later
 ```
 
-## Core Transitions
+#### Core Transitions
 ```text
 hold = max(previous_hold, previous_cash - price)
 cash = max(previous_cash, previous_hold + price)
 ```
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 I define `hold` as the best profit if I end the day holding one stock, and `cash` as the best profit if I end the day not holding stock. On each day, I either keep the previous state or transition by buying or selling once. The value of the problem is not the formula itself, but that each transition comes directly from the meaning of the state.
 
-## Common Mistakes
+#### Common Mistakes
 - updating states in the wrong order without preserving previous values
 - treating this as arbitrary greedy accumulation without understanding state meaning
 - not being able to explain why buy/sell transitions are legal
 
-## 收穫
+## 正確解法
 
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## 遇到的問題
+```python
+from typing import List
 
-原始筆記沒有另外紀錄失誤點。
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        profit = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i - 1]:
+                profit += prices[i] - prices[i - 1]
+        return profit
+```
+
+## 複雜度
+
+Time O(n), Space O(1).
+
+## 要特別避免的錯誤
+
+- Overcomplicating with buy/sell dates.
+- Forgetting unlimited transactions means adjacent rises can be combined.
+
+## 面試口說整理
+
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

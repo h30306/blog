@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 221: Maximal Square"
-summary: "LeetCode 解題筆記：Maximal Square"
-description: "2026-06-30 的 LeetCode 學習紀錄"
+summary: "LeetCode 221 解題筆記，依照原始 learning note 重新整理"
+description: "2026-06-30 的 LeetCode 221 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-06-30
 tags: ["medium", "dynamic-programming", "grid-dp"]
 categories: ["leetcode"]
@@ -16,19 +16,24 @@ draft: false
 
 難易度: medium
 第一次嘗試：2026-06-30
-來源筆記：`notes/day31-week6-day3-maximal-square-dungeon-game-covering-index-full-scan.md`
+來源：Day 31 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Maximal Square 的解題筆記，重點放在 2D DP on local square geometry、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- `LC 221`: pass after wording repair
+- `LC 221` and `LC 174` are both 2D DP, but they are not the same recurrence family as the earlier grid problems.
+- explain `LC 221` with the exact state, why the diagonal matters, and why the recurrence uses `min`
 
+## 當天筆記摘錄
+
+#### Problem 1 - LC 221 Maximal Square
 - **Pattern:** 2D DP on local square geometry.
 
-## Why This Fits
+#### Why This Fits
 To know the largest all-`1` square ending at `(r, c)`, it is not enough to know one direction.
 
 The cell can only extend a larger square if:
@@ -39,7 +44,7 @@ The cell can only extend a larger square if:
 
 This is a clean local-structure DP.
 
-## Core State / Invariant
+#### Core State / Invariant
 ```text
 dp[r][c] = side length of the largest all-1 square whose bottom-right corner is (r, c)
 ```
@@ -51,7 +56,7 @@ the largest square area anywhere in the matrix
 
 If we know the best square ending at every cell, the global maximum is easy to track.
 
-## Transition
+#### Transition
 If `matrix[r][c] == '0'`:
 ```text
 dp[r][c] = 0
@@ -67,7 +72,7 @@ Boundary cells with `1` have:
 dp[r][c] = 1
 ```
 
-## Why The `min(...)` Is Correct
+#### Why The `min(...)` Is Correct
 The new square can only be as large as its weakest supporting side:
 - top limits vertical extension
 - left limits horizontal extension
@@ -75,7 +80,7 @@ The new square can only be as large as its weakest supporting side:
 
 If any one of those is smaller, the larger square is impossible.
 
-## Complexity
+#### Complexity
 ```text
 Time: O(m * n)
 Space: O(m * n)
@@ -86,22 +91,52 @@ Can be compressed to:
 Space: O(n)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - using `max(...)` instead of `min(...)`
 - forgetting the state is side length, not area
 - failing to special-case first row / first column
 - saying the diagonal is optional
 - returning the max side length instead of squaring it for area
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 I define `dp[r][c]` as the side length of the largest all-1 square ending at cell `(r, c)`. If the current cell is `0`, no square can end here. If it is `1`, the square can only grow if the top, left, and top-left neighbors can all support a square of the smaller size. That is why the recurrence is `1 + min(top, left, diagonal)`. I track the largest side seen and square it at the end to get the area.
 
-## 收穫
+## 正確解法
 
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## 遇到的問題
+```python
+from typing import List
 
-原始筆記沒有另外紀錄失誤點。
+class Solution:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        m, n = len(matrix), len(matrix[0])
+        dp = [0] * (n + 1)
+        best = 0
+
+        for r in range(1, m + 1):
+            prev_diag = 0
+            for c in range(1, n + 1):
+                old = dp[c]
+                if matrix[r - 1][c - 1] == '1':
+                    dp[c] = 1 + min(dp[c], dp[c - 1], prev_diag)
+                    best = max(best, dp[c])
+                else:
+                    dp[c] = 0
+                prev_diag = old
+
+        return best * best
+```
+
+## 複雜度
+
+Time O(mn), Space O(n).
+
+## 要特別避免的錯誤
+
+- Returning side length instead of area.
+- Ignoring the diagonal dependency.
+
+## 面試口說整理
+
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

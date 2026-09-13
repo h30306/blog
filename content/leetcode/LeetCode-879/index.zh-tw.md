@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 879: Profitable Schemes"
-summary: "LeetCode 解題筆記：Profitable Schemes"
-description: "2026-08-19 的 LeetCode 學習紀錄"
+summary: "LeetCode 879 解題筆記，依照原始 learning note 重新整理"
+description: "2026-08-19 的 LeetCode 879 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-08-19
 tags: ["hard", "dynamic-programming", "knapsack"]
 categories: ["leetcode"]
@@ -16,19 +16,23 @@ draft: false
 
 難易度: hard
 第一次嘗試：2026-08-19
-來源筆記：`notes/day46-week8-day4-profitable-schemes-form-largest-integer-redis-vs-query-fix.md`
+來源：Day 46 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Profitable Schemes 的解題筆記，重點放在 counting `0/1` knapsack with member capacity and capped profit threshold、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 筆記中提到的相關提醒
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
+- `LC 879`: pass after state-definition repair
+- explain `LC 879` with a state definition that exactly matches the code
 
+## 當天筆記摘錄
+
+#### Problem 1 - LC 879 Profitable Schemes
 - **Pattern:** counting `0/1` knapsack with member capacity and capped profit threshold.
 
-## Why This Fits
+#### Why This Fits
 Each crime can be:
 ```text
 taken once or skipped
@@ -47,7 +51,7 @@ It is:
 how many subsets satisfy members <= n and profit >= minProfit?
 ```
 
-## Core State / Invariant
+#### Core State / Invariant
 For the implemented version used today:
 ```text
 dp[p][m] = number of schemes that achieve at least profit p using at most m members
@@ -58,7 +62,7 @@ Profit is capped into:
 0..minProfit
 ```
 
-## Base Case
+#### Base Case
 For every member limit `m`:
 ```text
 dp[0][m] = 1
@@ -69,7 +73,7 @@ Reason:
 the empty set already achieves profit at least 0 and fits under any member cap
 ```
 
-## Transition
+#### Transition
 For a crime needing `g` members and giving profit `earn`:
 ```text
 prevProfit = max(0, p - earn)
@@ -78,7 +82,7 @@ dp[p][m] += dp[prevProfit][m - g]
 
 with modulo.
 
-## Why Profit Is Capped
+#### Why Profit Is Capped
 Once a scheme already achieves:
 ```text
 profit >= minProfit
@@ -91,27 +95,54 @@ So all larger profits can be merged into:
 the minProfit bucket
 ```
 
-## Complexity
+#### Complexity
 ```text
 Time: O(len(group) * n * minProfit)
 Space: O(n * minProfit)
 ```
 
-## Common Mistakes
+#### Common Mistakes
 - mixing `exactly m members` with `at most m members`
 - using a state explanation that does not match the code
 - forgetting why `dp[0][m] = 1` is valid in the `at most` formulation
 - not capping profit at `minProfit`
 
-## Strong Spoken Explanation
+#### Strong Spoken Explanation
 This is a counting `0/1` knapsack. Each crime can be taken once, it consumes some members, and it contributes profit. The state I used is `dp[p][m] = number of schemes that achieve at least profit p using at most m members`. I cap the profit dimension at `minProfit` because once a scheme reaches that threshold, extra profit does not change whether it is valid. I initialize `dp[0][m] = 1` for all member limits because the empty set already satisfies profit at least `0`. Then for each crime I iterate both dimensions backward and add the previous-state count from `dp[max(0, p - earn)][m - g]`.
 
-## 收穫
+## 正確解法
 
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## 遇到的問題
+```python
+from typing import List
 
-原始筆記沒有另外紀錄失誤點。
+class Solution:
+    def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
+        mod = 10 ** 9 + 7
+        dp = [[0] * (n + 1) for _ in range(minProfit + 1)]
+        dp[0][0] = 1
+
+        for members, gain in zip(group, profit):
+            for p in range(minProfit, -1, -1):
+                for used in range(n - members, -1, -1):
+                    if dp[p][used] == 0:
+                        continue
+                    np = min(minProfit, p + gain)
+                    dp[np][used + members] = (dp[np][used + members] + dp[p][used]) % mod
+
+        return sum(dp[minProfit]) % mod
+```
+
+## 複雜度
+
+Time O(crimes * minProfit * n), Space O(minProfit * n).
+
+## 要特別避免的錯誤
+
+- Iterating forward and using a crime multiple times.
+- Not capping profit at minProfit.
+
+## 面試口說整理
+
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 121: Best Time To Buy And Sell Stock"
-summary: "LeetCode Problem Solving - 1-transaction state machine / running minimum"
-description: "LeetCode study note from 2026-05-17"
+summary: "LeetCode note for Best Time To Buy And Sell Stock, rebuilt from the original learning note"
+description: "Cleaned LeetCode 121 article from 2026-05-17 with note repair points and final solution"
 date: 2026-05-17
 tags: ["easy", "dynamic-programming", "state-machine"]
 categories: ["leetcode"]
@@ -16,19 +16,18 @@ draft: false
 
 Difficulty: easy
 First Attempt: 2026-05-17
-Source Note: `notes/day22-week5-day1-stock-i-ii-btree-index-internals.md`
+Source: Day 22 learning note
 
-## Intuition
+## Study Context
 
-For Stock I, I only need to know the cheapest buy price seen so far and the best sell profit I can realize afterward. In statemachine terms, I can model hold and cash, but because only one transaction is allowed, this co
+This article is rebuilt from the exact LeetCode section in the learning note. I kept the note's repair points, comparison points, and common mistakes, while removing unrelated non-LeetCode material from the same day.
 
-Pattern: 1-transaction state machine / running minimum
+## Learning Note Extract
 
-## Approach
-
+#### Problem 1 - LC 121 Best Time To Buy And Sell Stock
 - **Pattern:** 1-transaction state machine / running minimum.
 
-## Why This Fits
+#### Why This Fits
 There is only one buy and one sell.
 
 The two clean mental models are:
@@ -37,25 +36,47 @@ The two clean mental models are:
   - `hold = best profit while holding one stock`
   - `cash = best profit while not holding stock`
 
-## Core Invariant
+#### Core Invariant
 ```text
 At day i, each state means the best profit achievable under that exact holding condition.
 ```
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 For Stock I, I only need to know the cheapest buy price seen so far and the best sell profit I can realize afterward. In state-machine terms, I can model `hold` and `cash`, but because only one transaction is allowed, this collapses into tracking the running minimum price and updating the best profit with `price - min_price`.
 
-## Common Mistakes
+#### Common Mistakes
 - memorizing the formula without knowing the state meaning
 - allowing more than one buy/sell cycle
 - saying "greedy" without explaining the invariant
 
-## Findings
+## Clean Solution
 
-- Keep the state meaning explicit before writing the transition.
-- Check base cases and return value before trusting the recurrence.
-- Explain why the iteration order or traversal order preserves the intended invariant.
+The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
 
-## Encountered Problems
+```python
+from typing import List
 
-Captured from the learning note; no separate failure note was recorded.
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        min_price = float('inf')
+        best = 0
+
+        for price in prices:
+            min_price = min(min_price, price)
+            best = max(best, price - min_price)
+
+        return best
+```
+
+## Complexity
+
+Time O(n), Space O(1).
+
+## Mistakes To Watch
+
+- Selling before buying.
+- Using multiple transactions; this version allows one transaction only.
+
+## Final Interview Explanation
+
+Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.

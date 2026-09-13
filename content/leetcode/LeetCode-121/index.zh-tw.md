@@ -1,7 +1,7 @@
 ---
 title: "LeetCode 121: Best Time To Buy And Sell Stock"
-summary: "LeetCode 解題筆記：Best Time To Buy And Sell Stock"
-description: "2026-05-17 的 LeetCode 學習紀錄"
+summary: "LeetCode 121 解題筆記，依照原始 learning note 重新整理"
+description: "2026-05-17 的 LeetCode 121 學習紀錄，包含筆記修正點與正確解法"
 date: 2026-05-17
 tags: ["easy", "dynamic-programming", "state-machine"]
 categories: ["leetcode"]
@@ -16,19 +16,18 @@ draft: false
 
 難易度: easy
 第一次嘗試：2026-05-17
-來源筆記：`notes/day22-week5-day1-stock-i-ii-btree-index-internals.md`
+來源：Day 22 learning note
 
-## 解題思路
+## 學習脈絡
 
-這篇整理 Best Time To Buy And Sell Stock 的解題筆記，重點放在 1-transaction state machine / running minimum、狀態定義、轉移式與容易犯錯的地方。
+這篇是從 learning note 裡該 LeetCode 題目的段落重新整理出來的版本。我保留當天筆記中的修正點、比較點、容易犯錯的地方，並移除同一天其他非 LeetCode 主題，避免文章內容混題。
 
-## 解法
+## 當天筆記摘錄
 
-以下內容整理自當天的 learning note，保留英文關鍵句，方便之後直接拿來做面試口說複習。
-
+#### Problem 1 - LC 121 Best Time To Buy And Sell Stock
 - **Pattern:** 1-transaction state machine / running minimum.
 
-## Why This Fits
+#### Why This Fits
 There is only one buy and one sell.
 
 The two clean mental models are:
@@ -37,25 +36,47 @@ The two clean mental models are:
   - `hold = best profit while holding one stock`
   - `cash = best profit while not holding stock`
 
-## Core Invariant
+#### Core Invariant
 ```text
 At day i, each state means the best profit achievable under that exact holding condition.
 ```
 
-## Interview-Ready Explanation
+#### Interview-Ready Explanation
 For Stock I, I only need to know the cheapest buy price seen so far and the best sell profit I can realize afterward. In state-machine terms, I can model `hold` and `cash`, but because only one transaction is allowed, this collapses into tracking the running minimum price and updating the best profit with `price - min_price`.
 
-## Common Mistakes
+#### Common Mistakes
 - memorizing the formula without knowing the state meaning
 - allowing more than one buy/sell cycle
 - saying "greedy" without explaining the invariant
 
-## 收穫
+## 正確解法
 
-- 先講清楚 state meaning，再寫 recurrence。
-- base case、迴圈方向、return value 要在 coding 前確認。
-- 如果是 DP 壓縮、graph traversal、或 greedy frontier，要能說出 invariant 為什麼成立。
+上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
 
-## 遇到的問題
+```python
+from typing import List
 
-原始筆記沒有另外紀錄失誤點。
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        min_price = float('inf')
+        best = 0
+
+        for price in prices:
+            min_price = min(min_price, price)
+            best = max(best, price - min_price)
+
+        return best
+```
+
+## 複雜度
+
+Time O(n), Space O(1).
+
+## 要特別避免的錯誤
+
+- Selling before buying.
+- Using multiple transactions; this version allows one transaction only.
+
+## 面試口說整理
+
+先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。

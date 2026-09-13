@@ -3,8 +3,8 @@ title: "LeetCode 983: Minimum Cost For Tickets"
 summary: "LeetCode Problem Solving - 1D DP on travel-day index"
 description: "LeetCode study note from 2026-05-07"
 date: 2026-05-07
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

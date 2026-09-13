@@ -3,8 +3,8 @@ title: "LeetCode 121: Best Time To Buy And Sell Stock"
 summary: "LeetCode 解題筆記：Best Time To Buy And Sell Stock"
 description: "2026-05-17 的 LeetCode 學習紀錄"
 date: 2026-05-17
-tags: ["leetcode", "easy", "dynamic-programming", "state-machine"]
-
+tags: ["easy", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

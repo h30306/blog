@@ -3,8 +3,8 @@ title: "LeetCode 746: Min Cost Climbing Stairs"
 summary: "LeetCode 解題筆記：Min Cost Climbing Stairs"
 description: "2026-04-25 的 LeetCode 學習紀錄"
 date: 2026-04-25
-tags: ["leetcode", "easy", "dynamic-programming"]
-
+tags: ["easy", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

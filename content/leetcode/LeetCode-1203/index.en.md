@@ -3,8 +3,8 @@ title: "LeetCode 1203: Sort Items by Groups Respecting Dependencies"
 summary: "LeetCode Problem Solving - Sort Items by Groups Respecting Dependencies"
 description: "LeetCode study note from 2026-04-13"
 date: 2026-04-13
-tags: ["leetcode", "hard", "graph", "topological-sort"]
-
+tags: ["hard", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

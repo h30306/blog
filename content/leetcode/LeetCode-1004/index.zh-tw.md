@@ -3,8 +3,8 @@ title: "LeetCode 1004: Max Consecutive Ones III"
 summary: "LeetCode 解題紀錄 - 可變大小滑動窗口與零計數"
 description: "LeetCode Daily - 使用滑動窗口尋找最多包含K個零的最長子陣列"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "binary-array"]
-
+tags: ["daily", "medium", "array", "sliding-window", "two-pointers", "binary-array"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

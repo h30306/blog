@@ -3,8 +3,8 @@ title: "LeetCode 70: Climbing Stairs"
 summary: "LeetCode 解題筆記：Climbing Stairs"
 description: "2026-04-20 的 LeetCode 學習紀錄"
 date: 2026-04-20
-tags: ["leetcode", "easy", "dynamic-programming"]
-
+tags: ["easy", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

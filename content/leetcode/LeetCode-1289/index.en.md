@@ -3,8 +3,8 @@ title: "LeetCode 1289: Minimum Falling Path Sum II"
 summary: "LeetCode Problem Solving - row-by-row optimization DP with forbidden same-column reuse"
 description: "LeetCode study note from 2026-07-05"
 date: 2026-07-05
-tags: ["leetcode", "hard", "dynamic-programming", "grid-dp"]
-
+tags: ["hard", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

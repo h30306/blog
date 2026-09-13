@@ -3,8 +3,8 @@ title: "LeetCode 53: Maximum Subarray"
 summary: "LeetCode 解題筆記：Maximum Subarray"
 description: "2026-05-10 的 LeetCode 學習紀錄"
 date: 2026-05-10
-tags: ["leetcode", "medium", "dynamic-programming", "kadane"]
-
+tags: ["medium", "dynamic-programming", "kadane"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

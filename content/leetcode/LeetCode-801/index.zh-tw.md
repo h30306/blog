@@ -3,8 +3,8 @@ title: "LeetCode 801: Minimum Swaps To Make Sequences Increasing"
 summary: "LeetCode 解題筆記：Minimum Swaps To Make Sequences Increasing"
 description: "2026-05-23 的 LeetCode 學習紀錄"
 date: 2026-05-23
-tags: ["leetcode", "hard", "dynamic-programming"]
-
+tags: ["hard", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 309: Best Time to Buy and Sell Stock with Cooldown"
 summary: "LeetCode 解題筆記：Best Time to Buy and Sell Stock with Cooldown"
 description: "2026-05-17 的 LeetCode 學習紀錄"
 date: 2026-05-17
-tags: ["leetcode", "medium", "dynamic-programming", "state-machine"]
-
+tags: ["medium", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

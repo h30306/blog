@@ -3,8 +3,8 @@ title: "LeetCode 1312: Minimum Insertion Steps to Make a String Palindrome"
 summary: "LeetCode 解題筆記：Minimum Insertion Steps to Make a String Palindrome"
 description: "2026-07-21 的 LeetCode 學習紀錄"
 date: 2026-07-21
-tags: ["leetcode", "hard", "dynamic-programming", "string", "palindrome"]
-
+tags: ["hard", "dynamic-programming", "string", "palindrome"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

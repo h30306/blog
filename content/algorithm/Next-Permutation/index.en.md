@@ -3,8 +3,8 @@ title: "Next Permutation"
 summary: "Introduction to Next Permutation"
 description: "Algorithm Learning"
 date: 2025-04-13
-tags: ["algorithm", "next-permutation"]
-
+tags: ["next-permutation"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

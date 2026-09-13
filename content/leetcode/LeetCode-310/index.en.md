@@ -3,8 +3,8 @@ title: "LeetCode 310: Minimum Height Trees"
 summary: "LeetCode Problem Solving - Topologicalstyle leaf trimming on an undirected tree Key insight: The root of a minimum height tree must be the center of the tree. A tree has either 1 or 2 centers. Approach: Build undirected adjacency sets and"
 description: "LeetCode study note from 2026-04-11"
 date: 2026-04-11
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

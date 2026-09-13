@@ -3,8 +3,8 @@ title: "LeetCode 1155: Number of Dice Rolls With Target Sum"
 summary: "LeetCode Problem Solving - layered counting DP with bounded per-step choices"
 description: "LeetCode study note from 2026-08-23"
 date: 2026-08-23
-tags: ["leetcode", "medium", "dynamic-programming", "counting"]
-
+tags: ["medium", "dynamic-programming", "counting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

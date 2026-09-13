@@ -3,8 +3,8 @@ title: "2022Q4 New Grad Data缺求職紀錄"
 summary: "2024下半年面試經驗整理"
 description: "新鮮人碩畢面試經驗"
 date: 2022-12-31T15:47:01+08:00
-tags: ["interview"]
-
+tags: []
+categories: ["interview"]
 cascade:
   showEdit: true
   showSummary: true

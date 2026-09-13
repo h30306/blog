@@ -3,8 +3,8 @@ title: "LeetCode 474: Ones and Zeroes"
 summary: "LeetCode Problem Solving - two-capacity 0/1 knapsack maximization"
 description: "LeetCode study note from 2026-08-19"
 date: 2026-08-19
-tags: ["leetcode", "medium", "dynamic-programming", "knapsack"]
-
+tags: ["medium", "dynamic-programming", "knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

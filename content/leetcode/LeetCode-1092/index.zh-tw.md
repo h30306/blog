@@ -3,8 +3,8 @@ title: "LeetCode 1092: Shortest Common Supersequence"
 summary: "LeetCode 解題筆記：Shortest Common Supersequence"
 description: "2026-07-25 的 LeetCode 學習紀錄"
 date: 2026-07-25
-tags: ["leetcode", "hard", "dynamic-programming", "string"]
-
+tags: ["hard", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

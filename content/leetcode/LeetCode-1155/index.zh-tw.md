@@ -3,8 +3,8 @@ title: "LeetCode 1155: Number of Dice Rolls With Target Sum"
 summary: "LeetCode 解題筆記：Number of Dice Rolls With Target Sum"
 description: "2026-08-23 的 LeetCode 學習紀錄"
 date: 2026-08-23
-tags: ["leetcode", "medium", "dynamic-programming", "counting"]
-
+tags: ["medium", "dynamic-programming", "counting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

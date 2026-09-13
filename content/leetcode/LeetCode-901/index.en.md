@@ -3,8 +3,8 @@ title: "LeetCode 901: Online Stock Span"
 summary: "Solving the Online Stock Span problem using monotonic stack approach"
 description: "LeetCode Daily Challenge - Implement a StockSpanner class that calculates the span of stock prices"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "algorithm", "stack", "monotonic-stack", "data-structures", "design", "design-patterns", "stock"]
-
+tags: ["daily", "medium", "stack", "monotonic-stack", "data-structures", "design", "design-patterns", "stock"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

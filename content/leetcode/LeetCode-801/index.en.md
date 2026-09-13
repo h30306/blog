@@ -3,8 +3,8 @@ title: "LeetCode 801: Minimum Swaps To Make Sequences Increasing"
 summary: "LeetCode Problem Solving - DP with two prefix states per index"
 description: "LeetCode study note from 2026-05-23"
 date: 2026-05-23
-tags: ["leetcode", "hard", "dynamic-programming"]
-
+tags: ["hard", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

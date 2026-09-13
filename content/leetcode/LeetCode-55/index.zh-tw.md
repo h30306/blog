@@ -3,8 +3,8 @@ title: "LeetCode 55: Jump Game"
 summary: "LeetCode 解題筆記：Jump Game"
 description: "2026-05-01 的 LeetCode 學習紀錄"
 date: 2026-05-01
-tags: ["leetcode", "medium", "greedy"]
-
+tags: ["medium", "greedy"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

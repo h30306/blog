@@ -3,8 +3,8 @@ title: "LeetCode 1343: Number of Sub-arrays of Size K and Average Greater than o
 summary: "LeetCode 解題紀錄 - 固定大小滑動窗口與總和計算"
 description: "LeetCode Daily - 使用滑動窗口計算大小為K且平均值>=閾值的子陣列數量"
 date: 2025-08-02
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "prefix-sum", "average-calculation"]
-
+tags: ["daily", "medium", "array", "sliding-window", "prefix-sum", "average-calculation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

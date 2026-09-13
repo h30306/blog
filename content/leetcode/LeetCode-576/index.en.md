@@ -3,8 +3,8 @@ title: "LeetCode 576: Out of Boundary Paths"
 summary: "LeetCode Problem Solving - DP / memoization on position plus remaining moves"
 description: "LeetCode study note from 2026-07-05"
 date: 2026-07-05
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

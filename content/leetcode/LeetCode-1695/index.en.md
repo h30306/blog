@@ -3,8 +3,8 @@ title: "LeetCode 1695: Maximum Erasure Value (Sliding Window)"
 summary: "Sliding window with a set and running sum; two pointers to keep the subarray unique."
 description: "LeetCode Daily"
 date: 2025-08-09
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "hash-set"]
-
+tags: ["daily", "medium", "array", "sliding-window", "two-pointers", "hash-set"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

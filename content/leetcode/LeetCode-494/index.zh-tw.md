@@ -3,8 +3,8 @@ title: "LeetCode 494: Target Sum"
 summary: "LeetCode 解題筆記：Target Sum"
 description: "2026-08-23 的 LeetCode 學習紀錄"
 date: 2026-08-23
-tags: ["leetcode", "medium", "dynamic-programming", "knapsack", "subset-sum"]
-
+tags: ["medium", "dynamic-programming", "knapsack", "subset-sum"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

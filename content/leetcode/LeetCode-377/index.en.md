@@ -3,8 +3,8 @@ title: "LeetCode 377: Combination Sum IV"
 summary: "LeetCode Problem Solving - Unbounded counting DP for ordered sequences"
 description: "LeetCode study note from 2026-05-03"
 date: 2026-05-03
-tags: ["leetcode", "medium", "dynamic-programming", "unbounded-knapsack"]
-
+tags: ["medium", "dynamic-programming", "unbounded-knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

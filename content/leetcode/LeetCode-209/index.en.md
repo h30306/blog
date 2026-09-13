@@ -3,8 +3,8 @@ title: "LeetCode 209: Minimum Size Subarray Sum (Sliding Window)"
 summary: "Sliding window with two pointers; minimize subarray length where sum ≥ target."
 description: "Sliding window approach to find the minimal-length subarray with sum ≥ target; includes complexity and key takeaways."
 date: 2025-08-09
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "prefix-sum", "binary-search"]
-
+tags: ["daily", "medium", "array", "sliding-window", "two-pointers", "prefix-sum", "binary-search"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1550: Three Consecutive Odds"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-05-11
-tags: ["leetcode", "easy", "array"]
-
+tags: ["easy", "array"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

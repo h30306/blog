@@ -3,8 +3,8 @@ title: "Union Find"
 summary: "Introduction to Union Find"
 description: "Algorithm Learning"
 date: 2025-04-28
-tags: ["algorithm", "union-find"]
-
+tags: ["union-find"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

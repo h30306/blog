@@ -3,8 +3,8 @@ title: "LeetCode 851: Loud and Rich"
 summary: "LeetCode Problem Solving - Topological BFS propagation"
 description: "LeetCode study note from 2026-04-13"
 date: 2026-04-13
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

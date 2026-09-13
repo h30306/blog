@@ -3,8 +3,8 @@ title: "LeetCode 63: Unique Paths II"
 summary: "LeetCode Problem Solving - 2D counting DP with blocked cells"
 description: "LeetCode study note from 2026-06-27"
 date: 2026-06-27
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

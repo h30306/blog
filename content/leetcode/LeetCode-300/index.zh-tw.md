@@ -3,8 +3,8 @@ title: "LeetCode 300: Longest Increasing Subsequence"
 summary: "LeetCode 解題筆記：Longest Increasing Subsequence"
 description: "2026-05-01 的 LeetCode 學習紀錄"
 date: 2026-05-01
-tags: ["leetcode", "medium", "dynamic-programming", "binary-search"]
-
+tags: ["medium", "dynamic-programming", "binary-search"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1456: Maximum Number of Vowels in a Substring of Given Length"
 summary: "LeetCode Problem Solving - Fixed Size Sliding Window with Vowel Counting"
 description: "LeetCode Daily - Find maximum vowels in substring of given length using sliding window"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "string", "sliding-window", "fixed-window", "vowel-counting"]
-
+tags: ["daily", "medium", "string", "sliding-window", "fixed-window", "vowel-counting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

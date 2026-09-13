@@ -3,8 +3,8 @@ title: "LeetCode 221: Maximal Square"
 summary: "LeetCode Problem Solving - 2D DP on local square geometry"
 description: "LeetCode study note from 2026-06-30"
 date: 2026-06-30
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 72: Edit Distance"
 summary: "LeetCode 解題筆記：Edit Distance"
 description: "2026-07-16 的 LeetCode 學習紀錄"
 date: 2026-07-16
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

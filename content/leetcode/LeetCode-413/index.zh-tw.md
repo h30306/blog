@@ -3,8 +3,8 @@ title: "LeetCode 413: Arithmetic Slices"
 summary: "LeetCode 解題筆記：Arithmetic Slices"
 description: "2026-05-10 的 LeetCode 學習紀錄"
 date: 2026-05-10
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 70: Climbing Stairs"
 summary: "LeetCode Problem Solving - Fibonaccistyle 1D DP. State Base Case dp[0] = 1 means there is one way to start before taking any steps: do nothing. Transition To reach step i, the last move must come from step i 1 with one step or from step i"
 description: "LeetCode study note from 2026-04-20"
 date: 2026-04-20
-tags: ["leetcode", "easy", "dynamic-programming"]
-
+tags: ["easy", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1449: Form Largest Integer With Digits That Add Up To Target"
 summary: "LeetCode 解題筆記：Form Largest Integer With Digits That Add Up To Target"
 description: "2026-08-19 的 LeetCode 學習紀錄"
 date: 2026-08-19
-tags: ["leetcode", "hard", "dynamic-programming", "knapsack"]
-
+tags: ["hard", "dynamic-programming", "knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

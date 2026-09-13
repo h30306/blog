@@ -3,8 +3,8 @@ title: "LeetCode 556: Next Greater Element III"
 summary: "LeetCode Problem Solving"
 description: "LeetCode"
 date: 2025-04-13
-tags: ["leetcode", "medium", "next-permutation"]
-
+tags: ["medium", "next-permutation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

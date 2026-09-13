@@ -3,8 +3,8 @@ title: "LeetCode 2381: Shifting Letters II"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-20
-tags: ["leetcode", "medium", "difference-array"]
-
+tags: ["medium", "difference-array"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

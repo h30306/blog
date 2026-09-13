@@ -3,8 +3,8 @@ title: "LeetCode 152: Maximum Product Subarray"
 summary: "LeetCode Problem Solving - Rolling DP with max/min state"
 description: "LeetCode study note from 2026-05-01"
 date: 2026-05-01
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

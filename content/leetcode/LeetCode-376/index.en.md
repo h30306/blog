@@ -3,8 +3,8 @@ title: "LeetCode 376: Wiggle Subsequence"
 summary: "LeetCode Problem Solving - state-machine DP / greedy over alternating direction"
 description: "LeetCode study note from 2026-05-23"
 date: 2026-05-23
-tags: ["leetcode", "medium", "dynamic-programming", "greedy"]
-
+tags: ["medium", "dynamic-programming", "greedy"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

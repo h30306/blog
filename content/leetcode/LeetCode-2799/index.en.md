@@ -3,8 +3,8 @@ title: "LeetCode 2799: Count Complete Subarrays in an Array"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-21
-tags: ["leetcode", "daily", "medium", "sliding-window"]
-
+tags: ["daily", "medium", "sliding-window"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

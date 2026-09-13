@@ -3,8 +3,8 @@ title: "Difference Array"
 summary: "Introduction to Difference Array"
 description: "Algorithm Learning"
 date: 2025-04-27
-tags: ["algorithm", "difference-array"]
-
+tags: ["difference-array"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

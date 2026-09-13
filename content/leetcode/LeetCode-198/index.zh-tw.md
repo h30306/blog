@@ -3,8 +3,8 @@ title: "LeetCode 198: House Robber"
 summary: "LeetCode 解題筆記：House Robber"
 description: "2026-05-17 的 LeetCode 學習紀錄"
 date: 2026-05-17
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1631: Path With Minimum Effort"
 summary: "LeetCode Problem Solving - Dijkstra on a grid with nonsum path cost. Why Dijkstra Still Works The path cost is not the sum of edge weights. Instead: That means the path effort is: not strictly increasing. That monotonic property is why Di"
 description: "LeetCode study note from 2026-04-25"
 date: 2026-04-25
-tags: ["leetcode", "medium", "graph", "dijkstra", "shortest-path"]
-
+tags: ["medium", "graph", "dijkstra", "shortest-path"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -5,8 +5,8 @@ description: "LeetCode Bi-Weekly Contest 154"
 date: 2025-04-12
 series: ["LeetCode Bi-Weekly Contest 154"]
 series_order: 1
-tags: ["leetcode", "biweekly-contest", "easy"]
-
+tags: ["biweekly-contest", "easy"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

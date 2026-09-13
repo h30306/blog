@@ -3,8 +3,8 @@ title: "LeetCode 22: Generate Parentheses"
 summary: "Generating all valid parentheses combinations using backtracking approach"
 description: "LeetCode Daily Challenge - Generate Parentheses problem with backtracking solution"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "string", "backtracking", "recursion", "combinatorics", "parentheses"]
-
+tags: ["daily", "medium", "string", "backtracking", "recursion", "combinatorics", "parentheses"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

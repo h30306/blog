@@ -3,8 +3,8 @@ title: "LeetCode 496: Next Greater Element I (Monotonic Stack)"
 summary: "Monotonic decreasing stack over nums2 to build next-greater map; answer queries for nums1."
 description: "Use a monotonic stack to compute next greater elements in linear time; includes complexity and common pitfalls."
 date: 2025-08-09
-tags: ["leetcode", "daily", "easy", "array", "stack", "monotonic-stack", "hash-map", "next-greater-element"]
-
+tags: ["daily", "easy", "array", "stack", "monotonic-stack", "hash-map", "next-greater-element"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

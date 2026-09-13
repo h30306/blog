@@ -3,8 +3,8 @@ title: "LeetCode 778: Swim in Rising Water"
 summary: "LeetCode 解題筆記：Swim in Rising Water"
 description: "2026-04-18 的 LeetCode 學習紀錄"
 date: 2026-04-18
-tags: ["leetcode", "hard", "graph", "dijkstra", "binary-search"]
-
+tags: ["hard", "graph", "dijkstra", "binary-search"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

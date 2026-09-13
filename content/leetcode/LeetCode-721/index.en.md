@@ -3,8 +3,8 @@ title: "LeetCode 721: Accounts Merge"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-05-12
-tags: ["leetcode", "medium", "union-find"]
-
+tags: ["medium", "union-find"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

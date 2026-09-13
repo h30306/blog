@@ -3,8 +3,8 @@ title: "LeetCode 931: Minimum Falling Path Sum"
 summary: "LeetCode 解題筆記：Minimum Falling Path Sum"
 description: "2026-07-04 的 LeetCode 學習紀錄"
 date: 2026-07-04
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

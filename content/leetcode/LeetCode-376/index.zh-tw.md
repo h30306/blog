@@ -3,8 +3,8 @@ title: "LeetCode 376: Wiggle Subsequence"
 summary: "LeetCode 解題筆記：Wiggle Subsequence"
 description: "2026-05-23 的 LeetCode 學習紀錄"
 date: 2026-05-23
-tags: ["leetcode", "medium", "dynamic-programming", "greedy"]
-
+tags: ["medium", "dynamic-programming", "greedy"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

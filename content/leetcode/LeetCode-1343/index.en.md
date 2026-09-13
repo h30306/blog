@@ -3,8 +3,8 @@ title: "LeetCode 1343: Number of Sub-arrays of Size K and Average Greater than o
 summary: "LeetCode Problem Solving - Fixed Size Sliding Window with Sum Calculation"
 description: "LeetCode Daily - Count subarrays of size K with average >= threshold using sliding window"
 date: 2025-08-02
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "prefix-sum", "average-calculation"]
-
+tags: ["daily", "medium", "array", "sliding-window", "prefix-sum", "average-calculation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

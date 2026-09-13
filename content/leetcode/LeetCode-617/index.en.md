@@ -3,8 +3,8 @@ title: "LeetCode 617: Merge Two Binary Trees"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-10
-tags: ["leetcode", "daily", "easy", "tree"]
-
+tags: ["daily", "easy", "tree"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

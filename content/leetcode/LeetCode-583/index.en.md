@@ -3,8 +3,8 @@ title: "LeetCode 583: Delete Operation for Two Strings"
 summary: "LeetCode Problem Solving - 2D DP on two prefixes with delete-only cost"
 description: "LeetCode study note from 2026-07-19"
 date: 2026-07-19
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

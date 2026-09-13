@@ -3,8 +3,8 @@ title: "LeetCode 152: Maximum Product Subarray"
 summary: "LeetCode 解題筆記：Maximum Product Subarray"
 description: "2026-05-01 的 LeetCode 學習紀錄"
 date: 2026-05-01
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

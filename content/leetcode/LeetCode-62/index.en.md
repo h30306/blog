@@ -3,8 +3,8 @@ title: "LeetCode 62: Unique Paths"
 summary: "LeetCode Problem Solving - 2D counting DP on a grid"
 description: "LeetCode study note from 2026-06-27"
 date: 2026-06-27
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

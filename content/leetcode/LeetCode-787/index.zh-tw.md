@@ -3,8 +3,8 @@ title: "LeetCode 787: Cheapest Flights Within K Stops"
 summary: "LeetCode 解題筆記：Cheapest Flights Within K Stops"
 description: "2026-04-25 的 LeetCode 學習紀錄"
 date: 2026-04-25
-tags: ["leetcode", "medium", "graph", "bellman-ford", "shortest-path"]
-
+tags: ["medium", "graph", "bellman-ford", "shortest-path"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

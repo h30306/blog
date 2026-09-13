@@ -3,8 +3,8 @@ title: "LeetCode 155: Min Stack"
 summary: "Implementing a stack with O(1) minimum retrieval using tuple-based approach"
 description: "LeetCode Daily Challenge - Min Stack implementation with constant time operations"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "stack", "constant-time", "data-structures", "design", "tuple"]
-
+tags: ["daily", "medium", "stack", "constant-time", "data-structures", "design", "tuple"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1497: Check If Array Pairs Are Divisible by k"
 summary: "餘數配對與雜湊表；特別處理 0 與 k/2 的餘數。"
 description: "利用取模與互補關係檢查是否能將陣列完全成對；包含複雜度與常見陷阱。"
 date: 2025-08-09
-tags: ["leetcode", "daily", "medium", "array", "hash-map", "complement", "counting", "math", "modulo"]
-
+tags: ["daily", "medium", "array", "hash-map", "complement", "counting", "math", "modulo"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

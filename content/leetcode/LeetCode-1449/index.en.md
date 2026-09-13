@@ -3,8 +3,8 @@ title: "LeetCode 1449: Form Largest Integer With Digits That Add Up To Target"
 summary: "LeetCode Problem Solving - unbounded knapsack optimization plus greedy reconstruction"
 description: "LeetCode study note from 2026-08-19"
 date: 2026-08-19
-tags: ["leetcode", "hard", "dynamic-programming", "knapsack"]
-
+tags: ["hard", "dynamic-programming", "knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 743: Network Delay Time"
 summary: "LeetCode Problem Solving - Dijkstra / single-source shortest path"
 description: "LeetCode study note from 2026-05-01"
 date: 2026-05-01
-tags: ["leetcode", "medium", "graph", "dijkstra", "shortest-path"]
-
+tags: ["medium", "graph", "dijkstra", "shortest-path"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

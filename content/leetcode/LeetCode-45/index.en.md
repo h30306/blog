@@ -3,8 +3,8 @@ title: "LeetCode 45: Jump Game II"
 summary: "LeetCode Problem Solving - Greedy / BFS-layer frontier expansion"
 description: "LeetCode study note from 2026-05-01"
 date: 2026-05-01
-tags: ["leetcode", "medium", "greedy", "bfs"]
-
+tags: ["medium", "greedy", "bfs"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

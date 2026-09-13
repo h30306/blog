@@ -3,8 +3,8 @@ title: "LeetCode 91: Decode Ways"
 summary: "LeetCode 解題筆記：Decode Ways"
 description: "2026-04-28 的 LeetCode 學習紀錄"
 date: 2026-04-28
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

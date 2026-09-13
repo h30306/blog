@@ -3,8 +3,8 @@ title: "LeetCode 303: Range Sum Query - Immutable"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-19
-tags: ["leetcode", "easy", "prefix-sum"]
-
+tags: ["easy", "prefix-sum"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

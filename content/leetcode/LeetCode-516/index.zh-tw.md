@@ -3,8 +3,8 @@ title: "LeetCode 516: Longest Palindromic Subsequence"
 summary: "LeetCode 解題筆記：Longest Palindromic Subsequence"
 description: "2026-07-11 的 LeetCode 學習紀錄"
 date: 2026-07-11
-tags: ["leetcode", "medium", "dynamic-programming", "string", "palindrome"]
-
+tags: ["medium", "dynamic-programming", "string", "palindrome"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

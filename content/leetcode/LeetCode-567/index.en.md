@@ -3,8 +3,8 @@ title: "LeetCode 567: Permutation in String"
 summary: "LeetCode Problem Solving - Sliding Window with Character Frequency"
 description: "LeetCode Daily - Check if one string's permutation is a substring of another string"
 date: 2025-08-02
-tags: ["leetcode", "daily", "medium", "string", "sliding-window", "hash-map", "frequency-counting", "permutation"]
-
+tags: ["daily", "medium", "string", "sliding-window", "hash-map", "frequency-counting", "permutation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 567: Permutation in String"
 summary: "LeetCode 解題紀錄 - 使用字符頻率的滑動窗口"
 description: "LeetCode Daily - 檢查一個字符串的排列是否是另一個字符串的子串"
 date: 2025-08-02
-tags: ["leetcode", "daily", "medium", "string", "sliding-window", "hash-map", "frequency-counting", "permutation"]
-
+tags: ["daily", "medium", "string", "sliding-window", "hash-map", "frequency-counting", "permutation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

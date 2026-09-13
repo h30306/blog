@@ -3,8 +3,8 @@ title: "LeetCode 269: Alien Dictionary"
 summary: "LeetCode 解題筆記：Alien Dictionary"
 description: "2026-04-26 的 LeetCode 學習紀錄"
 date: 2026-04-26
-tags: ["leetcode", "hard", "graph", "topological-sort"]
-
+tags: ["hard", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 503: Next Greater Element II (Monotonic Stack)"
 summary: "Monotonic stack on a circular array"
 description: "Two clean monotonic-stack approaches for the circular next greater element"
 date: 2025-08-09
-tags: ["leetcode", "daily", "medium", "array", "stack", "monotonic-stack", "circular-array"]
-
+tags: ["daily", "medium", "array", "stack", "monotonic-stack", "circular-array"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

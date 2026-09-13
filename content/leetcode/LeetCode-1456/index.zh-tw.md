@@ -3,8 +3,8 @@ title: "LeetCode 1456: Maximum Number of Vowels in a Substring of Given Length"
 summary: "LeetCode 解題紀錄 - 固定大小滑動窗口與元音計數"
 description: "LeetCode Daily - 使用滑動窗口尋找給定長度子串中的最大元音數量"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "string", "sliding-window", "fixed-window", "vowel-counting"]
-
+tags: ["daily", "medium", "string", "sliding-window", "fixed-window", "vowel-counting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

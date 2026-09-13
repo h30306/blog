@@ -3,8 +3,8 @@ title: "LeetCode 560: Subarray Sum Equals K"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-04-19
-tags: ["leetcode", "daily", "medium", "prefix-sum"]
-
+tags: ["daily", "medium", "prefix-sum"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

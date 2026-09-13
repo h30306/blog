@@ -3,8 +3,8 @@ title: "LeetCode 1971: Find if Path Exists in Graph"
 summary: "LeetCode Problem Solving - BFS/DFS OR UnionFind Critical: This is an undirected graph — add both directions when building adjacency list BFS approach: Standard BFS from source. Return true if destination is reached. UnionFind approach: Gr"
 description: "LeetCode study note from 2026-04-08"
 date: 2026-04-08
-tags: ["leetcode", "easy", "graph", "union-find"]
-
+tags: ["easy", "graph", "union-find"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

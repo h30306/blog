@@ -3,8 +3,8 @@ title: "LeetCode 62: Unique Paths"
 summary: "LeetCode 解題筆記：Unique Paths"
 description: "2026-06-27 的 LeetCode 學習紀錄"
 date: 2026-06-27
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

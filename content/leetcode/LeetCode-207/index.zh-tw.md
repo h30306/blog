@@ -3,8 +3,8 @@ title: "LeetCode 207: Course Schedule"
 summary: "LeetCode 解題筆記：Course Schedule"
 description: "2026-04-08 的 LeetCode 學習紀錄"
 date: 2026-04-08
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 76: Minimum Window Substring"
 summary: "LeetCode 解題紀錄 - 可變大小滑動窗口與字符計數"
 description: "LeetCode Daily - 使用滑動窗口尋找包含目標所有字符的最小窗口子串"
 date: 2025-08-05
-tags: ["leetcode", "daily", "hard", "string", "sliding-window", "variable-window", "two-pointers", "hash-map"]
-
+tags: ["daily", "hard", "string", "sliding-window", "variable-window", "two-pointers", "hash-map"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

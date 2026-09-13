@@ -3,8 +3,8 @@ title: "LeetCode 518: Coin Change 2"
 summary: "LeetCode Problem Solving - unbounded knapsack counting combinations"
 description: "LeetCode study note from 2026-08-23"
 date: 2026-08-23
-tags: ["leetcode", "medium", "dynamic-programming", "unbounded-knapsack"]
-
+tags: ["medium", "dynamic-programming", "unbounded-knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

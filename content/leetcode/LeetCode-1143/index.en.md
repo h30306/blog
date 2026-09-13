@@ -3,8 +3,8 @@ title: "LeetCode 1143: Longest Common Subsequence"
 summary: "LeetCode Problem Solving - 2D DP on two prefixes"
 description: "LeetCode study note from 2026-07-11"
 date: 2026-07-11
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

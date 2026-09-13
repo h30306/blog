@@ -3,8 +3,8 @@ title: "LeetCode 276: Paint Fence"
 summary: "LeetCode Problem Solving - counting DP with exact end-state relationship"
 description: "LeetCode study note from 2026-05-24"
 date: 2026-05-24
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 53: Maximum Subarray"
 summary: "LeetCode Problem Solving - 1D DP with rolling state / Kadane's algorithm"
 description: "LeetCode study note from 2026-05-10"
 date: 2026-05-10
-tags: ["leetcode", "medium", "dynamic-programming", "kadane"]
-
+tags: ["medium", "dynamic-programming", "kadane"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

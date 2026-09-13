@@ -3,8 +3,8 @@ title: "LeetCode 322: Coin Change"
 summary: "LeetCode 解題筆記：Coin Change"
 description: "2026-04-25 的 LeetCode 學習紀錄"
 date: 2026-04-25
-tags: ["leetcode", "medium", "dynamic-programming", "unbounded-knapsack"]
-
+tags: ["medium", "dynamic-programming", "unbounded-knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

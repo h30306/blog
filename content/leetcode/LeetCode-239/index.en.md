@@ -3,8 +3,8 @@ title: "LeetCode 239: Sliding Window Maximum"
 summary: "LeetCode Problem Solving"
 description: "LeetCode Daily"
 date: 2025-08-02
-tags: ["leetcode", "daily", "hard", "monotonic-queue"]
-
+tags: ["daily", "hard", "monotonic-queue"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

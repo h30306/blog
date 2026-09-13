@@ -3,8 +3,8 @@ title: "Prefix Sum"
 summary: "Introduction to Prefix Sum"
 description: "Algorithm Learning"
 date: 2025-04-19
-tags: ["algorithm", "prefix-sum"]
-
+tags: ["prefix-sum"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

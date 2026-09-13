@@ -5,8 +5,8 @@ description: "LeetCode Weekly"
 date: 2025-04-20
 series: ["LeetCode Weekly Contest 446"]
 series_order: 1
-tags: ["leetcode", "weekly-contest", "medium"]
-
+tags: ["weekly-contest", "medium"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

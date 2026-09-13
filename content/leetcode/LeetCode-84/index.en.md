@@ -3,8 +3,8 @@ title: "LeetCode 84: Largest Rectangle in Histogram"
 summary: "Solving the Largest Rectangle in Histogram problem using monotonic stack approach"
 description: "LeetCode Daily Challenge - Find the largest rectangle area that can be formed from a histogram using efficient stack-based algorithm"
 date: 2025-08-10
-tags: ["leetcode", "daily", "hard", "algorithm", "array", "stack", "monotonic-stack", "dynamic-programming", "geometry", "histogram"]
-
+tags: ["daily", "hard", "array", "stack", "monotonic-stack", "dynamic-programming", "geometry", "histogram"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

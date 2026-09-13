@@ -3,8 +3,8 @@ title: "LeetCode 853: Car Fleet"
 summary: "Solving the Car Fleet problem using stack-based approach"
 description: "LeetCode Daily Challenge - Car Fleet problem solution with detailed explanation"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "array", "stack", "greedy", "simulation", "sorting"]
-
+tags: ["daily", "medium", "array", "stack", "greedy", "simulation", "sorting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

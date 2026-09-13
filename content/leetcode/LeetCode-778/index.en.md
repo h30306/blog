@@ -3,8 +3,8 @@ title: "LeetCode 778: Swim in Rising Water"
 summary: "LeetCode Problem Solving - Dijkstra variant on grid"
 description: "LeetCode study note from 2026-04-18"
 date: 2026-04-18
-tags: ["leetcode", "hard", "graph", "dijkstra", "binary-search"]
-
+tags: ["hard", "graph", "dijkstra", "binary-search"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

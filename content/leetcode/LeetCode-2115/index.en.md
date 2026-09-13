@@ -3,8 +3,8 @@ title: "LeetCode 2115: Find All Possible Recipes from Given Supplies"
 summary: "LeetCode Problem Solving - Topological Sort / Dependency unlocking Key insight: Supplies are initially available nodes. A recipe becomes available when all its required ingredients are available. Approach: Build graph from ingredient reci"
 description: "LeetCode study note from 2026-04-11"
 date: 2026-04-11
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

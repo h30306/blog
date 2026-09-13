@@ -3,8 +3,8 @@ title: "LeetCode 1922: Count Good Numbers"
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-04-13
-tags: ["leetcode", "daily", "medium"]
-
+tags: ["daily", "medium"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

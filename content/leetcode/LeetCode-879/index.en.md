@@ -3,8 +3,8 @@ title: "LeetCode 879: Profitable Schemes"
 summary: "LeetCode Problem Solving - counting 0/1 knapsack with member capacity and capped profit threshold"
 description: "LeetCode study note from 2026-08-19"
 date: 2026-08-19
-tags: ["leetcode", "hard", "dynamic-programming", "knapsack"]
-
+tags: ["hard", "dynamic-programming", "knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "Digit Dynamic Programming"
 summary: "Digit Dynamic Programming 介紹"
 description: "演算法學習"
 date: 2025-04-11
-tags: ["algorithm", "digit-dp"]
-
+tags: ["digit-dp"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

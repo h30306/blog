@@ -3,8 +3,8 @@ title: "LeetCode 1658: Minimum Operations to Reduce X to Zero"
 summary: "LeetCode Problem Solving - Reverse Thinking with Sliding Window"
 description: "LeetCode Daily - Find minimum operations to reduce X to zero using reverse approach"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "prefix-sum", "reverse-thinking"]
-
+tags: ["daily", "medium", "array", "sliding-window", "prefix-sum", "reverse-thinking"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

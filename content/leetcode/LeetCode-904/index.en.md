@@ -3,8 +3,8 @@ title: "LeetCode 904: Fruit Into Baskets"
 summary: "LeetCode Problem Solving - Variable Size Sliding Window with Hash Map"
 description: "LeetCode Daily - Find maximum fruits with at most two types using sliding window"
 date: 2025-08-05
-tags: ["leetcode", "daily", "medium", "sliding-window", "variable-window", "two-pointers", "hash-map"]
-
+tags: ["daily", "medium", "sliding-window", "variable-window", "two-pointers", "hash-map"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

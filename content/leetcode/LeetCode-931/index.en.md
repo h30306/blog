@@ -3,8 +3,8 @@ title: "LeetCode 931: Minimum Falling Path Sum"
 summary: "LeetCode Problem Solving - 2D optimization DP with three incoming directions"
 description: "LeetCode study note from 2026-07-04"
 date: 2026-07-04
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

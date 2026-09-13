@@ -3,8 +3,8 @@ title: "LeetCode 150: Evaluate Reverse Polish Notation"
 summary: "Solving the Reverse Polish Notation evaluation problem using stack-based approach"
 description: "LeetCode Daily Challenge - Evaluate mathematical expressions in Reverse Polish Notation using efficient stack algorithm"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "algorithm", "stack", "data-structures", "expression-evaluation", "math", "postfix-notation", "reverse-polish-notation"]
-
+tags: ["daily", "medium", "stack", "data-structures", "expression-evaluation", "math", "postfix-notation", "reverse-polish-notation"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

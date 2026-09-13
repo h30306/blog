@@ -3,8 +3,8 @@ title: "LeetCode 221: Maximal Square"
 summary: "LeetCode 解題筆記：Maximal Square"
 description: "2026-06-30 的 LeetCode 學習紀錄"
 date: 2026-06-30
-tags: ["leetcode", "medium", "dynamic-programming", "grid-dp"]
-
+tags: ["medium", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

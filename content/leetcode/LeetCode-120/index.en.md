@@ -3,8 +3,8 @@ title: "LeetCode 120: Triangle"
 summary: "LeetCode Problem Solving - DP on jagged rows / in-place bottom-up accumulation"
 description: "LeetCode study note from 2026-06-27"
 date: 2026-06-27
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

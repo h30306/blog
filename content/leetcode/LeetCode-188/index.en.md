@@ -3,8 +3,8 @@ title: "LeetCode 188: Best Time to Buy and Sell Stock IV"
 summary: "LeetCode Problem Solving - generalized multi-transaction state-machine DP"
 description: "LeetCode study note from 2026-05-17"
 date: 2026-05-17
-tags: ["leetcode", "hard", "dynamic-programming", "state-machine"]
-
+tags: ["hard", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

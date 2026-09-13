@@ -3,8 +3,8 @@ title: "LeetCode 45: Jump Game II"
 summary: "LeetCode 解題筆記：Jump Game II"
 description: "2026-05-01 的 LeetCode 學習紀錄"
 date: 2026-05-01
-tags: ["leetcode", "medium", "greedy", "bfs"]
-
+tags: ["medium", "greedy", "bfs"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

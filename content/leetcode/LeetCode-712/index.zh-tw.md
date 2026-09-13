@@ -3,8 +3,8 @@ title: "LeetCode 712: Minimum ASCII Delete Sum for Two Strings"
 summary: "LeetCode 解題筆記：Minimum ASCII Delete Sum for Two Strings"
 description: "2026-07-21 的 LeetCode 學習紀錄"
 date: 2026-07-21
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

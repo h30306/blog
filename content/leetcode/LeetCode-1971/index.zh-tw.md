@@ -3,8 +3,8 @@ title: "LeetCode 1971: Find if Path Exists in Graph"
 summary: "LeetCode 解題筆記：Find if Path Exists in Graph"
 description: "2026-04-08 的 LeetCode 學習紀錄"
 date: 2026-04-08
-tags: ["leetcode", "easy", "graph", "union-find"]
-
+tags: ["easy", "graph", "union-find"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

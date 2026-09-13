@@ -3,8 +3,8 @@ title: "LeetCode 198: House Robber"
 summary: "LeetCode Problem Solving - 1D DP / choose-skip recurrence"
 description: "LeetCode study note from 2026-05-17"
 date: 2026-05-17
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

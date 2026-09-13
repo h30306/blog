@@ -3,8 +3,8 @@ title: "LeetCode 207: Course Schedule"
 summary: "LeetCode Problem Solving - Topological Sort (Kahn's BFS) Key insight: If a valid topological ordering exists → no cycle → return true Approach: Build adjacency list + indegree array. Add all nodes with indegree 0 to queue. Process queue —"
 description: "LeetCode study note from 2026-04-08"
 date: 2026-04-08
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

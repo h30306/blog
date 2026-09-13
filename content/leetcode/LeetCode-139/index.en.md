@@ -3,8 +3,8 @@ title: "LeetCode 139: Word Break"
 summary: "LeetCode Problem Solving - Prefix DP / segmentation DP"
 description: "LeetCode study note from 2026-04-28"
 date: 2026-04-28
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

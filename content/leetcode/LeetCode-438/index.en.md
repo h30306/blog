@@ -3,8 +3,8 @@ title: "LeetCode 438: Find All Anagrams in a String"
 summary: "LeetCode Problem Solving - Sliding Window with Character Frequency"
 description: "LeetCode Daily - Finding all anagrams of a pattern in a string using sliding window technique"
 date: 2025-08-02
-tags: ["leetcode", "daily", "medium", "string", "sliding-window", "hash-map", "anagram", "frequency-counting"]
-
+tags: ["daily", "medium", "string", "sliding-window", "hash-map", "anagram", "frequency-counting"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

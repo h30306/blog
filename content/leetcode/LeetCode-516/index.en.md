@@ -3,8 +3,8 @@ title: "LeetCode 516: Longest Palindromic Subsequence"
 summary: "LeetCode Problem Solving - interval DP on substrings"
 description: "LeetCode study note from 2026-07-11"
 date: 2026-07-11
-tags: ["leetcode", "medium", "dynamic-programming", "string", "palindrome"]
-
+tags: ["medium", "dynamic-programming", "string", "palindrome"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

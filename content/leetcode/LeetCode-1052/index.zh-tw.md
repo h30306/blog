@@ -3,8 +3,8 @@ title: "LeetCode 1052: Grumpy Bookstore Owner"
 summary: "LeetCode 解題紀錄 - 固定窗口與客戶滿意度優化"
 description: "LeetCode Daily - 使用滑動窗口技巧最大化客戶滿意度"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "fixed-window", "optimization"]
-
+tags: ["daily", "medium", "array", "sliding-window", "fixed-window", "optimization"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

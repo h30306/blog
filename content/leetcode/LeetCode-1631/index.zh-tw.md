@@ -3,8 +3,8 @@ title: "LeetCode 1631: Path With Minimum Effort"
 summary: "LeetCode 解題筆記：Path With Minimum Effort"
 description: "2026-04-25 的 LeetCode 學習紀錄"
 date: 2026-04-25
-tags: ["leetcode", "medium", "graph", "dijkstra", "shortest-path"]
-
+tags: ["medium", "graph", "dijkstra", "shortest-path"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

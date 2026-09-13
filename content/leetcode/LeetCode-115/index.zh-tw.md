@@ -3,8 +3,8 @@ title: "LeetCode 115: Distinct Subsequences"
 summary: "LeetCode 解題筆記：Distinct Subsequences"
 description: "2026-07-19 的 LeetCode 學習紀錄"
 date: 2026-07-19
-tags: ["leetcode", "hard", "dynamic-programming", "string"]
-
+tags: ["hard", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

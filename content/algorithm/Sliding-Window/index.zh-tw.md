@@ -3,8 +3,8 @@ title: "Sliding Window"
 summary: "Sliding Window 介紹"
 description: "演算法學習"
 date: 2025-07-04
-tags: ["algorithm", "sliding-window"]
-
+tags: ["sliding-window"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

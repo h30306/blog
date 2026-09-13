@@ -3,8 +3,8 @@ title: "LeetCode 714: Best Time to Buy and Sell Stock with Transaction Fee"
 summary: "LeetCode Problem Solving - 2-state stock DP with transaction cost"
 description: "LeetCode study note from 2026-05-17"
 date: 2026-05-17
-tags: ["leetcode", "medium", "dynamic-programming", "state-machine"]
-
+tags: ["medium", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

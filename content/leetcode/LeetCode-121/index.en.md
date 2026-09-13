@@ -3,8 +3,8 @@ title: "LeetCode 121: Best Time To Buy And Sell Stock"
 summary: "LeetCode Problem Solving - 1-transaction state machine / running minimum"
 description: "LeetCode study note from 2026-05-17"
 date: 2026-05-17
-tags: ["leetcode", "easy", "dynamic-programming", "state-machine"]
-
+tags: ["easy", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

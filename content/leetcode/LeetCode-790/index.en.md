@@ -3,8 +3,8 @@ title: "LeetCode 790: Domino and Tromino Tiling"
 summary: "LeetCode Problem Solving - profile DP / full-state plus gap-state compression"
 description: "LeetCode study note from 2026-05-24"
 date: 2026-05-24
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

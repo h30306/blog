@@ -3,8 +3,8 @@ title: "Digit Dynamic Programming"
 summary: "Introduction to Digit Dynamic Programming"
 description: "Algorithm Learning"
 date: 2025-04-11
-tags: ["algorithm", "digit-dp"]
-
+tags: ["digit-dp"]
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

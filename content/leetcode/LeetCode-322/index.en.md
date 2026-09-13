@@ -3,8 +3,8 @@ title: "LeetCode 322: Coin Change"
 summary: "LeetCode Problem Solving - Unbounded minimum-count DP"
 description: "LeetCode study note from 2026-04-25"
 date: 2026-04-25
-tags: ["leetcode", "medium", "dynamic-programming", "unbounded-knapsack"]
-
+tags: ["medium", "dynamic-programming", "unbounded-knapsack"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

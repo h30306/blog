@@ -3,8 +3,8 @@ title: "LeetCode 97: Interleaving String"
 summary: "LeetCode Problem Solving - 2D DP on two prefixes with a derived third-string index"
 description: "LeetCode study note from 2026-07-16"
 date: 2026-07-16
-tags: ["leetcode", "medium", "dynamic-programming", "string"]
-
+tags: ["medium", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 213: House Robber II"
 summary: "LeetCode Problem Solving - Circular array -> split into two linear robber problems"
 description: "LeetCode study note from 2026-04-25"
 date: 2026-04-25
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

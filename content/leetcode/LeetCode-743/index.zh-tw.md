@@ -3,8 +3,8 @@ title: "LeetCode 743: Network Delay Time"
 summary: "LeetCode 解題筆記：Network Delay Time"
 description: "2026-05-01 的 LeetCode 學習紀錄"
 date: 2026-05-01
-tags: ["leetcode", "medium", "graph", "dijkstra", "shortest-path"]
-
+tags: ["medium", "graph", "dijkstra", "shortest-path"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

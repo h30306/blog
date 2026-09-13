@@ -3,8 +3,8 @@ title: "LeetCode 310: Minimum Height Trees"
 summary: "LeetCode 解題筆記：Minimum Height Trees"
 description: "2026-04-11 的 LeetCode 學習紀錄"
 date: 2026-04-11
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

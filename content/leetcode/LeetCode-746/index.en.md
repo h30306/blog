@@ -3,8 +3,8 @@ title: "LeetCode 746: Min Cost Climbing Stairs"
 summary: "LeetCode Problem Solving - Fibonacci-style minimum-cost DP"
 description: "LeetCode study note from 2026-04-25"
 date: 2026-04-25
-tags: ["leetcode", "easy", "dynamic-programming"]
-
+tags: ["easy", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

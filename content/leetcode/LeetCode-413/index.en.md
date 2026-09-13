@@ -3,8 +3,8 @@ title: "LeetCode 413: Arithmetic Slices"
 summary: "LeetCode Problem Solving - 1D streak DP on contiguous subarrays"
 description: "LeetCode study note from 2026-05-10"
 date: 2026-05-10
-tags: ["leetcode", "medium", "dynamic-programming"]
-
+tags: ["medium", "dynamic-programming"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 1312: Minimum Insertion Steps to Make a String Palindrome"
 summary: "LeetCode Problem Solving - interval DP on substrings with minimum repair cost"
 description: "LeetCode study note from 2026-07-21"
 date: 2026-07-21
-tags: ["leetcode", "hard", "dynamic-programming", "string", "palindrome"]
-
+tags: ["hard", "dynamic-programming", "string", "palindrome"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

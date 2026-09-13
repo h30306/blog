@@ -3,8 +3,8 @@ title: "LeetCode 300: Longest Increasing Subsequence"
 summary: "LeetCode Problem Solving - Sequence DP, plus greedy + binary search optimization"
 description: "LeetCode study note from 2026-05-01"
 date: 2026-05-01
-tags: ["leetcode", "medium", "dynamic-programming", "binary-search"]
-
+tags: ["medium", "dynamic-programming", "binary-search"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

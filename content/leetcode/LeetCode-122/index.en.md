@@ -3,8 +3,8 @@ title: "LeetCode 122: Best Time To Buy And Sell Stock II"
 summary: "LeetCode Problem Solving - unlimited-transactions state machine"
 description: "LeetCode study note from 2026-05-17"
 date: 2026-05-17
-tags: ["leetcode", "medium", "dynamic-programming", "greedy", "state-machine"]
-
+tags: ["medium", "dynamic-programming", "greedy", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

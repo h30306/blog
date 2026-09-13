@@ -3,8 +3,8 @@ title: "LeetCode 494: Target Sum"
 summary: "LeetCode Problem Solving - 0/1 subset-sum counting after algebra reduction"
 description: "LeetCode study note from 2026-08-23"
 date: 2026-08-23
-tags: ["leetcode", "medium", "dynamic-programming", "knapsack", "subset-sum"]
-
+tags: ["medium", "dynamic-programming", "knapsack", "subset-sum"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

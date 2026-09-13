@@ -3,8 +3,8 @@ title: "LeetCode 1092: Shortest Common Supersequence"
 summary: "LeetCode Problem Solving - 2D DP with reconstruction over two prefixes"
 description: "LeetCode study note from 2026-07-25"
 date: 2026-07-25
-tags: ["leetcode", "hard", "dynamic-programming", "string"]
-
+tags: ["hard", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

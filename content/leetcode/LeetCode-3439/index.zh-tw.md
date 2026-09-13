@@ -3,8 +3,8 @@ title: "LeetCode 3439: Reschedule Meetings for Maximum Free Time (Sliding Window
 summary: "LeetCode 解題紀錄"
 description: "LeetCode Daily"
 date: 2025-08-09
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "two-pointers", "intervals"]
-
+tags: ["daily", "medium", "array", "sliding-window", "two-pointers", "intervals"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

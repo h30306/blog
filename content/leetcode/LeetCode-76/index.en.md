@@ -3,8 +3,8 @@ title: "LeetCode 76: Minimum Window Substring"
 summary: "LeetCode Problem Solving - Variable Size Sliding Window with Character Counting"
 description: "LeetCode Daily - Find minimum window substring containing all characters from target"
 date: 2025-08-05
-tags: ["leetcode", "daily", "hard", "string", "sliding-window", "variable-window", "two-pointers", "hash-map"]
-
+tags: ["daily", "hard", "string", "sliding-window", "variable-window", "two-pointers", "hash-map"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

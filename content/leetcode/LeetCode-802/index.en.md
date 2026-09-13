@@ -3,8 +3,8 @@ title: "LeetCode 802: Find Eventual Safe States"
 summary: "LeetCode Problem Solving - Reverse graph + remaining outdegree topo. Key correction: This is not a DAG problem. The input may contain cycles; the goal is to find nodes that are not in a cycle and cannot reach a cycle. Correct model: Build"
 description: "LeetCode study note from 2026-04-13"
 date: 2026-04-13
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

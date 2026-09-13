@@ -3,8 +3,8 @@ title: "LeetCode 115: Distinct Subsequences"
 summary: "LeetCode Problem Solving - 2D DP on two prefixes with counting"
 description: "LeetCode study note from 2026-07-19"
 date: 2026-07-19
-tags: ["leetcode", "hard", "dynamic-programming", "string"]
-
+tags: ["hard", "dynamic-programming", "string"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

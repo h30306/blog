@@ -3,8 +3,8 @@ title: "LeetCode 1658: Minimum Operations to Reduce X to Zero"
 summary: "LeetCode 解題紀錄 - 反向思考與滑動窗口"
 description: "LeetCode Daily - 使用反向方法尋找將X減少到零的最小操作數"
 date: 2025-08-03
-tags: ["leetcode", "daily", "medium", "array", "sliding-window", "prefix-sum", "reverse-thinking"]
-
+tags: ["daily", "medium", "array", "sliding-window", "prefix-sum", "reverse-thinking"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 174: Dungeon Game"
 summary: "LeetCode Problem Solving - reverse 2D DP with minimum required resource"
 description: "LeetCode study note from 2026-06-30"
 date: 2026-06-30
-tags: ["leetcode", "hard", "dynamic-programming", "grid-dp"]
-
+tags: ["hard", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

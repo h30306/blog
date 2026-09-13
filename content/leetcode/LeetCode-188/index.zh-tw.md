@@ -3,8 +3,8 @@ title: "LeetCode 188: Best Time to Buy and Sell Stock IV"
 summary: "LeetCode 解題筆記：Best Time to Buy and Sell Stock IV"
 description: "2026-05-17 的 LeetCode 學習紀錄"
 date: 2026-05-17
-tags: ["leetcode", "hard", "dynamic-programming", "state-machine"]
-
+tags: ["hard", "dynamic-programming", "state-machine"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

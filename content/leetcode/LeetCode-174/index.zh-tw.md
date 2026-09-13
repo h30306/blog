@@ -3,8 +3,8 @@ title: "LeetCode 174: Dungeon Game"
 summary: "LeetCode 解題筆記：Dungeon Game"
 description: "2026-06-30 的 LeetCode 學習紀錄"
 date: 2026-06-30
-tags: ["leetcode", "hard", "dynamic-programming", "grid-dp"]
-
+tags: ["hard", "dynamic-programming", "grid-dp"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

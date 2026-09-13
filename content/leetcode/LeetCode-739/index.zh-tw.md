@@ -3,8 +3,8 @@ title: "LeetCode 739: Daily Temperatures"
 summary: "使用單調堆疊解決每日溫度問題"
 description: "LeetCode 每日挑戰 - 使用高效的堆疊演算法找出等待更暖溫度的天數"
 date: 2025-08-10
-tags: ["leetcode", "daily", "medium", "algorithm", "array", "stack", "monotonic-stack", "data-structures", "temperature", "waiting-time"]
-
+tags: ["daily", "medium", "array", "stack", "monotonic-stack", "data-structures", "temperature", "waiting-time"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

@@ -3,8 +3,8 @@ title: "LeetCode 210: Course Schedule II"
 summary: "LeetCode Problem Solving - Same as LC 207 but return the actual ordering Key insight: The order nodes are popped from the queue IS the topological order Difference from LC 207: Append each popped node to result list. If len(result) == num"
 description: "LeetCode study note from 2026-04-08"
 date: 2026-04-08
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

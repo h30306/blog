@@ -3,8 +3,8 @@ title: "LeetCode 2192: All Ancestors of a Node in a DAG"
 summary: "LeetCode Problem Solving - Graph traversal — DFS from each source OR BFS (Kahn's) with set propagation Key insight: Ancestors are transitive — if 0→1→3, then 0 is an ancestor of 3 DFS approach: For each src node (0 to n1), run DFS and add"
 description: "LeetCode study note from 2026-04-08"
 date: 2026-04-08
-tags: ["leetcode", "medium", "graph", "topological-sort"]
-
+tags: ["medium", "graph", "topological-sort"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

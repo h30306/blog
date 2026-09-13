@@ -3,8 +3,8 @@ title: "Kadanes Algorithm"
 summary: "Kadanes Algorithm 介紹"
 description: "演算法學習"
 date: 2025-07-25
-tags: ["algorithm"]
-
+tags: []
+categories: ["algorithm"]
 cascade:
   showEdit: true
   showSummary: true

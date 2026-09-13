@@ -3,8 +3,8 @@ title: "LeetCode 1049: Last Stone Weight II"
 summary: "LeetCode Problem Solving - 0/1 subset partition with best-half approximation"
 description: "LeetCode study note from 2026-08-19"
 date: 2026-08-19
-tags: ["leetcode", "medium", "dynamic-programming", "knapsack", "subset-sum"]
-
+tags: ["medium", "dynamic-programming", "knapsack", "subset-sum"]
+categories: ["leetcode"]
 cascade:
   showEdit: true
   showSummary: true

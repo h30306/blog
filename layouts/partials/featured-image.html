@@ -1,0 +1,30 @@
+{{ $page := .page }}
+{{ $kind := .kind | default "feature" }}
+{{ $defaultImage := .defaultImage }}
+{{ $featured := false }}
+
+{{ $images := $page.Resources.ByType "image" }}
+{{ if eq $kind "background" }}
+  {{ $featured = $images.GetMatch "*background*" }}
+{{ end }}
+{{ if not $featured }}{{ $featured = $images.GetMatch "*feature*" }}{{ end }}
+{{ if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end }}
+
+{{ if and $page.Params.featureimage (not $featured) }}
+  {{ $url := $page.Params.featureimage }}
+  {{ if or (strings.HasPrefix $url "http:") (strings.HasPrefix $url "https:") }}
+    {{ $featured = resources.GetRemote $url }}
+  {{ else }}
+    {{ $featured = resources.Get (strings.TrimPrefix "/" $url) }}
+  {{ end }}
+{{ end }}
+
+{{ if and (not $featured) $defaultImage }}
+  {{ if or (strings.HasPrefix $defaultImage "http:") (strings.HasPrefix $defaultImage "https:") }}
+    {{ $featured = resources.GetRemote $defaultImage }}
+  {{ else }}
+    {{ $featured = resources.Get (strings.TrimPrefix "/" $defaultImage) }}
+  {{ end }}
+{{ end }}
+
+{{ return $featured }}

@@ -4,6 +4,7 @@ summary: "後端技術相關文章"
 description: ""
 date: 2025-04-08T22:11:03+08:00
 externalUrl: "/zh-tw/backend/"
+featureimage: "img/backend.png"
 
 cascade:
   showEdit: true
@@ -11,4 +12,3 @@ cascade:
   hideFeatureImage: false
 draft: false
 ---
-

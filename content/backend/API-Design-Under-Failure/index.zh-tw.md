@@ -1,9 +1,9 @@
 ---
 title: "API Design Under Failure"
 summary: "Retry-safe API、idempotency key、pagination 與 recoverable errors"
-description: "API failure handling、status codes、idempotency、pagination 與 recovery contract 複習筆記"
+description: "Production API failure handling、status codes、idempotency、pagination、concurrency 與 recovery contract 複習筆記"
 date: 2026-04-28
-tags: ["api-design", "idempotency", "grpc", "pagination", "retries"]
+tags: ["api-design", "idempotency", "grpc", "pagination", "retries", "observability"]
 categories: ["backend"]
 cascade:
   showEdit: true
@@ -14,54 +14,69 @@ draft: false
 
 ## 複習重點
 
-- Resource-oriented endpoint design and method semantics
-- `POST` retry safety with durable idempotency records
-- `PUT` / `PATCH` behavior and stale-write prevention
-- `201` / `202` / `204` / `409` / `412` / `422` / `429` status-code choice
-- Cursor pagination, invalid-cursor recovery, request IDs, trace IDs
-- REST vs gRPC trade-offs and deadline propagation
+- 在 timeout、retry、duplicate request、partial success、stale state 下設計 API
+- side-effecting `POST` 的 idempotency-key contract
+- idempotency record、business row、external side effect 之間的 transaction ordering
+- `201` / `202` / `204` / `409` / `412` / `422` / `429` 的邊界
+- 在資料持續變動時做 cursor pagination
+- REST vs gRPC 的 trade-off、deadline propagation、request tracing
+- 讓 client 和 operator 都能 recovery 的 metrics / logs
 
-## 心智模型
+## Tier A/S 判斷
 
-好的 backend API 不是只在 happy path 乾淨。它要定義 client timeout、retry、duplicate request、stale update、以及在資料變動中 pagination 時會發生什麼。
+這個 topic 的基本版還不夠 Tier A/S。只背 HTTP verbs 和 status codes，聽起來比較像文件整理，不像能處理 production failure。
 
-面試標準是：
-
-```text
-correctness under retries + clear recovery contract + observable request path
-```
-
-如果只說：
+比較強的面試開場是：
 
 ```text
-REST is stateless and uses HTTP verbs
+An API contract is incomplete until it defines what clients should do after timeout, retry, duplicate submission, stale writes, partial downstream failure, and pagination over changing data.
 ```
 
-這不夠。比較完整的回答要同時包含：
+Tier A/S 要讓面試官聽到你不只知道 code，而是能設計 write path：
 
-- resource modeling
-- method semantics
-- status-code correctness
-- retry behavior
-- durable idempotency
-- stale-write prevention
-- structured error body
-- request tracing and metrics
+- 哪些 state 要 durable storage
+- 哪些操作可以 retry
+- 哪些操作不能 blind retry
+- race condition 怎麼擋
+- client 怎麼不用猜就能 recover
+- production incident 發生後怎麼 debug
+
+## 用一個場景綁住回答
+
+可以用 hospital backend 當例子：
+
+```text
+POST /appointments
+PATCH /appointments/{appointment_id}
+POST /appointments/{appointment_id}/cancellations
+GET /patients/{patient_id}/appointments?cursor=...
+```
+
+真正困難的不是 happy path，而是：
+
+```text
+Client 送出 POST /appointments。
+API 已經 commit appointment。
+Response 因為 timeout 掉了。
+Client retry。
+```
+
+如果沒有 replay contract，retry 可能造成重複 appointment、重複扣款、或重複通知。
 
 ## Resource And Method Semantics
 
-路徑應該描述 resource，method 才描述操作語意。
+Path 應該描述 resource，HTTP method 描述操作語意。
 
-比較好的 resource-oriented endpoint：
+比較好的 resource-oriented endpoints：
 
 ```text
-GET /patients/123
-POST /appointments
-PATCH /appointments/456
-POST /appointments/456/cancellations
+GET    /patients/123
+POST   /appointments
+PATCH  /appointments/456
+POST   /appointments/456/cancellations
 ```
 
-比較弱的 RPC-style endpoint：
+比較弱的 RPC-style endpoints：
 
 ```text
 POST /getPatient
@@ -69,220 +84,367 @@ POST /updateAppointmentStatus
 POST /createAppointment
 ```
 
-`POST` 通常用於 server 建立新 resource 或 action result。它預設不是 idempotent，所以 payment/order/appointment create 這類 side-effect API 要另外設計 idempotency key。
+重要 nuance：
 
-`PUT` 通常表示 replace known resource 的完整 representation。重送同一個完整 request，最後狀態應該收斂到同一個結果。
+- `GET` 應該是 safe，不應該改變 business state。
+- `POST` 預設不是 idempotent，所以有 side effect 的 create API 要明確設計 idempotency。
+- `PUT` 通常代表 replace known resource 的完整 representation。重送同一個 request，最後狀態應該收斂到同一個結果。
+- `PATCH` 要看語意。`PATCH { "status": "inactive" }` 通常 idempotent；`PATCH { "increment_balance_by": 100 }` 不是。
+- `PUT` / `PATCH` 不會自動防 stale write。要靠 version、ETag、或 `If-Match`。
 
-`PATCH` 是 partial update。它可能 idempotent，也可能不是，取決於 patch semantics。
+## Retry-Safe Create Contract
 
-```text
-PATCH { "status": "inactive" }          # usually idempotent
-PATCH { "increment_balance_by": 100 }   # not idempotent
-```
-
-真正的 production nuance 是：`PUT` 或 `PATCH` 本身都不會自動防止 stale write。只要是 user 可能拿舊畫面提交更新，就還是要 version / ETag / `If-Match`。
-
-## Status Codes You Must Be Crisp On
-
-| Code | 什麼時候用 | 例子 |
-|---|---|---|
-| `201 Created` | 同步建立成功，而且 resource 現在已經存在 | `POST /appointments` 建立成功 |
-| `202 Accepted` | request 被接受，但工作還在處理中 | async job、idempotent retry 發現同 key 還在 `processing` |
-| `204 No Content` | 成功但刻意不回 body | delete、某些 update flow |
-| `400 Bad Request` | request syntax 或基本格式錯 | JSON 壞掉、必要欄位格式不合法 |
-| `401 Unauthorized` | 沒有有效 authentication | missing/expired token |
-| `403 Forbidden` | 已 authentication，但沒有 authorization | 使用者不能看別院資料 |
-| `409 Conflict` | request 和目前 resource state 或 operation contract 衝突 | 同 idempotency key 換 payload、已取消 appointment 要改成 checked-in |
-| `412 Precondition Failed` | client 給的 explicit precondition 不成立 | `If-Match` / version mismatch 防 stale write |
-| `422 Unprocessable Entity` | request 格式可理解，但 domain validation 不過 | `end_time < start_time`、invalid enum combination |
-| `429 Too Many Requests` | rate limit | client 或 tenant 超出流量限制 |
-
-`419` 要特別小心。它不是標準 HTTP status code，常見於某些 framework 或產品用來表示 session expired / CSRF token expired。面試或 public API 設計時，不要把 `419` 當通用 HTTP 語意；如果團隊內部真的用它，要在 API contract 明確定義。對一般 external API，比較安全是用標準 code 搭配 machine-readable error code。
-
-## Retry-Safe Create
-
-普通的 `POST /orders` 通常不是 idempotent。如果 client 在 DB commit 後 timeout，retry 同一個 request 可能產生 duplicate create。
-
-比較安全的設計會用 idempotency key：
+Retry-safe create endpoint 通常接受：
 
 ```text
 Idempotency-Key: client-generated-unique-key
 ```
 
-Server 需要存：
-
-- idempotency key
-- request fingerprint：method、path、normalized payload hash
-- operation status：`processing`、`completed`、`failed`
-- original response status code
-- original response body 或 created resource id
-- timestamps / expiry policy
-
-Replay 規則：
-
-- same key + same payload + `completed`：replay 原本 response 和原本 status code
-- same key + same payload + `processing`：回 `202 Accepted`，並附 operation id 或 status URL
-- same key + different payload：回 `409 Conflict`
-- no record：原子建立 idempotency record，再執行 side effect
-
-關鍵點：
+Server 要存 durable idempotency record：
 
 ```text
-client timeout does not prove the side effect failed
+idempotency_key
+tenant_id / user_id
+method
+path
+normalized_payload_hash
+status: processing | completed | failed
+resource_id
+response_status
+response_body
+expires_at
+created_at
+updated_at
 ```
 
-Timeout 只代表 client 沒收到結果。Server 可能沒做、可能做到一半 rollback、也可能已經 commit 但 response 掉了。所以 retry-sensitive `POST` 一定要有 durable replay contract。
+Replay rules：
 
-## 為什麼 Redis Lock 不夠
+| 狀況 | 回應 |
+|---|---|
+| same key, same payload, `completed` | replay 原本 response 和原本 status |
+| same key, same payload, `processing` | 回 `202 Accepted`，附 operation id 或 status URL |
+| same key, different payload | 回 `409 Conflict` |
+| retry-sensitive write 沒 key | 回 `400` 或要求 client 產生 key |
+| 沒有既有 record | 原子建立 idempotency record，再執行 write |
 
-Lock 可以減少 concurrent execution，但它不是 durable source of truth。如果 process 在 DB commit 後、寫入 response record 或釋放 lock 前 crash，retry 仍然需要 durable idempotency record 判斷原本操作是否完成。
-
-對 side-effect-heavy API，idempotency state 應該存在 durable storage，最好能和 business transaction 有一致性保證。
-
-## Stale-Write Prevention
-
-Update 題目常見問題不是 duplicate create，而是 lost update。可以用 version：
+面試一定要講出的句子：
 
 ```text
-If-Match: version-or-etag
+Client timeout is an unknown outcome, not proof that the server failed.
 ```
 
-Server 只在 submitted version 等於 current version 時更新。否則回傳：
+Server 可能完全沒開始、可能做到一半 rollback、也可能已經 commit 只是 response 掉了。
+
+## Transaction Ordering
+
+這段是把答案拉到面試強度的地方。
+
+對 payment、order、appointment create，idempotency record 必須在 correctness boundary 裡。一個常見流程是：
 
 ```text
-412 Precondition Failed
+BEGIN
+  INSERT idempotency record if absent
+  lock/read idempotency record
+  validate payload fingerprint
+  create appointment row
+  update idempotency record to completed with response payload
+COMMIT
 ```
 
-Client 收到 `412` 後不應該 blind retry 同一份 stale payload。比較好的 recovery flow 是：
+Idempotency key 要有 tenant/user scope 的 unique constraint：
 
-1. fetch latest resource
-2. reapply change if still valid
-3. 需要人工判斷時請使用者 reconcile
-4. 用新的 version / ETag 再送
+```sql
+UNIQUE (tenant_id, idempotency_key)
+```
 
-錯誤 body 應該讓 client 能 recover：
+不要只用 in-memory cache 或 Redis lock 當 source of truth。Lock 可以降低 concurrent execution，但如果 process 在 business commit 後 crash，retry 仍然需要 durable replay record 判斷原本操作完成到哪裡。
+
+如果 API 還會送 email、publish event、或呼叫 payment provider，不要把 external side effect 直接塞在 DB transaction 裡。比較好的做法是 outbox/event table：
+
+```text
+transaction commits appointment + outbox event
+background worker publishes event
+consumer side is also idempotent
+```
+
+這樣 DB commit 成功但 downstream notification 失敗時，系統還有可恢復路徑。
+
+## Failure Matrix
+
+| Failure | 沒設計會怎樣 | 強 contract |
+|---|---|---|
+| client timeout after commit | retry 產生 duplicate create | idempotency replay |
+| two concurrent retries | 兩筆資料或 lock race | unique key + transactional idempotency record |
+| same key, different payload | accidental overwrite | `409 IDEMPOTENCY_KEY_REUSED` |
+| process crash after DB commit | client 無法知道結果 | completed idempotency record 或 recoverable reconciliation |
+| downstream email/payment failure | partial success 被藏起來 | outbox + operation status |
+| stale update from old UI | lost update | `If-Match` version check + `412` |
+| invalid cursor | client loop 或漏資料 | structured error + restart action |
+
+## Status Codes You Must Be Crisp On
+
+| Code | 什麼時候用 | 例子 |
+|---|---|---|
+| `201 Created` | 同步建立成功，resource 現在已存在 | `POST /appointments` 建立 appointment |
+| `202 Accepted` | request 已接受，但工作還在處理 | async operation、同 idempotency key 還在 `processing` |
+| `204 No Content` | 成功但刻意不回 body | delete、某些 update flow |
+| `400 Bad Request` | syntax 或基本 request 格式錯 | malformed JSON |
+| `401 Unauthorized` | 沒有有效 authentication | missing / expired token |
+| `403 Forbidden` | 已 authentication，但沒有 authorization | user 不能看其他 hospital tenant |
+| `409 Conflict` | 和目前 state 或 operation contract 衝突 | 同 idempotency key 換 payload |
+| `412 Precondition Failed` | client 明確帶的 precondition 失敗 | `If-Match` version mismatch |
+| `422 Unprocessable Entity` | request 可理解，但 domain validation 不過 | `end_time < start_time` |
+| `429 Too Many Requests` | client 或 tenant 超出 rate limit | quota reset 後再 retry |
+
+`419` 要小心。它不是標準 HTTP status code。有些 framework 會拿來表示 session expired / CSRF token expired，但 public API 不應該把它當通用 HTTP 語意。比較穩的是用標準 status code 加上 machine-readable error code。
+
+## Error Body Contract
+
+Client 不應該 parse human text。要給穩定的 machine-readable fields：
 
 ```json
 {
   "error": {
     "code": "STALE_VERSION",
     "message": "Resource was updated by another request",
+    "retryable": false,
+    "recovery": "fetch_latest_and_reapply",
     "current_version": 8,
-    "request_id": "abc-123"
+    "request_id": "req_abc",
+    "trace_id": "trace_xyz"
   }
 }
 ```
 
-`409` 和 `412` 的差別：
+有用欄位：
 
-- `412`: client 帶了 explicit precondition，而 precondition 失敗
-- `409`: request 和目前 business/resource state 衝突，但不一定是 `If-Match` 這種 precondition
+- `code`: 穩定 application error code
+- `message`: 給人看的，不拿來做 branching
+- `retryable`: 是否可以自動 retry
+- `recovery`: client 下一步該做什麼
+- `request_id` / `trace_id`: support ticket 與 distributed tracing hook
+- optional domain fields，例如 `current_version` 或 `retry_after_seconds`
 
-## Pagination
+## Stale-Write Prevention
 
-Offset pagination 簡單，但在大量且持續變動的資料上不穩：
+Update path 常見問題不是 duplicate create，而是 lost update。
+
+用 versioning：
+
+```text
+GET /appointments/456
+ETag: "v7"
+
+PATCH /appointments/456
+If-Match: "v7"
+```
+
+Server 只在 submitted version 等於 current version 時更新。如果別人先改過 appointment，就回：
+
+```text
+412 Precondition Failed
+```
+
+Client 不應該 blind retry stale payload。Recovery flow：
+
+1. fetch latest resource
+2. reapply intended change if still valid
+3. 如果是語意衝突，請使用者 reconcile
+4. 用新的 version 再 submit
+
+`409` vs `412`：
+
+- `412`: client 帶了 explicit precondition，而且 precondition 失敗
+- `409`: request 和目前 business/resource state 衝突，不一定是 `If-Match`
+
+## Pagination Under Change
+
+Offset pagination 很簡單：
 
 ```text
 GET /items?page=10&limit=20
 ```
 
-Cursor pagination 比較安全：
+但在大量且持續變動的資料上不穩。Page request 中間如果有 insert/delete，可能 duplicate 或 skip items。
+
+Cursor pagination 通常比較強：
 
 ```text
-GET /items?cursor=opaque_token&limit=20
+GET /appointments?cursor=opaque_token&limit=20
 ```
 
-Cursor 要 encode stable ordering key，例如：
+Cursor 要 encode deterministic ordering boundary：
 
 ```text
 (created_at, id)
 ```
 
-這樣 inserts/deletes 才不容易造成 duplicate 或 skipped rows。只用 `created_at DESC` 不夠，因為多筆資料可能同 timestamp，需要 `id` 這種 tie-breaker 建立 deterministic total order。
+只用 `created_at DESC` 不夠，因為多筆資料可能同 timestamp。要加 `id` 這類 tie-breaker 形成 total order。
 
-Response shape 應該包含：
+Response shape：
 
 ```json
 {
   "items": [],
   "next_cursor": "opaque-token",
   "has_more": true,
-  "request_id": "abc-123"
+  "request_id": "req_abc"
 }
 ```
 
-Invalid or expired cursor 不應該讓 client 猜。可以用 `400` 或 `422`，但 contract 要固定，並附 recovery action：
+Invalid or expired cursor：
 
 ```json
 {
   "error": {
     "code": "INVALID_CURSOR",
     "message": "The pagination cursor is invalid or expired",
-    "action": "restart_from_first_page",
-    "request_id": "abc-123"
+    "retryable": false,
+    "recovery": "restart_from_first_page",
+    "request_id": "req_abc"
   }
 }
 ```
 
+## Rate Limits And Abuse Boundaries
+
+Failure design 也包含保護服務本身。
+
+Rate limit scope 要對應真實 blast radius：
+
+- per user：一般產品使用
+- per tenant：避免單一客戶拖垮系統
+- per IP：匿名 abuse
+- per API key：external integration
+- per endpoint：昂貴 writes 或 export
+
+回 `429` 時要給清楚 retry contract：
+
+```text
+Retry-After: 30
+```
+
+不要讓 retry logic 變成 self-DDoS。Client 應該用 exponential backoff with jitter、尊重 server deadline，而且沒有 idempotency key 時不要 retry non-idempotent write。
+
 ## REST vs gRPC
 
-REST 通常適合 public APIs，因為簡單、容易 cache、各種 client 都好接。gRPC 適合 internal service-to-service，因為有 strict contracts、binary encoding、streaming、deadline propagation。
+REST 通常適合 public APIs：
 
-筆記裡的重要點：
+- mental model 簡單
+- browser / third-party compatibility 好
+- 用常見 HTTP tooling debug 容易
+- cache-friendly semantics
+
+gRPC 通常適合 internal service-to-service：
+
+- strict protobuf contracts
+- code generation
+- streaming
+- efficient binary encoding
+- deadline / cancellation 是一等公民
+
+重要 production point：
 
 ```text
 gRPC deadlines must propagate downstream.
 ```
 
-否則上游服務 timeout 了，下游工作還繼續跑，會浪費資源。
-
-但不要說：
-
-```text
-gRPC is just faster than HTTP
-```
-
-比較安全的講法是：gRPC 對 internal service-to-service 很強，因為 contract、deadline、streaming、codegen 都比較一致；REST 對 external API 通常比較通用、可 debug、容易和瀏覽器 / third-party client 整合。
+如果 caller timeout 了，但 downstream services 還繼續做，系統會把資源燒在沒人等的 work 上。強回答會提到 deadlines、cancellation、retry budgets、circuit breaking。
 
 ## Request Path And Failure Hooks
 
-完整 request path 回答可以這樣串：
+完整 request path 可以這樣畫：
 
 ```text
-browser -> DNS -> TCP/TLS -> L7 gateway/load balancer -> FastAPI -> DAL -> Oracle -> response
+browser -> DNS -> TCP/TLS -> L7 gateway/load balancer -> FastAPI -> service layer -> DAL -> Oracle -> response
 ```
 
-在這條路上要放對東西：
+責任要放對 layer：
 
-- gateway / edge: TLS termination, WAF, rate limiting, coarse authn
-- app: payload validation, authz, idempotency check, business invariant
-- DAL / DB: transaction, constraints, lock/version behavior
-- response: status code, structured error, request id / trace id
+- gateway: TLS termination、WAF、request size limits、coarse authentication、rate limiting
+- app: schema validation、authorization、idempotency check、business invariant checks
+- service layer: transaction boundary、downstream deadline、retry policy
+- DAL / DB: constraints、isolation、version checks、unique keys
+- response: status code、structured error、request id、trace id
 
-Timeout pushback 的回答是：
+## 要 Log / Measure 什麼
 
-```text
-timeout is an unknown outcome, not proof of failure
-```
-
-所以 write path 要靠 idempotency key、traceability、以及可 replay 的 stored result。
-
-## 要量測什麼
+最少要有：
 
 - request id and trace id
-- idempotency key and replay outcome
-- payload hash mismatch
-- timeout count by endpoint
-- retry count
-- `409` conflict count
-- `412` stale-version count
-- `422` validation-error count
-- invalid cursor count
-- `429` rate-limit count
-- p95 and p99 latency
+- authenticated user and tenant，但不要 leak sensitive data
+- endpoint、method、status code、latency
+- idempotency key outcome：`new`、`replayed`、`processing`、`payload_mismatch`
+- retry count and timeout count by endpoint
+- `409`、`412`、`422`、`429` rate
+- invalid cursor rate
 - DB connection-pool wait time
-- downstream timeout / deadline exceeded count
+- transaction retry / deadlock count
+- downstream timeout / deadline-exceeded count
+- p95 and p99 latency
+
+面試級講法：
+
+```text
+I want logs for individual debugging, metrics for trend detection, and traces for cross-service causality.
+```
+
+## Common Mistakes
+
+- 把 timeout 當成 failure，而不是 unknown outcome
+- idempotency state 只放 Redis，沒有 durable replay
+- idempotency key 由 server 在收到 duplicate request 後才產生
+- 同 key 不同 payload 卻 replay response
+- 把 `PATCH increment` 當 idempotent retry
+- 混用 `409` 和 `412`
+- cursor pagination 沒有 tie-breaker
+- 只回 human-readable error，沒有 machine-readable recovery code
+- upstream timeout 後 downstream work 還繼續跑
 
 ## 面試回答形狀
 
-我會先從 failure 設計 API。對有 side effects 的 create endpoint，我用 durable idempotency key，存 method/path/payload fingerprint、status、original response status 和 body。client timeout 後 retry，同 key同 payload如果 completed 就 replay 原結果；如果 processing 就回 `202` 和 status URL；如果同 key不同 payload 就回 `409`。對 update，我用 version 或 ETag + `If-Match`，stale 就回 `412`，讓 client fetch latest 後 reconcile。`422` 用在 payload 格式可理解但 domain validation 不過，`419` 則不是標準 HTTP code，不應當成通用 API 語意。Pagination 用 deterministic cursor，例如 `(created_at, id)`，invalid cursor 要回 structured error 和 recovery action。最後用 request ID、trace ID、metrics 讓 client 和 operator 都能 recover。
+60-90 秒版本：
+
+```text
+I design APIs around recoverability. For side-effecting POST endpoints, retries need idempotency keys backed by durable storage. The server stores the payload fingerprint, operation status, and original response, so a retry after timeout can replay completed work, return 202 for processing work, or 409 if the key is reused with a different payload. For updates, I use ETag/version with If-Match and return 412 for stale writes. Errors include stable codes, retryability, recovery action, request id, and trace id. For list endpoints, I prefer cursor pagination with a deterministic key like created_at plus id. Then I measure retries, conflicts, stale writes, rate limits, latency, and downstream deadline failures.
+```
+
+10-15 分鐘 deep dive 可以照這個順序講：
+
+1. resource model and method choice
+2. idempotency table and unique constraints
+3. transaction sequence for create
+4. replay rules for timeout and duplicate requests
+5. stale update handling with `If-Match`
+6. structured error response
+7. cursor pagination
+8. observability and rate-limit protection
+
+30-45 分鐘 design discussion 要能畫：
+
+```text
+client
+  -> gateway/rate limit/authn
+  -> API service/idempotency check/authz
+  -> DB transaction/business rows/idempotency rows/outbox rows
+  -> worker/downstream service
+  -> logs/metrics/traces
+```
+
+然後能回答 pushback：
+
+- 如果 client 在第一個 request 還 processing 時 retry 怎麼辦？
+- 如果同一個 idempotency key 被拿去送不同 payload 怎麼辦？
+- 如果 DB commit 成功但 response 掉了怎麼辦？
+- 如果 notification 成功但 API 回 500 怎麼辦？
+- 如果兩個 user 從舊畫面更新同一個 appointment 怎麼辦？
+- 如果 pagination 過程中有新 rows 被 insert 怎麼辦？
+- 如果 downstream service 不尊重 cancellation 怎麼辦？
+
+## 最後要記
+
+Tier A/S 答案不是「用 REST 和 status codes」。真正的答案是：
+
+```text
+define the recovery contract, store enough durable state to honor it, make unsafe retries impossible or explicit, and expose enough telemetry to debug the path when the distributed system lies.
+```

@@ -28,6 +28,10 @@ draft: false
 - **Status:** Deferred to end of topological sort section.
 - **Reason:** This is a high-difficulty two-level topo sort problem. It requires group-level and item-level ordering, so it should be attempted after standard topo variants are stable.
 
+## 整理補充
+
+原 note 把這題標成 deferred，所以文章必須補上 capstone 解法。這題本質是兩層 topological sort。先把所有 `group[i] == -1` 的 item 分配一個獨立 synthetic group，讓每個 item 都有 group。接著對所有 dependency 建 item-level graph；只有跨 group 的 dependency 才建 group-level graph。任一層 topo sort 失敗都代表無解。兩層都成功後，依照 item topo order 把 item 放進各 group bucket，再依 group topo order 輸出 bucket，就同時保住 group 間與 item 間的限制。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -94,4 +98,4 @@ Time O(n + m + edges), Space O(n + m + edges).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會把這題講成兩個協調好的 topo sort。Item topo order 保證所有 item dependency；group topo order 保證跨 group dependency。兩者都合法後，依 item order 分桶，再依 group order 輸出。

@@ -54,6 +54,10 @@ Time: O(n)
 Space: O(n) with array, O(1) with two variables
 ```
 
+## 整理補充
+
+這題不要只說「就是 Fibonacci」。比較穩的說法是：`dp[i]` 是到第 `i` 階的 ordered step sequences 數量。最後一步只可能從 `i - 1` 走 1 階，或從 `i - 2` 走 2 階，所以兩個來源互斥，可以相加。提交版用 `n <= 2` 處理小 case，後面用兩個變數滾動同一個 recurrence。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -80,4 +84,4 @@ Time O(n), Space O(1).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會把這題講成 ordered step sequences 的 counting DP。`dp[i]` 是站在第 `i` 階的方法數；最後一步只能從 `i - 1` 或 `i - 2` 來，所以把兩個 predecessor 的方法數相加，最後用兩個變數壓縮空間。

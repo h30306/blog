@@ -26,27 +26,17 @@ draft: false
 
 #### LC 2115 - Find All Possible Recipes from Given Supplies
 - **Pattern:** Topological Sort / Dependency unlocking
-- **Key insight:** Supplies are initially available nodes. A recipe becomes available when all its required ingredients are available.
-- **Approach:** Build graph from `ingredient -> recipes depending on it`. Track each recipe's in-degree as number of missing ingredients. Start BFS queue with all supplies. When an available ingredient unlocks a recipe, decrement that recipe's in-degree. If it becomes 0, add recipe to answer and queue because it can become an ingredient for other recipes.
-- **Mental model:** This is like Course Schedule, but starting nodes are supplies instead of zero in-degree recipes only.
-- **Cycle behavior:** Recipes in cycles or recipes depending on unavailable ingredients never reach in-degree 0.
+- **Key insight:** Supplies 是一開始就 available 的節點。當某個 recipe 的所有 ingredients 都 available，它才會變成 available。
+- **Approach:** 建 `ingredient -> recipes depending on it` 的 graph。每個 recipe 的 in-degree 代表還缺幾個 ingredient。BFS queue 從 supplies 開始。當一個 available ingredient unlock 某個 recipe，就把該 recipe 的 missing count 減 1；如果變成 0，加入答案並放回 queue，因為 recipe 之後也可以當別人的 ingredient。
+- **Mental model:** 這像 Course Schedule，但起點是 supplies，不只是 zero in-degree recipes。
+- **Cycle behavior:** 在 cycle 裡、或依賴 unavailable ingredient 的 recipes，永遠不會到 in-degree 0。
 - **Complexity:** Time O(total ingredients + recipes), Space O(total ingredients + recipes)
-- **Common bugs:** Building edge direction as `recipe -> ingredient`, not adding newly created recipes back into the queue, treating unavailable ingredients as immediate failure instead of simply never unlocking.
+- **Common bugs:** 把 edge 建成 `recipe -> ingredient`、忘記把新做出的 recipe 放回 queue、看到 unavailable ingredient 就立刻失敗。
 
-#### LC 310 - Minimum Height Trees
-- **Pattern:** Topological-style leaf trimming on an undirected tree
-- **Key insight:** The root of a minimum height tree must be the center of the tree. A tree has either 1 or 2 centers.
-- **Approach:** Build undirected adjacency sets and degree array. Start with all leaves where degree is 1. Remove leaves layer by layer. Each removal reduces neighbor degree. New leaves are added to the queue. Stop when remaining nodes <= 2.
-- **Why leaf trimming works:** The farthest nodes from the center are leaves. Removing outer layers repeatedly leaves the center node(s).
-- **Special case:** If `n == 1`, return `[0]`.
-- **Complexity:** Time O(n), Space O(n)
-- **Common bugs:** Treating this as directed topo sort, forgetting `n == 1`, returning removed leaves instead of remaining centers, not decrementing remaining node count.
 
-#### Pattern Comparison
-- **Alien Dictionary:** Directed graph ordering problem.
-- **Recipes:** Directed dependency unlocking problem.
-- **Minimum Height Trees:** Undirected tree center problem using topo-style pruning.
-- **Interview distinction:** Topological sort is not only one template. The same in-degree idea can model ordering, availability, or layer removal, but the graph direction and meaning must be explained clearly.
+## 整理補充
+
+這題比較像 dependency unlocking，不是一般課程排程。Supplies 是一開始就 available 的材料；每個 recipe 記錄還缺幾個 ingredient。當某個 available item 讓 recipe 的 missing count 歸零，那個 recipe 不只加入答案，也要放回 queue，因為做出的 recipe 之後也能當其他 recipe 的 ingredient。note 裡最重要的修正點是：看到某個 ingredient 一開始 unavailable 不代表立刻失敗，它可能晚一點被做出來。
 
 ## 正確解法
 
@@ -90,4 +80,4 @@ Time O(total ingredients + supplies + recipes), Space O(total ingredients).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會把 supplies 和已完成 recipes 都當成 available ingredients。每個 recipe 記錄還缺幾個 ingredient；當 missing count 歸零，它就是答案，也會變成新的 available ingredient 去解鎖後面的 recipes。

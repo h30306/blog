@@ -29,6 +29,10 @@ draft: false
 - **Key insight:** The order nodes are popped from the queue IS the topological order
 - **Difference from LC 207:** Append each popped node to result list. If `len(result) == numCourses` → valid order exists.
 
+## 整理補充
+
+這是 `LC 207` 的回傳順序版本。建圖和 in-degree 一樣：edge 從 prerequisite 指向 course。差別是每個 pop 出來的 course 都要 append 到 `order`。只有當 `order` 長度等於 `numCourses` 時才是合法答案；如果有 cycle，就必須回傳空陣列，而不是 partial order。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -69,4 +73,4 @@ Time O(V+E), Space O(V+E).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會使用和 Course Schedule 相同的 Kahn topo，只是每次 pop course 時把它加進 `order`。如果最後 `order` 沒有包含所有課，代表 cycle 擋住一些節點，這時必須回傳空陣列。

@@ -34,57 +34,44 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 - **Naming issue fixed:** The counter is `outdegree`, not `in_degree`. Calling it `in_degree` is misleading even if the code passes.
 - **Complexity:** O(V + E) if returning by final scan; O(V + E + V log V) if sorting result.
 
-#### LC 851 - Loud and Rich
-- **Status:** Completed.
-- **Reason for replacement:** `LC 1203 Sort Items by Groups Respecting Dependencies` is too difficult for the current point in the topo sequence and should be treated as a capstone problem.
-- **Target:** Practice topo propagation on a medium-level dependency graph before attempting LC 1203.
-- **Interview focus:** Choose correct graph direction and propagate the quietest richer person from richer nodes to poorer nodes.
-- **Pattern:** Topological BFS propagation.
-- **Graph direction:** `richer -> poorer`.
-- **Why this direction:** The quietest person known for a richer node can affect every poorer node reachable from it.
-- **State meaning:** `answer[i]` stores the person index of the quietest known person among people at least as rich as `i`, not the quiet value itself.
-- **Update rule:** When processing `rich -> poor`, if `quiet[answer[rich]] < quiet[answer[poor]]`, set `answer[poor] = answer[rich]`.
-- **Queue initialization:** Start from people with indegree 0, meaning nobody is richer than them.
-- **Complexity:** O(n + richer.length), Space O(n + richer.length).
 
-#### LC 269 - Alien Dictionary Review
-- **Status:** Timed review attempted; needs repair.
-- **Good:** Remembered invalid prefix case and cycle check.
-- **Issue 1:** Compared every pair of words instead of adjacent word pairs only.
-- **Why wrong:** Alien dictionary constraints only come from adjacent words in the sorted list. Comparing non-adjacent pairs can create invalid extra constraints.
-- **Correct loop:** Compare `words[i]` with `words[i + 1]` only.
-- **Issue 2:** Used list adjacency and incremented in-degree directly, which can double-count duplicate edges.
-- **Fix:** Use `set` adjacency and only increment in-degree when adding a new edge.
-- **Review verdict:** Pattern recognition is good, but implementation is not interview-ready yet. Re-solve once more later without notes.
+## Organized Notes
 
-#### LC 1203 - Sort Items by Groups Respecting Dependencies
-- **Status:** Deferred to end of topological sort section.
-- **Reason:** This is a high-difficulty two-level topo sort problem. It requires group-level and item-level ordering, so it should be attempted after standard topo variants are stable.
+The note's intended solution is reverse-graph topological trimming. Terminal nodes are safe immediately. When a node is proven safe, each predecessor has one fewer outgoing edge that could lead to danger; when all of a predecessor's outgoing edges have been proven safe, that predecessor becomes safe too. This is different from ordinary DAG detection because the input may contain cycles, and the output is the sorted list of nodes that cannot reach any cycle.
 
 ## Clean Solution
 
-The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
+The note above captures the reverse-graph model from the original repair. The implementation below follows that model directly.
 
 ```python
+from collections import deque
 from typing import List
 
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n = len(graph)
-        color = [0] * n
+        reverse_graph = [[] for _ in range(n)]
+        outdegree = [0] * n
 
-        def dfs(node):
-            if color[node] != 0:
-                return color[node] == 2
-            color[node] = 1
-            for nei in graph[node]:
-                if not dfs(nei):
-                    return False
-            color[node] = 2
-            return True
+        for node, neighbors in enumerate(graph):
+            outdegree[node] = len(neighbors)
+            for nei in neighbors:
+                reverse_graph[nei].append(node)
 
-        return [i for i in range(n) if dfs(i)]
+        q = deque(i for i in range(n) if outdegree[i] == 0)
+        safe = [False] * n
+
+        while q:
+            node = q.popleft()
+            safe[node] = True
+            for prev in reverse_graph[node]:
+                outdegree[prev] -= 1
+                if outdegree[prev] == 0:
+                    q.append(prev)
+
+        return [i for i, ok in enumerate(safe) if ok]
 ```
+
 
 ## Complexity
 
@@ -97,4 +84,4 @@ Time O(V+E), Space O(V).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would solve this by proving safety backward from terminal nodes. A node is safe once every outgoing edge leads to an already-safe node. Reverse edges let each newly safe node reduce its predecessors' remaining outdegree; when that count hits zero, the predecessor is safe too.

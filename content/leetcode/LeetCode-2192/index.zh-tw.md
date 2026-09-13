@@ -24,55 +24,19 @@ draft: false
 
 ## 當天筆記摘錄
 
-#### LC 2192 — All Ancestors of a Node in a DAG
-- **Pattern:** Graph traversal — DFS from each source OR BFS (Kahn's) with set propagation
-- **Key insight:** Ancestors are transitive — if 0→1→3, then 0 is an ancestor of 3
-- **DFS approach:** For each `src` node (0 to n-1), run DFS and add `src` to every reachable node's ancestor list. Use a fresh `visited` set per DFS to prevent duplicates. Result is auto-sorted because src iterates in order.
-- **Common bugs:**
-  1. Shared `visited` set across DFS calls — resets nothing, later sources find all nodes already visited
-  2. Appending current `node` instead of `src` — only adds direct parent, not transitive ancestors
-  3. Appending before visited check — causes duplicate ancestors in diamond-shaped paths
+#### LC 2192 - All Ancestors of a Node in a DAG
+- **Pattern:** Graph traversal，可以 DFS from each source，也可以用 Kahn topological order 做 set propagation。
+- **Key insight:** Ancestors 是 transitive 的。如果 `0 -> 1 -> 3`，那 `0` 也是 `3` 的 ancestor。
+- **DFS approach:** 對每個 `src` 跑 DFS，把 `src` 加到所有 reachable node 的 ancestor list。每次 DFS 都要用新的 `visited`，避免重複。
+- **Common bugs:** 共用同一個 `visited`、append current `node` 而不是原始 `src`、或在 visited check 前 append 造成 duplicate。
+- **BFS approach:** 用 Kahn topological sort。對每條 `node -> neighbor`，把 `ancestors[node]` 加上 `node` 一起傳給 `ancestors[neighbor]`。Topological order 保證傳出去前 ancestors 已完整。
+- **Why BFS is faster:** DFS 會從很多 source 重複走圖；Kahn propagation 只處理 graph edges 一輪，主要成本在 set union。
+- **Time complexity (BFS):** Worst case O(V^2 + E) propagation，最後 sorting 大量 ancestor list 時可到 O(V^2 log V)。
 
-- **BFS approach (optimal):** Use Kahn's topological sort. For each node, `ancestors[neighbor] |= ancestors[node]`. Topological ordering guarantees all ancestors are fully computed before propagating. Uses sets to handle duplicates automatically.
-- **Why BFS is faster:** DFS runs V separate traversals = O(V×(V+E)). BFS processes each node once = O(V+E) traversal + set union cost. Single pass, no redundant traversals.
-- **Time complexity (BFS):** O(V² log V) — set union O(V²) + final sort O(V² log V)
 
-#### LC 1971 — Find if Path Exists in Graph
-- **Pattern:** BFS/DFS OR Union-Find
-- **Critical:** This is an **undirected** graph — add both directions when building adjacency list
-- **BFS approach:** Standard BFS from source. Return true if destination is reached.
-- **Union-Find approach:** Group all connected nodes. Return `find(source) == find(destination)`
-- **Common bugs:**
-  1. Building directed adjacency list for undirected graph
-  2. Applying Kahn's in-degree logic to undirected graph — in-degree is meaningless here
-  3. Never calling `union` on edges — nodes stay in separate components
-  4. Calling `union(x, y)` with raw nodes instead of roots `union(find(x), find(y))`
-  5. Wrong rank increment — only increment when two trees of equal rank merge
+## 整理補充
 
-- **Union-Find template:**
-```python
-parent = [i for i in range(n)]
-rank = [0] * n
-
-def find(x):
-    if parent[x] != x:
-        parent[x] = find(parent[x])  # path compression
-    return parent[x]
-
-def union(x, y):
-    rx, ry = find(x), find(y)
-    if rx == ry:
-        return
-    if rank[rx] > rank[ry]:
-        parent[ry] = rx
-    elif rank[rx] < rank[ry]:
-        parent[rx] = ry
-    else:
-        parent[rx] = ry
-        rank[ry] += 1
-```
-
-- **Trade-off:** BFS = simpler, good for single query. Union-Find = better for multiple path queries on same graph (near O(1) per query after O(V+E) build).
+這篇應該專注在 DAG 的 transitive ancestors。Kahn 解法成立是因為 node 被 pop 出來時，所有能透過前面節點傳到它的 ancestors 都已經累積好了。對每條 `u -> v`，`u` 本身和 `u` 的所有 ancestors 都是 `v` 的 ancestors。最後才排序，可以讓 propagation 邏輯保持簡單，也避免重複輸出。
 
 ## 正確解法
 
@@ -116,4 +80,4 @@ Time O(n^2 + e) in worst case, Space O(n^2).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會用 topological order 往前傳 ancestor sets。對每條 `u -> v`，`u` 和 `u` 的所有 ancestors 都要加入 `v`。因為是 topo order，`u` 被處理時它的 ancestors 已經完整。

@@ -28,6 +28,10 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 - **Status:** Deferred to end of topological sort section.
 - **Reason:** This is a high-difficulty two-level topo sort problem. It requires group-level and item-level ordering, so it should be attempted after standard topo variants are stable.
 
+## Organized Notes
+
+The original note marked this as deferred, so the article needs the missing capstone explanation. The problem is two topological sorts glued together. First, assign every ungrouped item (`group[i] == -1`) a unique synthetic group so every item belongs to exactly one group. Then build item-level dependencies for all edges and group-level dependencies only when an edge crosses groups. If either topo sort has a cycle, no valid ordering exists. Otherwise, take the item topological order, bucket those items by group, and output buckets in group topological order so both within-group and cross-group constraints are preserved.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -94,4 +98,4 @@ Time O(n + m + edges), Space O(n + m + edges).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would explain this as two coordinated topological sorts. Item order enforces every dependency, while group order enforces cross-group dependencies. After both orders are valid, bucket items by group according to item order, then emit the buckets in group order.

@@ -54,6 +54,10 @@ Time: O(n)
 Space: O(n) with array, O(1) with two variables
 ```
 
+## Organized Notes
+
+The useful way to say this problem is not just "Fibonacci". The state is a count of ordered step sequences. Reaching step `i` can only end with a `1`-step from `i - 1` or a `2`-step from `i - 2`, so the two predecessor counts are disjoint and can be added. In the submitted version I use `n <= 2` as the small-case shortcut, then roll the same recurrence with two variables.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -80,4 +84,4 @@ Time O(n), Space O(1).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would describe this as counting ordered step sequences. `dp[i]` is the number of ways to stand on step `i`; the last move is either one step from `i - 1` or two steps from `i - 2`, so I add those two counts and roll the recurrence with constant space.

@@ -42,6 +42,10 @@ exclude first house
 #### Interview-Ready Explanation
 Because the houses are arranged in a circle, the first and last houses are adjacent, so I cannot rob both. I split the problem into two linear House Robber I cases: rob `nums[:-1]` or rob `nums[1:]`, then take the maximum of those two answers.
 
+## 整理補充
+
+這題的重點就是 circular constraint。因為 house `0` 和 house `n - 1` 相鄰，直接跑 linear robber 可能同時選到兩端。把問題拆成 `nums[:-1]` 和 `nums[1:]` 兩個線性子問題，就完整覆蓋所有合法最佳解：最佳解不是排除最後一間，就是排除第一間。`n == 1` 要先處理，否則 slice 會變成空陣列問題。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -74,4 +78,4 @@ Time O(n), Space O(1).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會先指出第一間和最後一間相鄰，所以不能直接套線性 House Robber。最佳解一定屬於兩種情況之一：排除最後一間，或排除第一間。分別跑 `LC 198` 的 helper 後取最大值，並先處理單一房子的 edge case。

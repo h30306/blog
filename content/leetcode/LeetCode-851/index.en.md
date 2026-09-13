@@ -26,10 +26,9 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 
 #### LC 851 - Loud and Rich
 - **Status:** Completed.
-- **Reason for replacement:** `LC 1203 Sort Items by Groups Respecting Dependencies` is too difficult for the current point in the topo sequence and should be treated as a capstone problem.
-- **Target:** Practice topo propagation on a medium-level dependency graph before attempting LC 1203.
-- **Interview focus:** Choose correct graph direction and propagate the quietest richer person from richer nodes to poorer nodes.
 - **Pattern:** Topological BFS propagation.
+- **Target:** Practice topo propagation on a medium-level dependency graph.
+- **Interview focus:** Choose correct graph direction and propagate the quietest richer person from richer nodes to poorer nodes.
 - **Graph direction:** `richer -> poorer`.
 - **Why this direction:** The quietest person known for a richer node can affect every poorer node reachable from it.
 - **State meaning:** `answer[i]` stores the person index of the quietest known person among people at least as rich as `i`, not the quiet value itself.
@@ -37,19 +36,10 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 - **Queue initialization:** Start from people with indegree 0, meaning nobody is richer than them.
 - **Complexity:** O(n + richer.length), Space O(n + richer.length).
 
-#### LC 269 - Alien Dictionary Review
-- **Status:** Timed review attempted; needs repair.
-- **Good:** Remembered invalid prefix case and cycle check.
-- **Issue 1:** Compared every pair of words instead of adjacent word pairs only.
-- **Why wrong:** Alien dictionary constraints only come from adjacent words in the sorted list. Comparing non-adjacent pairs can create invalid extra constraints.
-- **Correct loop:** Compare `words[i]` with `words[i + 1]` only.
-- **Issue 2:** Used list adjacency and incremented in-degree directly, which can double-count duplicate edges.
-- **Fix:** Use `set` adjacency and only increment in-degree when adding a new edge.
-- **Review verdict:** Pattern recognition is good, but implementation is not interview-ready yet. Re-solve once more later without notes.
 
-#### LC 1203 - Sort Items by Groups Respecting Dependencies
-- **Status:** Deferred to end of topological sort section.
-- **Reason:** This is a high-difficulty two-level topo sort problem. It requires group-level and item-level ordering, so it should be attempted after standard topo variants are stable.
+## Organized Notes
+
+The key is that richer information flows from richer people to poorer people. `answer[i]` is an index, not a quietness value: it points to the quietest person currently known among everyone at least as rich as `i`. Starting from people with no richer predecessor lets that best-known answer propagate down the DAG. When processing `rich -> poor`, compare `quiet[answer[rich]]` with `quiet[answer[poor]]`, not the raw person ids.
 
 ## Clean Solution
 
@@ -93,4 +83,4 @@ Time O(n+e), Space O(n+e).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would explain that richer-to-poorer is the direction that lets quiet candidates propagate. `answer[i]` stores the quietest known richer-or-equal person for `i`. When a richer node is processed, its best answer can improve every poorer neighbor, and topo order ensures those improvements flow through the graph.

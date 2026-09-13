@@ -65,6 +65,10 @@ Move full Bellman-Ford intro and full `LC 787` practice to:
 Week 3 Weekend Day 2
 ```
 
+## 整理補充
+
+當天 note 抓到的陷阱是對的：city-only `visited` 不能拿來剪枝，因為剩餘 stops budget 是 state 的一部分。面試裡最穩的答案是 edge-count Bellman-Ford。最多 `k` stops 代表最多 `k + 1` flights，所以放鬆所有 flights `k + 1` 輪。每輪從舊的 distance array 讀、寫到 copy，這樣才能保證一輪只多使用一條邊。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -99,4 +103,4 @@ Time O((K+1)*E), Space O(V).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會把這題講成有 edge-count 限制的 shortest path。最多 `k` stops 等於最多 `k + 1` flights，所以做 `k + 1` 輪 Bellman-Ford relaxation。每輪讀舊距離、寫新 copy，才能保證每輪只多用一條 flight。

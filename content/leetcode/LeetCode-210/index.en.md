@@ -29,6 +29,10 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 - **Key insight:** The order nodes are popped from the queue IS the topological order
 - **Difference from LC 207:** Append each popped node to result list. If `len(result) == numCourses` → valid order exists.
 
+## Organized Notes
+
+This is the order-returning version of `LC 207`. The graph and indegree construction are identical: an edge goes from prerequisite to course. The difference is that every popped node is appended to `order`, and the result is valid only if the order covers every course. If a cycle remains, some indegrees never drop to zero, so returning the partial order would be wrong.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -69,4 +73,4 @@ Time O(V+E), Space O(V+E).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would use the same Kahn topo process as Course Schedule, but append each popped course to an order list. The order is valid only if it contains all courses; otherwise a cycle blocked some courses, and the correct return value is an empty list.

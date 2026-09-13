@@ -36,6 +36,10 @@ dp[i] = max(dp[i - 1], nums[i] + dp[i - 2])
 #### Interview-Ready Explanation
 For each house, I either skip it and keep the best result up to `i - 1`, or rob it and add `nums[i]` to the best result up to `i - 2`. The recurrence is a clean choose-vs-skip DP.
 
+## Organized Notes
+
+This is the clean baseline for choose-or-skip DP. The important invariant is that after scanning a prefix of houses, `prev1` is the best amount for the processed prefix and `prev2` is the best amount before the previous house. For each new house, the two legal choices are: skip it and keep `prev1`, or rob it and add its value to `prev2`. That is why the rolling update is exactly the array recurrence without storing the full table.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -62,4 +66,4 @@ Time O(n), Space O(1).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would explain this as a choose-or-skip DP. For each house, either I skip it and keep the best value so far, or I rob it and combine it with the best value before the adjacent house. The two-variable version is just the compressed form of `dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])`.

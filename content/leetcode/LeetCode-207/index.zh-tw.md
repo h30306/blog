@@ -24,17 +24,17 @@ draft: false
 
 ## 當天筆記摘錄
 
-#### LC 207 — Course Schedule (Topological Sort / Cycle Detection)
+#### LC 207 - Course Schedule (Topological Sort / Cycle Detection)
 - **Pattern:** Topological Sort (Kahn's BFS)
-- **Key insight:** If a valid topological ordering exists → no cycle → return true
-- **Approach:** Build adjacency list + in-degree array. Add all nodes with in-degree 0 to queue. Process queue — for each node, reduce neighbor's in-degree; if it hits 0, add to queue. If completed == numCourses → no cycle.
-- **Complexity:** Time O(V+E), Space O(V+E)
-- **Why deque over list:** `list.pop(0)` is O(n) — shifts all elements. `deque.popleft()` is O(1) — moves a pointer.
+- **Key insight:** 如果存在合法 topological ordering，代表沒有 cycle，可以回傳 true。
+- **Approach:** 建 adjacency list 和 in-degree array。先把 in-degree 為 0 的課放進 queue。每 pop 一門課，就把後續課程的 in-degree 減 1；如果變成 0，就加入 queue。最後如果處理過的課數等於 `numCourses`，代表沒有 cycle。
+- **Complexity:** Time O(V + E), Space O(V + E)
+- **Why deque over list:** `list.pop(0)` 是 O(n)，因為會搬移元素；`deque.popleft()` 是 O(1)。
 
-#### LC 210 — Course Schedule II (Topological Sort / Return Order)
-- **Pattern:** Same as LC 207 but return the actual ordering
-- **Key insight:** The order nodes are popped from the queue IS the topological order
-- **Difference from LC 207:** Append each popped node to result list. If `len(result) == numCourses` → valid order exists.
+
+## 整理補充
+
+這篇只保留 boolean cycle detection 版本。`LC 210` 也是 topo，但它要回傳 order；`LC 207` 只需要判斷能不能把所有課都處理完。兩個修正點最重要：edge direction 要是 `pre -> course`，而且不能在 queue 還沒處理完整張圖以前就提早回傳 true。
 
 ## 正確解法
 
@@ -76,4 +76,4 @@ Time O(V+E), Space O(V+E).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會先建 `pre -> course` 的 graph，然後用 Kahn topo 算可以處理幾門課。如果有 cycle，queue 會在所有課被處理完之前清空；所以 `seen == numCourses` 就是沒有 cycle、所有 prerequisite 可被滿足的證明。

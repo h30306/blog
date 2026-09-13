@@ -33,20 +33,10 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 - **Complexity:** Time O(total ingredients + recipes), Space O(total ingredients + recipes)
 - **Common bugs:** Building edge direction as `recipe -> ingredient`, not adding newly created recipes back into the queue, treating unavailable ingredients as immediate failure instead of simply never unlocking.
 
-#### LC 310 - Minimum Height Trees
-- **Pattern:** Topological-style leaf trimming on an undirected tree
-- **Key insight:** The root of a minimum height tree must be the center of the tree. A tree has either 1 or 2 centers.
-- **Approach:** Build undirected adjacency sets and degree array. Start with all leaves where degree is 1. Remove leaves layer by layer. Each removal reduces neighbor degree. New leaves are added to the queue. Stop when remaining nodes <= 2.
-- **Why leaf trimming works:** The farthest nodes from the center are leaves. Removing outer layers repeatedly leaves the center node(s).
-- **Special case:** If `n == 1`, return `[0]`.
-- **Complexity:** Time O(n), Space O(n)
-- **Common bugs:** Treating this as directed topo sort, forgetting `n == 1`, returning removed leaves instead of remaining centers, not decrementing remaining node count.
 
-#### Pattern Comparison
-- **Alien Dictionary:** Directed graph ordering problem.
-- **Recipes:** Directed dependency unlocking problem.
-- **Minimum Height Trees:** Undirected tree center problem using topo-style pruning.
-- **Interview distinction:** Topological sort is not only one template. The same in-degree idea can model ordering, availability, or layer removal, but the graph direction and meaning must be explained clearly.
+## Organized Notes
+
+This is dependency unlocking rather than ordinary course scheduling. Supplies are already available, and recipes become available only after every missing ingredient has been seen. The important repair point from the note is not to fail immediately when an ingredient is not initially available; it may be produced by another recipe later. That is why each newly unlocked recipe is pushed back into the queue as a future ingredient.
 
 ## Clean Solution
 
@@ -90,4 +80,4 @@ Time O(total ingredients + supplies + recipes), Space O(total ingredients).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would treat supplies and completed recipes as available ingredients. Each recipe tracks how many ingredients are still missing. When an available item reduces a recipe's missing count to zero, that recipe becomes both an answer and a new available ingredient.

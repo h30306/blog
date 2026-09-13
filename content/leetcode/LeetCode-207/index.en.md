@@ -24,17 +24,17 @@ This article is rebuilt from the exact LeetCode section in the learning note. I 
 
 ## Learning Note Extract
 
-#### LC 207 — Course Schedule (Topological Sort / Cycle Detection)
+#### LC 207 - Course Schedule (Topological Sort / Cycle Detection)
 - **Pattern:** Topological Sort (Kahn's BFS)
-- **Key insight:** If a valid topological ordering exists → no cycle → return true
-- **Approach:** Build adjacency list + in-degree array. Add all nodes with in-degree 0 to queue. Process queue — for each node, reduce neighbor's in-degree; if it hits 0, add to queue. If completed == numCourses → no cycle.
-- **Complexity:** Time O(V+E), Space O(V+E)
-- **Why deque over list:** `list.pop(0)` is O(n) — shifts all elements. `deque.popleft()` is O(1) — moves a pointer.
+- **Key insight:** If a valid topological ordering exists -> no cycle -> return true
+- **Approach:** Build adjacency list + in-degree array. Add all nodes with in-degree 0 to queue. Process queue; for each node, reduce each neighbor's in-degree, and when it reaches 0, add it to queue. If the number of processed courses equals `numCourses`, there is no cycle.
+- **Complexity:** Time O(V + E), Space O(V + E)
+- **Why deque over list:** `list.pop(0)` is O(n) because it shifts all elements. `deque.popleft()` is O(1).
 
-#### LC 210 — Course Schedule II (Topological Sort / Return Order)
-- **Pattern:** Same as LC 207 but return the actual ordering
-- **Key insight:** The order nodes are popped from the queue IS the topological order
-- **Difference from LC 207:** Append each popped node to result list. If `len(result) == numCourses` → valid order exists.
+
+## Organized Notes
+
+This article should stay focused on the boolean cycle-detection version. `LC 210` uses the same topological process but returns the order; `LC 207` only needs to know whether every course can be processed. The two common repair points are edge direction (`pre -> course`) and not returning true until the processed count reaches `numCourses`.
 
 ## Clean Solution
 
@@ -76,4 +76,4 @@ Time O(V+E), Space O(V+E).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would build edges from prerequisite to course and count how many courses Kahn's algorithm can process. If a cycle exists, the queue eventually empties before all courses are processed. So `seen == numCourses` is the proof that all prerequisites can be satisfied.

@@ -65,6 +65,10 @@ Move full Bellman-Ford intro and full `LC 787` practice to:
 Week 3 Weekend Day 2
 ```
 
+## Organized Notes
+
+The note correctly flags the trap: city-only `visited` is not a valid Dijkstra pruning key because remaining stop budget is part of the state. A robust interview answer is Bellman-Ford by edge count. With at most `k` stops, the path may use at most `k + 1` flights, so we relax all flights exactly `k + 1` rounds. Each round reads from the previous distance array and writes to a copied array, which prevents one round from using more than one extra flight.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -99,4 +103,4 @@ Time O((K+1)*E), Space O(V).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would frame this as shortest path with an edge-count limit. Since at most `k` stops means at most `k + 1` flights, I relax all flights for `k + 1` layers. Copying the previous distance array each layer guarantees each round uses only one additional flight.

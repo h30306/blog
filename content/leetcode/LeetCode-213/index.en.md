@@ -42,6 +42,10 @@ exclude first house
 #### Interview-Ready Explanation
 Because the houses are arranged in a circle, the first and last houses are adjacent, so I cannot rob both. I split the problem into two linear House Robber I cases: rob `nums[:-1]` or rob `nums[1:]`, then take the maximum of those two answers.
 
+## Organized Notes
+
+The circular constraint is the whole problem. Once house `0` and house `n - 1` are adjacent, a single linear robber pass can accidentally choose both. Splitting into `nums[:-1]` and `nums[1:]` removes that conflict: every valid optimal answer either excludes the last house or excludes the first house. The helper is exactly `LC 198` with two rolling variables, and the `n == 1` case must be handled before slicing.
+
 ## Clean Solution
 
 The note above captures the reasoning and the mistakes to avoid. The implementation below is the version I would submit.
@@ -74,4 +78,4 @@ Time O(n), Space O(1).
 
 ## Final Interview Explanation
 
-Start from the state definition, then explain why the transition preserves that state. If there is a loop direction, state compression, or a similar-looking problem with a different answer shape, call that out explicitly because that is where this problem family usually breaks down.
+I would first call out the circular edge between the first and last house. Because an optimal solution cannot include both, I solve two linear robber subproblems, excluding one end each time, and return the larger result. The single-house case must be handled separately.

@@ -36,6 +36,10 @@ dp[i] = max(dp[i - 1], nums[i] + dp[i - 2])
 #### Interview-Ready Explanation
 For each house, I either skip it and keep the best result up to `i - 1`, or rob it and add `nums[i]` to the best result up to `i - 2`. The recurrence is a clean choose-vs-skip DP.
 
+## 整理補充
+
+這題是 choose-or-skip DP 的基準題。掃過一段 houses 後，`prev1` 代表目前 prefix 的最佳答案，`prev2` 代表前一間以前的最佳答案。遇到新 house 時，合法選擇只有兩個：skip 它並保留 `prev1`，或 rob 它並加上 `prev2`。所以兩變數寫法只是把 `dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])` 壓縮掉。
+
 ## 正確解法
 
 上面的筆記保留了推理脈絡和當天需要修正的點。下面是我會提交的版本。
@@ -62,4 +66,4 @@ Time O(n), Space O(1).
 
 ## 面試口說整理
 
-先講清楚 state definition，再說 transition 為什麼維持這個 state。只要這題有 loop direction、狀態壓縮、或題型相似但 answer shape 不同的地方，就要主動講出來，因為那通常就是這類題最容易出錯的點。
+我會把這題講成 choose-or-skip DP。每一間房子只有兩種合法選擇：不偷它，保留目前最佳；或偷它，加上前前一間以前的最佳。兩變數版本就是 `dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])` 的壓縮。

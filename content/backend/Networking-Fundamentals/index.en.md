@@ -1,7 +1,7 @@
 ---
 title: "Backend Networking Fundamentals"
 summary: "DNS, TCP, HTTP, TLS, and load balancing in backend interview terms"
-description: "Backend interview notes rebuilt from networking learning days"
+description: "Backend review notes for DNS, TCP, HTTP, TLS, and load balancing"
 date: 2026-04-08
 tags: ["networking", "dns", "tcp", "http", "tls", "load-balancing"]
 categories: ["backend"]
@@ -12,12 +12,13 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## Review Points
 
-- Day 1: OSI model, TCP vs UDP, TLS, L4 vs L7, DNS
-- Day 2: DNS and HTTP versions
-- Day 3-5: TCP behavior, sockets, load balancers, flow control, congestion control
-- Day 6-14: DNS, HTTP, TLS handshake, certificate validation, TLS termination, re-encryption
+- DNS resolution, caching, TTL, migration / failover behavior
+- TCP reliable ordered byte stream, flow control, congestion control, connection reuse
+- HTTP/1.1, HTTP/2, and HTTP/3 latency and head-of-line trade-offs
+- TLS handshake, certificate validation, termination, and re-encryption
+- L4 vs L7 load balancing and production failure points
 
 ## Mental Model
 

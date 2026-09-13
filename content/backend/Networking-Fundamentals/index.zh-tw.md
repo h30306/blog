@@ -1,7 +1,7 @@
 ---
 title: "Backend Networking Fundamentals"
 summary: "用 backend interview 口徑整理 DNS、TCP、HTTP、TLS 與 Load Balancing"
-description: "從 networking learning notes 重新整理的 backend 筆記"
+description: "DNS、TCP、HTTP、TLS 與 load balancing 的 backend 複習筆記"
 date: 2026-04-08
 tags: ["networking", "dns", "tcp", "http", "tls", "load-balancing"]
 categories: ["backend"]
@@ -12,12 +12,13 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 1: OSI model, TCP vs UDP, TLS, L4 vs L7, DNS
-- Day 2: DNS and HTTP versions
-- Day 3-5: TCP behavior, sockets, load balancers, flow control, congestion control
-- Day 6-14: DNS, HTTP, TLS handshake, certificate validation, TLS termination, re-encryption
+- DNS resolution, caching, TTL, migration / failover behavior
+- TCP reliable ordered byte stream, flow control, congestion control, connection reuse
+- HTTP/1.1, HTTP/2, HTTP/3 的 latency 和 head-of-line trade-off
+- TLS handshake, certificate validation, termination, re-encryption
+- L4 vs L7 load balancing and production failure points
 
 ## 心智模型
 

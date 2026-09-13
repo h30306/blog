@@ -1,7 +1,7 @@
 ---
 title: "API Design Under Failure"
 summary: "Retry-safe API、idempotency key、pagination 與 recoverable errors"
-description: "從 Week 4 learning notes 重新整理的 backend API 設計筆記"
+description: "API failure handling、status codes、idempotency、pagination 與 recovery contract 複習筆記"
 date: 2026-04-28
 tags: ["api-design", "idempotency", "grpc", "pagination", "retries"]
 categories: ["backend"]
@@ -12,12 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 15: API design under failure, REST vs gRPC
-- Day 16: retry-safe API design, idempotency storage, gRPC deadlines
-- Day 17: stale-write prevention, pagination, recoverable error contracts
-- Day 18-21: full request path, timeout ambiguity, duplicate create prevention
+- Resource-oriented endpoint design and method semantics
+- `POST` retry safety with durable idempotency records
+- `PUT` / `PATCH` behavior and stale-write prevention
+- `201` / `202` / `204` / `409` / `412` / `422` / `429` status-code choice
+- Cursor pagination, invalid-cursor recovery, request IDs, trace IDs
+- REST vs gRPC trade-offs and deadline propagation
 
 ## 心智模型
 

@@ -1,7 +1,7 @@
 ---
 title: "Sharding, Hot Shards, And Cross-Shard Pain"
 summary: "Shard-key choice as workload design, not just picking a column"
-description: "Week 8 learning notes: shard key choice, hot shards, cross-shard queries, resharding"
+description: "Distributed systems review notes for shard-key choice, hot shards, cross-shard queries, and resharding"
 date: 2026-05-27
 tags: ["distributed-systems", "database-scaling", "sharding", "hot-shard", "multi-tenant"]
 categories: ["distribution-system"]
@@ -12,10 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## Review Points
 
-- Day 44: shard key choice, hot tenant / hot shard, cross-shard read and transaction pain
-- Week 8 target: compare schema/index fixes vs cache vs replication vs sharding
+- Shard key choice from workload and access patterns
+- Tenant locality vs even distribution
+- Hot tenant / hot shard detection and mitigation
+- Cross-shard joins, ordering, pagination, reporting, and transactions
+- Resharding cost and migration risk
+- When schema/index/cache/replication should come before sharding
 
 ## Mental Model
 

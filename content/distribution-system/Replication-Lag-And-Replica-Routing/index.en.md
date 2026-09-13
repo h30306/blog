@@ -1,7 +1,7 @@
 ---
 title: "Replication Lag And Replica Routing"
 summary: "Read replicas as a freshness and routing problem, not just read scaling"
-description: "Week 8 learning notes: primary/replica, replication lag, read-after-write consistency"
+description: "Distributed systems review notes for primary/replica, replication lag, and read-after-write consistency"
 date: 2026-05-26
 tags: ["distributed-systems", "database-scaling", "replication", "read-replica", "consistency"]
 categories: ["distribution-system"]
@@ -12,11 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## Review Points
 
-- Day 43: primary / replica model, replication lag, read-after-write inconsistency
-- Week 8 deep dive target: scale hospital DAL from 10 to 500 hospitals
-- Related Week 5-7 carry-forward: query/index quality and transaction correctness still matter before adding replicas
+- Primary / replica model and async replication
+- Replication lag and read-after-write inconsistency
+- Endpoint-level freshness classification
+- Post-write primary pinning and replica catch-up checks
+- Why replicas do not fix bad query/index/schema design
+- What to measure when scaling a hospital DAL read path
 
 ## Mental Model
 

@@ -1,7 +1,7 @@
 ---
 title: "B+Tree And Index Internals"
 summary: "從 page read、access path、selectivity 和 write cost 重新整理 index 心智模型"
-description: "Week 5 learning notes: B+Tree、clustered/secondary index、index scan vs full scan"
+description: "B+Tree、clustered/secondary index、index scan vs full scan 的資料庫複習筆記"
 date: 2026-05-05
 tags: ["database", "index", "btree", "query-optimization", "storage-engine"]
 categories: ["database"]
@@ -12,12 +12,13 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 22: B+Tree structure, page model, point lookup, range scan
-- Day 23: clustered vs secondary index, base-table lookup, covering index
-- Day 24: index scan vs full table scan, why indexes slow writes
-- Day 25 and Day 27: ASUS-style query defense, B+Tree insert and page split review
+- B+Tree page model, fan-out, tree height, point lookup, range scan
+- Clustered / primary-style access path vs secondary / non-clustered access path
+- Secondary index row locator, base-table lookup, covering index
+- Selectivity, cardinality, full table scan reasoning
+- Page split, write amplification, and why indexes slow writes
 
 ## 心智模型
 

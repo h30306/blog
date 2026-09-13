@@ -1,7 +1,7 @@
 ---
 title: "Redis Cache-Aside And Query Fixes"
 summary: "Redis 什麼時候是正確解，什麼時候只是遮住 query/index/schema 問題"
-description: "Week 8 learning notes: cache-aside、invalidation、stale reads、hot keys、Redis vs DB fixes"
+description: "Cache-aside、invalidation、stale reads、hot keys、Redis vs DB fixes 的複習筆記"
 date: 2026-05-28
 tags: ["distributed-systems", "redis", "cache-aside", "caching", "database-scaling"]
 categories: ["distribution-system"]
@@ -12,11 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 45: Redis cache-aside, invalidation, stale-read trade-offs
-- Day 46: when Redis helps vs when query / index / schema fixes should come first
-- Week 10 carry-forward target: cache stampede, hot keys, Redis vs Memcached, when not to cache
+- Cache-aside read path and write invalidation
+- Data freshness and stale-read tolerance by endpoint
+- Cache stampede, TTL jitter, single-flight, stale-while-revalidate
+- Hot key detection and mitigation
+- Redis outage fallback and DB protection
+- When to fix query/index/schema before adding Redis
 
 ## 心智模型
 

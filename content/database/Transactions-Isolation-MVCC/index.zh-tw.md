@@ -1,7 +1,7 @@
 ---
 title: "Transactions, Isolation, And MVCC"
 summary: "把 ACID、isolation anomalies、MVCC、locking 和 retry 拆成可防守的 backend 答案"
-description: "Week 7 learning notes: ACID、isolation levels、MVCC、deadlocks、Oracle Read Committed"
+description: "ACID、isolation levels、MVCC、deadlocks、Oracle Read Committed 的資料庫複習筆記"
 date: 2026-05-19
 tags: ["database", "transactions", "isolation", "mvcc", "locking", "oracle"]
 categories: ["database"]
@@ -12,13 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 36: ACID with concrete backend examples
-- Day 37: isolation levels and booking / billing correctness
-- Day 38: MVCC, optimistic vs pessimistic locking, `SELECT ... FOR UPDATE`
-- Day 39: deadlock, write skew, Oracle `READ COMMITTED` and `ORA-08177`
-- Day 41-42: Serializable, phantom read, no-notes recall
+- ACID as backend correctness guarantees, not textbook slogans
+- Isolation levels, dirty read, non-repeatable read, phantom read, lost update
+- MVCC and what it does not solve by itself
+- Optimistic versioning / ETag vs pessimistic row locking
+- Deadlock, write skew, serializable abort, bounded retry
+- Oracle `READ COMMITTED`, statement-level consistency, `ORA-08177`
 
 ## 心智模型
 

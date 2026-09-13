@@ -1,7 +1,7 @@
 ---
 title: "Composite Index And Query Triage"
 summary: "Reason about composite indexes through predicates, ordering, projection, and write cost"
-description: "Week 6 learning notes: leftmost prefix, SARGability, covering index, Oracle-style plan reading"
+description: "Database review notes for leftmost prefix, SARGability, covering indexes, and Oracle-style plans"
 date: 2026-05-12
 tags: ["database", "composite-index", "query-plan", "oracle", "sargability"]
 categories: ["database"]
@@ -12,12 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## Review Points
 
-- Day 29: composite index order and leftmost prefix
-- Day 30: Oracle-style plan reading and full scan reasoning
-- Day 31: covering index and index-only access
-- Day 32-35: query vs index vs schema triage, ASUS-style query review
+- Composite index order and leftmost prefix
+- Equality-before-range intuition and ordering behavior
+- SARGability and common index blockers
+- Oracle-style plan terms: `TABLE ACCESS FULL`, `INDEX RANGE SCAN`, `TABLE ACCESS BY INDEX ROWID`
+- Covering index, projection width, row-fetch cost
+- Query rewrite vs index change vs schema change triage
 
 ## Mental Model
 

@@ -1,7 +1,7 @@
 ---
 title: "Replication Lag And Replica Routing"
 summary: "把 read replica 從讀流量擴充，講到 read-after-write correctness 和 routing policy"
-description: "Week 8 learning notes: primary/replica、replication lag、read-after-write consistency"
+description: "Primary/replica、replication lag、read-after-write consistency 的分散式系統複習筆記"
 date: 2026-05-26
 tags: ["distributed-systems", "database-scaling", "replication", "read-replica", "consistency"]
 categories: ["distribution-system"]
@@ -12,11 +12,14 @@ cascade:
 draft: false
 ---
 
-## Learning Note Sources
+## 複習重點
 
-- Day 43: primary / replica model, replication lag, read-after-write inconsistency
-- Week 8 deep dive target: scale hospital DAL from 10 to 500 hospitals
-- Related Week 5-7 carry-forward: query/index quality and transaction correctness still matter before adding replicas
+- Primary / replica model and async replication
+- Replication lag and read-after-write inconsistency
+- Endpoint-level freshness classification
+- Post-write primary pinning and replica catch-up checks
+- Why replicas do not fix bad query/index/schema design
+- What to measure when scaling a hospital DAL read path
 
 ## 心智模型
 

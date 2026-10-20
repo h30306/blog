@@ -60,6 +60,8 @@ return sum(dp)
 - **母音排列**（LC 1220）：狀態是最後一個母音，轉移照題目規則。
 - **塗 n × 3 格子**（LC 1411）：一列只有兩種樣式：`ABA`（兩端同色）和 `ABC`（三色都不同），各 6 種塗法，下一列的轉移是 `ABA → 3 ABA + 2 ABC`、`ABC → 2 ABA + 2 ABC`。
 - **代幣移不移動**（LC 3952）：狀態是「這一格的代幣有沒有往左移」。
+- **兩根手指打字**（LC 1320）：一根手指一定在上一個字母上，狀態只要記**另一根手指**在哪（26 個字母或還沒用過）。
+- **兩條路徑在交會點切換**（LC 1537）：兩個陣列各維護一個累計和，走到共同的值時兩條路可以互換，把兩個和都設成較大的那個。
 
 ## 模板三：DP + 單調佇列
 
@@ -111,6 +113,18 @@ return sum(end.values()) % MOD
 
 （LC 940）
 
+## 模板六：前綴 / 後綴分開算
+
+答案是「左邊選一部分、右邊選一部分」時，先從左往右算出每個切點的左邊最佳值，再從右往左算右邊最佳值，最後枚舉切點：
+
+```python
+left_best = [...]                         # left_best[i]：只用 [0..i] 的最佳值
+right_best = [...]                        # right_best[i]：只用 [i..n-1] 的最佳值
+ans = min(left_best[k - 1] - right_best[k] for k in 切點)
+```
+
+- **刪掉 n 個數讓兩半的差最小**（LC 2163）：左邊要選 `n` 個最小的（用最大堆維護），右邊要選 `n` 個最大的（用最小堆維護）。
+
 ## 標了 DP，但觀察或貪心更快
 
 這幾題 LeetCode 有 DP 標籤，但想清楚結構後可以不用 DP：
@@ -157,3 +171,6 @@ return sum(end.values()) % MOD
 - `LC 2745` Construct the Longest New String
 - `LC 3638` Maximum Balanced Shipments
 - `LC 3660` Jump Game IX
+- `LC 1320` Minimum Distance to Type a Word Using Two Fingers
+- `LC 1537` Get the Maximum Score
+- `LC 2163` Minimum Difference in Sums After Removal of Elements

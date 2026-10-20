@@ -95,3 +95,4 @@ dp[left][right] = s[left:right+1] 這段 interval 的答案
 - `LC 1092` Shortest Common Supersequence
 - `LC 1143` Longest Common Subsequence
 - `LC 1312` Minimum Insertion Steps to Make a String Palindrome
+- `LC 1458` Max Dot Product of Two Subsequences

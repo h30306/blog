@@ -60,6 +60,8 @@ return sum(dp)
 - **Vowel strings** (LC 1220): state = the last vowel, transitions by the rules.
 - **Painting an n × 3 grid** (LC 1411): a row has only two patterns, `ABA` (ends match) and `ABC` (all different), 6 colorings each, with transitions `ABA → 3 ABA + 2 ABC` and `ABC → 2 ABA + 2 ABC`.
 - **Moving tokens** (LC 3952): state = "did the token at this index move left".
+- **Typing with two fingers** (LC 1320): one finger is always on the previous letter, so the state only needs **the other finger's** position (26 letters or unused).
+- **Two paths switching at common values** (LC 1537): keep a running sum per array, and at a shared value the paths may swap, so set both sums to the larger one.
 
 ## Template 3: DP + monotonic deque
 
@@ -111,6 +113,18 @@ return sum(end.values()) % MOD
 
 (LC 940)
 
+## Template 6: Prefix and suffix computed separately
+
+When the answer is "some part chosen on the left, some on the right", compute the best left value for every cut from left to right, the best right value from right to left, then try every cut:
+
+```python
+left_best = [...]                         # left_best[i]: best using only [0..i]
+right_best = [...]                        # right_best[i]: best using only [i..n-1]
+ans = min(left_best[k - 1] - right_best[k] for k in cut_points)
+```
+
+- **Remove n numbers to minimize the difference of the halves** (LC 2163): the left keeps its `n` smallest (a max-heap), the right keeps its `n` largest (a min-heap).
+
 ## Tagged DP, but an observation or greedy is faster
 
 These carry a DP tag on LeetCode, but once the structure is clear they need no DP:
@@ -157,3 +171,6 @@ These are all mistakes I actually made while practicing:
 - `LC 2745` Construct the Longest New String
 - `LC 3638` Maximum Balanced Shipments
 - `LC 3660` Jump Game IX
+- `LC 1320` Minimum Distance to Type a Word Using Two Fingers
+- `LC 1537` Get the Maximum Score
+- `LC 2163` Minimum Difference in Sums After Removal of Elements

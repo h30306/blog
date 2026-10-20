@@ -153,3 +153,17 @@ for right, x in enumerate(nums):
 - `LC 2269` Find the K-Beauty of a Number
 - `LC 2156` Find Substring With Given Hash Value
 - `LC 3835` Count Subarrays With Cost Less Than or Equal to K
+- `LC 1016` Binary String With Substrings Representing 1 To N
+- `LC 220` Contains Duplicate III
+- `LC 2024` Maximize the Confusion of an Exam
+- `LC 1208` Get Equal Substrings Within Budget
+- `LC 3634` Minimum Removals to Balance Array
+- `LC 3090` Maximum Length Substring With Two Occurrences
+- `LC 2958` Length of Longest Subarray With at Most K Frequency
+- `LC 2831` Find the Longest Equal Subarray
+- `LC 2779` Maximum Beauty of an Array After Applying Operation
+- `LC 2271` Maximum White Tiles Covered by a Carpet
+- `LC 1838` Frequency of the Most Frequent Element
+- `LC 2730` Find the Longest Semi-Repetitive Substring
+- `LC 2516` Take K of Each Character From Left and Right
+- `LC 2106` Maximum Fruits Harvested After at Most K Steps

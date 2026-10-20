@@ -1,6 +1,6 @@
 ---
 title: "Sliding Window"
-summary: "Fixed-size windows, variable windows for longest / shortest, counting subarrays (at most K minus at most K - 1), and monotonic deques for window extremes"
+summary: "Fixed-size windows, variable windows for longest / shortest, counting subarrays (at most K minus at most K - 1, count += left for at least K), and monotonic deques for window extremes"
 description: "Algorithm Learning"
 date: 2025-07-04
 tags: ["sliding-window", "two-pointers", "hash-table", "monotonic-queue"]
@@ -95,6 +95,20 @@ return at_most(k) - at_most(k - 1)       # exactly k
 
 **"Exactly K" is not monotonic, but "at most K" is**, so subtract two at-most counts (LC 1248). When the condition, such as "cost `<= k`", is monotonic itself, count directly (LC 3835).
 
+**The "at least K" form**: while the window is valid, keep shrinking the left until it just becomes invalid. Then any left end in `[0, left)` is valid, so `count += left`:
+
+```python
+left = count = 0
+for right, x in enumerate(nums):
+    add(x)
+    while window_valid():
+        remove(nums[left])
+        left += 1
+    count += left                        # left ends in [0, left) are all valid
+```
+
+(LC 2962, 1358, 3325, 3298, 2537). "Exactly K" can also be "at least K" minus "at least K + 1" (LC 3306).
+
 ## Template 5: Monotonic deque for window extremes
 
 ```python
@@ -113,6 +127,8 @@ for right, x in enumerate(nums):
 ```
 
 Keep the two conditions separate: the **back** drops dominated indices, the **front** drops expired ones. For both max and min, use two deques (LC 3835).
+
+**DP + monotonic deque**: `dp[i] = nums[i] + max(0, max of dp[i-k..i-1])`, and the max of the previous `k` values of `dp` is a sliding window maximum (LC 1425).
 
 ## Key Parameters
 
@@ -135,6 +151,8 @@ These are all mistakes I actually made while practicing:
 - **Not checking that the window length equals the target** (LC 2953).
 - **Powers without a modulo**: recomputing `power ** k` as a big integer each step, TLE (LC 2156).
 - **Mixing "expired" and "dominated" into one deque condition** (LC 3835).
+- **Not updating counts while shrinking**: the `while` loop moved `left` but never subtracted the leaving element (LC 2537).
+- **A hard-coded leave threshold**: an "at least `k` times" counter should drop when a count goes from `k` to `k - 1`, but I wrote `== 1` (LC 3325).
 
 ## Related LeetCode
 
@@ -180,3 +198,17 @@ These are all mistakes I actually made while practicing:
 - `LC 2302` Count Subarrays With Score Less Than K
 - `LC 2875` Minimum Size Subarray in Infinite Array
 - `LC 1234` Replace the Substring for Balanced String
+- `LC 2962` Count Subarrays Where Max Element Appears at Least K Times
+- `LC 1358` Number of Substrings Containing All Three Characters
+- `LC 3325` Count Substrings With K-Frequency Characters I
+- `LC 930` Binary Subarrays With Sum
+- `LC 3298` Count Substrings That Can Be Rearranged to Contain a String II
+- `LC 2537` Count the Number of Good Subarrays
+- `LC 3306` Count of Substrings Containing Every Vowel and K Consonants II
+- `LC 992` Subarrays with K Different Integers
+- `LC 2401` Longest Nice Subarray
+- `LC 1156` Swap For Longest Repeated Character Substring
+- `LC 1984` Minimum Difference Between Highest and Lowest of K Scores
+- `LC 3323` Minimize Connected Groups by Inserting Interval
+- `LC 1425` Constrained Subsequence Sum
+- `LC 4067` Longest Subarray With Restricted Pair Sums

@@ -1,6 +1,6 @@
 ---
 title: "Sliding Window 滑動視窗"
-summary: "固定長度視窗、可變長度求最長 / 最短、數子陣列個數（at most K 相減）、單調佇列維護視窗最值"
+summary: "固定長度視窗、可變長度求最長 / 最短、數子陣列個數（最多 K 相減、至少 K 用 count += left）、單調佇列維護視窗最值"
 description: "演算法學習"
 date: 2025-07-04
 tags: ["sliding-window", "two-pointers", "hash-table", "monotonic-queue"]
@@ -95,6 +95,20 @@ return at_most(k) - at_most(k - 1)       # 剛好 k
 
 **「剛好 K」不單調，但「最多 K」單調**，所以用兩次「最多」相減（LC 1248）。如果條件是「花費 `<= k`」本身就單調，直接數就好（LC 3835）。
 
+**「至少 K」的寫法**：視窗合法時就一直縮左邊，縮到剛好不合法為止。這時左端放在 `[0, left)` 的任何位置都合法，所以 `count += left`：
+
+```python
+left = count = 0
+for right, x in enumerate(nums):
+    加入(x)
+    while 視窗合法():
+        移除(nums[left])
+        left += 1
+    count += left                        # 左端在 [0, left) 都合法
+```
+
+（LC 2962、1358、3325、3298、2537）。「剛好 K」也可以寫成「至少 K」減「至少 K + 1」（LC 3306）。
+
 ## 模板五：單調佇列維護視窗最值
 
 ```python
@@ -113,6 +127,8 @@ for right, x in enumerate(nums):
 ```
 
 兩個條件要分開：**尾端**丟掉被支配的，**頭端**丟掉過期的。同時要最大和最小值，就開兩個佇列（LC 3835）。
+
+**DP + 單調佇列**：`dp[i] = nums[i] + max(0, dp[i-k..i-1] 的最大值)`，前 `k` 個 `dp` 的最大值就是一個滑動視窗最大值（LC 1425）。
 
 ## 主要參數說明
 
@@ -135,6 +151,8 @@ for right, x in enumerate(nums):
 - **沒檢查視窗長度剛好等於目標**（LC 2953）。
 - **次方沒有取模**：`power ** k` 每次重算大整數，TLE（LC 2156）。
 - **單調佇列把「過期」和「被支配」混在同一個條件**（LC 3835）。
+- **縮視窗時忘了更新計數**：`while` 裡只移動了 `left`，沒有把離開的元素從計數裡扣掉（LC 2537）。
+- **離開視窗時的門檻寫死**：「至少 `k` 次」的計數要在數量從 `k` 變成 `k - 1` 時才減，我寫成 `== 1`（LC 3325）。
 
 ## 相關 LeetCode
 
@@ -180,3 +198,17 @@ for right, x in enumerate(nums):
 - `LC 2302` Count Subarrays With Score Less Than K
 - `LC 2875` Minimum Size Subarray in Infinite Array
 - `LC 1234` Replace the Substring for Balanced String
+- `LC 2962` Count Subarrays Where Max Element Appears at Least K Times
+- `LC 1358` Number of Substrings Containing All Three Characters
+- `LC 3325` Count Substrings With K-Frequency Characters I
+- `LC 930` Binary Subarrays With Sum
+- `LC 3298` Count Substrings That Can Be Rearranged to Contain a String II
+- `LC 2537` Count the Number of Good Subarrays
+- `LC 3306` Count of Substrings Containing Every Vowel and K Consonants II
+- `LC 992` Subarrays with K Different Integers
+- `LC 2401` Longest Nice Subarray
+- `LC 1156` Swap For Longest Repeated Character Substring
+- `LC 1984` Minimum Difference Between Highest and Lowest of K Scores
+- `LC 3323` Minimize Connected Groups by Inserting Interval
+- `LC 1425` Constrained Subsequence Sum
+- `LC 4067` Longest Subarray With Restricted Pair Sums

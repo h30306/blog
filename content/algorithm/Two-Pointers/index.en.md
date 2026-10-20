@@ -150,3 +150,29 @@ These are all mistakes I actually made while practicing:
 - `LC 809` Expressive Words
 - `LC 2337` Move Pieces to Obtain a String
 - `LC 777` Swap Adjacent in LR String
+- `LC 2410` Maximum Matching of Players With Trainers
+- `LC 3649` Number of Perfect Pairs
+- `LC 825` Friends Of Appropriate Ages
+- `LC 923` 3Sum With Multiplicity
+- `LC 1782` Count Pairs Of Nodes
+- `LC 948` Bag of Tokens
+- `LC 2105` Watering Plants II
+- `LC 1877` Minimize Maximum Pair Sum in Array
+- `LC 1498` Number of Subsequences That Satisfy the Given Sum Condition
+- `LC 1471` The k Strongest Values in an Array
+- `LC 633` Sum of Square Numbers
+- `LC 2563` Count the Number of Fair Pairs
+- `LC 1574` Shortest Subarray to be Removed to Make Array Sorted
+- `LC 2972` Count the Number of Incremovable Subarrays II
+- `LC 2122` Recover the Original Array
+- `LC 1989` Maximum Number of People That Can Be Caught in Tag
+- `LC 3555` Smallest Subarray to Sort in Every Sliding Window
+- `LC 581` Shortest Unsorted Continuous Subarray
+- `LC 1793` Maximum Score of a Good Subarray
+- `LC 986` Interval List Intersections
+- `LC 244` Shortest Word Distance II
+- `LC 1570` Dot Product of Two Sparse Vectors
+- `LC 1229` Meeting Scheduler
+- `LC 4026` Maximum Gap Between Stations
+- `LC 2193` Minimum Number of Moves to Make Palindrome
+- `LC 1842` Next Palindrome Using Same Digits

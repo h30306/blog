@@ -147,6 +147,13 @@ while q:
 
 LC 2603 先剪掉「沒有硬幣的葉子」，再固定剪兩層，剩下的邊就是一定要走的路徑。LC 310 Minimum Height Trees 也是同一個模板。
 
+## 模板七：樹上 DP（後序回傳子樹摘要）
+
+每個節點需要子樹的某些資訊時，後序遍歷回傳一個「摘要」，父節點用孩子的摘要組合出自己的：
+
+- **最大的 BST 子樹和**（LC 1373）：回傳 `(總和, 最小值, 最大值, 是不是 BST)`。是 BST 的條件是左子樹的**最大值** `<` 自己 `<` 右子樹的**最小值**；不是 BST 時讓父節點一定判斷失敗。
+- **子樹裡三個數的最大乘積**（LC 2973）：答案只跟最大的三個和最小的兩個有關，每個子樹只回傳這 5 個數，合併時排序再截斷。
+
 ## 複雜度
 
 - DFS、BFS、剪葉子都是 `O(n)`，每個節點和每條邊只處理常數次。
@@ -182,3 +189,5 @@ LC 2603 先剪掉「沒有硬幣的葉子」，再固定剪兩層，剩下的邊
 - `LC 2603` Collect Coins in a Tree
 - `LC 3313` Find the Last Marked Nodes in Tree
 - `LC 3203` Find Minimum Diameter After Merging Two Trees
+- `LC 1373` Maximum Sum BST in Binary Tree
+- `LC 2973` Find Number of Coins to Place in Tree Nodes

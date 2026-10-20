@@ -143,3 +143,4 @@ These are all mistakes I actually made while practicing:
 - `LC 316` Remove Duplicate Letters
 - `LC 3816` Lexicographically Smallest String After Deleting Duplicate Characters
 - `LC 716` Max Stack
+- `LC 2355` Maximum Number of Books You Can Take

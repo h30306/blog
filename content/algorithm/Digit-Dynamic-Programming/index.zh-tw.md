@@ -126,6 +126,28 @@ def digit_dp(n: int):
   - 是否出現過某個模式
   - 等等
 
+## 前導零與上下界
+
+一般模板只處理「`<= n`」。實際題目常常還需要兩個狀態：
+
+- **`started`（是否已經開始）**：前導零不算數字的一部分。還沒開始時放 0 不影響狀態（例如「數字都不重複」不能把前導零算成用過 0）；最後要 `started` 才算一個正整數（LC 2376）。給定數字集合時，還沒開始可以直接跳過這一位，代表更短的數字（LC 902）。
+- **上下界一起 tight**：要數 `[l, r]` 時，可以算 `f(r) - f(l - 1)`，也可以同時帶 `tight_low`、`tight_high` 兩個旗標，每一位的範圍是 `[low[pos] if tight_low else 0, high[pos] if tight_high else 9]`（LC 3906）。
+
+```python
+@cache
+def dfs(pos, tight, started, state):
+    if pos == len(digits):
+        return 1 if started else 0
+    res = 0
+    if not started:
+        res += dfs(pos + 1, False, False, state)        # 這一位還是前導零
+    lo = 0 if started else 1
+    hi = digits[pos] if tight else 9
+    for d in range(lo, hi + 1):
+        res += dfs(pos + 1, tight and d == hi, True, update(state, d))
+    return res
+```
+
 ## 範例
 ### 數位加總
 
@@ -210,3 +232,9 @@ def even_number(number: int):
     
     return dfs(0, True, 0)
 ```
+
+## 相關 LeetCode
+
+- `LC 902` Numbers At Most N Given Digit Set
+- `LC 2376` Count Special Integers
+- `LC 3906` Count Good Integers on a Grid Path

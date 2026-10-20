@@ -147,6 +147,13 @@ while q:
 
 LC 2603 first trims coin-free leaves, then trims exactly two more layers; the remaining edges form the path that must be walked. LC 310 Minimum Height Trees uses the same template.
 
+## Template 7: Tree DP (Post-order Subtree Summaries)
+
+When each node needs facts about its subtree, a post-order traversal returns a "summary" and each parent combines its children's summaries:
+
+- **Largest BST subtree sum** (LC 1373): return `(sum, min, max, is_bst)`. A node is a BST root when the left subtree's **max** `<` its value `<` the right subtree's **min**; a non-BST child makes the parent's check fail.
+- **Max product of three costs in a subtree** (LC 2973): only the three largest and two smallest values matter, so each subtree returns just those 5, merged by sorting and truncating.
+
 ## Complexity
 
 - DFS, BFS, and leaf trimming are all `O(n)`: each node and edge is handled a constant number of times.
@@ -182,3 +189,5 @@ These are all mistakes I actually made while practicing:
 - `LC 2603` Collect Coins in a Tree
 - `LC 3313` Find the Last Marked Nodes in Tree
 - `LC 3203` Find Minimum Diameter After Merging Two Trees
+- `LC 1373` Maximum Sum BST in Binary Tree
+- `LC 2973` Find Number of Coins to Place in Tree Nodes

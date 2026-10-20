@@ -90,3 +90,4 @@ with sum:
 
 - `LC 53` Maximum Subarray
 - `LC 152` Maximum Product Subarray, which needs both max-ending-here and min-ending-here because negative values can flip the sign.
+- `LC 3984` Divisible Game: for each candidate prime `k`, count divisible values as positive and the rest as negative, and run Kadane once.

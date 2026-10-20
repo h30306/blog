@@ -109,6 +109,28 @@ def digit_dp(n: int):
   - whether a pattern has occurred
   - etc.
 
+## Leading Zeros and Two Bounds
+
+The basic template only handles "`<= n`". Real problems often need two more states:
+
+- **`started` (has the number begun)**: leading zeros are not part of the number. Before starting, a 0 leaves the state unchanged (for "all digits distinct", leading zeros must not mark 0 as used), and only a `started` number counts as a positive integer (LC 2376). With a given digit set, skipping a position before starting represents a shorter number (LC 902).
+- **Both bounds tight at once**: to count `[l, r]`, compute `f(r) - f(l - 1)`, or carry both `tight_low` and `tight_high`, with each position ranging over `[low[pos] if tight_low else 0, high[pos] if tight_high else 9]` (LC 3906).
+
+```python
+@cache
+def dfs(pos, tight, started, state):
+    if pos == len(digits):
+        return 1 if started else 0
+    res = 0
+    if not started:
+        res += dfs(pos + 1, False, False, state)        # still a leading zero
+    lo = 0 if started else 1
+    hi = digits[pos] if tight else 9
+    for d in range(lo, hi + 1):
+        res += dfs(pos + 1, tight and d == hi, True, update(state, d))
+    return res
+```
+
 ## Examples
 
 ### Count Digit Sum
@@ -194,3 +216,9 @@ def even_number(number: int):
     
     return dfs(0, True, 0)
 ```
+
+## Related LeetCode
+
+- `LC 902` Numbers At Most N Given Digit Set
+- `LC 2376` Count Special Integers
+- `LC 3906` Count Good Integers on a Grid Path

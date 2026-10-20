@@ -90,3 +90,4 @@ nums = [-2,1,-3,4,-1,2,1,-5,4]
 
 - `LC 53` Maximum Subarray
 - `LC 152` Maximum Product Subarray，因為負數會翻轉正負，所以需要同時追蹤 max-ending-here 和 min-ending-here。
+- `LC 3984` Divisible Game，對每個候選的質數 `k`，把能整除的當正、不能的當負，跑一次 Kadane。

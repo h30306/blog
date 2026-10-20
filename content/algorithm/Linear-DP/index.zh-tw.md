@@ -127,6 +127,26 @@ ans = min(left_best[k - 1] - right_best[k] for k in 切點)
 
 - **刪掉 n 個數讓兩半的差最小**（LC 2163）：左邊要選 `n` 個最小的（用最大堆維護），右邊要選 `n` 個最大的（用最小堆維護）。
 
+## 模板七：狀態壓縮（bitmask）
+
+元素很少（`n <= 12` 到 `16`）而且要記「哪些用過了」時，用一個整數的 bit 表示集合：
+
+```python
+dp = [[0] * n for _ in range(1 << n)]    # dp[mask][last]：用了 mask 這些、最後一個是 last
+for i in range(n):
+    dp[1 << i][i] = 1
+for mask in range(1 << n):
+    for last in range(n):
+        if not dp[mask][last]:
+            continue
+        for nxt in range(n):
+            if not mask >> nxt & 1 and 可以接(last, nxt):
+                dp[mask | 1 << nxt][nxt] += dp[mask][last]
+```
+
+- **相鄰和是平方數的排列**（LC 996）：有重複的數字時，規定相同的數要依 index 順序使用，每個排列只會被算一次。
+- 數位 DP 的「哪些數字用過了」也是一個 10 bit 的 mask（LC 2376）。
+
 ## 標了 DP，但觀察或貪心更快
 
 這幾題 LeetCode 有 DP 標籤，但想清楚結構後可以不用 DP：
@@ -178,3 +198,5 @@ ans = min(left_best[k - 1] - right_best[k] for k in 切點)
 - `LC 2163` Minimum Difference in Sums After Removal of Elements
 - `LC 3989` Maximum Consistent Columns in a Grid
 - `LC 2912` Number of Ways to Reach Destination in the Grid
+- `LC 996` Number of Squareful Arrays
+- `LC 2355` Maximum Number of Books You Can Take

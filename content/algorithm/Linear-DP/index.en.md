@@ -127,6 +127,26 @@ ans = min(left_best[k - 1] - right_best[k] for k in cut_points)
 
 - **Remove n numbers to minimize the difference of the halves** (LC 2163): the left keeps its `n` smallest (a max-heap), the right keeps its `n` largest (a min-heap).
 
+## Template 7: Bitmask State
+
+With few elements (`n <= 12` to `16`) and a need to remember "which ones are used", one integer's bits represent the set:
+
+```python
+dp = [[0] * n for _ in range(1 << n)]    # dp[mask][last]: used the set mask, last element is last
+for i in range(n):
+    dp[1 << i][i] = 1
+for mask in range(1 << n):
+    for last in range(n):
+        if not dp[mask][last]:
+            continue
+        for nxt in range(n):
+            if not mask >> nxt & 1 and can_follow(last, nxt):
+                dp[mask | 1 << nxt][nxt] += dp[mask][last]
+```
+
+- **Permutations with square adjacent sums** (LC 996): with repeated numbers, require equal values to be used in index order so each permutation counts once.
+- In digit DP, "which digits are used" is also a 10-bit mask (LC 2376).
+
 ## Tagged DP, but an observation or greedy is faster
 
 These carry a DP tag on LeetCode, but once the structure is clear they need no DP:
@@ -178,3 +198,5 @@ These are all mistakes I actually made while practicing:
 - `LC 2163` Minimum Difference in Sums After Removal of Elements
 - `LC 3989` Maximum Consistent Columns in a Grid
 - `LC 2912` Number of Ways to Reach Destination in the Grid
+- `LC 996` Number of Squareful Arrays
+- `LC 2355` Maximum Number of Books You Can Take

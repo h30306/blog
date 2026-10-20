@@ -156,3 +156,4 @@ for s in range(n):
 - `LC 1210` Minimum Moves to Reach Target with Rotations
 - `LC 2608` Shortest Cycle in a Graph
 - `LC 3910` Count Connected Subgraphs with Even Node Sum
+- `LC 773` Sliding Puzzle

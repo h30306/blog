@@ -167,3 +167,16 @@ These are all mistakes I actually made while practicing:
 - `LC 2730` Find the Longest Semi-Repetitive Substring
 - `LC 2516` Take K of Each Character From Left and Right
 - `LC 2106` Maximum Fruits Harvested After at Most K Steps
+- `LC 2555` Maximize Win From Two Segments
+- `LC 2009` Minimum Number of Operations to Make Array Continuous
+- `LC 2781` Length of the Longest Valid Substring
+- `LC 3413` Maximum Coins From K Consecutive Bags
+- `LC 395` Longest Substring with At Least K Repeating Characters
+- `LC 1763` Longest Nice Substring
+- `LC 2904` Shortest and Lexicographically Smallest Beautiful String
+- `LC 2968` Apply Operations to Maximize Frequency Score
+- `LC 3258` Count Substrings That Satisfy K-Constraint I
+- `LC 1040` Moving Stones Until Consecutive II
+- `LC 2302` Count Subarrays With Score Less Than K
+- `LC 2875` Minimum Size Subarray in Infinite Array
+- `LC 1234` Replace the Substring for Balanced String

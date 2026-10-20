@@ -287,3 +287,8 @@ class UnionFind:
 ## Examples
 
 ### LeetCode
+
+- `LC 952` Largest Component Size by Common Factor
+- `LC 2709` Greatest Common Divisor Traversal
+- `LC 1998` GCD Sort of an Array
+- `LC 1627` Graph Connectivity With Threshold

@@ -71,6 +71,14 @@ dp[r][c] = 1 + min(top, left, diagonal)
 
 The diagonal is required because a larger square needs a valid inner square.
 
+## Grid DP + Extra State
+
+When grid coordinates are not enough to describe the state, add a dimension:
+
+- **At most k teleports** (LC 3651): compute layer by layer, where layer `t` has used `t` teleports. Teleporting into a cell costs the previous layer's minimum over all cells with value `>=` it, so sort cells by value descending, keep a running minimum, then run the usual right / down DP.
+- **Parentheses paths** (LC 2267): the state is `(r, c, open-bracket balance)`. The balance can never be negative or exceed the remaining steps (or it could never close).
+- **Strictly increasing paths** (LC 2328): moves go in four directions, but values strictly increase, so there are no cycles. Process cells from largest to smallest value with `dp[cell] = 1 + Σ dp[larger neighbors]`, or memoize a DFS.
+
 ## Common Mistakes
 
 - Writing a recurrence before saying what `dp[r][c]` means.
@@ -91,3 +99,6 @@ The diagonal is required because a larger square needs a valid inner square.
 - `LC 931` Minimum Falling Path Sum
 - `LC 1277` Count Square Submatrices With All Ones
 - `LC 1289` Minimum Falling Path Sum II
+- `LC 3651` Minimum Cost Path with Teleportations
+- `LC 2267` Check if There Is a Valid Parentheses String Path
+- `LC 2328` Number of Increasing Paths in a Grid

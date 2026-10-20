@@ -81,6 +81,23 @@ for total in range(target + 1):
 
 這就是 `LC 518` 和 `LC 377` 最重要的差別。
 
+## Grouped / Bounded Knapsack（分組背包）
+
+每一組最多選**一個選項**（同一題目選幾題、同一堆拿幾個、同一個數變成哪個值）。容量一樣要**倒著走**，在裡面枚舉這一組的所有選項：
+
+```python
+dp = [0] + [inf] * target               # 或計數：[1] + [0] * target
+for group in groups:
+    for s in range(target, -1, -1):      # 倒著走：同一組不會被選兩次
+        for weight, value in group:      # 這一組的每個選項
+            if s - weight >= 0:
+                dp[s] = min(dp[s], dp[s - weight] + value)
+```
+
+- **有數量上限的物品**（LC 2585）：一種題目有 `count` 題，選 `1..count` 題就是這一組的選項。
+- **每堆只能拿前綴**（LC 2218）：一堆拿 `x` 個的價值是前綴和，`x` 就是選項。
+- **每個數可以先變形再選**（LC 4040、4041）：先列出一個數經過幾次操作能變成哪些值、各要幾步，這些就是這個數的選項。
+
 ## 常見錯誤
 
 - 把所有 coin problem 都當成同一個 recurrence。
@@ -98,3 +115,7 @@ for total in range(target + 1):
 - `LC 879` Profitable Schemes
 - `LC 1049` Last Stone Weight II
 - `LC 1449` Form Largest Integer With Digits That Add Up To Target
+- `LC 2585` Number of Ways to Earn Points
+- `LC 2218` Maximum Value of K Coins From Piles
+- `LC 4040` Minimum Operations to Form Subset Sum I
+- `LC 4041` Minimum Operations to Form Subset Sum II

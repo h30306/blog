@@ -40,6 +40,7 @@ for i in range(n):
 ```
 
 - **A House Robber variant** (LC 3840): two houses conflict only when adjacent with the same color. With different colors take it, `dp[i + 1] = dp[i] + nums[i]`; only with the same color is it the House Robber `max`.
+- **LIS style** (LC 3989): `dp[j]` = the longest valid sequence ending at `j`; try every earlier `i` and, if compatible, `dp[j] = max(dp[j], dp[i] + 1)`, `O(n^2)`.
 
 ## Template 2: State machine DP
 
@@ -60,6 +61,7 @@ return sum(dp)
 - **Vowel strings** (LC 1220): state = the last vowel, transitions by the rules.
 - **Painting an n × 3 grid** (LC 1411): a row has only two patterns, `ABA` (ends match) and `ABC` (all different), 6 colorings each, with transitions `ABA → 3 ABA + 2 ABC` and `ABC → 2 ABA + 2 ABC`.
 - **Moving tokens** (LC 3952): state = "did the token at this index move left".
+- **Merging states by class** (LC 2912): there are many cells, but relative to the destination only four classes (the destination, same row, same column, neither), and each class's total moves together.
 - **Typing with two fingers** (LC 1320): one finger is always on the previous letter, so the state only needs **the other finger's** position (26 letters or unused).
 - **Two paths switching at common values** (LC 1537): keep a running sum per array, and at a shared value the paths may swap, so set both sums to the larger one.
 
@@ -174,3 +176,5 @@ These are all mistakes I actually made while practicing:
 - `LC 1320` Minimum Distance to Type a Word Using Two Fingers
 - `LC 1537` Get the Maximum Score
 - `LC 2163` Minimum Difference in Sums After Removal of Elements
+- `LC 3989` Maximum Consistent Columns in a Grid
+- `LC 2912` Number of Ways to Reach Destination in the Grid

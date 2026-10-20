@@ -40,6 +40,7 @@ for i in range(n):
 ```
 
 - **打家劫舍的變形**（LC 3840）：只有相鄰而且顏色相同時才不能一起拿。顏色不同就直接拿，`dp[i + 1] = dp[i] + nums[i]`；相同時才是打家劫舍的 `max`。
+- **LIS 型**（LC 3989）：`dp[j]` = 以第 `j` 個結尾的最長合法序列，枚舉前一個 `i`，相容就 `dp[j] = max(dp[j], dp[i] + 1)`，`O(n^2)`。
 
 ## 模板二：狀態機 DP
 
@@ -60,6 +61,7 @@ return sum(dp)
 - **母音排列**（LC 1220）：狀態是最後一個母音，轉移照題目規則。
 - **塗 n × 3 格子**（LC 1411）：一列只有兩種樣式：`ABA`（兩端同色）和 `ABC`（三色都不同），各 6 種塗法，下一列的轉移是 `ABA → 3 ABA + 2 ABC`、`ABC → 2 ABA + 2 ABC`。
 - **代幣移不移動**（LC 3952）：狀態是「這一格的代幣有沒有往左移」。
+- **把狀態依類別合併**（LC 2912）：格子很多，但對終點來說只分四類（就是終點、同一列、同一行、都不同），每一類的總數一起轉移。
 - **兩根手指打字**（LC 1320）：一根手指一定在上一個字母上，狀態只要記**另一根手指**在哪（26 個字母或還沒用過）。
 - **兩條路徑在交會點切換**（LC 1537）：兩個陣列各維護一個累計和，走到共同的值時兩條路可以互換，把兩個和都設成較大的那個。
 
@@ -174,3 +176,5 @@ ans = min(left_best[k - 1] - right_best[k] for k in 切點)
 - `LC 1320` Minimum Distance to Type a Word Using Two Fingers
 - `LC 1537` Get the Maximum Score
 - `LC 2163` Minimum Difference in Sums After Removal of Elements
+- `LC 3989` Maximum Consistent Columns in a Grid
+- `LC 2912` Number of Ways to Reach Destination in the Grid

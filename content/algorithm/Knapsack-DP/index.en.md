@@ -81,6 +81,23 @@ for total in range(target + 1):
 
 This is the key difference between `LC 518` and `LC 377`.
 
+## Grouped / Bounded Knapsack
+
+Each group allows at most **one option** (how many questions of one type, how many coins from one pile, which value one number becomes). Capacity still runs **backwards**, with the group's options enumerated inside:
+
+```python
+dp = [0] + [inf] * target               # or for counting: [1] + [0] * target
+for group in groups:
+    for s in range(target, -1, -1):      # backwards: a group is never used twice
+        for weight, value in group:      # every option of this group
+            if s - weight >= 0:
+                dp[s] = min(dp[s], dp[s - weight] + value)
+```
+
+- **Items with a count limit** (LC 2585): a question type with `count` copies offers choosing `1..count` of them.
+- **Only a prefix of each pile** (LC 2218): taking `x` coins from a pile is worth its prefix sum, and `x` is the option.
+- **Transform a number, then pick it** (LC 4040, 4041): list the values a number can become and the steps each takes; those are its options.
+
 ## Common Mistakes
 
 - Treating every coin problem as the same recurrence.
@@ -98,3 +115,7 @@ This is the key difference between `LC 518` and `LC 377`.
 - `LC 879` Profitable Schemes
 - `LC 1049` Last Stone Weight II
 - `LC 1449` Form Largest Integer With Digits That Add Up To Target
+- `LC 2585` Number of Ways to Earn Points
+- `LC 2218` Maximum Value of K Coins From Piles
+- `LC 4040` Minimum Operations to Form Subset Sum I
+- `LC 4041` Minimum Operations to Form Subset Sum II

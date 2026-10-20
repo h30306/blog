@@ -79,6 +79,24 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 - **The last remaining element** (LC 3828): Alice's first move can delete everything but the first or the last element, and so can Bob's, so the answer is `max(first, last)`.
 - **Sensor coverage** (LC 3648): each sensor covers a width of `2k + 1`, so take a **ceiling division** in each direction and multiply.
 
+## Template 5: Digits and simple formulas
+
+**Extracting digits**: converting to a string is simplest; `% 10` and `// 10` also work, starting from the ones place:
+
+```python
+digits = [int(c) for c in str(n)]        # most significant first
+
+while n:                                 # ones place first
+    d = n % 10
+    n //= 10
+```
+
+- **Digit sum / product** (LC 3550, 1281, 3622), **sum of squared digits** (LC 3959: each digit adds `d² - d >= 0`, so the total only grows and can return early once it qualifies).
+- **The product of the two largest digits** (LC 3536), **how often a digit appears** (LC 3895, 3908).
+- **Writing n as a sum of `d × 10^k` terms** (LC 3697): every non-zero digit is one term.
+
+**Plain formulas**: `min(n², maxWeight // w)` (LC 3492), temperature conversion (LC 2469), `n` distinct integers summing to 0 (LC 1304: `1..n/2` and their negatives, plus 0 when `n` is odd), XOR of an arithmetic sequence (LC 1486).
+
 ## Key Parameters
 
 - Ceiling division: `-(-a // b)` or `(a + b - 1) // b`, never floating point.
@@ -99,6 +117,10 @@ These are all mistakes I actually made while practicing:
 - **A geometry comparison pointing the wrong way**: with the center above the rectangle the top edge matters, but the condition used `<` (LC 1401).
 - **Forgetting to sort the output** (LC 3899).
 - **`pop(0)` from the front**: `O(n)` each time, TLE (LC 3627).
+- **`/` producing a float**: the answer must be an integer, so use `//` (LC 3492).
+- **Comparing strings with integers**, and **not moving the old maximum to second place when a new maximum appears** (LC 3536).
+- **Modulo the wrong way around**: `(sum + prod) % n` should be `n % (sum + prod)` (LC 3622).
+- **An extra 0 for even `n`** (LC 1304).
 
 ## Related LeetCode
 
@@ -114,3 +136,16 @@ These are all mistakes I actually made while practicing:
 - `LC 3627` Maximum Median Sum of Subsequences of Size 3
 - `LC 3828` Final Element After Subarray Deletions
 - `LC 3648` Minimum Sensors to Cover Grid
+- `LC 3492` Maximum Containers on a Ship
+- `LC 3536` Maximum Product of Two Digits
+- `LC 3550` Smallest Index With Digit Sum Equal to Index
+- `LC 3622` Check Divisibility by Digit Sum and Product
+- `LC 1304` Find N Unique Integers Sum up to Zero
+- `LC 3697` Compute Decimal Representation
+- `LC 2469` Convert the Temperature
+- `LC 2235` Add Two Integers
+- `LC 1486` XOR Operation in an Array
+- `LC 1281` Subtract the Product and Sum of Digits of an Integer
+- `LC 3908` Valid Digit Number
+- `LC 3959` Check Good Integer
+- `LC 3895` Count Digit Appearances

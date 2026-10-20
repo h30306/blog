@@ -79,6 +79,24 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 - **最後剩下的數**（LC 3828）：Alice 第一步就能刪掉除了頭或尾以外的全部，Bob 也一樣，答案是 `max(頭, 尾)`。
 - **感測器覆蓋**（LC 3648）：每個感測器蓋 `2k + 1` 的寬度，兩個方向各自做**無條件進位的除法**再相乘。
 
+## 模板五：位數與簡單公式
+
+**取出每一位**：轉成字串最簡單；用 `% 10`、`// 10` 也可以，而且是從個位數開始：
+
+```python
+digits = [int(c) for c in str(n)]        # 從最高位開始
+
+while n:                                 # 從個位數開始
+    d = n % 10
+    n //= 10
+```
+
+- **位數和 / 積**（LC 3550、1281、3622）、**位數平方和**（LC 3959：每一位的 `d² - d >= 0`，總和只會變大，達標就能提早回傳）。
+- **兩個最大的位數相乘**（LC 3536）、**某個數字出現幾次**（LC 3895、3908）。
+- **拆成 `d × 10^k` 的和**（LC 3697）：每個非 0 的位數就是一項。
+
+**直接套公式**：`min(n², maxWeight // w)`（LC 3492）、攝氏轉換（LC 2469）、`n` 個和為 0 的不同整數（LC 1304：`1..n/2` 和它們的相反數，`n` 是奇數再加 0）、等差數列的 XOR（LC 1486）。
+
 ## 主要參數說明
 
 - 無條件進位的除法：`-(-a // b)` 或 `(a + b - 1) // b`，不要用浮點數。
@@ -99,6 +117,10 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 - **幾何的比較方向寫反**：圓心在矩形上方時要比較上邊，條件寫成了 `<`（LC 1401）。
 - **忘了排序輸出**（LC 3899）。
 - **從頭 `pop(0)`**：每次 `O(n)`，TLE（LC 3627）。
+- **用 `/` 得到浮點數**：答案要整數，用 `//`（LC 3492）。
+- **字串和整數混著比較**、**找到新的最大值時沒把舊的最大值移到第二名**（LC 3536）。
+- **取模的方向寫反**：`(sum + prod) % n` 應該是 `n % (sum + prod)`（LC 3622）。
+- **偶數個時多放了 0**（LC 1304）。
 
 ## 相關 LeetCode
 
@@ -114,3 +136,16 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 - `LC 3627` Maximum Median Sum of Subsequences of Size 3
 - `LC 3828` Final Element After Subarray Deletions
 - `LC 3648` Minimum Sensors to Cover Grid
+- `LC 3492` Maximum Containers on a Ship
+- `LC 3536` Maximum Product of Two Digits
+- `LC 3550` Smallest Index With Digit Sum Equal to Index
+- `LC 3622` Check Divisibility by Digit Sum and Product
+- `LC 1304` Find N Unique Integers Sum up to Zero
+- `LC 3697` Compute Decimal Representation
+- `LC 2469` Convert the Temperature
+- `LC 2235` Add Two Integers
+- `LC 1486` XOR Operation in an Array
+- `LC 1281` Subtract the Product and Sum of Digits of an Integer
+- `LC 3908` Valid Digit Number
+- `LC 3959` Check Good Integer
+- `LC 3895` Count Digit Appearances

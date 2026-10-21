@@ -124,6 +124,13 @@ for s in range(n):
 
 `n` 次 BFS，總共 `O(n · (n + m))`（LC 2608）。
 
+### 延伸：反向搜尋、計算邊、度數
+
+- **從終點反著走**（LC 417）：從海邊往「不比自己低」的格子走，兩個海都走得到的格子就是答案，每個海 `O(mn)`。
+- **周長不用搜尋**（LC 463）：每格 +4，每跟上方或左方的陸地相鄰就 -2。
+- **只看度數**（LC 997、1791）：`in - out == n - 1` 的是法官；星狀圖的中心是前兩條邊的共同點。
+- **深拷貝**（LC 133）：舊節點 → 新節點的雜湊表，建立後先放進表裡再處理鄰居。
+
 ## 什麼時候用 Union-Find
 
 只需要「誰跟誰連在一起」、而且邊是一條一條加進來的，Union-Find 比 BFS 方便。但要記得**路徑壓縮**：沒有路徑壓縮的 `find` 最壞是 `O(n)`，LC 323 的 Union-Find 版本跑了 417ms，改成 DFS 只要 11ms。
@@ -143,6 +150,13 @@ for s in range(n):
 - **沒有路徑壓縮的 Union-Find**（LC 323）。
 - **遞迴 DFS 在大網格上太深**（LC 3619、827）。
 - **每步成本相同卻用 heap**：可以 AC，但多了 `log` 的成本（LC 1210）。
+- **邊界檢查用 `and`**：`x > rows and y > cols` 應該是四個條件用 `or`（LC 733）。
+- **新舊顏色相同沒有直接回傳**：換完的格子還是會被當成要換的，無限遞迴（LC 733）。
+- **格子是整數卻跟 `'1'` 比較**（LC 695）。
+- **反著從海邊走時用了嚴格的 `>`**：一樣高也能流；起點也不能被擋掉（LC 417）。
+- **`set` 裡放 list**：要放 tuple（LC 417）。
+- **複製圖時沒有處理空圖**，或沒有先放進雜湊表再遞迴（LC 133）。
+- **法官只檢查被信任的次數**：還要確認他不信任任何人（LC 997）。
 
 ## 相關 LeetCode
 
@@ -157,3 +171,10 @@ for s in range(n):
 - `LC 2608` Shortest Cycle in a Graph
 - `LC 3910` Count Connected Subgraphs with Even Node Sum
 - `LC 773` Sliding Puzzle
+- `LC 733` Flood Fill
+- `LC 695` Max Area of Island
+- `LC 463` Island Perimeter
+- `LC 417` Pacific Atlantic Water Flow
+- `LC 133` Clone Graph
+- `LC 997` Find the Town Judge
+- `LC 1791` Find Center of Star Graph

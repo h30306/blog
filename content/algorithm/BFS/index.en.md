@@ -124,6 +124,13 @@ for s in range(n):
 
 `n` BFS runs, `O(n · (n + m))` in total (LC 2608).
 
+### Extension: reverse search, counting edges, degrees
+
+- **Walking backward from the targets** (LC 417): from each shore move to cells no lower than the current one; cells reached from both oceans are the answer, `O(mn)` per ocean.
+- **Perimeter without searching** (LC 463): +4 per cell, -2 for each land neighbor above or to the left.
+- **Degrees only** (LC 997, 1791): the judge has `in - out == n - 1`; a star's center is the common endpoint of the first two edges.
+- **Deep copies** (LC 133): a hash map from old to new nodes, storing each copy before handling its neighbors.
+
 ## When to Use Union-Find
 
 When you only need "who is connected to whom" and edges arrive one at a time, Union-Find is more convenient than BFS. Remember **path compression**: without it `find` is `O(n)` in the worst case. My Union-Find version of LC 323 took 417ms; DFS took 11ms.
@@ -143,6 +150,13 @@ These are all mistakes I actually made while practicing:
 - **Union-Find without path compression** (LC 323).
 - **Recursive DFS too deep on large grids** (LC 3619, 827).
 - **Using a heap when every step costs the same**: it passes, but adds a `log` factor (LC 1210).
+- **Joining bound checks with `and`**: `x > rows and y > cols` should be four conditions joined by `or` (LC 733).
+- **Not returning early when the colors match**: recolored cells keep matching and recursion never ends (LC 733).
+- **Comparing integer cells with `'1'`** (LC 695).
+- **Using a strict `>` when walking inward from the shore**: equal heights still flow, and the starts must not be rejected (LC 417).
+- **Putting lists in a `set`**: use tuples (LC 417).
+- **Cloning a graph without handling an empty input**, or recursing before storing the new node (LC 133).
+- **Checking only how often the judge is trusted**: also confirm the judge trusts nobody (LC 997).
 
 ## Related LeetCode
 
@@ -157,3 +171,10 @@ These are all mistakes I actually made while practicing:
 - `LC 2608` Shortest Cycle in a Graph
 - `LC 3910` Count Connected Subgraphs with Even Node Sum
 - `LC 773` Sliding Puzzle
+- `LC 733` Flood Fill
+- `LC 695` Max Area of Island
+- `LC 463` Island Perimeter
+- `LC 417` Pacific Atlantic Water Flow
+- `LC 133` Clone Graph
+- `LC 997` Find the Town Judge
+- `LC 1791` Find Center of Star Graph

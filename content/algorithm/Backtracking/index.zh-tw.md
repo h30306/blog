@@ -190,3 +190,4 @@ def dfs(start, path):
 - `LC 131` Palindrome Partitioning
 - `LC 93` Restore IP Addresses
 - `LC 473` Matchsticks to Square
+- `LC 79` Word Search

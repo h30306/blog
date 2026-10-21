@@ -66,6 +66,7 @@ while i < len(text):
 ```
 
 - **HTML entity**（LC 1410）：不能用一連串的 `replace`：先換出來的 `&` 會跟後面的字組成新的 entity。
+- **`s + s` 包含所有旋轉**（LC 796、459）：`goal` 是 `s` 的旋轉 ⇔ 長度相同且 `goal in s + s`；`s` 有重複的週期 ⇔ `s in (s + s)[1:-1]`。
 
 ## 模板三：長度 `k` 的所有子字串
 
@@ -147,6 +148,14 @@ return " ".join(res)
 - **數字被當成子音**：子音必須是字母（LC 3136）。
 - **對單一字元做切片**：`for c in s` 的 `c[:3]` 永遠只有一個字元（LC 551）。
 - **從後往前每 `k` 個分組時計數器差一**，或多加一個分隔符號（LC 482）。
+- **迴圈正常跑完時沒有回傳**：最短字串整個都是共同前綴時回傳 `None`（LC 14）。
+- **`goal in s + s` 沒有檢查長度相等**：`"aa"` 也在 `"a" + "a"` 裡（LC 796）。
+- **tuple 跟 list 比較**：`zip` 產生 tuple，`sorted` 回傳 list，`==` 永遠是 `False`（LC 944）。
+- **字典序只看第一個不同的字元**，而且前綴比較短的要在前面：`["ll", "l"]` 沒有排好（LC 953）。
+- **連續段落重設成 0**：新的字元本身就是長度 1（LC 1446）。
+- **把字元跟整數比較**：`'1' == 1` 永遠是 `False`（LC 1869）。
+- **剛好填滿也換行**：寬度剛好 100 時還在這一行（LC 806）。
+- **相同的字串也要交換一次**：沒有重複字元就做不到（LC 859）。
 
 ## 相關 LeetCode
 
@@ -181,3 +190,14 @@ return " ".join(res)
 - `LC 709` To Lower Case
 - `LC 3136` Valid Word
 - `LC 551` Student Attendance Record I
+- `LC 14` Longest Common Prefix
+- `LC 796` Rotate String
+- `LC 859` Buddy Strings
+- `LC 944` Delete Columns to Make Sorted
+- `LC 953` Verifying an Alien Dictionary
+- `LC 1446` Consecutive Characters
+- `LC 1869` Longer Contiguous Segments of Ones than Zeros
+- `LC 459` Repeated Substring Pattern
+- `LC 521` Longest Uncommon Subsequence I
+- `LC 657` Robot Return to Origin
+- `LC 806` Number of Lines To Write String

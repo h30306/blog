@@ -66,6 +66,7 @@ while i < len(text):
 ```
 
 - **HTML entities** (LC 1410): a chain of `replace` calls does not work: an `&` produced by one replacement can form a new entity with what follows.
+- **`s + s` contains every rotation** (LC 796, 459): `goal` is a rotation of `s` ⇔ equal lengths and `goal in s + s`; `s` has a repeating period ⇔ `s in (s + s)[1:-1]`.
 
 ## Template 3: All substrings of length `k`
 
@@ -147,6 +148,14 @@ These are mistakes I actually made while practicing:
 - **Counting digits as consonants**: a consonant must be a letter (LC 3136).
 - **Slicing a single character**: in `for c in s`, `c[:3]` is always one character (LC 551).
 - **An off-by-one counter when grouping every `k` from the back**, or a stray separator (LC 482).
+- **Returning nothing when the loop finishes**: if the whole shortest string is the common prefix, it returns `None` (LC 14).
+- **`goal in s + s` without checking equal lengths**: `"aa"` is inside `"a" + "a"` (LC 796).
+- **Comparing a tuple with a list**: `zip` yields tuples and `sorted` returns lists, so `==` is always `False` (LC 944).
+- **Lexicographic order depends only on the first differing character**, and a shorter prefix must come first: `["ll", "l"]` is unsorted (LC 953).
+- **Resetting a run to 0**: the new character is itself a run of 1 (LC 1446).
+- **Comparing characters with integers**: `'1' == 1` is always `False` (LC 1869).
+- **Wrapping when the line is exactly full**: width 100 stays on the line (LC 806).
+- **Identical strings still need one swap**: impossible without a repeated character (LC 859).
 
 ## Related LeetCode
 
@@ -181,3 +190,14 @@ These are mistakes I actually made while practicing:
 - `LC 709` To Lower Case
 - `LC 3136` Valid Word
 - `LC 551` Student Attendance Record I
+- `LC 14` Longest Common Prefix
+- `LC 796` Rotate String
+- `LC 859` Buddy Strings
+- `LC 944` Delete Columns to Make Sorted
+- `LC 953` Verifying an Alien Dictionary
+- `LC 1446` Consecutive Characters
+- `LC 1869` Longer Contiguous Segments of Ones than Zeros
+- `LC 459` Repeated Substring Pattern
+- `LC 521` Longest Uncommon Subsequence I
+- `LC 657` Robot Return to Origin
+- `LC 806` Number of Lines To Write String

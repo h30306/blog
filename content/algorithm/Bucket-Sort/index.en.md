@@ -64,3 +64,4 @@ These are mistakes I actually made while practicing:
 ## Related LeetCode
 
 - `LC 164` Maximum Gap
+- `LC 347` Top K Frequent Elements

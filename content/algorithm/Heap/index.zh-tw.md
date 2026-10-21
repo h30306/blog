@@ -153,6 +153,10 @@ Heap 裡放 `(目前距離, 節點)`，每次取出距離最小的節點往外�
 - **排序後取錯邊**：要最大的三個卻取了 `[:3]`（LC 3572）。
 - **Dijkstra 用 `<` 剪枝**：相同距離的狀態一直被重複推入，Memory Limit Exceeded（LC 1514）。
 - **反向模擬一次只減一步**：差距很大時要用取餘數一次跳完（LC 1354）。
+- **Top-K 的 heap 滿了之後沒有處理新的數**：要 `heappushpop`，大小上限是 `k` 不是 `k + 1`（LC 215）。
+- **max-heap 存負數時差的正負號弄反**：放回去的也要是負數（LC 1046）。
+- **兩顆一樣重全部消掉後讀 `h[0]`**：heap 可能是空的（LC 1046）。
+- **選完 Top-K 忘了排回原本的順序**（LC 2099）。
 
 ## 相關 LeetCode
 
@@ -174,3 +178,13 @@ Heap 裡放 `(目前距離, 節點)`，每次取出距離最小的節點往外�
 - `LC 2762` Continuous Subarrays
 - `LC 658` Find K Closest Elements
 - `LC 1878` Get Biggest Three Rhombus Sums in a Grid
+- `LC 215` Kth Largest Element in an Array
+- `LC 973` K Closest Points to Origin
+- `LC 1046` Last Stone Weight
+- `LC 347` Top K Frequent Elements
+- `LC 506` Relative Ranks
+- `LC 2335` Minimum Amount of Time to Fill Cups
+- `LC 1464` Maximum Product of Two Elements in an Array
+- `LC 2357` Make Array Zero by Subtracting Equal Amounts
+- `LC 2099` Find Subsequence of Length K With the Largest Sum
+- `LC 2231` Largest Number After Digit Swaps by Parity

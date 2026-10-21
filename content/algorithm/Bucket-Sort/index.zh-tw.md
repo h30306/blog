@@ -64,3 +64,4 @@ return best
 ## 相關 LeetCode
 
 - `LC 164` Maximum Gap
+- `LC 347` Top K Frequent Elements

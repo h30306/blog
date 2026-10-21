@@ -153,6 +153,10 @@ These are all mistakes I actually made while practicing:
 - **Taking the wrong end after sorting**: `[:3]` when the three largest were needed (LC 3572).
 - **Pruning Dijkstra with `<`**: equal-distance states are pushed again and again, causing Memory Limit Exceeded (LC 1514).
 - **Reverse simulation one step at a time**: when the gap is large, jump with a modulo (LC 1354).
+- **Not processing new values once the Top-K heap is full**: use `heappushpop`, capping the size at `k`, not `k + 1` (LC 215).
+- **Flipping the difference's sign in a negated max-heap**: push back a negative value (LC 1046).
+- **Reading `h[0]` after equal stones cancel everything**: the heap may be empty (LC 1046).
+- **Forgetting to restore the original order after Top-K** (LC 2099).
 
 ## Related LeetCode
 
@@ -174,3 +178,13 @@ These are all mistakes I actually made while practicing:
 - `LC 2762` Continuous Subarrays
 - `LC 658` Find K Closest Elements
 - `LC 1878` Get Biggest Three Rhombus Sums in a Grid
+- `LC 215` Kth Largest Element in an Array
+- `LC 973` K Closest Points to Origin
+- `LC 1046` Last Stone Weight
+- `LC 347` Top K Frequent Elements
+- `LC 506` Relative Ranks
+- `LC 2335` Minimum Amount of Time to Fill Cups
+- `LC 1464` Maximum Product of Two Elements in an Array
+- `LC 2357` Make Array Zero by Subtracting Equal Amounts
+- `LC 2099` Find Subsequence of Length K With the Largest Sum
+- `LC 2231` Largest Number After Digit Swaps by Parity

@@ -74,6 +74,21 @@ count = (n + 1).bit_length()             # how many of 1, 3, 7, ..., plus 0
 
 - **Numbers whose bits are all equal** (LC 3827): all zeros is just 0, and all ones is `2^k - 1`.
 
+## Template 4: XOR cancellation and per-bit counting
+
+```python
+res = 0
+for x in nums:
+    res ^= x                         # pairs cancel; the single one remains
+```
+
+- **The number that appears once** (LC 136, 389): XOR everything; for characters use `ord` and convert back with `chr`.
+- **Everything else appears three times** (LC 137): count each bit's 1s `% 3`; Python integers are unbounded, so subtract `2^32` when bit 31 is set.
+- **Power tests** (LC 231, 342): `n > 0 and n & (n - 1) == 0`; for four, also `n & 0x55555555` (or `n % 3 == 1`).
+- **A fixed-length mask** (LC 476): `(1 << n.bit_length()) - 1`; `~n` goes negative.
+- **Prefix remainders** (LC 1018): each bit gives `x = (2x + b) % m`.
+- **Negative numbers in hex** (LC 405): `num & 0xffffffff` gives the 32-bit two's complement, then take 4 bits at a time.
+
 ## Key Parameters
 
 - Python integers have no fixed width, and `~x` equals `-x - 1`; apply `& mask` yourself when a fixed width matters.
@@ -88,6 +103,13 @@ Mostly `O(n)` or `O(log x)`.
 These are mistakes I actually made while practicing:
 
 - **Assuming elements can be swapped into place one at a time**: I took the maximum of `i & nums[i]` over positions. But `k` must let **every** misplaced number swap, so it is the AND (LC 3644).
+- **`&` binds tighter than `==`**: `(n > 0) & (n & (n - 1)) == 0` is not what it looks like; use `and` (LC 231).
+- **Inverted conditions**: a power of two has `n & (n - 1)` equal to 0 (LC 231); alternating bits means no 00 and no 11 (LC 693).
+- **Hard-coding the example**: `bin(5)` instead of `bin(num)` (LC 476).
+- **Padding on the right**: binary addition pads on the left (LC 67).
+- **`while num > 15` drops the last digit**, and **negatives not converted to two's complement** (LC 405).
+- **Rebuilding every prefix as an integer**: `O(n²)`; keep only the remainder (LC 1018).
+- **Counting trailing zeros as a gap** (LC 868).
 
 ## Related LeetCode
 
@@ -95,3 +117,18 @@ These are mistakes I actually made while practicing:
 - `LC 3688` Bitwise OR of Even Numbers in an Array
 - `LC 3950` Exactly One Consecutive Set Bits Pair
 - `LC 3827` Count Monobit Integers
+- `LC 136` Single Number
+- `LC 137` Single Number II
+- `LC 231` Power of Two
+- `LC 342` Power of Four
+- `LC 476` Number Complement
+- `LC 461` Hamming Distance
+- `LC 693` Binary Number with Alternating Bits
+- `LC 868` Binary Gap
+- `LC 762` Prime Number of Set Bits in Binary Representation
+- `LC 2859` Sum of Values at Indices With K Set Bits
+- `LC 1018` Binary Prefix Divisible By 5
+- `LC 67` Add Binary
+- `LC 405` Convert a Number to Hexadecimal
+- `LC 645` Set Mismatch
+- `LC 389` Find the Difference

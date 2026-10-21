@@ -81,6 +81,11 @@ while riders and riders[0] in canceled:
 
 Use a set to check whether someone is still waiting; `in` on a deque is `O(n)` (LC 3829).
 
+## Template 4: A queue from stacks, a stack from a queue
+
+- **Two stacks as a queue** (LC 232): push into `inbox`; refill `outbox` from `inbox` only when `outbox` is empty, amortized `O(1)`.
+- **One queue as a stack** (LC 225): after `push(x)`, rotate the earlier `n - 1` elements to the back so `x` is at the front.
+
 ## Design Problems Already Covered
 
 | Problem | Data structure combination | Post |
@@ -96,6 +101,7 @@ Use a set to check whether someone is still waiting; `in` on a deque is `O(n)` (
 - Using `in` on a deque or list for membership: `O(n)`.
 - Computing the last position of a circular array without subtracting 1 before the modulo.
 - Giving an iterator's `hasNext` side effects: it can work, but repeated calls must return the same answer.
+- **Using a list directly as the stack, or `pop(0)` as the queue**: it passes, but it is not the requested implementation, and `pop(0)` is `O(n)` (LC 225, 232).
 
 ## Related LeetCode
 
@@ -103,3 +109,6 @@ Use a set to check whether someone is still waiting; `in` on a deque is `O(n)` (
 - `LC 281` Zigzag Iterator
 - `LC 3829` Design Ride Sharing System
 - `LC 1290` Convert Binary Number in a Linked List to Integer
+- `LC 225` Implement Stack using Queues
+- `LC 232` Implement Queue using Stacks
+- `LC 387` First Unique Character in a String

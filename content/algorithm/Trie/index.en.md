@@ -107,3 +107,4 @@ Rule of thumb: if a query only depends on the set of letters and not their order
 - `LC 2416` Sum of Prefix Scores of Strings
 - `LC 1023` Camelcase Matching
 - `LC 1178` Number of Valid Words for Each Puzzle
+- `LC 208` Implement Trie (Prefix Tree)

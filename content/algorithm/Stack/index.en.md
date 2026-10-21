@@ -115,6 +115,12 @@ I once reused the 3816 approach on 316 and got a WA: 316 forbids keeping two cop
 
 **Use ids, not values**: the same value can appear many times, and tracking values alone cannot tell which copy was deleted (LC 716).
 
+### Extension: calculators and paths
+
+- **Precedence of * and /** (LC 227): remember the previous operator and apply it at the next one: + and - push (negated for -), * and / combine with the top, and sum at the end.
+- **Paths** (LC 71): after `split("/")`, skip empty pieces and `.`, pop on `..`, push the rest.
+- **A single bracket type** (LC 1021): the stack only holds `(`, so a depth counter suffices.
+
 ## Complexity
 
 - Each element is pushed and popped at most once, so Templates 1 to 4 are `O(n)`.
@@ -130,6 +136,13 @@ These are all mistakes I actually made while practicing:
 - **Lazy deletion by value instead of id**: duplicates get deleted wrongly (LC 716).
 - **Comparing only adjacent speeds**: fleet problems compare against the speed of the whole fleet ahead (LC 4045).
 - **Deleting with repeated string `replace`**: each pass rescans the string, `O(n^2)` (LC 3703 took 5 seconds).
+- **Popping an empty stack**: when `#` or `..` comes first (LC 844, 71).
+- **Not skipping empty pieces and `.` from `split("/")`** (LC 71).
+- **Treating each character as a token**: read multi-digit numbers fully (LC 227).
+- **Dividing with `//`**: the problem truncates toward zero, which differs for negatives; use `int(a / b)` (LC 227).
+- **Leftover deletions after the scan**: delete from the end (LC 402).
+- **Comparing with the farthest asteroid instead of the nearest**: use the stack top (LC 735).
+- **Two-pointer loops that never advance**: infinite loops (LC 844).
 
 ## Related LeetCode
 
@@ -144,3 +157,11 @@ These are all mistakes I actually made while practicing:
 - `LC 3816` Lexicographically Smallest String After Deleting Duplicate Characters
 - `LC 716` Max Stack
 - `LC 2355` Maximum Number of Books You Can Take
+- `LC 1021` Remove Outermost Parentheses
+- `LC 1047` Remove All Adjacent Duplicates In String
+- `LC 844` Backspace String Compare
+- `LC 682` Baseball Game
+- `LC 735` Asteroid Collision
+- `LC 71` Simplify Path
+- `LC 227` Basic Calculator II
+- `LC 402` Remove K Digits

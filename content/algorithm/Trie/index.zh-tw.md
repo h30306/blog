@@ -107,3 +107,4 @@ LeetCode 把一些題目標成 Trie，但其實有更簡單的做法：
 - `LC 2416` Sum of Prefix Scores of Strings
 - `LC 1023` Camelcase Matching
 - `LC 1178` Number of Valid Words for Each Puzzle
+- `LC 208` Implement Trie (Prefix Tree)

@@ -81,6 +81,11 @@ while riders and riders[0] in canceled:
 
 判斷「這個人還在不在等」要用 set，不要對 deque 用 `in`，那是 `O(n)`（LC 3829）。
 
+## 模板四：用 stack 做 queue、用 queue 做 stack
+
+- **兩個 stack 做 queue**（LC 232）：`push` 進 `inbox`；`outbox` 空的時候才把 `inbox` 全部倒過去，均攤 `O(1)`。
+- **一個 queue 做 stack**（LC 225）：`push(x)` 之後把前面的 `n - 1` 個元素轉到尾巴，`x` 就在隊首。
+
 ## 已經寫過的設計題
 
 | 題目 | 資料結構組合 | 文章 |
@@ -96,6 +101,7 @@ while riders and riders[0] in canceled:
 - 對 deque 或 list 用 `in` 判斷存在：`O(n)`。
 - 環狀陣列的最後一個位置算錯，忘記減 1 再取模。
 - 迭代器的 `hasNext` 有副作用：可以這樣寫，但要確保連續呼叫多次結果一樣。
+- **用 list 直接當 stack 或用 `pop(0)` 當 queue**：能過，但不是題目要的實作，`pop(0)` 也是 `O(n)`（LC 225、232）。
 
 ## 相關 LeetCode
 
@@ -103,3 +109,6 @@ while riders and riders[0] in canceled:
 - `LC 281` Zigzag Iterator
 - `LC 3829` Design Ride Sharing System
 - `LC 1290` Convert Binary Number in a Linked List to Integer
+- `LC 225` Implement Stack using Queues
+- `LC 232` Implement Queue using Stacks
+- `LC 387` First Unique Character in a String

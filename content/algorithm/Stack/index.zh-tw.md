@@ -115,6 +115,12 @@ for ch in s:
 
 **一定要用 id 而不是值**：同一個值可能出現很多次，只記值的話分不清楚刪掉的是哪一個（LC 716）。
 
+### 延伸：計算機與路徑
+
+- **乘除優先**（LC 227）：記住上一個運算子，遇到下一個運算子時處理它：加減放進 stack（減號放負數），乘除直接跟頂端算，最後加總。
+- **路徑**（LC 71）：`split("/")` 之後，空字串和 `.` 跳過、`..` pop、其他 push。
+- **只有一種括號**（LC 1021）：stack 裡只會有 `(`，記深度就夠了。
+
 ## 複雜度
 
 - 每個元素最多進出 stack 一次，所以模板一到四都是 `O(n)`。
@@ -130,6 +136,13 @@ for ch in s:
 - **lazy deletion 只記值不記 id**：重複的值會刪錯（LC 716）。
 - **只比較相鄰兩個的速度**：車隊題要跟前面「整個車隊」的速度比（LC 4045）。
 - **用字串 `replace` 反覆刪除**：每次都重掃整個字串，`O(n^2)`（LC 3703 跑了 5 秒）。
+- **對空的 stack `pop`**：`#` 或 `..` 出現在開頭時（LC 844、71）。
+- **`split("/")` 的空字串和 `.` 沒有跳過**（LC 71）。
+- **把每個字元當成一個 token**：多位數的數字要先讀完整（LC 227）。
+- **除法用 `//`**：題目要往 0 截斷，負數時兩者不同，用 `int(a / b)`（LC 227）。
+- **掃完之後沒用完的刪除次數**：要從尾巴刪（LC 402）。
+- **相撞時比較最遠的而不是最近的**：要看 stack 頂端（LC 735）。
+- **雙指針的迴圈沒有讓指標前進**：無限迴圈（LC 844）。
 
 ## 相關 LeetCode
 
@@ -144,3 +157,11 @@ for ch in s:
 - `LC 3816` Lexicographically Smallest String After Deleting Duplicate Characters
 - `LC 716` Max Stack
 - `LC 2355` Maximum Number of Books You Can Take
+- `LC 1021` Remove Outermost Parentheses
+- `LC 1047` Remove All Adjacent Duplicates In String
+- `LC 844` Backspace String Compare
+- `LC 682` Baseball Game
+- `LC 735` Asteroid Collision
+- `LC 71` Simplify Path
+- `LC 227` Basic Calculator II
+- `LC 402` Remove K Digits

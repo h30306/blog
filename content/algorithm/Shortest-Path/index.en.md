@@ -86,6 +86,27 @@ def cheapest_with_k_stops(n: int, flights: List[List[int]], src: int, dst: int, 
 
 The copied array is important: one round should represent exactly one additional edge.
 
+## Put the Constraint in the State
+
+When the limit is not the distance itself (say, at most `k` turns), put it in the state: `(row, col, last direction, turns used)`.
+
+```python
+pq = [(grid[0][0], 0, 0, 0, -1)]         # cost, turns, r, c, last direction
+best_turns = {}                          # (r, c, d) -> fewest turns already processed
+while pq:
+    cost, t, r, c, d = heapq.heappop(pq)
+    if (r, c) == target:
+        return cost
+    if best_turns.get((r, c, d), k + 1) <= t:
+        continue                         # something cheaper with fewer turns was processed
+    best_turns[(r, c, d)] = t
+    for nd, (dr, dc) in enumerate(DIRS):
+        nt = t + (d != -1 and nd != d)
+        ...
+```
+
+For the same `(r, c, d)`, whatever is popped first is cheaper; if it also used fewer turns, later states are dominated and can be skipped (LC 4046).
+
 ## Common Mistakes
 
 - Using BFS on weighted graphs.
@@ -93,6 +114,7 @@ The copied array is important: one round should represent exactly one additional
 - Using city-only `visited` when remaining stops are part of the state.
 - Summing path costs when the real cost is a maximum along the path.
 - Forgetting stale heap entries in Dijkstra.
+- Operator precedence: `turns + 1 if turned else 0` chooses between the whole expressions, so going straight reset the turn count to 0 (LC 4046).
 
 ## Related LeetCode
 
@@ -100,3 +122,4 @@ The copied array is important: one round should represent exactly one additional
 - `LC 778` Swim in Rising Water
 - `LC 787` Cheapest Flights Within K Stops
 - `LC 1631` Path With Minimum Effort
+- `LC 4046` Minimum Cost Path With At Most K Turns

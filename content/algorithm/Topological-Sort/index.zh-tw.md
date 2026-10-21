@@ -96,6 +96,14 @@ Eventual safe states 是從 terminal nodes 往回證明 safe。這時追蹤的�
 
 Grouped items 類題目要同時排序 item dependencies 和 group dependencies，最後依照 group order 輸出 item buckets。
 
+### Two Independent Orders
+
+`LC 2392` 的列條件和欄條件互不影響，各做一次 topological sort：數字 `x` 放在第 `row_pos[x]` 列、第 `col_pos[x]` 欄。任一邊有 cycle 就回傳空矩陣。
+
+### All Paths Lead to Destination
+
+`LC 1059` 也是 reverse outdegree trimming：從 destination 往回，一個點所有出邊都指向「安全」的點，它才安全；最後看 source 安不安全。destination 本身要先檢查有沒有出邊，有的話（包含自環）就有無限條路徑。
+
 ## 常見錯誤
 
 - edge direction 反了，導致 in-degree 意義錯掉。
@@ -103,6 +111,7 @@ Grouped items 類題目要同時排序 item dependencies 和 group dependencies�
 - 把 undirected graph 當成 topo 題。
 - reverse trimming 題目把 outdegree counter 叫成 in-degree。
 - propagation 題只寫排序，沒有講清楚 state 怎麼傳。
+- 我寫 DFS 版本時沒檢查 destination 有沒有出邊，`[[0, 0]]` 這種自環被當成成功（LC 1059）。
 
 ## 相關 LeetCode
 
@@ -115,3 +124,5 @@ Grouped items 類題目要同時排序 item dependencies 和 group dependencies�
 - `LC 1203` Sort Items by Groups Respecting Dependencies
 - `LC 2115` Find All Possible Recipes from Given Supplies
 - `LC 2192` All Ancestors of a Node in a DAG
+- `LC 1059` All Paths from Source Lead to Destination
+- `LC 2392` Build a Matrix With Conditions

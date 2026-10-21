@@ -86,6 +86,27 @@ def cheapest_with_k_stops(n: int, flights: List[List[int]], src: int, dst: int, 
 
 copy array 很重要：每一輪只能代表多使用一條 edge。
 
+## 把限制放進狀態
+
+限制不是距離本身時（例如最多轉 `k` 次彎），把它放進 state：`(row, col, 上一步方向, 已轉彎數)`。
+
+```python
+pq = [(grid[0][0], 0, 0, 0, -1)]         # cost, turns, r, c, 上一步方向
+best_turns = {}                          # (r, c, d) -> 處理過的最少轉彎數
+while pq:
+    cost, t, r, c, d = heapq.heappop(pq)
+    if (r, c) == target:
+        return cost
+    if best_turns.get((r, c, d), k + 1) <= t:
+        continue                         # 更便宜、轉彎又更少的已經處理過
+    best_turns[(r, c, d)] = t
+    for nd, (dr, dc) in enumerate(DIRS):
+        nt = t + (d != -1 and nd != d)
+        ...
+```
+
+同一個 `(r, c, d)` 先被 pop 的成本比較低；如果它的轉彎數也比較少，後面的狀態就被支配了，可以跳過（LC 4046）。
+
 ## 常見錯誤
 
 - weighted graph 還用普通 BFS。
@@ -93,6 +114,7 @@ copy array 很重要：每一輪只能代表多使用一條 edge。
 - stops budget 是 state 的一部分，卻只用 city-only `visited`。
 - 題目要的是 path 上最大值，卻把 edge weight 加總。
 - Dijkstra 忘記處理 stale heap entries。
+- 運算子優先順序：`turns + 1 if 轉彎 else 0` 是整個式子二選一，直走時轉彎數被歸零（LC 4046）。
 
 ## 相關 LeetCode
 
@@ -100,3 +122,4 @@ copy array 很重要：每一輪只能代表多使用一條 edge。
 - `LC 778` Swim in Rising Water
 - `LC 787` Cheapest Flights Within K Stops
 - `LC 1631` Path With Minimum Effort
+- `LC 4046` Minimum Cost Path With At Most K Turns

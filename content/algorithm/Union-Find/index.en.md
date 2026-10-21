@@ -284,6 +284,90 @@ class UnionFind:
 
 ---
 
+## Variants
+
+### Counting components
+
+Have `union` return whether it actually merged, and do `groups -= 1` on each success:
+
+```python
+def union(x, y) -> bool:
+    rx, ry = find(x), find(y)
+    if rx == ry:
+        return False
+    parent[rx] = ry                      # attach the root, not x itself
+    return True
+
+groups = n
+for u, v in edges:
+    if union(u, v):
+        groups -= 1
+```
+
+- **Adding land dynamically** (LC 305): each new cell does `groups += 1`, then merges with neighboring land, minus 1 per successful merge. Skip a cell added twice, but still record an answer for it.
+
+### Edges sorted by weight (the Kruskal idea)
+
+```python
+edges.sort(key=lambda e: e[2])
+groups = n
+for u, v, w in edges:
+    if union(u, v):
+        groups -= 1
+        if groups == k:                  # down to k components; the largest edge is w
+            return w
+```
+
+- **At most `k` components, minimize the largest edge** (LC 3613): add edges from small to large; the weight when exactly `k` components remain is the answer. With `n <= k` no edge is needed, so return 0.
+- **At least `k` components after removing edges with time `<= t`** (LC 3608): think backward and add edges back from the largest time; the time of the first edge that drops the count below `k` is the answer.
+
+### Work backward: removals become additions
+
+Union-Find can merge but not split. When the problem removes items one by one, process it backward so items are added one by one:
+
+```python
+res, best = [], 0
+for i in reversed(removeQueries):
+    res.append(best)                     # the answer before i is added back
+    alive[i] = True
+    total[i] = nums[i]
+    for j in (i - 1, i + 1):
+        if 0 <= j < n and alive[j]:
+            rj, ri = find(j), find(i)
+            parent[rj] = ri
+            total[ri] += total[rj]       # the root stores the whole set's sum
+    best = max(best, total[find(i)])     # only grows, no need to recompute max
+return res[::-1]
+```
+
+- **Maximum segment sum after removals** (LC 2382): the root stores the segment sum; adding back in reverse, the maximum only grows.
+
+### Merge through the first representative
+
+When points connect by "sharing some key", do not compare all pairs (`O(n²)`); remember the first point seen for each key and merge later points into it:
+
+```python
+first = {}
+for i, key in enumerate(keys):
+    if key in first:
+        union(i, first[key])
+    else:
+        first[key] = i
+```
+
+- **Same x or same y means connected** (LC 3873): one dictionary for x and one for y. A new point can join at most two components (one sharing its x, one sharing its y), so the answer is the two largest plus 1.
+
+## Common Mistakes
+
+These are mistakes I actually made while practicing:
+
+- **`union` attaching a node instead of a root**: `parent[x] = root_y` pulls `x` out of its set, and later merges get over-counted (LC 3608).
+- **Already satisfied at the start**: with `n == k` the loop never hits exactly `k`, so the function returned nothing (LC 3613).
+- **Merging by loop index**: the elements in the set should be merged; I wrote `union(i - 1, i)` (LC 3873).
+- **Repeated positions**: adding the same cell twice counts an extra island; when skipping it, still append the answer (LC 305).
+- **`find` not reaching the root**: path halving needs `while`; an `if` takes one step and returns a non-root (LC 305).
+- **Recomputing the maximum over all sets every step**: `max(group_sum.values())` makes it `O(n²)`, TLE (LC 2382).
+
 ## Examples
 
 ### LeetCode
@@ -292,3 +376,8 @@ class UnionFind:
 - `LC 2709` Greatest Common Divisor Traversal
 - `LC 1998` GCD Sort of an Array
 - `LC 1627` Graph Connectivity With Threshold
+- `LC 305` Number of Islands II
+- `LC 3608` Minimum Time for K Connected Components
+- `LC 3613` Minimize Maximum Component Cost
+- `LC 2382` Maximum Segment Sum After Removals
+- `LC 3873` Maximum Points Activated with One Addition

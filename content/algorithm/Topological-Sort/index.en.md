@@ -96,6 +96,14 @@ For eventual safe states, safe nodes are proven backward from terminal nodes. Tr
 
 For grouped items, sort both item dependencies and group dependencies, then emit item buckets in group order.
 
+### Two Independent Orders
+
+In `LC 2392` the row and column conditions do not affect each other, so run one topological sort for each: number `x` goes in row `row_pos[x]` and column `col_pos[x]`. A cycle on either side means an empty matrix.
+
+### All Paths Lead to Destination
+
+`LC 1059` is reverse outdegree trimming too: working back from the destination, a node is safe only when all its outgoing edges lead to safe nodes; the answer is whether the source is safe. Check the destination first: any outgoing edge (including a self-loop) means infinitely many paths.
+
 ## Common Mistakes
 
 - Reversing edge direction and making the in-degree meaningless.
@@ -103,6 +111,7 @@ For grouped items, sort both item dependencies and group dependencies, then emit
 - Treating an undirected graph as a topological sort problem.
 - Calling an outdegree counter `in_degree` in reverse-trimming problems.
 - Forgetting that propagation problems need state meaning, not just ordering.
+- In my DFS version I did not check whether the destination has outgoing edges, so a self-loop like `[[0, 0]]` counted as success (LC 1059).
 
 ## Related LeetCode
 
@@ -115,3 +124,5 @@ For grouped items, sort both item dependencies and group dependencies, then emit
 - `LC 1203` Sort Items by Groups Respecting Dependencies
 - `LC 2115` Find All Possible Recipes from Given Supplies
 - `LC 2192` All Ancestors of a Node in a DAG
+- `LC 1059` All Paths from Source Lead to Destination
+- `LC 2392` Build a Matrix With Conditions

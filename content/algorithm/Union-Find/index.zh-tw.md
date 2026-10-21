@@ -281,6 +281,90 @@ class UnionFind:
 
 ---
 
+## 變形
+
+### 數連通塊個數
+
+`union` 回傳「有沒有真的合併」，每次成功合併 `groups -= 1`：
+
+```python
+def union(x, y) -> bool:
+    rx, ry = find(x), find(y)
+    if rx == ry:
+        return False
+    parent[rx] = ry                      # 接的是根，不是 x 本身
+    return True
+
+groups = n
+for u, v in edges:
+    if union(u, v):
+        groups -= 1
+```
+
+- **動態加陸地**（LC 305）：每加一格 `groups += 1`，跟四周已經是陸地的格子合併，成功一次就減 1。同一格重複加要跳過，但答案還是要記一次。
+
+### 邊依權重排序（Kruskal 的想法）
+
+```python
+edges.sort(key=lambda e: e[2])
+groups = n
+for u, v, w in edges:
+    if union(u, v):
+        groups -= 1
+        if groups == k:                  # 連到只剩 k 塊，最大的邊就是 w
+            return w
+```
+
+- **最多 `k` 塊，最大邊權最小**（LC 3613）：由小到大加邊，剛好剩 `k` 塊時的邊權就是答案；`n <= k` 時一條邊都不用，回傳 0。
+- **刪掉時間 `<= t` 的邊後至少 `k` 塊**（LC 3608）：倒過來想，從時間大的邊開始加回去，第一次讓塊數 `< k` 的那條邊的時間就是答案。
+
+### 倒著做：刪除變成加入
+
+Union-Find 只能合併、不能拆開。題目是一個一個刪除時，倒著處理就變成一個一個加入：
+
+```python
+res, best = [], 0
+for i in reversed(removeQueries):
+    res.append(best)                     # 加回 i 之前的答案
+    alive[i] = True
+    total[i] = nums[i]
+    for j in (i - 1, i + 1):
+        if 0 <= j < n and alive[j]:
+            rj, ri = find(j), find(i)
+            parent[rj] = ri
+            total[ri] += total[rj]       # 根上記整個集合的總和
+    best = max(best, total[find(i)])     # 只會變大，不用每次重算 max
+return res[::-1]
+```
+
+- **刪除後的最大區段和**（LC 2382）：根上記區段總和；倒著加回去時最大值只會變大。
+
+### 用「第一個出現的代表」合併
+
+點跟點「共用某個 key」就相連時，不要兩兩比較（`O(n²)`），用字典記每個 key 第一次出現的點，之後的點跟它合併：
+
+```python
+first = {}
+for i, key in enumerate(keys):
+    if key in first:
+        union(i, first[key])
+    else:
+        first[key] = i
+```
+
+- **同一個 x 或同一個 y 就相連**（LC 3873）：x 和 y 各一個字典。加一個新點最多能接上兩塊（一塊共用 x、一塊共用 y），答案是最大的兩塊加 1。
+
+## 常見錯誤
+
+這些都是我練習時實際寫錯過的：
+
+- **`union` 接的是節點不是根**：寫成 `parent[x] = root_y`，`x` 被拉出原本的集合，之後會多算合併（LC 3608）。
+- **一開始就已經符合條件**：`n == k` 時迴圈裡永遠不會剛好等於 `k`，函式沒有回傳值（LC 3613）。
+- **用迴圈的 index 合併**：要合併的是集合裡的元素，我寫成 `union(i - 1, i)`（LC 3873）。
+- **重複的位置**：同一格加兩次會多算一塊；跳過時還是要把答案加進結果（LC 305）。
+- **`find` 沒有走到根**：路徑減半要用 `while`，寫成 `if` 只走一步，回傳的不是根（LC 305）。
+- **每一步都重算所有集合的最大值**：`max(group_sum.values())` 讓整體變成 `O(n²)`，TLE（LC 2382）。
+
 ## 範例
 
 ## LeetCode
@@ -289,3 +373,8 @@ class UnionFind:
 - `LC 2709` Greatest Common Divisor Traversal
 - `LC 1998` GCD Sort of an Array
 - `LC 1627` Graph Connectivity With Threshold
+- `LC 305` Number of Islands II
+- `LC 3608` Minimum Time for K Connected Components
+- `LC 3613` Minimize Maximum Component Cost
+- `LC 2382` Maximum Segment Sum After Removals
+- `LC 3873` Maximum Points Activated with One Addition

@@ -1,6 +1,6 @@
 ---
 title: "Math 數學技巧"
-summary: "組合計數（配對數、切分方式）、第 k 個排列逐位決定、幾何（最近點、餘弦定理、三角不等式），以及排序或觀察之後變成公式的題目"
+summary: "組合計數（配對數、切分方式）、第 k 個排列逐位決定、幾何（最近點、餘弦定理、三角不等式）、排序或觀察之後變成公式的題目，以及直式進位、進位制轉換和快速冪"
 description: "演算法學習"
 date: 2026-10-20
 tags: ["math", "combinatorics", "geometry", "brainteaser"]
@@ -97,6 +97,54 @@ while n:                                 # 從個位數開始
 
 **直接套公式**：`min(n², maxWeight // w)`（LC 3492）、攝氏轉換（LC 2469）、`n` 個和為 0 的不同整數（LC 1304：`1..n/2` 和它們的相反數，`n` 是奇數再加 0）、等差數列的 XOR（LC 1486）。
 
+## 模板六：直式加法與乘法（進位）
+
+數字用字串或陣列表示、不能直接轉成整數時，照直式從最低位開始算：
+
+```python
+i, j, carry, res = len(a) - 1, len(b) - 1, 0, []
+while i >= 0 or j >= 0 or carry:         # carry 放進條件，最後的進位不會漏
+    x = int(a[i]) if i >= 0 else 0
+    y = int(b[j]) if j >= 0 else 0
+    carry, d = divmod(x + y + carry, 10)
+    res.append(str(d))
+    i, j = i - 1, j - 1
+return "".join(reversed(res))
+```
+
+- **加一**（LC 66）：從最後一位往前，不是 9 就加一回傳，是 9 就變 0；全部是 9 時前面補 1。
+- **陣列加整數**（LC 989）：把整個 `k` 當成進位，`k += num[i]`、取 `k % 10`、`k //= 10`。
+- **字串相乘**（LC 43）：`a[i] * b[j]` 加到 `res[i + j + 1]`，全部乘完再統一進位，最後去掉開頭的 0。
+
+## 模板七：進位制轉換
+
+```python
+digits = []
+while n:
+    n, r = divmod(n, base)
+    digits.append(r)                     # 從最低位開始
+digits.reverse()
+```
+
+- **七進位**（LC 504）：對絕對值做，最後補負號；`0` 要特別處理。
+- **Excel 欄名**（LC 168、171）：每一位是 `1..26`，沒有 0，所以每一步用 `divmod(n - 1, 26)`。反方向是 `res = res * 26 + 值`。
+- **反轉位數**（LC 7、9）：`rev = rev * 10 + n % 10`。回文只要反轉後半段，直到 `rev >= n`。
+
+## 模板八：快速冪
+
+```python
+def power(x, n):
+    res = 1
+    while n:
+        if n & 1:                        # 這一位是 1，乘進答案
+            res *= x
+        x *= x                           # x^(2^k)
+        n >>= 1
+    return res
+```
+
+`O(log n)` 次乘法。負的指數先換成 `1 / x`、`-n`（LC 50）。有取模時每次乘完都 `% MOD`。
+
 ## 主要參數說明
 
 - 無條件進位的除法：`-(-a // b)` 或 `(a + b - 1) // b`，不要用浮點數。
@@ -121,6 +169,13 @@ while n:                                 # 從個位數開始
 - **字串和整數混著比較**、**找到新的最大值時沒把舊的最大值移到第二名**（LC 3536）。
 - **取模的方向寫反**：`(sum + prod) % n` 應該是 `n % (sum + prod)`（LC 3622）。
 - **偶數個時多放了 0**（LC 1304）。
+- **`^` 是 XOR，不是次方**：次方要寫 `**`，`10**len - 1 - i` 也要加括號（LC 66）。
+- **`str(n).split()` 不會拆成每一位**：`split` 是用空白切，要用 `list(str(n))`（LC 66、989）。
+- **忘了最後的進位**，或補的是最後一位的和而不是進位（LC 415）。
+- **只把同一個位置的位數相乘**：每一位都要跟另一個數的每一位相乘（LC 43）。
+- **Excel 欄名只在取字母時減 1**：往前的那一步也要用 `n - 1`（LC 168）。
+- **負數反轉後沒有把負號加回去**（LC 7）。
+- **判斷倍數用 `//`**：`i // 15 == 0` 是「小於 15」（LC 412）。
 
 ## 相關 LeetCode
 
@@ -149,3 +204,16 @@ while n:                                 # 從個位數開始
 - `LC 3908` Valid Digit Number
 - `LC 3959` Check Good Integer
 - `LC 3895` Count Digit Appearances
+- `LC 66` Plus One
+- `LC 9` Palindrome Number
+- `LC 7` Reverse Integer
+- `LC 415` Add Strings
+- `LC 43` Multiply Strings
+- `LC 989` Add to Array-Form of Integer
+- `LC 168` Excel Sheet Column Title
+- `LC 171` Excel Sheet Column Number
+- `LC 504` Base 7
+- `LC 258` Add Digits
+- `LC 13` Roman to Integer
+- `LC 412` Fizz Buzz
+- `LC 50` Pow(x, n)

@@ -1,6 +1,6 @@
 ---
 title: "Math"
-summary: "Combinatorial counting (pairs, ways to split), building the k-th permutation digit by digit, geometry (nearest point, law of cosines, triangle inequality), and problems that become formulas after sorting or an observation"
+summary: "Combinatorial counting (pairs, ways to split), building the k-th permutation digit by digit, geometry (nearest point, law of cosines, triangle inequality), problems that become formulas after sorting or an observation, plus carry arithmetic, base conversion and fast exponentiation"
 description: "Algorithm Learning"
 date: 2026-10-20
 tags: ["math", "combinatorics", "geometry", "brainteaser"]
@@ -97,6 +97,54 @@ while n:                                 # ones place first
 
 **Plain formulas**: `min(n², maxWeight // w)` (LC 3492), temperature conversion (LC 2469), `n` distinct integers summing to 0 (LC 1304: `1..n/2` and their negatives, plus 0 when `n` is odd), XOR of an arithmetic sequence (LC 1486).
 
+## Template 6: Column addition and multiplication (carries)
+
+When numbers come as strings or arrays and cannot be converted to integers, compute column by column from the lowest digit:
+
+```python
+i, j, carry, res = len(a) - 1, len(b) - 1, 0, []
+while i >= 0 or j >= 0 or carry:         # carry in the condition keeps the final one
+    x = int(a[i]) if i >= 0 else 0
+    y = int(b[j]) if j >= 0 else 0
+    carry, d = divmod(x + y + carry, 10)
+    res.append(str(d))
+    i, j = i - 1, j - 1
+return "".join(reversed(res))
+```
+
+- **Plus one** (LC 66): from the last digit, a non-9 increments and returns, a 9 becomes 0; prepend 1 when all were 9.
+- **Array plus integer** (LC 989): treat all of `k` as the carry: `k += num[i]`, take `k % 10`, then `k //= 10`.
+- **String multiplication** (LC 43): add `a[i] * b[j]` into `res[i + j + 1]`, carry once at the end, and strip leading zeros.
+
+## Template 7: Base conversion
+
+```python
+digits = []
+while n:
+    n, r = divmod(n, base)
+    digits.append(r)                     # lowest digit first
+digits.reverse()
+```
+
+- **Base 7** (LC 504): work on the absolute value and add the sign last; handle `0` separately.
+- **Excel columns** (LC 168, 171): digits are `1..26` with no zero, so each step uses `divmod(n - 1, 26)`. The reverse is `res = res * 26 + value`.
+- **Reversing digits** (LC 7, 9): `rev = rev * 10 + n % 10`. For palindromes reverse only the second half, until `rev >= n`.
+
+## Template 8: Fast exponentiation
+
+```python
+def power(x, n):
+    res = 1
+    while n:
+        if n & 1:                        # this bit is 1: multiply it in
+            res *= x
+        x *= x                           # x^(2^k)
+        n >>= 1
+    return res
+```
+
+`O(log n)` multiplications. For a negative exponent switch to `1 / x` and `-n` (LC 50). Under a modulus, apply `% MOD` after each multiplication.
+
 ## Key Parameters
 
 - Ceiling division: `-(-a // b)` or `(a + b - 1) // b`, never floating point.
@@ -121,6 +169,13 @@ These are all mistakes I actually made while practicing:
 - **Comparing strings with integers**, and **not moving the old maximum to second place when a new maximum appears** (LC 3536).
 - **Modulo the wrong way around**: `(sum + prod) % n` should be `n % (sum + prod)` (LC 3622).
 - **An extra 0 for even `n`** (LC 1304).
+- **`^` is XOR, not a power**: powers are `**`, and `10**len - 1 - i` needs parentheses (LC 66).
+- **`str(n).split()` does not split into digits**: it splits on whitespace; use `list(str(n))` (LC 66, 989).
+- **Dropping the final carry**, or appending the last sum instead of the carry (LC 415).
+- **Multiplying only digits at matching positions**: each digit multiplies every digit of the other number (LC 43).
+- **Subtracting 1 only for the Excel letter**: the step forward needs `n - 1` too (LC 168).
+- **Not restoring the minus sign after reversing a negative** (LC 7).
+- **Testing multiples with `//`**: `i // 15 == 0` means "less than 15" (LC 412).
 
 ## Related LeetCode
 
@@ -149,3 +204,16 @@ These are all mistakes I actually made while practicing:
 - `LC 3908` Valid Digit Number
 - `LC 3959` Check Good Integer
 - `LC 3895` Count Digit Appearances
+- `LC 66` Plus One
+- `LC 9` Palindrome Number
+- `LC 7` Reverse Integer
+- `LC 415` Add Strings
+- `LC 43` Multiply Strings
+- `LC 989` Add to Array-Form of Integer
+- `LC 168` Excel Sheet Column Title
+- `LC 171` Excel Sheet Column Number
+- `LC 504` Base 7
+- `LC 258` Add Digits
+- `LC 13` Roman to Integer
+- `LC 412` Fizz Buzz
+- `LC 50` Pow(x, n)

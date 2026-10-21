@@ -1,6 +1,6 @@
 ---
 title: "LeetCode 3713: Longest Balanced Substring I"
-summary: "LeetCode 3713 note: fix the start and extend right; "every character has the same count" means "highest count × kinds = length", an O(1) check per step"
+summary: "LeetCode 3713 note: fix the start and extend right; \"every character has the same count\" means \"highest count × kinds = length\", an O(1) check per step"
 description: "LeetCode 3713 record from 2026-06-22"
 date: 2026-06-22
 tags: ["medium", "hash-table", "string", "counting", "enumeration"]

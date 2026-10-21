@@ -1,6 +1,6 @@
 ---
 title: "LeetCode 2264: Largest 3-Same-Digit Number in String"
-summary: "LeetCode 2264 note: there are only ten candidates, "000" to "999", so check from "999" down whether each appears"
+summary: "LeetCode 2264 note: there are only ten candidates, \"000\" to \"999\", so check from \"999\" down whether each appears"
 description: "LeetCode 2264 record from 2025-08-14"
 date: 2025-08-14
 tags: ["easy", "string"]

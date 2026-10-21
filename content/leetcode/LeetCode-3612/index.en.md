@@ -1,6 +1,6 @@
 ---
 title: "LeetCode 3612: Process String with Special Operations I"
-summary: "LeetCode 3612 note: simulate the four operations with a list; put the "result is non-empty" check inside the * branch, or * gets appended as a letter"
+summary: "LeetCode 3612 note: simulate the four operations with a list; put the \"result is non-empty\" check inside the * branch, or * gets appended as a letter"
 description: "LeetCode 3612 record from 2025-07-13"
 date: 2025-07-13
 tags: ["medium", "string", "simulation"]

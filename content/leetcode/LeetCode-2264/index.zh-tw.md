@@ -1,6 +1,6 @@
 ---
 title: "LeetCode 2264: Largest 3-Same-Digit Number in String"
-summary: "LeetCode 2264 解題筆記：候選只有 "000" 到 "999" 十個，從 "999" 往下檢查有沒有在字串裡"
+summary: "LeetCode 2264 解題筆記：候選只有 \"000\" 到 \"999\" 十個，從 \"999\" 往下檢查有沒有在字串裡"
 description: "2025-08-14 的 LeetCode 2264 解題紀錄"
 date: 2025-08-14
 tags: ["easy", "string"]

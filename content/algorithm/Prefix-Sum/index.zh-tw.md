@@ -68,4 +68,78 @@ class NumArray:
         return self.ps[right+1] - self.ps[left]
 ```
 
+## 模板二：前綴 / 後綴的最大最小值（找分割點）
+
+題目要「左邊一段的某個值」和「右邊一段的某個值」時，先各掃一次存起來，再枚舉分割點：
+
+```python
+n = len(nums)
+pre_max = nums[:]                        # pre_max[i] = max(nums[0..i])
+for i in range(1, n):
+    pre_max[i] = max(pre_max[i - 1], nums[i])
+suf_min = nums[:]                        # suf_min[i] = min(nums[i..n-1])
+for i in range(n - 2, -1, -1):
+    suf_min[i] = min(suf_min[i + 1], nums[i])
+for i in range(n):
+    score = pre_max[i] - suf_min[i]      # 或 prefix_sum[i] - suf_min[i + 1] 等
+```
+
+- **最小穩定 index**（LC 3903、3904）：`pre_max[i] - suf_min[i] <= k` 的第一個 `i`。
+- **前綴和減後綴最小值**（LC 3788）：分割點 `i` 的分數是 `prefix_sum[i] - suf_min[i + 1]`。
+- **`(nums[i] - nums[j]) * nums[k]` 最大**（LC 2874）：枚舉中間的 `j`，左邊取最大、右邊取最大。也可以一次掃描，同時維護「目前最大值」和「目前最大差」。
+- **切一刀，兩邊和相等**（LC 3707、3548）：邊掃邊累加左邊，右邊是 `total - left`。3548 還能去掉一格，要另外判斷去掉之後是否還連通。
+
+## 模板三：前綴差值 + 雜湊表
+
+把「0 和 1 一樣多」轉成「前綴的 `ones - zeros` 相同」。記住每個差值**最早**出現的位置，子字串越長越好：
+
+```python
+first = {0: -1}
+diff = best = 0
+for i, ch in enumerate(s):
+    diff += 1 if ch == "1" else -1
+    if diff in first:
+        best = max(best, i - first[diff])
+    else:
+        first[diff] = i
+```
+
+- **允許交換一次**（LC 3900）：差值差 2 的子字串，只要外面還有一個可以換進來的字元，交換後就平衡。最早的位置不合格時，第二早的一定合格，所以每個差值記前兩個位置就好。
+
+## 模板四：只走到最後需要的位置
+
+每種東西只要走到它**最後一次出現**的位置，路程用前綴和算：
+
+```python
+last = {}
+for i, items in enumerate(houses):
+    for t in set(items):
+        last[t] = i
+prefix = [0]
+for d in travel:
+    prefix.append(prefix[-1] + d)
+total = sum(len(items) for items in houses) + sum(prefix[i] for i in last.values())
+```
+
+- **收垃圾**（LC 2391）：三台車各自只開到自己那種垃圾的最後一間。
+
+## 常見錯誤
+
+這些都是我練習時實際寫錯過的：
+
+- **後綴陣列的 index 差一**：反著建的後綴陣列，對應位置寫錯，把 `j` 自己也算進右邊（LC 2874）。
+- **分數用 `ord(c)`**：題目的分數是字母順序 1 到 26；兩邊長度不同時，`ord` 會多出不同的 `96 × 長度`（LC 3707）。
+- **前綴差值的題目用滑動視窗**：平衡不是單調的條件，縮左邊不一定會變好（LC 3900）。
+
 ## LeetCode
+
+- `LC 303` Range Sum Query - Immutable
+- `LC 2874` Maximum Value of an Ordered Triplet II
+- `LC 3788` Maximum Score of a Split
+- `LC 3903` Smallest Stable Index I
+- `LC 3904` Smallest Stable Index II
+- `LC 2391` Minimum Amount of Time to Collect Garbage
+- `LC 3494` Find the Minimum Amount of Time to Brew Potions
+- `LC 3707` Equal Score Substrings
+- `LC 3548` Equal Sum Grid Partition II
+- `LC 3900` Longest Balanced Substring After One Swap

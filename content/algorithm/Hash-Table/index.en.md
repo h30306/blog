@@ -98,6 +98,16 @@ for i in range(n):
 
 - **Anagrams** (LC 2273): equal `sorted(word)` means anagrams. Repeatedly deleting a word that is an anagram of the previous one is the same as keeping only words that are not anagrams of the last kept word.
 - **Custom sort** (LC 3606): filter the valid ones, then sort by `(category order, code)`.
+- **Grouping** (LC 49): use `"".join(sorted(s))` as the key in a `defaultdict(list)`. `set(s)` does not work: `"bb"` and `"b"` share a set.
+- **Bijection** (LC 205, 290): `len(set(a)) == len(set(b)) == len(set(zip(a, b)))`. When encoding with first-occurrence indices, separate the numbers.
+
+### Counter Arithmetic
+
+| Expression | Meaning | Examples |
+|---|---|---|
+| `not (Counter(a) - Counter(b))` | `b` covers every character of `a` | LC 383, 1160, 748 |
+| `c1 & c2` | per-character minimum | LC 1002 |
+| `min(cnt[c] // need[c] for c in need)` | how many copies can be built | LC 1189 |
 
 ## Key Parameters
 
@@ -120,6 +130,14 @@ These are mistakes I actually made while practicing:
 - **Forgetting to sort**: a set converted to a list has no order (LC 3842).
 - **Counting words that are too short**: `word[:k]` shorter than `k` cannot form a group (LC 3839).
 - **A character range missing its last letter**: `range(ord("a"), ord("z"))` excludes `z`; I also had the sort key in the wrong order (LC 3606).
+- **`d.get(x, 0) + 1` without storing it**: the map stays empty (LC 242).
+- **Checking only that the counts sum to 0**: positives and negatives cancel; check each one (LC 242).
+- **Reading a `Counter` difference backwards**: a non-empty difference means a shortfall (LC 383).
+- **Using `set` for anagrams or common characters**: it drops multiplicity (LC 49, 1002).
+- **Storing and reading keys in different cases**: store `B`, look up `b`, never found (LC 748, 3121).
+- **Turning a list into a `set` before searching**: order is lost, so "earliest on ties" is impossible (LC 748).
+- **Index encodings without a separator**: `1` + `12` and `11` + `2` both read `112` (LC 205).
+- **Filtering by raw count before dividing**: when `l` is needed twice, compare `cnt // 2` (LC 1189).
 
 ## Related LeetCode
 
@@ -138,3 +156,18 @@ These are mistakes I actually made while practicing:
 - `LC 594` Longest Harmonious Subsequence
 - `LC 219` Contains Duplicate II
 - `LC 187` Repeated DNA Sequences
+- `LC 242` Valid Anagram
+- `LC 49` Group Anagrams
+- `LC 383` Ransom Note
+- `LC 1189` Maximum Number of Balloons
+- `LC 1160` Find Words That Can Be Formed by Characters
+- `LC 1002` Find Common Characters
+- `LC 771` Jewels and Stones
+- `LC 884` Uncommon Words from Two Sentences
+- `LC 819` Most Common Word
+- `LC 409` Longest Palindrome
+- `LC 3120` Count the Number of Special Characters I
+- `LC 3121` Count the Number of Special Characters II
+- `LC 748` Shortest Completing Word
+- `LC 290` Word Pattern
+- `LC 205` Isomorphic Strings

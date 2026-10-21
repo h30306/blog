@@ -98,6 +98,16 @@ for i in range(n):
 
 - **異位詞**（LC 2273）：`sorted(word)` 相同就是異位詞。題目一直刪掉「跟前一個是異位詞」的字，等於只保留跟前一個留下來的字不是異位詞的字。
 - **自訂排序**（LC 3606）：先過濾合法的，再用 `(類別順序, code)` 當排序的 key。
+- **分組**（LC 49）：`"".join(sorted(s))` 當 key，丟進 `defaultdict(list)`。不能用 `set(s)`：`"bb"` 和 `"b"` 的集合相同。
+- **雙射**（LC 205、290）：`len(set(a)) == len(set(b)) == len(set(zip(a, b)))`。改用「第一次出現的 index」編碼時，數字之間要加分隔符號。
+
+### 用 `Counter` 運算
+
+| 寫法 | 意思 | 例子 |
+|---|---|---|
+| `not (Counter(a) - Counter(b))` | `b` 的每個字元都夠 `a` 用 | LC 383、1160、748 |
+| `c1 & c2` | 每個字元取最小次數 | LC 1002 |
+| `min(cnt[c] // need[c] for c in need)` | 最多能組幾份 | LC 1189 |
 
 ## 主要參數說明
 
@@ -120,6 +130,14 @@ for i in range(n):
 - **忘了排序**：集合轉成 list 沒有順序（LC 3842）。
 - **太短的字也算進去**：`word[:k]` 長度不到 `k` 時不能分組（LC 3839）。
 - **字元範圍少一個**：`range(ord("a"), ord("z"))` 不包含 `z`；排序 key 的順序也寫反過（LC 3606）。
+- **`d.get(x, 0) + 1` 沒有存回去**：表一直是空的（LC 242）。
+- **只檢查次數的總和是 0**：正負會互相抵消，要檢查每一個（LC 242）。
+- **`Counter` 相減的意思寫反**：差集不是空的代表「不夠」（LC 383）。
+- **用 `set` 判斷 anagram 或共同字元**：會丟掉重複的次數（LC 49、1002）。
+- **存和讀的 key 大小寫不一致**：存 `B`、查 `b`，永遠查不到（LC 748、3121）。
+- **把 list 轉成 `set` 再找答案**：順序不見了，同長度時要回傳最前面的就做不到（LC 748）。
+- **index 編碼沒有分隔符號**：`1` + `12` 和 `11` + `2` 都是 `112`（LC 205）。
+- **先用原始次數篩選再除**：`l` 需要兩個時，要比較的是 `cnt // 2`（LC 1189）。
 
 ## 相關 LeetCode
 
@@ -138,3 +156,18 @@ for i in range(n):
 - `LC 594` Longest Harmonious Subsequence
 - `LC 219` Contains Duplicate II
 - `LC 187` Repeated DNA Sequences
+- `LC 242` Valid Anagram
+- `LC 49` Group Anagrams
+- `LC 383` Ransom Note
+- `LC 1189` Maximum Number of Balloons
+- `LC 1160` Find Words That Can Be Formed by Characters
+- `LC 1002` Find Common Characters
+- `LC 771` Jewels and Stones
+- `LC 884` Uncommon Words from Two Sentences
+- `LC 819` Most Common Word
+- `LC 409` Longest Palindrome
+- `LC 3120` Count the Number of Special Characters I
+- `LC 3121` Count the Number of Special Characters II
+- `LC 748` Shortest Completing Word
+- `LC 290` Word Pattern
+- `LC 205` Isomorphic Strings

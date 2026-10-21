@@ -41,6 +41,31 @@ WHERE referee_id IS NULL OR referee_id != 2;
 
 - **推薦人不是 2 的客戶**（LC 584）：上面的查詢。也可以寫成 `COALESCE(referee_id, 0) != 2`。
 
+## 模板三：JOIN
+
+```sql
+SELECT a.col, b.col
+FROM A a
+LEFT JOIN B b ON a.key = b.key        -- 左表全部保留，對不到的補 NULL
+WHERE b.key IS NULL;                  -- 加上這行：在 B 裡找不到的列
+```
+
+- **保留沒有對應的列**（LC 175）：`LEFT JOIN`；`INNER JOIN` 會把它們丟掉。
+- **找不存在的列**（LC 183）：`LEFT JOIN ... WHERE b.key IS NULL`，或 `NOT EXISTS`；`NOT IN` 遇到 `NULL` 會一筆都不回傳。
+- **同一張表扮演兩個角色**（LC 181、197）：self join，例如員工接主管（`e.managerId = m.id`）、今天接前一天（`DATEDIFF(w.recordDate, y.recordDate) = 1`）。前一天要用日期判斷，不要用 id。
+
+## 模板四：GROUP BY 和 HAVING
+
+```sql
+SELECT key
+FROM T
+GROUP BY key
+HAVING COUNT(DISTINCT x) >= k;        -- 對分組下條件
+```
+
+- **出現超過一次**（LC 182）、**至少 5 個不同的學生**（LC 596）：`WHERE` 在分組前過濾單一列，聚合條件要放 `HAVING`。
+- **刪除重複**（LC 196）：要真的 `DELETE`；保留每組的 `MIN(id)`，MySQL 的子查詢要多包一層衍生表才能讀同一張表。
+
 ## 主要參數說明
 
 - `IS NULL` / `IS NOT NULL` 才能判斷 NULL。
@@ -53,8 +78,23 @@ WHERE referee_id IS NULL OR referee_id != 2;
 ## 常見錯誤
 
 - 用 `= NULL` 或只用 `!=` 判斷，漏掉 NULL 的列。
+- **字串沒加引號**：`boring` 會被當成欄位名稱（LC 620）。
+- **由高到低忘了 `DESC`**（LC 620）。
+- **欄位沒寫屬於哪個別名**：self join 時 `Name` 有歧義；輸出欄位名稱要照題目（LC 181）。
+- **聚合條件寫在 `WHERE`**、**沒用 `DISTINCT` 計數**（LC 596）。
+- **題目要刪除卻寫了 `SELECT`**（LC 196）。
+- **「至少」用了 `>`**（LC 595）。
 
 ## 相關 LeetCode
 
 - `LC 1757` Recyclable and Low Fat Products
 - `LC 584` Find Customer Referee
+- `LC 595` Big Countries
+- `LC 620` Not Boring Movies
+- `LC 175` Combine Two Tables
+- `LC 181` Employees Earning More Than Their Managers
+- `LC 183` Customers Who Never Order
+- `LC 182` Duplicate Emails
+- `LC 596` Classes With at Least 5 Students
+- `LC 196` Delete Duplicate Emails
+- `LC 197` Rising Temperature

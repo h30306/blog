@@ -57,7 +57,14 @@ for x in nums:
 ```
 
 - **Numbers appearing twice** (LC 442): the code above.
+- **Missing numbers** (LC 448): after marking everything, each `i` still positive means `i + 1` never appeared.
 - **First missing positive** (LC 41): the answer is in `1..n + 1`. Replace values `<= 0` with `n + 1` (**not 0**: negating 0 gives 0, so it cannot be marked), mark `1..n`, and the first position `i` still positive gives the answer `i + 1`.
+
+### Extension: complement lookups, run starts, voting
+
+- **Two Sum** (LC 1): store "value → index", **checking `target - x` before storing `x`**, so no element pairs with itself.
+- **Longest consecutive sequence** (LC 128): put everything in a set and count upward only from starts whose `x - 1` is absent, in `O(n)`.
+- **Majority element** (LC 169, 229): Boyer-Moore voting, where different values cancel; above `n / 3`, keep two candidates and recount at the end.
 
 ## Template 3: Counting several keys at once
 
@@ -138,6 +145,13 @@ These are mistakes I actually made while practicing:
 - **Turning a list into a `set` before searching**: order is lost, so "earliest on ties" is impossible (LC 748).
 - **Index encodings without a separator**: `1` + `12` and `11` + `2` both read `112` (LC 205).
 - **Filtering by raw count before dividing**: when `l` is needed twice, compare `cnt // 2` (LC 1189).
+- **Finding indices with `nums.index(x)` in Two Sum**: equal values get the same index (LC 1).
+- **Inverted conditions**: `len(set(nums)) == len(nums)` means "no duplicate" (LC 217); two limits need `min`, not `max` (LC 575).
+- **Taking only `most_common()[0]`**: several values may share the highest count (LC 697).
+- **Ordering leftovers by frequency**: they go in ascending order, keeping multiplicities (LC 1122).
+- **Lists as dict keys**: use tuples, normalized in order first (LC 1128).
+- **Overwriting the length and ignoring duplicates when scanning sorted runs** (LC 128).
+- **`round(n / 2)` uses banker's rounding in Python 3**: take the middle with `n // 2` (LC 169).
 
 ## Related LeetCode
 
@@ -171,3 +185,14 @@ These are mistakes I actually made while practicing:
 - `LC 748` Shortest Completing Word
 - `LC 290` Word Pattern
 - `LC 205` Isomorphic Strings
+- `LC 1` Two Sum
+- `LC 217` Contains Duplicate
+- `LC 575` Distribute Candies
+- `LC 169` Majority Element
+- `LC 229` Majority Element II
+- `LC 961` N-Repeated Element in Size 2N Array
+- `LC 448` Find All Numbers Disappeared in an Array
+- `LC 128` Longest Consecutive Sequence
+- `LC 1122` Relative Sort Array
+- `LC 697` Degree of an Array
+- `LC 1128` Number of Equivalent Domino Pairs

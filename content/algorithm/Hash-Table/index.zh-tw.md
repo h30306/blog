@@ -57,7 +57,14 @@ for x in nums:
 ```
 
 - **出現兩次的數**（LC 442）：上面的程式。
+- **沒出現的數**（LC 448）：全部標記完，還是正的位置 `i` 代表 `i + 1` 沒出現。
 - **第一個缺少的正整數**（LC 41）：答案一定在 `1..n + 1`。先把 `<= 0` 的值換成 `n + 1`（**不能換成 0**，0 加負號還是 0，沒辦法標記），再標記 `1..n`，第一個還是正的位置 `i` 就是答案 `i + 1`。
+
+### 延伸：查補數、找起點、投票
+
+- **Two Sum**（LC 1）：存「值 → index」，**先查 `target - x` 再存 `x`**，不會配到自己。
+- **最長連續序列**（LC 128）：放進 set，只從 `x - 1` 不在 set 裡的起點往上數，`O(n)`。
+- **多數元素**（LC 169、229）：Boyer-Moore 投票，不同的數互相抵消；超過 `n / 3` 時維護兩個候選人，最後要再數一次確認。
 
 ## 模板三：多個 key 同時計數
 
@@ -138,6 +145,13 @@ for i in range(n):
 - **把 list 轉成 `set` 再找答案**：順序不見了，同長度時要回傳最前面的就做不到（LC 748）。
 - **index 編碼沒有分隔符號**：`1` + `12` 和 `11` + `2` 都是 `112`（LC 205）。
 - **先用原始次數篩選再除**：`l` 需要兩個時，要比較的是 `cnt // 2`（LC 1189）。
+- **Two Sum 用 `nums.index(x)` 找 index**：相同的值會拿到同一個 index（LC 1）。
+- **判斷條件寫反**：`len(set(nums)) == len(nums)` 是「沒有重複」（LC 217）；兩個上限要取 `min` 不是 `max`（LC 575）。
+- **只拿 `most_common()[0]`**：次數最多的數可能不只一個（LC 697）。
+- **剩下的數照次數排**：題目要由小到大，而且要保留重複的次數（LC 1122）。
+- **list 當 dict 的 key**：要轉成 tuple，也要先正規化順序（LC 1128）。
+- **排序找連續時長度直接覆蓋、沒處理重複**（LC 128）。
+- **`round(n / 2)` 在 Python 3 是四捨六入五成雙**：取中間用 `n // 2`（LC 169）。
 
 ## 相關 LeetCode
 
@@ -171,3 +185,14 @@ for i in range(n):
 - `LC 748` Shortest Completing Word
 - `LC 290` Word Pattern
 - `LC 205` Isomorphic Strings
+- `LC 1` Two Sum
+- `LC 217` Contains Duplicate
+- `LC 575` Distribute Candies
+- `LC 169` Majority Element
+- `LC 229` Majority Element II
+- `LC 961` N-Repeated Element in Size 2N Array
+- `LC 448` Find All Numbers Disappeared in an Array
+- `LC 128` Longest Consecutive Sequence
+- `LC 1122` Relative Sort Array
+- `LC 697` Degree of an Array
+- `LC 1128` Number of Equivalent Domino Pairs

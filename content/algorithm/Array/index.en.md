@@ -49,6 +49,9 @@ ok = 0 < p < q < n - 1 and i == n - 1
 - **Hills and valleys** (LC 2210): treat equal neighbors as one point and remember only the last non-flat direction; up then down is a hill, down then up a valley.
 - **Adjacent differences in a circular array** (LC 3423): the last and first elements are adjacent too.
 
+- **Mountains and monotonic arrays** (LC 941, 896): a mountain walks a strict ascent, peaks away from both ends, then walks a strict descent to the very end; monotonic means a rise and a fall never both occur, with equal neighbors allowed.
+- **Run lengths** (LC 674, 485): update the maximum every step so the final run is not missed.
+
 ## Template 2: At most one change
 
 ```python
@@ -125,6 +128,12 @@ These are mistakes I actually made while practicing:
 - **`return False` inside the `for` loop**: it gave up after the first `p`; another version never checked the final uphill run (LC 3637).
 - **Averaging with integer division and including the element itself** (LC 3833).
 - **Taking a modulo without checking for zero**: with no non-negative elements, `k % 0` raised an error (LC 3819).
+- **Updating the maximum only when a run breaks**: the final run is missed (LC 674).
+- **Sorting before looking for increasing runs**: the order is destroyed (LC 674).
+- **Checking only one side of a mountain**: both an ascent and a descent must exist (LC 941); **checking one direction or using strict inequalities for monotonic** (LC 896).
+- **`i - 1 // 2`**: `//` binds tighter than `-` (LC 1646).
+- **Not ordering the endpoints on a ring**: with `start > destination` the slice is empty (LC 1184).
+- **Swapped branches**: when the gap exceeds the duration, add the duration (LC 495).
 
 ## Related LeetCode
 
@@ -149,3 +158,11 @@ These are mistakes I actually made while practicing:
 - `LC 3379` Transformed Array
 - `LC 3838` Weighted Word Mapping
 - `LC 3951` Minimum Energy to Maintain Brightness
+- `LC 674` Longest Continuous Increasing Subsequence
+- `LC 485` Max Consecutive Ones
+- `LC 941` Valid Mountain Array
+- `LC 896` Monotonic Array
+- `LC 3131` Find the Integer Added to Array I
+- `LC 1646` Get Maximum in Generated Array
+- `LC 495` Teemo Attacking
+- `LC 1184` Distance Between Bus Stops

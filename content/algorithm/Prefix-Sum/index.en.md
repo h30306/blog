@@ -62,6 +62,12 @@ class NumArray:
         return self.ps[right+1] - self.ps[left]
 ```
 
+### Extension: prefix products and minimum prefix sums
+
+- **Product except self** (LC 238): the first pass stores left products (excluding the element), the second multiplies in a running right product; no division.
+- **Start value** (LC 1413): `1 - min(prefix)`, with the minimum starting at 0.
+- **Middle index** (LC 1991): the right sum is `total - left - nums[i]`.
+
 ## Template 2: Prefix / suffix maximum and minimum (finding a split)
 
 When a problem needs "something about the left part" and "something about the right part", scan once from each side, store the results, then try every split:
@@ -124,6 +130,7 @@ These are mistakes I actually made while practicing:
 - **Off-by-one in a suffix array**: a suffix array built backward was indexed wrong, so `j` itself counted as part of the right side (LC 2874).
 - **Scoring with `ord(c)`**: the score is the alphabet position 1 to 26; with different lengths, `ord` adds a different `96 × length` to each side (LC 3707).
 - **Sliding window on a prefix-difference problem**: balance is not monotonic, so shrinking from the left does not necessarily help (LC 3900).
+- **Including the element in its prefix product**: `res[i] = res[i - 1] * nums[i - 1]`, not `nums[i]` (LC 238).
 
 ## Related LeetCode
 
@@ -137,3 +144,8 @@ These are mistakes I actually made while practicing:
 - `LC 3707` Equal Score Substrings
 - `LC 3548` Equal Sum Grid Partition II
 - `LC 3900` Longest Balanced Substring After One Swap
+- `LC 1480` Running Sum of 1d Array
+- `LC 1732` Find the Highest Altitude
+- `LC 1413` Minimum Value to Get Positive Step by Step Sum
+- `LC 1991` Find the Middle Index in Array
+- `LC 238` Product of Array Except Self

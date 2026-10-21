@@ -49,6 +49,9 @@ ok = 0 < p < q < n - 1 and i == n - 1
 - **山峰與山谷**（LC 2210）：相等的鄰居當成同一點，只記「上一個不同的方向」，方向從上變下是山峰、從下變上是山谷。
 - **環狀陣列的相鄰差**（LC 3423）：別忘了最後一個和第一個也相鄰。
 
+- **山脈、單調**（LC 941、896）：山脈是先走完嚴格上升、山頂不在兩端、再走完嚴格下降並剛好到底；單調是「上升和下降沒有同時出現」，相等可以。
+- **連續段的長度**（LC 674、485）：每一步都更新最大值，最後一段才不會漏掉。
+
 ## 模板二：最多改一次
 
 ```python
@@ -125,6 +128,12 @@ for i in range(n - 1, -1, -1):           # 右往左：後綴總和
 - **在 `for` 迴圈裡 `return False`**：只試了第一個 `p` 就結束；另一版沒檢查最後一段上坡（LC 3637）。
 - **平均用整數除法、而且包含自己**（LC 3833）。
 - **取模之前沒檢查是不是 0**：沒有非負數的時候 `k % 0` 直接報錯（LC 3819）。
+- **只在段落中斷時更新最大值**：迴圈結束時最後一段沒算到（LC 674）。
+- **排序之後再找連續遞增**：順序被破壞了（LC 674）。
+- **山脈只檢查一邊**：上坡和下坡都要存在（LC 941）；**單調只檢查一個方向或用嚴格不等式**（LC 896）。
+- **`i - 1 // 2`**：`//` 比 `-` 先算（LC 1646）。
+- **環狀路線沒有先把端點排好**：`start > destination` 時切片是空的（LC 1184）。
+- **兩個分支寫反**：間隔比 duration 長時加的應該是 duration（LC 495）。
 
 ## 相關 LeetCode
 
@@ -149,3 +158,11 @@ for i in range(n - 1, -1, -1):           # 右往左：後綴總和
 - `LC 3379` Transformed Array
 - `LC 3838` Weighted Word Mapping
 - `LC 3951` Minimum Energy to Maintain Brightness
+- `LC 674` Longest Continuous Increasing Subsequence
+- `LC 485` Max Consecutive Ones
+- `LC 941` Valid Mountain Array
+- `LC 896` Monotonic Array
+- `LC 3131` Find the Integer Added to Array I
+- `LC 1646` Get Maximum in Generated Array
+- `LC 495` Teemo Attacking
+- `LC 1184` Distance Between Bus Stops

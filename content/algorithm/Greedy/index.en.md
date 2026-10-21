@@ -66,6 +66,9 @@ for s, e in intervals:
 
 Place points at the **right end**: later intervals only have larger right ends, so points on the right are the most likely to be shared (LC 757). With the same right end, handle the shorter interval (larger left end) first; otherwise the longer one would wrongly look covered by two points.
 
+- **Insert interval** (LC 57): the intervals are sorted, so split them into entirely left, entirely right and overlapping, merging the overlapping ones into the new interval; start the merge from the new interval itself.
+- **Summary ranges** (LC 228): extend the last range when the number continues it, otherwise open a new one.
+
 ## Template 3: Left and right passes
 
 When a condition involves both neighbors, handle one side per pass:
@@ -158,6 +161,11 @@ These are mistakes I actually made while practicing:
 - **Assuming each row is sorted** and taking `unit[0]` as the minimum (LC 3961).
 - **Not subtracting a removed battery from the total**, and using `<=` so batteries equal to the average were removed too (LC 2141).
 - **A `while` condition using a count read before the loop**: it never changes, so the counts kept dropping below zero (LC 2561).
+- **Not marking newly planted flowers**: two adjacent empty plots both count as plantable (LC 605).
+- **Tracking only the total for change**: count each denomination (LC 860).
+- **Requiring exactly 3 pieces**: zero-sum pieces can be cut further, so test `>= 3` (LC 1013).
+- **Updating `first` with a strict `>` in the increasing triplet**: equal values become `second` (LC 334).
+- **Merging from `inf` and taking `min` of right ends** (LC 57).
 
 ## Related LeetCode
 
@@ -180,3 +188,10 @@ These are mistakes I actually made while practicing:
 - `LC 757` Set Intersection Size At Least Two
 - `LC 2141` Maximum Running Time of N Computers
 - `LC 2561` Rearranging Fruits
+- `LC 605` Can Place Flowers
+- `LC 860` Lemonade Change
+- `LC 1013` Partition Array Into Three Parts With Equal Sum
+- `LC 334` Increasing Triplet Subsequence
+- `LC 134` Gas Station
+- `LC 228` Summary Ranges
+- `LC 57` Insert Interval

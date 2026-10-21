@@ -68,6 +68,12 @@ class NumArray:
         return self.ps[right+1] - self.ps[left]
 ```
 
+### 延伸：前綴積與最小前綴和
+
+- **除了自己以外的乘積**（LC 238）：第一輪存左邊的乘積（不含自己），第二輪用一個變數乘上右邊的乘積，不用除法。
+- **起始值**（LC 1413）：`1 - min(前綴和)`，最小值從 0 開始算。
+- **中間的 index**（LC 1991）：右邊的和是 `total - left - nums[i]`。
+
 ## 模板二：前綴 / 後綴的最大最小值（找分割點）
 
 題目要「左邊一段的某個值」和「右邊一段的某個值」時，先各掃一次存起來，再枚舉分割點：
@@ -130,6 +136,7 @@ total = sum(len(items) for items in houses) + sum(prefix[i] for i in last.values
 - **後綴陣列的 index 差一**：反著建的後綴陣列，對應位置寫錯，把 `j` 自己也算進右邊（LC 2874）。
 - **分數用 `ord(c)`**：題目的分數是字母順序 1 到 26；兩邊長度不同時，`ord` 會多出不同的 `96 × 長度`（LC 3707）。
 - **前綴差值的題目用滑動視窗**：平衡不是單調的條件，縮左邊不一定會變好（LC 3900）。
+- **前綴積包含了自己**：`res[i] = res[i - 1] * nums[i - 1]`，不是 `nums[i]`（LC 238）。
 
 ## LeetCode
 
@@ -143,3 +150,8 @@ total = sum(len(items) for items in houses) + sum(prefix[i] for i in last.values
 - `LC 3707` Equal Score Substrings
 - `LC 3548` Equal Sum Grid Partition II
 - `LC 3900` Longest Balanced Substring After One Swap
+- `LC 1480` Running Sum of 1d Array
+- `LC 1732` Find the Highest Altitude
+- `LC 1413` Minimum Value to Get Positive Step by Step Sum
+- `LC 1991` Find the Middle Index in Array
+- `LC 238` Product of Array Except Self

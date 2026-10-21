@@ -66,6 +66,9 @@ for s, e in intervals:
 
 點要盡量放在**右端點**，因為後面的區間右端點只會更大，放右邊最有機會被共用（LC 757）。同一個右端點時，短的區間（左端點大）先處理，否則長的先處理會以為已經蓋到兩個點。
 
+- **插入區間**（LC 57）：區間已經排好，分成完全在左、完全在右、重疊三組，重疊的跟新區間合併；合併範圍從新區間本身開始。
+- **摘要區間**（LC 228）：接得上就延長最後一個區間，否則開新的。
+
 ## 模板三：左右兩次掃描
 
 條件同時跟左右鄰居有關時，一次只處理一邊：
@@ -158,6 +161,11 @@ return total // n
 - **以為每一列已經排序**，直接拿 `unit[0]` 當最小值（LC 3961）。
 - **拿掉電池時沒有從總和扣掉**，以及用 `<=` 把等於平均的電池也拿掉（LC 2141）。
 - **`while` 條件用迴圈外取出的計數**：那個值不會變，計數一直減到變成負的（LC 2561）。
+- **種花沒有把新種的花標記上去**：相鄰的兩個空格都會被算成能種（LC 605）。
+- **找零只記總金額**：要記每種面額的張數（LC 860）。
+- **切成三段時要求剛好 3 段**：和為 0 的段可以切得更多，要用 `>= 3`（LC 1013）。
+- **遞增三元組用嚴格的 `>` 更新 `first`**：相等的數會被當成 `second`（LC 334）。
+- **合併區間從 `inf` 開始、右端點取 `min`**（LC 57）。
 
 ## 相關 LeetCode
 
@@ -180,3 +188,10 @@ return total // n
 - `LC 757` Set Intersection Size At Least Two
 - `LC 2141` Maximum Running Time of N Computers
 - `LC 2561` Rearranging Fruits
+- `LC 605` Can Place Flowers
+- `LC 860` Lemonade Change
+- `LC 1013` Partition Array Into Three Parts With Equal Sum
+- `LC 334` Increasing Triplet Subsequence
+- `LC 134` Gas Station
+- `LC 228` Summary Ranges
+- `LC 57` Insert Interval

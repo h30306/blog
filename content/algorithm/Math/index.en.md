@@ -70,6 +70,8 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 ```
 
 - **Angles of a triangle** (LC 3899): check the triangle inequality first, then use the law of cosines `cos A = (b² + c² - a²) / 2bc`.
+- **Rectangle overlap** (LC 836): split into x and y intervals; they overlap only when `min(right) - max(left) > 0` on both axes. Case analysis on endpoints inside intervals misses containment.
+- **Area from three points** (LC 812): the shoelace formula `|(x2 - x1)(y3 - y1) - (x3 - x1)(y2 - y1)| / 2`.
 - **Largest perimeter triangle** (LC 976): after sorting, sides `a <= b <= c` form a triangle ⇔ `a + b > c`. Check consecutive triples from the largest down; the first valid one is the answer.
 
 ## Template 4: Observe the structure first
@@ -77,6 +79,9 @@ overlap = (nx - xc) ** 2 + (ny - yc) ** 2 <= r * r
 - **Three equal binary parts** (LC 927): every part has the same number of 1s, so count them first. The third part always ends at the array's end (trailing zeros belong to it), so it fixes every part's length.
 - **Picking triples for medians** (LC 3627): after sorting, each step takes the two largest and the smallest, and the median is the second largest; the answer takes every other value from the end.
 - **The last remaining element** (LC 3828): Alice's first move can delete everything but the first or the last element, and so can Bob's, so the answer is `max(first, last)`.
+- **Only the extremes matter**: when each value moves by `±k`, the gap is `max(0, max - min - 2k)` (LC 908); the largest product of three is either the three largest or the two smallest times the largest (LC 628); when every operation contains the top-left corner, the answer is the intersection `min(a) × min(b)` (LC 598).
+- **Rearrange so each side depends on one index** (LC 1814): `a[i] - rev(a[i]) == a[j] - rev(a[j])`, then count pairs with a hash map.
+- **Games: look at small cases first** (LC 292): facing a multiple of 4 loses.
 - **Sensor coverage** (LC 3648): each sensor covers a width of `2k + 1`, so take a **ceiling division** in each direction and multiply.
 
 ## Template 5: Digits and simple formulas
@@ -176,6 +181,12 @@ These are all mistakes I actually made while practicing:
 - **Subtracting 1 only for the Excel letter**: the step forward needs `n - 1` too (LC 168).
 - **Not restoring the minus sign after reversing a negative** (LC 7).
 - **Testing multiples with `//`**: `i // 15 == 0` means "less than 15" (LC 412).
+- **Case analysis on rectangle endpoints**: when one rectangle contains the other, neither endpoint lies in the other's range (LC 836).
+- **The largest triangle is not half the bounding box**; actually enumerate triples (LC 812).
+- **Treating the intersection as a square**: take row and column minimums separately (LC 598).
+- **Bounding the width by `area // 2`**: the bound is `√area` (LC 492).
+- **Incrementing before subtracting**: subtract this turn's candies before raising the next amount (LC 1103).
+- **Testing divisibility with `//`**, and **skipping only the 0 digit**: a number containing 0 is never self-dividing (LC 728).
 
 ## Related LeetCode
 
@@ -217,3 +228,13 @@ These are all mistakes I actually made while practicing:
 - `LC 13` Roman to Integer
 - `LC 412` Fizz Buzz
 - `LC 50` Pow(x, n)
+- `LC 728` Self Dividing Numbers
+- `LC 1103` Distribute Candies to People
+- `LC 908` Smallest Range I
+- `LC 292` Nim Game
+- `LC 836` Rectangle Overlap
+- `LC 598` Range Addition II
+- `LC 492` Construct the Rectangle
+- `LC 1814` Count Nice Pairs in an Array
+- `LC 812` Largest Triangle Area
+- `LC 628` Maximum Product of Three Numbers

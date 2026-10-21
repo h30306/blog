@@ -154,6 +154,56 @@ When each node needs facts about its subtree, a post-order traversal returns a "
 - **Largest BST subtree sum** (LC 1373): return `(sum, min, max, is_bst)`. A node is a BST root when the left subtree's **max** `<` its value `<` the right subtree's **min**; a non-BST child makes the parent's check fail.
 - **Max product of three costs in a subtree** (LC 2973): only the three largest and two smallest values matter, so each subtree returns just those 5, merged by sorting and truncating.
 
+## Template 8: Iterative traversals (pre-order, in-order, post-order)
+
+All three recursive traversals can be simulated with a stack:
+
+```python
+# in-order: push while going left, record on pop, then turn right
+stack, cur = [], root
+while cur or stack:
+    while cur:
+        stack.append(cur)
+        cur = cur.left
+    cur = stack.pop()
+    visit(cur)
+    cur = cur.right
+
+# post-order: push back with a flag on the first pop, record on the second
+stack = [(root, False)]
+while stack:
+    node, done = stack.pop()
+    if not node:
+        continue
+    if done:
+        visit(node)
+    else:
+        stack += [(node, True), (node.right, False), (node.left, False)]   # left pushed last, handled first
+```
+
+- **Pre-order** (LC 144): record on pop, pushing right before left.
+- **In-order** (LC 94): the first snippet; a BST's in-order is ascending, so the k-th smallest (LC 230), minimum difference (LC 530, 783), modes (LC 501) and flattening into a chain (LC 897) all work on the fly.
+- **Post-order** (LC 145): the second snippet. N-ary post-order (LC 590) can run "root, children right to left" and reverse the result.
+
+## Template 9: Building a tree from traversals
+
+The pre-order (or post-order) decides **which node is the root**, and the in-order decides **which nodes go left and right**:
+
+```python
+pos = {v: i for i, v in enumerate(inorder)}
+it = iter(preorder)                      # for post-order use reversed(postorder)
+def build(lo, hi):                       # an in-order range
+    if lo > hi:
+        return None
+    root = TreeNode(next(it))
+    root.left = build(lo, pos[root.val] - 1)     # with post-order, build the right subtree first
+    root.right = build(pos[root.val] + 1, hi)
+    return root
+```
+
+- **Pre-order + in-order** (LC 105), **in-order + post-order** (LC 106).
+- **Sorted array / sorted list to a balanced BST** (LC 108, 109): the middle element is the root.
+
 ## Complexity
 
 - DFS, BFS, and leaf trimming are all `O(n)`: each node and edge is handled a constant number of times.
@@ -170,6 +220,14 @@ These are all mistakes I actually made while practicing:
 - **Copy-pasting code for two trees**: the second tree's `seen` still used the first tree's size `n`, which overflows when `m > n` (LC 3203).
 - **Renaming a function but not its recursive call**: `dfs` still called `bfs`.
 - **Time is up but the node could still move**: probability problems must separate "stopped at the target" from "passing through the target" (LC 1377).
+
+- **Looking only at the root or only at parent-child pairs**: a diameter through the root only (LC 543), balance checked only at the root (LC 110), a BST compared only with children (LC 98), a subtree matched only two levels deep (LC 572).
+- **Unhandled empty trees**: most Runtime Errors read `root.left` while `root` was `None`.
+- **Treating the empty side as a leaf when only one child exists**: the minimum depth became 1 (LC 111).
+- **Comparing a node with an integer or a boolean**: `root == targetSum` (LC 112), `node.val == self.isUnivalTree(...)` (LC 965).
+- **Swapping children in two lines**: the second line used the already-replaced left subtree (LC 226).
+- **Pruning early even though values can be negative** (LC 113).
+- **Collecting left-to-right leaves with BFS**: BFS goes level by level, not left to right (LC 872).
 
 ## Related LeetCode
 
@@ -191,3 +249,57 @@ These are all mistakes I actually made while practicing:
 - `LC 3203` Find Minimum Diameter After Merging Two Trees
 - `LC 1373` Maximum Sum BST in Binary Tree
 - `LC 2973` Find Number of Coins to Place in Tree Nodes
+- `LC 94` Binary Tree Inorder Traversal
+- `LC 144` Binary Tree Preorder Traversal
+- `LC 145` Binary Tree Postorder Traversal
+- `LC 102` Binary Tree Level Order Traversal
+- `LC 107` Binary Tree Level Order Traversal II
+- `LC 103` Binary Tree Zigzag Level Order Traversal
+- `LC 199` Binary Tree Right Side View
+- `LC 637` Average of Levels in Binary Tree
+- `LC 104` Maximum Depth of Binary Tree
+- `LC 111` Minimum Depth of Binary Tree
+- `LC 559` Maximum Depth of N-ary Tree
+- `LC 589` N-ary Tree Preorder Traversal
+- `LC 590` N-ary Tree Postorder Traversal
+- `LC 226` Invert Binary Tree
+- `LC 100` Same Tree
+- `LC 101` Symmetric Tree
+- `LC 572` Subtree of Another Tree
+- `LC 110` Balanced Binary Tree
+- `LC 112` Path Sum
+- `LC 113` Path Sum II
+- `LC 129` Sum Root to Leaf Numbers
+- `LC 257` Binary Tree Paths
+- `LC 404` Sum of Left Leaves
+- `LC 1022` Sum of Root To Leaf Binary Numbers
+- `LC 988` Smallest String Starting From Leaf
+- `LC 543` Diameter of Binary Tree
+- `LC 563` Binary Tree Tilt
+- `LC 965` Univalued Binary Tree
+- `LC 671` Second Minimum Node In a Binary Tree
+- `LC 872` Leaf-Similar Trees
+- `LC 993` Cousins in Binary Tree
+- `LC 1448` Count Good Nodes in Binary Tree
+- `LC 337` House Robber III
+- `LC 2331` Evaluate Boolean Binary Tree
+- `LC 222` Count Complete Tree Nodes
+- `LC 1379` Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+- `LC 98` Validate Binary Search Tree
+- `LC 108` Convert Sorted Array to Binary Search Tree
+- `LC 230` Kth Smallest Element in a BST
+- `LC 235` Lowest Common Ancestor of a Binary Search Tree
+- `LC 236` Lowest Common Ancestor of a Binary Tree
+- `LC 530` Minimum Absolute Difference in BST
+- `LC 783` Minimum Distance Between BST Nodes
+- `LC 938` Range Sum of BST
+- `LC 501` Find Mode in Binary Search Tree
+- `LC 653` Two Sum IV - Input is a BST
+- `LC 700` Search in a Binary Search Tree
+- `LC 703` Kth Largest Element in a Stream
+- `LC 897` Increasing Order Search Tree
+- `LC 105` Construct Binary Tree from Preorder and Inorder Traversal
+- `LC 106` Construct Binary Tree from Inorder and Postorder Traversal
+- `LC 606` Construct String from Binary Tree
+- `LC 116` Populating Next Right Pointers in Each Node
+- `LC 109` Convert Sorted List to Binary Search Tree

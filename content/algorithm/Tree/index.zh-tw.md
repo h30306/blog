@@ -154,6 +154,56 @@ LC 2603 先剪掉「沒有硬幣的葉子」，再固定剪兩層，剩下的邊
 - **最大的 BST 子樹和**（LC 1373）：回傳 `(總和, 最小值, 最大值, 是不是 BST)`。是 BST 的條件是左子樹的**最大值** `<` 自己 `<` 右子樹的**最小值**；不是 BST 時讓父節點一定判斷失敗。
 - **子樹裡三個數的最大乘積**（LC 2973）：答案只跟最大的三個和最小的兩個有關，每個子樹只回傳這 5 個數，合併時排序再截斷。
 
+## 模板八：迭代遍歷（前序、中序、後序）
+
+遞迴的三種遍歷都可以用 stack 自己模擬：
+
+```python
+# 中序：一路往左推，彈出時記錄，再轉向右子樹
+stack, cur = [], root
+while cur or stack:
+    while cur:
+        stack.append(cur)
+        cur = cur.left
+    cur = stack.pop()
+    visit(cur)
+    cur = cur.right
+
+# 後序：第一次彈出時標記後放回去，第二次彈出才記錄
+stack = [(root, False)]
+while stack:
+    node, done = stack.pop()
+    if not node:
+        continue
+    if done:
+        visit(node)
+    else:
+        stack += [(node, True), (node.right, False), (node.left, False)]   # 左邊最後推，最先處理
+```
+
+- **前序**（LC 144）：彈出就記錄，先推右再推左。
+- **中序**（LC 94）：上面第一段；BST 的中序是由小到大，第 `k` 小（LC 230）、最小差（LC 530、783）、眾數（LC 501）、攤平成鏈（LC 897）都是邊走邊處理。
+- **後序**（LC 145）：上面第二段。N 叉樹的後序（LC 590）可以做「根、小孩由右到左」再整個反轉。
+
+## 模板九：由遍歷結果建樹
+
+前序（或後序）決定**誰是根**，中序決定**左右子樹各有哪些節點**：
+
+```python
+pos = {v: i for i, v in enumerate(inorder)}
+it = iter(preorder)                      # 後序的話用 reversed(postorder)
+def build(lo, hi):                       # 中序的範圍
+    if lo > hi:
+        return None
+    root = TreeNode(next(it))
+    root.left = build(lo, pos[root.val] - 1)     # 後序版本要先建右子樹
+    root.right = build(pos[root.val] + 1, hi)
+    return root
+```
+
+- **前序 + 中序**（LC 105）、**中序 + 後序**（LC 106）。
+- **排序陣列 / 排序串列轉平衡 BST**（LC 108、109）：中間的元素當根。
+
 ## 複雜度
 
 - DFS、BFS、剪葉子都是 `O(n)`，每個節點和每條邊只處理常數次。
@@ -170,6 +220,14 @@ LC 2603 先剪掉「沒有硬幣的葉子」，再固定剪兩層，剩下的邊
 - **複製貼上兩棵樹的程式碼**：第二棵樹的 `seen` 陣列還用第一棵的大小 `n`，`m > n` 時就越界（LC 3203）。
 - **函式改名後遞迴呼叫沒跟著改**：`dfs` 裡面還在呼叫 `bfs`。
 - **時間到了但節點還能走**：機率題要分清楚「停在目標」和「經過目標」（LC 1377）。
+
+- **只看根或只比父子**：直徑只算經過根的那條（LC 543）、平衡只檢查根（LC 110）、BST 只比較父節點和小孩（LC 98）、子樹只比到第二層（LC 572）。
+- **空樹沒處理**：大部分 Runtime Error 都是 `root` 是 `None` 時直接取 `root.left`。
+- **只有一邊有小孩時把空的那邊當成葉子**：最小深度變成 1（LC 111）。
+- **拿節點本身跟整數或布林值比**：`root == targetSum`（LC 112）、`node.val == self.isUnivalTree(...)`（LC 965）。
+- **分兩行交換左右子樹**：第二行用到的已經是新的左子樹（LC 226）。
+- **值可以是負的卻提早剪枝**（LC 113）。
+- **用 BFS 收集「由左到右」的葉子**：BFS 是一層一層，不是由左到右（LC 872）。
 
 ## 相關 LeetCode
 
@@ -191,3 +249,57 @@ LC 2603 先剪掉「沒有硬幣的葉子」，再固定剪兩層，剩下的邊
 - `LC 3203` Find Minimum Diameter After Merging Two Trees
 - `LC 1373` Maximum Sum BST in Binary Tree
 - `LC 2973` Find Number of Coins to Place in Tree Nodes
+- `LC 94` Binary Tree Inorder Traversal
+- `LC 144` Binary Tree Preorder Traversal
+- `LC 145` Binary Tree Postorder Traversal
+- `LC 102` Binary Tree Level Order Traversal
+- `LC 107` Binary Tree Level Order Traversal II
+- `LC 103` Binary Tree Zigzag Level Order Traversal
+- `LC 199` Binary Tree Right Side View
+- `LC 637` Average of Levels in Binary Tree
+- `LC 104` Maximum Depth of Binary Tree
+- `LC 111` Minimum Depth of Binary Tree
+- `LC 559` Maximum Depth of N-ary Tree
+- `LC 589` N-ary Tree Preorder Traversal
+- `LC 590` N-ary Tree Postorder Traversal
+- `LC 226` Invert Binary Tree
+- `LC 100` Same Tree
+- `LC 101` Symmetric Tree
+- `LC 572` Subtree of Another Tree
+- `LC 110` Balanced Binary Tree
+- `LC 112` Path Sum
+- `LC 113` Path Sum II
+- `LC 129` Sum Root to Leaf Numbers
+- `LC 257` Binary Tree Paths
+- `LC 404` Sum of Left Leaves
+- `LC 1022` Sum of Root To Leaf Binary Numbers
+- `LC 988` Smallest String Starting From Leaf
+- `LC 543` Diameter of Binary Tree
+- `LC 563` Binary Tree Tilt
+- `LC 965` Univalued Binary Tree
+- `LC 671` Second Minimum Node In a Binary Tree
+- `LC 872` Leaf-Similar Trees
+- `LC 993` Cousins in Binary Tree
+- `LC 1448` Count Good Nodes in Binary Tree
+- `LC 337` House Robber III
+- `LC 2331` Evaluate Boolean Binary Tree
+- `LC 222` Count Complete Tree Nodes
+- `LC 1379` Find a Corresponding Node of a Binary Tree in a Clone of That Tree
+- `LC 98` Validate Binary Search Tree
+- `LC 108` Convert Sorted Array to Binary Search Tree
+- `LC 230` Kth Smallest Element in a BST
+- `LC 235` Lowest Common Ancestor of a Binary Search Tree
+- `LC 236` Lowest Common Ancestor of a Binary Tree
+- `LC 530` Minimum Absolute Difference in BST
+- `LC 783` Minimum Distance Between BST Nodes
+- `LC 938` Range Sum of BST
+- `LC 501` Find Mode in Binary Search Tree
+- `LC 653` Two Sum IV - Input is a BST
+- `LC 700` Search in a Binary Search Tree
+- `LC 703` Kth Largest Element in a Stream
+- `LC 897` Increasing Order Search Tree
+- `LC 105` Construct Binary Tree from Preorder and Inorder Traversal
+- `LC 106` Construct Binary Tree from Inorder and Postorder Traversal
+- `LC 606` Construct String from Binary Tree
+- `LC 116` Populating Next Right Pointers in Each Node
+- `LC 109` Convert Sorted List to Binary Search Tree

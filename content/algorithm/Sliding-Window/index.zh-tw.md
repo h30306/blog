@@ -212,3 +212,6 @@ for right, x in enumerate(nums):
 - `LC 3323` Minimize Connected Groups by Inserting Interval
 - `LC 1425` Constrained Subsequence Sum
 - `LC 4067` Longest Subarray With Restricted Pair Sums
+- `LC 424` Longest Repeating Character Replacement
+- `LC 219` Contains Duplicate II
+- `LC 187` Repeated DNA Sequences

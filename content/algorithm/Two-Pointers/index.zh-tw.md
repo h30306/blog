@@ -1,6 +1,6 @@
 ---
 title: "Two Pointers 雙指針"
-summary: "對撞指針、兩個序列各一個指針、跳過空白比對位置，以及排序後數 pair"
+summary: "對撞指針、兩個序列各一個指針、跳過空白比對位置、排序後數 pair，以及原地覆寫的寫入指針"
 description: "演算法學習"
 date: 2026-10-20
 tags: ["two-pointers", "string", "sorting"]
@@ -26,7 +26,7 @@ draft: false
 | 兩個序列各一個 | 各自在自己的序列上往前 | 合併、比對、子序列判斷 |
 | 同向快慢 | 兩個都從頭開始，速度不同 | 滑動窗口、去重 |
 
-滑動窗口另外有一篇，這篇講前兩種。
+滑動窗口另外有一篇；同向快慢這篇只講「寫入指針」（模板五），也就是原地刪除、去重、搬移元素。
 
 ## 模板一：對撞指針
 
@@ -44,6 +44,36 @@ while left < right:
 - **兩個字串拼成回文**（LC 1616）：外側貪心配對，配不下去時，剩下的中間段必須整段來自同一個字串，而且本身是回文。
 
 Python 的字串不能修改，要交換字元得先 `list(s)`，最後再 `"".join(...)`（LC 3794）。
+
+- **跳過不算的字元再比較**（LC 125、917、345）：用 `if / elif / else` 一次只動一邊，兩邊都停在有效字元上才比較或交換。
+- **刪掉一個字元的回文**（LC 680）：第一對不同時只有「刪左」和「刪右」兩種，分別檢查剩下的區間。
+- **貪心移動比較矮的一邊**（LC 11）：面積受限於比較矮的那一邊，移動比較高的一邊不可能變大。
+
+### 延伸：k-sum（LC 15、16、18）
+
+排序後固定前面 `k - 2` 個數，最後兩個用對撞指針，`O(n^(k-1))`。去重要做在三個地方：
+
+```python
+nums.sort()
+for i in range(n):
+    if i > 0 and nums[i] == nums[i - 1]:
+        continue                       # 第一個數去重
+    l, r = i + 1, n - 1                # 從 i + 1 開始，不是 0
+    while l < r:
+        s = nums[i] + nums[l] + nums[r]
+        if s < target:
+            l += 1
+        elif s > target:
+            r -= 1
+        else:
+            res.append([nums[i], nums[l], nums[r]])
+            l += 1
+            while l < r and nums[l] == nums[l - 1]:
+                l += 1                 # 找到之後跳過相同的值
+            r -= 1
+```
+
+4Sum 多一層 `j`，它的去重條件是 `j > i + 1`；3Sum Closest 不用去重，改成比 `abs(s - target)`。
 
 ## 模板二：兩個序列各一個指針
 
@@ -114,6 +144,31 @@ while left < right:
 
 這是 Two Sum 的排序版本，也是很多「數有幾對 pair」題目的骨架。
 
+## 模板五：寫入指針（原地覆寫）
+
+`k` 指向「下一個要寫入的位置」，`i` 掃過整個陣列。`nums[:k]` 永遠是已經處理好、要保留的元素，因為 `k <= i`，寫入不會蓋掉還沒讀的值：
+
+```python
+k = 0
+for x in nums:
+    if 要保留(x):
+        nums[k] = x
+        k += 1
+return k                               # nums[:k] 是答案
+```
+
+| 題目 | 要保留的條件 |
+|---|---|
+| LC 27 Remove Element | `x != val` |
+| LC 26 Remove Duplicates | `k == 0 or x != nums[k - 1]` |
+| LC 80 最多保留兩個 | `k < 2 or x != nums[k - 2]` |
+| LC 283 Move Zeroes | `x != 0`，用交換讓 0 跑到後面 |
+| LC 905 Sort Array By Parity | `x` 是偶數，用交換 |
+
+- 比較的對象是**已經寫入的** `nums[k - 1]`、`nums[k - 2]`，不是原本的 `nums[i - 1]`，後者可能已經被覆寫了（LC 80）。
+- 寫入後會變長的題目（LC 1089 Duplicate Zeros）要**從後往前**寫，先算出每個元素的最終位置，才不會蓋掉還沒處理的值。
+- 三種值的分類（LC 75 Sort Colors）用三個指針：`low` 以前是 0、`high` 以後是 2；跟 `high` 交換之後 `i` 不要前進，換過來的值還沒檢查。
+
 ## 複雜度
 
 雙指針本身是 `O(n)`。需要排序時是 `O(n log n)`。
@@ -128,6 +183,17 @@ while left < right:
 - **只看下一個元素就下結論**：LC 1826 要比對整段剩下的資料，還要處理兩種情況都成立的歧義。
 - **同一個檢查呼叫了兩次**：`check(a, b) or check(a, b)`，第二個應該是 `check(b, a)`（LC 1616）。
 - **只比較數量，不看順序**（LC 777）。
+- **只把字母當成有效字元**：題目說 alphanumeric 時數字也要比（LC 125）。
+- **只數「有幾對不同」**：刪掉一個字元後後面的配對會整個錯開，要真的刪掉再檢查（LC 680）。
+- **兩個指針都從 0 開始**：對撞指針的 `while left < right` 一次都不會執行（LC 917）。
+- **反轉每一段時只做了第一段**，或剩不到 `k` 個的最後一段沒做（LC 541）。
+- **`split(" ")` 遇到連續空白會產生空字串**，要用 `split()`（LC 151）。
+- **兩個指針都沒走完才繼續**：其中一個先走完時，另一邊剩下的元素完全沒檢查（LC 925）。
+- **比較原本的 `nums[i - 2]`**：它可能已經被寫入指針蓋掉了（LC 80）。
+- **寫入指針放在 `if` 外面**：只有寫入之後才前進（LC 283）。
+- **k-sum 找到之後沒有跳過相同的值**，同一組答案重複加入；第二個數從 0 開始也不對（LC 15）。
+- **4Sum 第二層的去重寫成 `j > 0`**，會跳過合法的答案（LC 18）。
+- **跟 `high` 交換之後 `i` 還前進**：換過來的值沒檢查到（LC 75）。
 
 ## 相關 LeetCode
 
@@ -176,3 +242,32 @@ while left < right:
 - `LC 4026` Maximum Gap Between Stations
 - `LC 2193` Minimum Number of Moves to Make Palindrome
 - `LC 1842` Next Palindrome Using Same Digits
+- `LC 125` Valid Palindrome
+- `LC 680` Valid Palindrome II
+- `LC 344` Reverse String
+- `LC 541` Reverse String II
+- `LC 917` Reverse Only Letters
+- `LC 345` Reverse Vowels of a String
+- `LC 151` Reverse Words in a String
+- `LC 557` Reverse Words in a String III
+- `LC 832` Flipping an Image
+- `LC 942` DI String Match
+- `LC 165` Compare Version Numbers
+- `LC 925` Long Pressed Name
+- `LC 11` Container With Most Water
+- `LC 15` 3Sum
+- `LC 16` 3Sum Closest
+- `LC 18` 4Sum
+- `LC 977` Squares of a Sorted Array
+- `LC 455` Assign Cookies
+- `LC 922` Sort Array By Parity II
+- `LC 189` Rotate Array
+- `LC 31` Next Permutation
+- `LC 3069` Distribute Elements Into Two Arrays I
+- `LC 26` Remove Duplicates from Sorted Array
+- `LC 27` Remove Element
+- `LC 80` Remove Duplicates from Sorted Array II
+- `LC 283` Move Zeroes
+- `LC 905` Sort Array By Parity
+- `LC 1089` Duplicate Zeros
+- `LC 75` Sort Colors

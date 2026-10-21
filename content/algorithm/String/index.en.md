@@ -139,3 +139,7 @@ These are mistakes I actually made while practicing:
 - `LC 3612` Process String with Special Operations I
 - `LC 3813` Vowel-Consonant Score
 - `LC 3913` Sort Vowels by Frequency
+- `LC 28` Find the Index of the First Occurrence in a String
+- `LC 187` Repeated DNA Sequences
+- `LC 696` Count Binary Substrings
+- `LC 821` Shortest Distance to a Character

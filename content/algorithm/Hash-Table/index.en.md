@@ -135,3 +135,6 @@ These are mistakes I actually made while practicing:
 - `LC 3839` Number of Prefix Connected Groups
 - `LC 3606` Coupon Code Validator
 - `LC 2273` Find Resultant Array After Removing Anagrams
+- `LC 594` Longest Harmonious Subsequence
+- `LC 219` Contains Duplicate II
+- `LC 187` Repeated DNA Sequences

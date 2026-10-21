@@ -20,7 +20,7 @@ First Attempt: 2022-09-30
 
 ## Approach
 
-There are at most `100 × 100` cells, so list the coordinates and sort by `abs(i - r0) + abs(j - c0)`. Distances are at most `rows + cols`, so a counting sort or a BFS from the center gives `O(rows × cols)` ([Sorting]({{< relref "/algorithm/Sorting" >}})).
+There are at most `100 × 100` cells, so list the coordinates and sort by `abs(i - r0) + abs(j - c0)`. Distances are at most `rows + cols`, so a counting sort or a BFS from the center gives `O(rows × cols)` ([Bucket Sort]({{< relref "/algorithm/Bucket-Sort" >}})).
 
 ## My Attempts
 

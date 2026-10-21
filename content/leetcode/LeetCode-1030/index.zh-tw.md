@@ -20,7 +20,7 @@ draft: false
 
 ## 解題思路
 
-所有格子最多 `100 × 100` 個，直接列出座標，用 `abs(i - r0) + abs(j - c0)` 當 key 排序。距離最多 `rows + cols`，也可以用計數排序或從中心 BFS 做到 `O(rows × cols)`（[Sorting]({{< relref "/algorithm/Sorting" >}})）。
+所有格子最多 `100 × 100` 個，直接列出座標，用 `abs(i - r0) + abs(j - c0)` 當 key 排序。距離最多 `rows + cols`，也可以用計數排序或從中心 BFS 做到 `O(rows × cols)`（[Bucket Sort]({{< relref "/algorithm/Bucket-Sort" >}})）。
 
 ## 我的嘗試
 

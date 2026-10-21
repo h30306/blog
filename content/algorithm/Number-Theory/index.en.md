@@ -113,6 +113,13 @@ for i in range(2, N + 1):
 
 - **Prime pairs summing to n** (LC 2761): after sieving, try `x` in increasing order and keep pairs where both `x` and `n - x` are prime.
 
+### Extension: problems that only need a GCD or prime factors
+
+- **Group size** (LC 914): groups of `X` must divide every count, so check whether the GCD of all counts is `>= 2`; comparing with the smallest count is not enough.
+- **Only factors 2, 3 and 5** (LC 263): divide those primes out and check that 1 remains.
+- **Powers of three** (LC 326): since 3 is prime, every divisor of `3^19` is a power of three, so test `3**19 % n == 0`.
+- **Proper divisor sum** (LC 507): divisors pair up; enumerate to `√n` and add the square root once.
+
 ## Template 4: Prime factors + Union-Find
 
 "Connected when sharing a factor": put each number in the same group as its prime factors. Either make Union-Find nodes **values** (prime factors and numbers share ids), or remember "the first index owning each prime factor" and union later owners with it:
@@ -157,6 +164,9 @@ These are all mistakes I actually made while practicing:
 - **Forgetting that `1` has no prime factors**: two 1s in `[1, 1]` cannot reach each other, but `[1]` alone is `True` (LC 2709). Starting `reach` at `-1` meant no split when the first number was 1 (LC 2584).
 - **A wrong index for the closest prime pair**: `prime[i + 1] - prime[i - 1]` (LC 2523).
 - **No path compression**: `find` written as `return find(parent[a])` without storing it back, three times slower on the same problem (LC 952).
+- **Crossing out multiples of every number in a sieve**: only primes are needed, and the outer loop stops at `√n` (LC 204).
+- **Inverting the linear sieve's condition**: a number joins the prime list when it is not composite (LC 204).
+- **Judging groups by the smallest count only**: use the GCD of all counts (LC 914).
 
 ## Related LeetCode
 
@@ -172,3 +182,8 @@ These are all mistakes I actually made while practicing:
 - `LC 1627` Graph Connectivity With Threshold
 - `LC 2584` Split the Array to Make Coprime Products
 - `LC 4081` Prime Subset Selection II
+- `LC 204` Count Primes
+- `LC 263` Ugly Number
+- `LC 914` X of a Kind in a Deck of Cards
+- `LC 326` Power of Three
+- `LC 507` Perfect Number

@@ -113,6 +113,13 @@ for i in range(2, N + 1):
 
 - **和為 n 的質數對**（LC 2761）：篩完之後，`x` 從小到大，`x` 和 `n - x` 都是質數就是一對。
 
+### 延伸：只看 GCD 或質因數的題目
+
+- **分組的大小**（LC 914）：每組 `X` 張要整除每一種的張數，所以看所有張數的 GCD 是否 `>= 2`；只跟最小的張數比較不夠。
+- **只有 2、3、5 的因數**（LC 263）：把這三個質數除盡，剩下 1 才是。
+- **3 的次方**（LC 326）：3 是質數，`3^19` 的因數全部都是 3 的次方，所以 `3**19 % n == 0`。
+- **真因數和**（LC 507）：因數成對，枚舉到 `√n`，平方根只加一次。
+
 ## 模板四：質因數 + Union-Find
 
 「有共同因數就相連」：把每個數跟它的每個質因數放進同一組。實作上可以讓 Union-Find 的節點是**值**（質因數和數字共用編號），或記錄「每個質因數第一次出現在哪個 index」，之後遇到同一個質因數就跟那個 index 合併：
@@ -157,6 +164,9 @@ for i, x in enumerate(nums):
 - **忘了 `1` 沒有質因數**：`[1, 1]` 兩個 1 互相連不到；但 `[1]` 只有一個數時答案是 `True`（LC 2709）。從 `-1` 開始記 `reach`，第一個數是 1 時就切不出來（LC 2584）。
 - **找最近的質數對時 index 寫錯**：`prime[i + 1] - prime[i - 1]`（LC 2523）。
 - **沒有路徑壓縮**：`find` 寫成 `return find(parent[a])` 而沒有存回去，同一題慢了三倍（LC 952）。
+- **篩法裡每個數都去劃倍數**：只有質數需要，而且外層到 `√n` 就夠（LC 204）。
+- **線性篩的條件寫反**：不是合數才加入質數表（LC 204）。
+- **只用最小的張數判斷能不能分組**：要看全部張數的 GCD（LC 914）。
 
 ## 相關 LeetCode
 
@@ -172,3 +182,8 @@ for i, x in enumerate(nums):
 - `LC 1627` Graph Connectivity With Threshold
 - `LC 2584` Split the Array to Make Coprime Products
 - `LC 4081` Prime Subset Selection II
+- `LC 204` Count Primes
+- `LC 263` Ugly Number
+- `LC 914` X of a Kind in a Deck of Cards
+- `LC 326` Power of Three
+- `LC 507` Perfect Number

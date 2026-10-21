@@ -1,6 +1,6 @@
 ---
 title: "String 字串處理"
-summary: "用 list 組字串的模擬、在每個位置嘗試比對的解析、長度 k 的所有子字串、字元分類計數，以及固定起點的平衡子字串判斷"
+summary: "用 list 組字串的模擬、在每個位置嘗試比對的解析、長度 k 的所有子字串、字元分類計數、固定起點的平衡子字串判斷，以及切成單字再處理"
 description: "演算法學習"
 date: 2026-10-21
 tags: ["string", "simulation", "hash-table"]
@@ -23,6 +23,7 @@ draft: false
 | 長度 `k` 的子字串 | 枚舉起點，丟進集合 | 所有二進位碼、三個相同數字 |
 | 字元分類 | 母音 / 子音 / 數字分開計數 | 最多的母音和子音、母音排序 |
 | 固定起點往右擴 | 增量維護計數 | 每種字元次數相同 |
+| 切成單字 | `split()` 後逐字處理 | 最後一個單字、Goat Latin、最常見的單字 |
 
 字串上的 DP（LCS、編輯距離）見 [String DP]({{< relref "/algorithm/String-DP" >}})。
 
@@ -105,6 +106,21 @@ for i in range(n):
 
 - **每種字元次數都相同**（LC 3713）：「每種都一樣多」等於「最多的次數 × 種類數 = 長度」，每一步 `O(1)` 判斷。
 
+## 模板六：切成單字再處理
+
+```python
+words = s.split()                      # 不帶參數：連續空白當一個分隔，頭尾空白丟掉
+res = []
+for i, w in enumerate(words):
+    res.append(轉換(w, i))
+return " ".join(res)
+```
+
+- **數單字、最後一個單字**（LC 434、58）：`len(s.split())`、`s.split()[-1]`。`split(" ")` 遇到連續空白或結尾空白會產生空字串。
+- **逐字轉換**（LC 824、557）：每個單字各自處理，需要位置時用 `enumerate`。
+- **連續幾個單字**（LC 1078）：檢查 `words[i]`、`words[i + 1]` 時，迴圈只跑到 `len(words) - 2`。
+- **正規化再切**（LC 819、929）：先把標點**換成空白**再切；信箱則用 `@` 切成兩半，只處理前半段，接回去時保留 `@`。
+
 ## 主要參數說明
 
 - `s[i:j]` 不包含 `j`；長度 `k` 的子字串最後一個起點是 `len(s) - k`。
@@ -124,6 +140,13 @@ for i in range(n):
 - **子字串的範圍差一**：寫成 `s[right - k: right]`，最後一個視窗沒收到（LC 1461）。
 - **用原本的 index 換算目前的位置**：刪除的數量算錯，距離就錯了；直接記結果裡的位置比較簡單（LC 4019）。
 - **多了一層不必要的迴圈**：外面再枚舉 26 種「種類數」，TLE（LC 3713）。
+- **`split(" ")` 拿最後一個單字**：結尾有空白時會拿到空字串（LC 58）。
+- **刪掉標點而不是換成空白**：`a'a` 變成 `aa`（LC 819）。
+- **接回字串時把分隔符號弄丟**：`"a@bx.com"` 和 `"ab@x.com"` 接成同一個字串（LC 929）。
+- **只檢查 `i + 1` 的邊界卻存取 `i + 2`**（LC 1078）。
+- **數字被當成子音**：子音必須是字母（LC 3136）。
+- **對單一字元做切片**：`for c in s` 的 `c[:3]` 永遠只有一個字元（LC 551）。
+- **從後往前每 `k` 個分組時計數器差一**，或多加一個分隔符號（LC 482）。
 
 ## 相關 LeetCode
 
@@ -144,3 +167,17 @@ for i in range(n):
 - `LC 696` Count Binary Substrings
 - `LC 821` Shortest Distance to a Character
 - `LC 819` Most Common Word
+- `LC 929` Unique Email Addresses
+- `LC 804` Unique Morse Code Words
+- `LC 434` Number of Segments in a String
+- `LC 599` Minimum Index Sum of Two Lists
+- `LC 482` License Key Formatting
+- `LC 520` Detect Capital
+- `LC 824` Goat Latin
+- `LC 1078` Occurrences After Bigram
+- `LC 58` Length of Last Word
+- `LC 1108` Defanging an IP Address
+- `LC 500` Keyboard Row
+- `LC 709` To Lower Case
+- `LC 3136` Valid Word
+- `LC 551` Student Attendance Record I

@@ -1,6 +1,6 @@
 ---
 title: "String"
-summary: "Simulation by building a list, parsing by trying every pattern at each position, all substrings of length k, counting by character class, and checking balanced substrings from a fixed start"
+summary: "Simulation by building a list, parsing by trying every pattern at each position, all substrings of length k, counting by character class, checking balanced substrings from a fixed start, and splitting into words"
 description: "Algorithm Learning"
 date: 2026-10-21
 tags: ["string", "simulation", "hash-table"]
@@ -23,6 +23,7 @@ Most string problems need no special algorithm; the hard part is **details**: in
 | Substrings of length `k` | Enumerate starts, collect in a set | All binary codes, three equal digits |
 | Character classes | Count vowels / consonants / digits separately | Most frequent vowel and consonant, sorting vowels |
 | Fixed start, extend right | Maintain counts incrementally | Every character with the same count |
+| Split into words | Process each word after `split()` | Last word, Goat Latin, most common word |
 
 DP on strings (LCS, edit distance) is in [String DP]({{< relref "/algorithm/String-DP" >}}).
 
@@ -105,6 +106,21 @@ for i in range(n):
 
 - **Every character with the same count** (LC 3713): "all equal" means "highest count × number of kinds = length", an `O(1)` check per step.
 
+## Template 6: Split into words, then process
+
+```python
+words = s.split()                      # no argument: runs of spaces are one separator, ends trimmed
+res = []
+for i, w in enumerate(words):
+    res.append(transform(w, i))
+return " ".join(res)
+```
+
+- **Counting words, the last word** (LC 434, 58): `len(s.split())`, `s.split()[-1]`. `split(" ")` produces empty strings for consecutive or trailing spaces.
+- **Per-word transforms** (LC 824, 557): handle each word separately, with `enumerate` when the position matters.
+- **Consecutive words** (LC 1078): when checking `words[i]` and `words[i + 1]`, loop only to `len(words) - 2`.
+- **Normalize, then split** (LC 819, 929): **replace** punctuation with spaces before splitting; for emails, split at `@`, process only the first half, and keep the `@` when rejoining.
+
 ## Key Parameters
 
 - `s[i:j]` excludes `j`; the last start of a length-`k` substring is `len(s) - k`.
@@ -124,6 +140,13 @@ These are mistakes I actually made while practicing:
 - **An off-by-one substring range**: `s[right - k: right]` never collected the last window (LC 1461).
 - **Converting original indices to current positions**: miscounting deletions gives wrong distances; recording positions in the result is simpler (LC 4019).
 - **An unnecessary extra loop**: also enumerating 26 "numbers of kinds" outside caused TLE (LC 3713).
+- **Taking the last word with `split(" ")`**: trailing spaces yield an empty string (LC 58).
+- **Deleting punctuation instead of replacing it with spaces**: `a'a` becomes `aa` (LC 819).
+- **Losing the separator when rejoining**: `"a@bx.com"` and `"ab@x.com"` join into the same string (LC 929).
+- **Bound-checking `i + 1` but reading `i + 2`** (LC 1078).
+- **Counting digits as consonants**: a consonant must be a letter (LC 3136).
+- **Slicing a single character**: in `for c in s`, `c[:3]` is always one character (LC 551).
+- **An off-by-one counter when grouping every `k` from the back**, or a stray separator (LC 482).
 
 ## Related LeetCode
 
@@ -144,3 +167,17 @@ These are mistakes I actually made while practicing:
 - `LC 696` Count Binary Substrings
 - `LC 821` Shortest Distance to a Character
 - `LC 819` Most Common Word
+- `LC 929` Unique Email Addresses
+- `LC 804` Unique Morse Code Words
+- `LC 434` Number of Segments in a String
+- `LC 599` Minimum Index Sum of Two Lists
+- `LC 482` License Key Formatting
+- `LC 520` Detect Capital
+- `LC 824` Goat Latin
+- `LC 1078` Occurrences After Bigram
+- `LC 58` Length of Last Word
+- `LC 1108` Defanging an IP Address
+- `LC 500` Keyboard Row
+- `LC 709` To Lower Case
+- `LC 3136` Valid Word
+- `LC 551` Student Attendance Record I

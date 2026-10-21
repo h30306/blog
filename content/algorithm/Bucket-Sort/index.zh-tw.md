@@ -65,3 +65,4 @@ return best
 
 - `LC 164` Maximum Gap
 - `LC 347` Top K Frequent Elements
+- `LC 1051` Height Checker

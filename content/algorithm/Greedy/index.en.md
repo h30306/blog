@@ -166,6 +166,9 @@ These are mistakes I actually made while practicing:
 - **Requiring exactly 3 pieces**: zero-sum pieces can be cut further, so test `>= 3` (LC 1013).
 - **Updating `first` with a strict `>` in the increasing triplet**: equal values become `second` (LC 334).
 - **Merging from `inf` and taking `min` of right ends** (LC 57).
+- **Merging against the original previous interval**: compare with the last merged one and take the `max` end (LC 56).
+- **Updating the runner-up with `if` instead of `elif`**: the maximum becomes its own runner-up (LC 747).
+- **Interleaving without reversing both halves**: repeated medians end up adjacent (LC 324).
 
 ## Related LeetCode
 
@@ -196,3 +199,11 @@ These are mistakes I actually made while practicing:
 - `LC 228` Summary Ranges
 - `LC 57` Insert Interval
 - `LC 435` Non-overlapping Intervals
+- `LC 56` Merge Intervals
+- `LC 747` Largest Number At Least Twice of Others
+- `LC 414` Third Maximum Number
+- `LC 561` Array Partition
+- `LC 324` Wiggle Sort II
+- `LC 1005` Maximize Sum Of Array After K Negations
+- `LC 3074` Apple Redistribution into Boxes
+- `LC 3075` Maximize Happiness of Selected Children

@@ -65,3 +65,4 @@ These are mistakes I actually made while practicing:
 
 - `LC 164` Maximum Gap
 - `LC 347` Top K Frequent Elements
+- `LC 1051` Height Checker

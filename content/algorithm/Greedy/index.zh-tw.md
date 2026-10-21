@@ -166,6 +166,9 @@ return total // n
 - **切成三段時要求剛好 3 段**：和為 0 的段可以切得更多，要用 `>= 3`（LC 1013）。
 - **遞增三元組用嚴格的 `>` 更新 `first`**：相等的數會被當成 `second`（LC 334）。
 - **合併區間從 `inf` 開始、右端點取 `min`**（LC 57）。
+- **合併區間時跟原本的前一個區間比**：要跟合併好的最後一個比，終點取 `max`（LC 56）。
+- **更新第二大時用 `if` 而不是 `elif`**：最大值會變成自己的第二名（LC 747）。
+- **交錯排列沒有反轉兩半**：重複的中位數會相鄰（LC 324）。
 
 ## 相關 LeetCode
 
@@ -196,3 +199,11 @@ return total // n
 - `LC 228` Summary Ranges
 - `LC 57` Insert Interval
 - `LC 435` Non-overlapping Intervals
+- `LC 56` Merge Intervals
+- `LC 747` Largest Number At Least Twice of Others
+- `LC 414` Third Maximum Number
+- `LC 561` Array Partition
+- `LC 324` Wiggle Sort II
+- `LC 1005` Maximize Sum Of Array After K Negations
+- `LC 3074` Apple Redistribution into Boxes
+- `LC 3075` Maximize Happiness of Selected Children

@@ -95,6 +95,47 @@ def dfs(r, c):
 - LC 980：要走過每個空格剛好一次，到達終點時檢查步數是否等於空格數。
 - LC 212：搭配 Trie，只往「還可能組成單字」的方向走。
 
+## 變化四：組合、排列與去重
+
+```python
+nums.sort()                              # 去重前一定要排序
+def dfs(start, path):
+    記錄(path)
+    for i in range(start, len(nums)):
+        if i > start and nums[i] == nums[i - 1]:
+            continue                     # 同一層不要選相同的值
+        path.append(nums[i])
+        dfs(i + 1, path)                 # 可以重複使用就傳 i
+        path.pop()
+```
+
+| 題型 | 下一層從哪裡開始 | 去重 |
+|---|---|---|
+| 組合、子集合（LC 77、78、216） | `i + 1` | 不需要 |
+| 可以重複選（LC 39） | `i` | 不需要 |
+| 有重複元素（LC 40、90） | `i + 1` | 同一層 `i > start and nums[i] == nums[i - 1]` |
+| 排列（LC 46） | 每層都從 0 開始，用 `used[i]` | 不需要 |
+| 有重複的排列（LC 47） | 同上 | `nums[i] == nums[i - 1] and not used[i - 1]` |
+
+## 變化五：切割字串
+
+```python
+def dfs(start, path):
+    if start == len(s):
+        記錄(path)
+        return
+    for end in range(start + 1, len(s) + 1):   # 包含整段剩下的字串
+        piece = s[start:end]
+        if 合法(piece):
+            path.append(piece)
+            dfs(end, path)
+            path.pop()
+```
+
+- **回文切割**（LC 131）：合法 = 回文。
+- **IP 位址**（LC 93）：剛好 4 段、每段 1 到 3 個字元、`<= 255`、除了 `"0"` 不能有前導零；剩下的長度不可能分完就剪掉。
+- **每一層處理一個位置**（LC 17）：枚舉這個數字對應的字母。
+
 ## 剪枝技巧
 
 | 技巧 | 例子 |
@@ -120,6 +161,14 @@ def dfs(r, c):
 - **AC 的程式碼裡留著 `print`**：LC 3799，大量輸出會拖慢速度。
 - **列表推導式裡的變數跟外層同名**：LC 51 的 `for row in board` 裡面又用 `row`，Python 3 的推導式有自己的作用域所以沒出錯，但讀起來容易誤會。
 - **走到終點但步數不對時沒有停**：LC 980 會繼續從終點往外走，不會算錯，但浪費時間。
+- **下一層從 0 開始**：同一組數字的不同順序都被記錄（LC 39）。
+- **去重忘了先排序**（LC 47、90）；**用 `not in res` 去重**：TLE（LC 40）。
+- **先判斷「沒有數可以選」再判斷 `remain == 0`**：最後一個數剛好湊滿時沒有記錄（LC 40）。
+- **候選範圍寫錯**：LC 216 只能用 1 到 9。
+- **切割時長度少了整段剩下的字串**：`range(1, len(s))` 應該是 `len(s) + 1`（LC 131）。
+- **另一個 method 讀不到這個 method 的區域變數**：用內部函式或傳參數（LC 17、77）。
+- **在 `for` 迴圈裡直接 `return` 遞迴的結果**：只會走第一條分支（LC 77）。
+- **分支用 `+` 合併**：每條都要走完，應該用 `or` 提早回傳（LC 473）。
 
 ## 相關 LeetCode
 
@@ -129,3 +178,15 @@ def dfs(r, c):
 - `LC 980` Unique Paths III
 - `LC 301` Remove Invalid Parentheses
 - `LC 212` Word Search II
+- `LC 78` Subsets
+- `LC 90` Subsets II
+- `LC 77` Combinations
+- `LC 39` Combination Sum
+- `LC 40` Combination Sum II
+- `LC 216` Combination Sum III
+- `LC 46` Permutations
+- `LC 47` Permutations II
+- `LC 17` Letter Combinations of a Phone Number
+- `LC 131` Palindrome Partitioning
+- `LC 93` Restore IP Addresses
+- `LC 473` Matchsticks to Square

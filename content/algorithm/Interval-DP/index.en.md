@@ -104,6 +104,7 @@ These are all mistakes I actually made while practicing:
 - **A misspelled variable**: mixing `max_coin` and `max_coins`, UnboundLocalError (LC 312).
 - **Wrong split ranges**: allowing an empty middle part, or excluding a last part of one character (LC 1745).
 - **Over-pruning**: inserting only next to a same-colored ball misses splitting two equal balls in Zuma; after adding that, the insertion index was off by one (LC 488).
+- **Iterating `i` upward in interval DP**: `dp[i][j]` depends on `dp[i + 1][j - 1]`, so iterate `i` backwards (LC 5).
 
 ## Related LeetCode
 
@@ -114,3 +115,5 @@ These are all mistakes I actually made while practicing:
 - `LC 1745` Palindrome Partitioning IV
 - `LC 488` Zuma Game
 - `LC 1147` Longest Chunked Palindrome Decomposition
+- `LC 5` Longest Palindromic Substring
+- `LC 647` Palindromic Substrings

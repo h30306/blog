@@ -195,3 +195,4 @@ These are mistakes I actually made while practicing:
 - `LC 134` Gas Station
 - `LC 228` Summary Ranges
 - `LC 57` Insert Interval
+- `LC 435` Non-overlapping Intervals

@@ -195,3 +195,4 @@ return total // n
 - `LC 134` Gas Station
 - `LC 228` Summary Ranges
 - `LC 57` Insert Interval
+- `LC 435` Non-overlapping Intervals

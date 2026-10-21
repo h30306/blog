@@ -104,6 +104,7 @@ def dp(i, k):                            # 從 i 開始，切成 k 段
 - **變數名稱打錯**：`max_coin` 和 `max_coins` 混用，UnboundLocalError（LC 312）。
 - **切點範圍錯**：中間那段可以是空的，或排除了最後一段只有一個字元的情況（LC 1745）。
 - **剪枝剪太多**：祖瑪遊戲只在同色球旁邊插入會漏掉「把兩顆同色球拆開」的走法；加上之後插入的位置又錯了一格（LC 488）。
+- **區間 DP 的 `i` 從小到大**：`dp[i][j]` 依賴 `dp[i + 1][j - 1]`，`i` 要倒著算（LC 5）。
 
 ## 相關 LeetCode
 
@@ -114,3 +115,5 @@ def dp(i, k):                            # 從 i 開始，切成 k 段
 - `LC 1745` Palindrome Partitioning IV
 - `LC 488` Zuma Game
 - `LC 1147` Longest Chunked Palindrome Decomposition
+- `LC 5` Longest Palindromic Substring
+- `LC 647` Palindromic Substrings

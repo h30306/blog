@@ -271,3 +271,5 @@ These are all mistakes I actually made while practicing:
 - `LC 905` Sort Array By Parity
 - `LC 1089` Duplicate Zeros
 - `LC 75` Sort Colors
+- `LC 42` Trapping Rain Water
+- `LC 392` Is Subsequence

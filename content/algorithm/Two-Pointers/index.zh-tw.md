@@ -271,3 +271,5 @@ return k                               # nums[:k] 是答案
 - `LC 905` Sort Array By Parity
 - `LC 1089` Duplicate Zeros
 - `LC 75` Sort Colors
+- `LC 42` Trapping Rain Water
+- `LC 392` Is Subsequence

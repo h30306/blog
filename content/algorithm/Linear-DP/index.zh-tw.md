@@ -157,6 +157,15 @@ for mask in range(1 << n):
 - **能切就切**（LC 3638）：一段一旦出現比最大值小的數，馬上結束這段。
 - **前綴最大 / 後綴最小**（LC 3660）：前綴最大值大於後面的最小值時，兩邊連得起來。
 
+- **博弈的規律**（LC 1025）：DP 跑出來剛好是「`n` 是偶數」，偶數拿 1 讓對手面對奇數，奇數的因數都是奇數。
+- **狀態只有 `O(log n)` 個**（LC 397）：`n` 到 `2^31`，不能開大小 `n` 的陣列，用記憶化遞迴，每層大約減半。
+
+### 延伸：多指針生成序列、滾動遞推
+
+- **醜數**（LC 264、313）：每個質數一個指針指向「下一個要乘的數」，每次取所有乘積的最小值，**所有**相等的指針都前進，才不會重複。
+- **遞推公式代替重算**（LC 396）：`F(k) = F(k - 1) + sum - n × nums[n - k]`。
+- **一維陣列從右往左更新**（LC 119）：`row[j] += row[j - 1]` 從右往左，用到的才是上一列的值。
+
 ## 主要參數說明
 
 - `dp[i]` 用「前 `i` 個」時，陣列長度是 `n + 1`，`dp[0]` 是空的狀態。
@@ -176,6 +185,12 @@ for mask in range(1 << n):
 - **同一時間結束的工作互相覆蓋**：`dp[i] = max(dp[i - 1], ...)` 處理第二個工作時把第一個的結果蓋掉了（LC 1235）。
 - **用時間當 index**：時間到 `10^9`，MLE / TLE（LC 1235）。
 - **貪心比較錯對象**：要跟這一段的最大值比，我一直跟這段的第一個數比（LC 3638）。
+- **基本情況差一**：`T1`、`T2` 是 1（LC 1137）；`rowIndex` 從 0 開始（LC 119）。讓「推 `n` 次之後回傳第一個變數」可以避開大部分的邊界。
+- **由下往上 DP 用到還沒算的狀態**：`dp[i]` 依賴 `dp[i + 1]` 時不能從小往大算（LC 397）。
+- **最高位的 offset 在每個偶數都更新**：只有 2 的次方才換（LC 338）。
+- **多指針只讓第一個相等的指針前進**：其他相等的也要前進，不然會重複（LC 264、313）。
+- **前綴最大值的迴圈從 1 開始**：第 0 格沒有算進去（LC 42）。
+- **把範例的長度寫死在 index 裡**（LC 396）。
 
 ## 相關 LeetCode
 
@@ -200,3 +215,14 @@ for mask in range(1 << n):
 - `LC 2912` Number of Ways to Reach Destination in the Grid
 - `LC 996` Number of Squareful Arrays
 - `LC 2355` Maximum Number of Books You Can Take
+- `LC 509` Fibonacci Number
+- `LC 1137` N-th Tribonacci Number
+- `LC 118` Pascal's Triangle
+- `LC 119` Pascal's Triangle II
+- `LC 1025` Divisor Game
+- `LC 338` Counting Bits
+- `LC 42` Trapping Rain Water
+- `LC 264` Ugly Number II
+- `LC 313` Super Ugly Number
+- `LC 397` Integer Replacement
+- `LC 396` Rotate Function

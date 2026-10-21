@@ -157,6 +157,15 @@ These carry a DP tag on LeetCode, but once the structure is clear they need no D
 - **Cut as soon as possible** (LC 3638): once a value below the segment's maximum appears, end the segment.
 - **Prefix max / suffix min** (LC 3660): when the prefix max exceeds the minimum to its right, the two sides connect.
 
+- **Game patterns** (LC 1025): the DP turns out to be "`n` is even": from an even number take 1, leaving an odd one, and odd numbers have only odd divisors.
+- **Only `O(log n)` states** (LC 397): `n` reaches `2^31`, too large for an `n`-sized array; memoized recursion roughly halves it per level.
+
+### Extension: multi-pointer generation and rolling recurrences
+
+- **Ugly numbers** (LC 264, 313): one pointer per prime marks the next number to multiply; take the minimum product and advance **every** matching pointer to avoid duplicates.
+- **A recurrence instead of recomputation** (LC 396): `F(k) = F(k - 1) + sum - n × nums[n - k]`.
+- **Updating a 1D array right to left** (LC 119): `row[j] += row[j - 1]` from the right reads only previous-row values.
+
 ## Key Parameters
 
 - With `dp[i]` as "the first `i`", the array has length `n + 1` and `dp[0]` is the empty state.
@@ -176,6 +185,12 @@ These are all mistakes I actually made while practicing:
 - **Jobs ending at the same time overwriting each other**: `dp[i] = max(dp[i - 1], ...)` on the second job discarded the first job's result (LC 1235).
 - **Indexing by time**: times reach `10^9`, MLE / TLE (LC 1235).
 - **Greedy comparing against the wrong value**: it should compare with the segment's maximum, but I kept comparing with the segment's first value (LC 3638).
+- **Off-by-one base cases**: `T1` and `T2` are 1 (LC 1137); `rowIndex` is 0-based (LC 119). "Step `n` times and return the first variable" sidesteps most boundaries.
+- **Bottom-up DP reading uncomputed states**: if `dp[i]` depends on `dp[i + 1]`, do not iterate upward (LC 397).
+- **Updating the highest-bit offset at every even number**: it changes only at powers of two (LC 338).
+- **Advancing only the first matching pointer**: advance all of them, or duplicates appear (LC 264, 313).
+- **Starting the prefix-maximum loop at 1**: cell 0 is left out (LC 42).
+- **Hard-coding the example's length into an index** (LC 396).
 
 ## Related LeetCode
 
@@ -200,3 +215,14 @@ These are all mistakes I actually made while practicing:
 - `LC 2912` Number of Ways to Reach Destination in the Grid
 - `LC 996` Number of Squareful Arrays
 - `LC 2355` Maximum Number of Books You Can Take
+- `LC 509` Fibonacci Number
+- `LC 1137` N-th Tribonacci Number
+- `LC 118` Pascal's Triangle
+- `LC 119` Pascal's Triangle II
+- `LC 1025` Divisor Game
+- `LC 338` Counting Bits
+- `LC 42` Trapping Rain Water
+- `LC 264` Ugly Number II
+- `LC 313` Super Ugly Number
+- `LC 397` Integer Replacement
+- `LC 396` Rotate Function

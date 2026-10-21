@@ -153,7 +153,7 @@ for i, x in enumerate(nums):
 - **兩兩算 GCD**：`O(n^2)`，TLE（LC 952、2709、1627）。
 - **用 `x // d == x / d` 判斷整除**：`2` 會被自己整除，被判成合數（LC 3918）。
 - **SPF 篩法寫成 `spf[i] = i`**：應該是 `spf[j] = i`；分解時又直接改了原本的 `num`，之後拿去 union 的值已經不對了（LC 1998）。
-- **線性篩的內層迴圈放進了 `if 是質數` 裡面**：合數不會去劃掉它的倍數，像 8 就被當成質數（LC 1998）。
+- **線性篩的內層迴圈放進了 `if 是質數` 裡面**：合數不會去劃掉它的倍數，像 8 就被當成質數（LC 1998、LC 4081）。
 - **忘了 `1` 沒有質因數**：`[1, 1]` 兩個 1 互相連不到；但 `[1]` 只有一個數時答案是 `True`（LC 2709）。從 `-1` 開始記 `reach`，第一個數是 1 時就切不出來（LC 2584）。
 - **找最近的質數對時 index 寫錯**：`prime[i + 1] - prime[i - 1]`（LC 2523）。
 - **沒有路徑壓縮**：`find` 寫成 `return find(parent[a])` 而沒有存回去，同一題慢了三倍（LC 952）。
@@ -171,3 +171,4 @@ for i, x in enumerate(nums):
 - `LC 1998` GCD Sort of an Array
 - `LC 1627` Graph Connectivity With Threshold
 - `LC 2584` Split the Array to Make Coprime Products
+- `LC 4081` Prime Subset Selection II

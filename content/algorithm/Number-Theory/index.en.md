@@ -153,7 +153,7 @@ These are all mistakes I actually made while practicing:
 - **Pairwise GCDs**: `O(n^2)`, TLE (LC 952, 2709, 1627).
 - **Testing divisibility with `x // d == x / d`**: `2` divides itself, so 2 was judged composite (LC 3918).
 - **Writing `spf[i] = i` in the SPF sieve**: it should be `spf[j] = i`; the factoring loop also modified the original `num`, so the value later passed to union was wrong (LC 1998).
-- **Putting the linear sieve's inner loop inside `if prime`**: composites never cross out their multiples, so 8 was treated as prime (LC 1998).
+- **Putting the linear sieve's inner loop inside `if prime`**: composites never cross out their multiples, so 8 was treated as prime (LC 1998, LC 4081).
 - **Forgetting that `1` has no prime factors**: two 1s in `[1, 1]` cannot reach each other, but `[1]` alone is `True` (LC 2709). Starting `reach` at `-1` meant no split when the first number was 1 (LC 2584).
 - **A wrong index for the closest prime pair**: `prime[i + 1] - prime[i - 1]` (LC 2523).
 - **No path compression**: `find` written as `return find(parent[a])` without storing it back, three times slower on the same problem (LC 952).
@@ -171,3 +171,4 @@ These are all mistakes I actually made while practicing:
 - `LC 1998` GCD Sort of an Array
 - `LC 1627` Graph Connectivity With Threshold
 - `LC 2584` Split the Array to Make Coprime Products
+- `LC 4081` Prime Subset Selection II

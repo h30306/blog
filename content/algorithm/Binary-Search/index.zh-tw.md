@@ -134,6 +134,32 @@ def query(limit):                     # key <= limit 的 value 總和
 
 LC 2838、2300、3709 都是這個模式。
 
+## 模板六：旋轉陣列
+
+切在 `mid`，左右兩半至少有一邊是排序好的，先判斷哪一邊有序，再看目標在不在那一邊：
+
+```python
+while l <= r:
+    mid = (l + r) // 2
+    if nums[mid] == target:
+        return mid
+    if nums[l] <= nums[mid]:             # 左半有序
+        if nums[l] <= target < nums[mid]:
+            r = mid - 1
+        else:
+            l = mid + 1
+    else:                                # 右半有序
+        if nums[mid] < target <= nums[r]:
+            l = mid + 1
+        else:
+            r = mid - 1
+```
+
+- **搜尋**（LC 33）：上面的程式；**有重複值**（LC 81）時 `nums[l] == nums[mid]` 分不出哪邊有序，只能 `l += 1`。
+- **找最小值**（LC 153）：拿 `nums[mid]` 跟 `nums[r]` 比，比較大就 `l = mid + 1`，否則 `r = mid`；**有重複值**（LC 154）時相等就 `r -= 1`。
+- **山峰**（LC 162）：`nums[mid] < nums[mid + 1]` 代表右邊一定有山峰。
+- **配對中落單的那個**（LC 540）：在它之前每一對都從偶數 index 開始。
+
 ## 兩種區間寫法不能混用
 
 | | 左閉右開 `[lo, hi)` | 左閉右閉 `[lo, hi]` |
@@ -162,6 +188,13 @@ LC 2838、2300、3709 都是這個模式。
 - **用浮點數除法算門檻**：`success / spell` 在數字大時可能有誤差，改用整數的 `ceil`（LC 2300）。
 - **雙指針的指標往回走**：`j_low = min(i + 1, j_low)` 讓指標每次都被拉回來，變成 `O(n^2)`（LC 1712）。
 
+- **`mid = (l + r) / 2`**：Python 3 的 `/` 得到浮點數，不能當 index（LC 704、74、35）。
+- **找最小的可行值時，剛好等於就回傳**：可能還有更小的也可行（LC 875）。
+- **旋轉陣列只拿 `nums[mid]` 跟目標比**：要先判斷哪一半有序（LC 33、81）。
+- **每次只移一格**：寫成 `l += 1` / `r -= 1` 等於線性搜尋，TLE（LC 981）。
+- **用 `start < end` 判斷有沒有找到**：只出現一次時開頭等於結尾（LC 34）。
+- **`while l < r` 配 `l = mid`**：`mid` 往下取整時 `l` 不動，無限迴圈（LC 441、34）。
+
 ## 相關 LeetCode
 
 - `LC 2300` Successful Pairs of Spells and Potions
@@ -176,3 +209,27 @@ LC 2838、2300、3709 都是這個模式。
 - `LC 719` Find K-th Smallest Pair Distance
 - `LC 3932` Count K-th Roots in a Range
 - `LC 327` Count of Range Sum
+- `LC 704` Binary Search
+- `LC 35` Search Insert Position
+- `LC 34` Find First and Last Position of Element in Sorted Array
+- `LC 74` Search a 2D Matrix
+- `LC 240` Search a 2D Matrix II
+- `LC 33` Search in Rotated Sorted Array
+- `LC 81` Search in Rotated Sorted Array II
+- `LC 153` Find Minimum in Rotated Sorted Array
+- `LC 154` Find Minimum in Rotated Sorted Array II
+- `LC 162` Find Peak Element
+- `LC 875` Koko Eating Bananas
+- `LC 275` H-Index II
+- `LC 1337` The K Weakest Rows in a Matrix
+- `LC 268` Missing Number
+- `LC 367` Valid Perfect Square
+- `LC 69` Sqrt(x)
+- `LC 888` Fair Candy Swap
+- `LC 278` First Bad Version
+- `LC 374` Guess Number Higher or Lower
+- `LC 441` Arranging Coins
+- `LC 287` Find the Duplicate Number
+- `LC 981` Time Based Key-Value Store
+- `LC 540` Single Element in a Sorted Array
+- `LC 744` Find Smallest Letter Greater Than Target

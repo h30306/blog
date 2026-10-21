@@ -134,6 +134,32 @@ def query(limit):                     # sum of values with key <= limit
 
 LC 2838, 2300, and 3709 all follow this pattern.
 
+## Template 6: Rotated arrays
+
+Splitting at `mid`, at least one half is sorted; decide which, then whether the target lies in it:
+
+```python
+while l <= r:
+    mid = (l + r) // 2
+    if nums[mid] == target:
+        return mid
+    if nums[l] <= nums[mid]:             # left half sorted
+        if nums[l] <= target < nums[mid]:
+            r = mid - 1
+        else:
+            l = mid + 1
+    else:                                # right half sorted
+        if nums[mid] < target <= nums[r]:
+            l = mid + 1
+        else:
+            r = mid - 1
+```
+
+- **Search** (LC 33): the code above; **with duplicates** (LC 81), `nums[l] == nums[mid]` hides the sorted half, so `l += 1`.
+- **Minimum** (LC 153): compare `nums[mid]` with `nums[r]`: larger means `l = mid + 1`, otherwise `r = mid`; **with duplicates** (LC 154), equality means `r -= 1`.
+- **Peak** (LC 162): `nums[mid] < nums[mid + 1]` guarantees a peak to the right.
+- **The single element among pairs** (LC 540): before it, every pair starts at an even index.
+
 ## Never Mix the Two Interval Styles
 
 | | Half-open `[lo, hi)` | Closed `[lo, hi]` |
@@ -162,6 +188,13 @@ These are all mistakes I actually made while practicing:
 - **Using float division for a threshold**: `success / spell` can lose precision with large numbers; use integer `ceil` (LC 2300).
 - **Letting a two-pointer index move backwards**: `j_low = min(i + 1, j_low)` pulls the pointer back every time, turning it into `O(n^2)` (LC 1712).
 
+- **`mid = (l + r) / 2`**: Python 3's `/` gives a float, unusable as an index (LC 704, 74, 35).
+- **Returning on an exact match while minimizing**: a smaller value may also work (LC 875).
+- **Comparing only `nums[mid]` with the target in a rotated array**: decide the sorted half first (LC 33, 81).
+- **Moving one step at a time**: `l += 1` / `r -= 1` is a linear search, TLE (LC 981).
+- **Testing existence with `start < end`**: a single occurrence has start equal to end (LC 34).
+- **`while l < r` with `l = mid`**: `mid` rounds down, `l` never moves, infinite loop (LC 441, 34).
+
 ## Related LeetCode
 
 - `LC 2300` Successful Pairs of Spells and Potions
@@ -176,3 +209,27 @@ These are all mistakes I actually made while practicing:
 - `LC 719` Find K-th Smallest Pair Distance
 - `LC 3932` Count K-th Roots in a Range
 - `LC 327` Count of Range Sum
+- `LC 704` Binary Search
+- `LC 35` Search Insert Position
+- `LC 34` Find First and Last Position of Element in Sorted Array
+- `LC 74` Search a 2D Matrix
+- `LC 240` Search a 2D Matrix II
+- `LC 33` Search in Rotated Sorted Array
+- `LC 81` Search in Rotated Sorted Array II
+- `LC 153` Find Minimum in Rotated Sorted Array
+- `LC 154` Find Minimum in Rotated Sorted Array II
+- `LC 162` Find Peak Element
+- `LC 875` Koko Eating Bananas
+- `LC 275` H-Index II
+- `LC 1337` The K Weakest Rows in a Matrix
+- `LC 268` Missing Number
+- `LC 367` Valid Perfect Square
+- `LC 69` Sqrt(x)
+- `LC 888` Fair Candy Swap
+- `LC 278` First Bad Version
+- `LC 374` Guess Number Higher or Lower
+- `LC 441` Arranging Coins
+- `LC 287` Find the Duplicate Number
+- `LC 981` Time Based Key-Value Store
+- `LC 540` Single Element in a Sorted Array
+- `LC 744` Find Smallest Letter Greater Than Target

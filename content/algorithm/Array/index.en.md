@@ -95,6 +95,17 @@ for i in range(n - 1, -1, -1):           # right to left: suffix sum
 - **Equal pairs with `i * j` divisible by `k`** (LC 2176): with `n <= 100`, enumerate all pairs; the condition is on the **indices**' product, not the values.
 - **Best reachable tower** (LC 3809): "highest quality, ties to the smallest coordinate" is one key: take the minimum of `(-q, x, y)`.
 
+## Template 5: Direct simulation
+
+Many problems just follow the rules; the work is in the index arithmetic:
+
+- **Circular moves** (LC 3379): `k` steps right is `(i + k) % n`; left is `(i - k) % n`, since Python's `%` returns a non-negative result for negative operands.
+- **Rotating only part of the array** (LC 3819): pull out the elements that move, rotate them, and put them back in their original positions in order; there may be none, so check before taking a modulo.
+- **Walking out in eight directions** (LC 1222): from the king, step along each direction; the first queen met is the one that can attack.
+- **Smallest rectangle covering every 1** (LC 3195): track the topmost, bottommost, leftmost and rightmost 1.
+- **Merge intervals, then multiply by the per-unit cost** (LC 3951): each time unit needs the same number of bulbs, so only the total covered time matters.
+- **Others**: `ans[i] = nums[nums[i]]` (LC 1920), alternating sums (LC 3701), letter weights mod 26 mapped backward (LC 3838).
+
 ## Key Parameters
 
 - When walking runs, guard each condition with `i + 1 < n` before comparing `nums[i]` and `nums[i + 1]`.
@@ -113,6 +124,7 @@ These are mistakes I actually made while practicing:
 - **Only counting drops**: one drop can still be unfixable; I also indexed `i + 2` out of range (LC 665).
 - **`return False` inside the `for` loop**: it gave up after the first `p`; another version never checked the final uphill run (LC 3637).
 - **Averaging with integer division and including the element itself** (LC 3833).
+- **Taking a modulo without checking for zero**: with no non-negative elements, `k % 0` raised an error (LC 3819).
 
 ## Related LeetCode
 
@@ -129,3 +141,11 @@ These are mistakes I actually made while practicing:
 - `LC 3912` Valid Elements in an Array
 - `LC 3917` Count Indices With Opposite Parity
 - `LC 3833` Count Dominant Indices
+- `LC 3195` Find the Minimum Area to Cover All Ones I
+- `LC 1222` Queens That Can Attack the King
+- `LC 1920` Build Array from Permutation
+- `LC 3701` Compute Alternating Sum
+- `LC 3819` Rotate Non Negative Elements
+- `LC 3379` Transformed Array
+- `LC 3838` Weighted Word Mapping
+- `LC 3951` Minimum Energy to Maintain Brightness

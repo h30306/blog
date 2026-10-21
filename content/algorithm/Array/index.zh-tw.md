@@ -95,6 +95,17 @@ for i in range(n - 1, -1, -1):           # 右往左：後綴總和
 - **相等而且 `i * j` 能被 `k` 整除的配對**（LC 2176）：`n <= 100`，直接枚舉所有配對；條件是 **index** 的乘積，不是值。
 - **最好的塔**（LC 3809）：「品質最大，平手時座標最小」可以寫成一個 key：`(-q, x, y)` 取最小。
 
+## 模板五：直接模擬
+
+很多題目照規則做就好，重點是 index 怎麼換算：
+
+- **環狀移動**（LC 3379）：往右 `k` 步是 `(i + k) % n`；往左也一樣寫 `(i - k) % n`，Python 的 `%` 對負數會回傳非負的結果。
+- **只旋轉其中一部分**（LC 3819）：把要動的元素抽出來，旋轉後依序放回原本的位置；要動的元素可能一個都沒有，取模之前要先判斷。
+- **八個方向往外走**（LC 1222）：從國王出發，每個方向一步一步走，第一個遇到的皇后就是能攻擊的那個。
+- **包住所有 1 的最小矩形**（LC 3195）：記最上、最下、最左、最右出現 1 的位置。
+- **合併區間再乘上每單位的成本**（LC 3951）：每個時間單位需要的燈泡數一樣，只要算被覆蓋的時間總長。
+- **其他**：`ans[i] = nums[nums[i]]`（LC 1920）、交錯加減（LC 3701）、字母權重取模再反向對應（LC 3838）。
+
 ## 主要參數說明
 
 - 走單調段時，每段的條件用 `i + 1 < n` 先擋邊界，再比較 `nums[i]` 和 `nums[i + 1]`。
@@ -113,6 +124,7 @@ for i in range(n - 1, -1, -1):           # 右往左：後綴總和
 - **只數下降次數**：一次下降也可能改不好；邊界 `i + 2` 也超出範圍過（LC 665）。
 - **在 `for` 迴圈裡 `return False`**：只試了第一個 `p` 就結束；另一版沒檢查最後一段上坡（LC 3637）。
 - **平均用整數除法、而且包含自己**（LC 3833）。
+- **取模之前沒檢查是不是 0**：沒有非負數的時候 `k % 0` 直接報錯（LC 3819）。
 
 ## 相關 LeetCode
 
@@ -129,3 +141,11 @@ for i in range(n - 1, -1, -1):           # 右往左：後綴總和
 - `LC 3912` Valid Elements in an Array
 - `LC 3917` Count Indices With Opposite Parity
 - `LC 3833` Count Dominant Indices
+- `LC 3195` Find the Minimum Area to Cover All Ones I
+- `LC 1222` Queens That Can Attack the King
+- `LC 1920` Build Array from Permutation
+- `LC 3701` Compute Alternating Sum
+- `LC 3819` Rotate Non Negative Elements
+- `LC 3379` Transformed Array
+- `LC 3838` Weighted Word Mapping
+- `LC 3951` Minimum Energy to Maintain Brightness

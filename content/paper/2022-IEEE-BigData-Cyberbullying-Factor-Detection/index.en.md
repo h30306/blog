@@ -28,12 +28,14 @@ This paper continues the lab's MOST-funded cyberbullying project, which started 
 
 Social media spreads opinions quickly and amplifies the harm of malicious comments. Cyberbullying is loosely defined, which makes it hard to punish or prevent, and most prior work only does binary **bullying detection**; few studies analyze its **factors**.
 
-## Method
+## Pipeline and Model Architecture
+
+![Pipeline and the six cyberbullying factors](pipeline.svg)
 
 1. **Define six factors** with annotation rules: intimidation, harassment, insult, sarcasm, arousal, and valence.
-2. **Build a Chinese corpus**: comments collected from PTT over several years, labeled by three annotators. Intimidation has only 48 positive items while harassment and sarcasm are frequent, so the data are highly imbalanced.
-3. **Train a BERT model** to detect the six factors in each comment.
-4. **Large-scale labeling and case studies**: label many PTT posts with the model and analyze how the factors combine and change over time in several incidents involving public figures.
+2. **Build a Chinese corpus**: 5,926 comments collected from PTT over several years and labeled by three annotators. The labels are highly imbalanced: only 48 intimidation comments, versus 3,641 sarcasm and 2,175 harassment; negative and neutral valence are balanced, but positive is rare.
+3. **Train classifiers**: one BERT classifier per factor. A comment `{[CLS], w1, …, wn}` goes through BERT, `h_CLS` represents the whole comment, and `softmax(W·h_CLS + b)` outputs the class probabilities for that factor, fine-tuned end to end with cross-entropy and Adam.
+4. **Large-scale labeling and case studies**: label many PTT posts with the trained models and track how the factors combine and change over time in several incidents involving public figures.
 
 ## Findings
 

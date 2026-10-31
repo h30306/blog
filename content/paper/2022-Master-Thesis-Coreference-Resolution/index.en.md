@@ -34,13 +34,35 @@ Current models score a new **mention** against existing **entities** during infe
 - If a mention is clustered wrongly during inference, the averaged entity representation drifts more easily.
 - Mentions in the same entity all corefer, so their representations should have **high within-group density**, and different entities should have **low between-group density**. Prior work did not model this directly.
 
-## Method
+## Model Architecture
 
-The baseline is the open-source model of Toshniwal et al. (2020), using SpanBERT pre-trained on OntoNotes for span features (long documents are encoded in overlapping segments). I added three components:
+![Coreference model architecture](coref.svg)
 
-1. **Entity representation estimation**: update the entity representation step by step as mentions join (for example with an LSTM) instead of simply averaging.
-2. **Within-group density**: estimate how tightly the mentions of one entity cluster (MSE or cosine) and pull them closer.
-3. **Between-group density**: compute a between-group loss only when two entity representations are more similar than a threshold λ, pushing confusable entities apart. λ can be fixed or learned.
+The baseline is the open-source long-document coreference model of Toshniwal et al. (2020). It has two stages; the red boxes are the three components this thesis adds.
+
+### Stage 1: Mention Detection
+
+1. **Document encoding**: SpanBERT pre-trained on OntoNotes encodes the document. Long documents exceed the length limit T, so a segment of length T starts every T/2 tokens; segments overlap by half, and each token's final representation is a weighted mix of its two segments.
+2. **Candidate mentions**: every span up to length L is a candidate with mention score `s_m`; the top 0.4 × document length spans are kept. Mention detection is first fine-tuned on gold mentions, otherwise almost every early candidate is invalid and clustering gets no useful signal.
+
+### Stage 2: Clustering Mentions in Order
+
+The model walks through candidate mentions `x_i` in document order and keeps a list of entities so far:
+
+1. **Within-group density (WS, proposed)**: for each entity `e_j`, average the cosine similarity between each mention and the entity centroid to get `δ_j`. High density means a tight, trustworthy cluster; low density suggests a wrongly added mention.
+2. **Coreference score**: a feed-forward network scores the new mention against each entity from the mention representation, the entity representation, their element-wise product, and feature embeddings (mention count in the entity, distance to its last mention, mention type). The score is **multiplied by `δ_j`**, so a suspicious entity is less likely to absorb more mentions and errors do not snowball.
+3. **Pick an entity**: take the highest-scoring entity `e*` and add `x_i` to it, or output ε to start a new entity if nothing matches.
+4. **Entity representation (ER, proposed)**: only `e*` changed, so only its representation is updated. Instead of averaging, soft attention weights each mention: `α = softmax(W·c_e* + b)`, `ẽ* = Σ α_h · mention_h`. Pronouns and wrongly clustered mentions get low weights, so the entity representation does not drift.
+
+### Training Objective
+
+- **Coreference loss**: for each mention, softmax over all candidate entities (including ε) and maximize the marginal likelihood of the gold cluster.
+- **Between-group density loss (BS, proposed)**: compare every pair of entity representations by cosine similarity and only count pairs above threshold λ, pushing confusable entities apart; pairs below λ produce no gradient.
+- The total loss is `L = (1 − r)·L_coref + r·L_BS`, with r the weight of the density loss. Mention detection and inference train end to end and share SpanBERT's parameters.
+
+### Experimental Setup
+
+To isolate each component, the thesis runs nine variants: the reproduced baseline (COREF_BASE), the last mention as entity representation (COREF_LM), ER / WS / BS alone, every pair, and all three (COREF_ERWSBS). The data are the English OntoNotes documents converted to CoNLL-2012 format, with 2,802 / 343 / 348 documents for train / validation / test.
 
 ## Results
 

@@ -39,11 +39,29 @@ Earlier irony datasets mostly label whether a whole sentence is ironic or which 
 - **Context level**: valence and arousal intensity.
 - Each item was annotated by three native Chinese speakers (graduate and undergraduate students); labels are averaged, and annotator differences are analyzed.
 
-## Experiments
+## Model Architecture
 
-- BERT is the base model, with three prediction setups compared.
-- The third setup, **concatenating the sentence with its context before predicting**, clearly improves context-level arousal prediction.
-- The CDVAI labels give BERT a learning signal for the structure of irony.
+![Three setups for context-level VA](cdvai-methods.svg)
+
+The data are split by stratified sampling (sentence level 632 / 71 / 301, context level 531 / 59 / 253 for train / validation / test).
+
+**Sentence level**: the sentence goes through BERT, and `h_CLS` feeds a linear layer that outputs valence, arousal, and irony.
+
+**Context level**: the context span is already marked in each sentence, so three setups are compared:
+
+| Setup | How |
+|---|---|
+| M1 | Whole sentence through BERT; `h_CLS` → linear predicts the context VA directly |
+| M2 | Whole sentence through BERT; only the hidden states at the context span are pooled → linear |
+| M3 | Sentence and context go through BERT separately; the two hidden vectors are concatenated → linear |
+
+Each setup is tested with six pre-trained models: four Chinese (ckiplab/albert-base-chinese, hfl/chinese-macbert-base, shibing624/macbert4csc-base-chinese, uer/chinese_roberta_L-4_H-256) and two multilingual (bert-base-multilingual-uncased, flax-community/alberti-bert-base-multilingual-cased).
+
+## Results
+
+- **Context valence**: M1 is best for most models; M2 and M3 may add noise. The best MAE is about 0.39 (M3 with multilingual BERT) to 0.40 (M1 with macbert4csc).
+- **Context arousal**: harder than valence, with MAE around 0.8. M3 wins for most models, so seeing both the sentence and the context helps judge arousal.
+- **Error analysis**: BERT struggles to infer the speaker's intent, lacks common sense, and cannot judge how serious the described event is, which makes the irony level hard to predict accurately.
 
 ## Limitations
 

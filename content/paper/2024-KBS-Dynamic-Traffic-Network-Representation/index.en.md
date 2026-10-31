@@ -31,11 +31,38 @@ The conference version showed that dynamic station embeddings beat static ones, 
 - Peak and off-peak flows differ a lot, so a single set of station features biases predictions. Can dynamic features make predictions more stable at **stations and hours with large flow changes**?
 - Flow into a station comes from at least two directions, and more at transfer stations. Can the model attend separately to **time, station, and route**?
 
-## Method
+## Model Architecture
 
-1. **Multi-objective pre-training**: pre-train dynamic station representations with BERT using several self-supervised objectives.
-2. **Hierarchical Attention Network (HAN)**: each attention level focuses on one aspect (time, station, or route), and the levels are combined to predict future flow.
-3. The pre-trained dynamic vectors are fed to HAN as station features.
+There are still two stages: pre-train BERT flow embeddings, then feed them to a three-level Hierarchical Attention Network (HAN) that predicts flow.
+
+### Stage 1: Pre-training with Four Objectives
+
+The input is the same as in the conference version: two stations' binned flows for the past 5 hours, joined as `[CLS] … [SEP] … [SEP]` and randomly masked (see the figure below; the journal version replaces NSP with the spatial objectives listed after it).
+
+![BERT pre-training input and heads](bert-se.svg)
+
+The journal version uses one main objective plus three auxiliary ones, so the model learns more **spatial concepts** beyond numeric change:
+
+| Objective | Output used | Predicts | Loss |
+|---|---|---|---|
+| MFP (main) | `h` at masked positions | The masked flow bin, capturing peak/off-peak change | Cross-entropy |
+| SRP (Same Route Prediction) | `h_CLS` | Whether the two sequences come from the same line | Cross-entropy |
+| ASP (Adjacent Station Prediction) | `h_CLS` | Whether the two sequences come from adjacent stations | Cross-entropy |
+| SDE (Station Distance Estimation) | `h_CLS` | Straight-line distance, separating downtown and suburban stations | MSE |
+
+The four losses are summed and trained together.
+
+### Stage 2: Hierarchical Attention Network (HAN)
+
+![HAN three-level attention](han.svg)
+
+HAN has three levels, bottom to top, each handling one aspect:
+
+1. **Temporal encoder**: for each station, the raw flow sequence goes through an RNN and is **concatenated** with the BERT dynamic embedding; soft attention weights each past hour to give the station's temporal state.
+2. **Spatial encoder**: along one line, the temporal states of stations near the target are fed through an RNN in station order (stations on a line are sequential), then soft attention gives that line's influence on the target station.
+3. **Route encoder**: a station's flow can come from several lines (more at transfer stations), and each line draws from different areas (downtown, suburbs, residential), so a final soft attention weights the lines. Lines have no order, so this level uses attention only, no RNN.
+
+A final linear layer outputs the next time step's flow, trained with MSE.
 
 ## Results
 

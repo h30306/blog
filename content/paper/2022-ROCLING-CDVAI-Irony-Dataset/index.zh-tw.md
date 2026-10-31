@@ -39,11 +39,29 @@ draft: false
 - **語境層級**：標註 Valence、Arousal 兩種強度。
 - 每筆資料由三位標註者標註（研究生與大學生，皆為中文母語者），取平均作為標籤，並分析標註者之間的差異。
 
-## 實驗
+## 模型架構
 
-- 以 BERT 作為基礎模型，比較三種預測方式。
-- 第三種方法**把句子和語境串接後再預測**，能有效提升語境 Arousal 的預測表現。
-- CDVAI 的標註讓 BERT 有方向可以學到反諷的結構。
+![語境 VA 的三種預測方式](cdvai-methods.svg)
+
+資料以分層抽樣切成訓練、驗證、測試集（句子層級 632 / 71 / 301 句，語境層級 531 / 59 / 253 句）。
+
+**句子層級**：句子進 BERT，取 `h_CLS` 接 Linear，輸出句子的 Valence、Arousal、Irony 分數。
+
+**語境層級**：資料裡已經標好語境在句子中的位置，因此比較三種預測語境 VA 的方式：
+
+| 方法 | 做法 |
+|---|---|
+| M1 | 整句進 BERT，取 `h_CLS` 接 Linear 直接預測語境的 VA |
+| M2 | 整句進 BERT，只取語境那一段位置的隱藏向量，彙總後接 Linear |
+| M3 | 句子和語境分別進 BERT，把兩個隱藏向量串接後接 Linear |
+
+每種方法都用 6 個預訓練模型比較：4 個中文模型（ckiplab/albert-base-chinese、hfl/chinese-macbert-base、shibing624/macbert4csc-base-chinese、uer/chinese_roberta_L-4_H-256）和 2 個多語模型（bert-base-multilingual-uncased、flax-community/alberti-bert-base-multilingual-cased）。
+
+## 實驗結果
+
+- **語境 Valence**：多數模型以 M1 最好，M2、M3 可能引入了更多雜訊。最佳 MAE 約 0.39（M3 搭配多語 BERT）到 0.40（M1 搭配 macbert4csc）。
+- **語境 Arousal**：整體比 Valence 難，MAE 大約落在 0.8。M3 在多數模型上表現最好，代表同時看整句和語境，對判斷激動程度有幫助。
+- **錯誤分析**：BERT 很難推斷說話者的意圖，也缺乏常識，沒辦法判斷貼文描述的事件有多嚴重，所以很難準確判斷反諷的程度。
 
 ## 限制
 

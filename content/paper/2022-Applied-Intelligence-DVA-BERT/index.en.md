@@ -30,12 +30,55 @@ Sentiment is more than positive versus negative. **Dimensional sentiment (valenc
 
 BERT's masked language modeling (MLM) masks every token with the same probability regardless of how much it contributes to sentiment, so the learned features do not emphasize the sentiment words in a sentence.
 
-## Method: DVA-BERT
+## Model Architecture: DVA-BERT
 
-- **Main task**: sentence-level VA intensity estimation (regression).
-- **Auxiliary task**: replace MLM with **random masked sentiment words**, so the model predicts which sentiment word was masked.
-- The sentiment lexicon comes from CVAW (word-level VA annotated on a 1–9 scale).
-- Several masking-probability schemes: by the word's valence or arousal intensity, their intersection or union, or reversed (lower intensity, more likely to be masked).
+![DVA-BERT architecture (figure from the paper)](model.jpg)
+
+The example sentence is "I hate you very much"; "hate" is a sentiment word and is replaced by `[MASK]`. The pipeline has four steps:
+
+**1. Word segmentation**: the CKIP tagger splits the sentence into words `X = {x1, …, xN}`.
+
+**2. Sentiment intensity → masking probability**: every word in the CVAW lexicon has valence and arousal scores on a 1–9 scale.
+
+- Valence is first turned into "distance from the midpoint": `TI = |I_V − mid(I_V)|`, so strongly positive or negative words score high.
+- It is then min–max normalized and **flipped** with `|norm − 1|`, so lower-intensity words get a higher masking probability. Low-intensity sentiment words are the ones the model confuses most, so it is forced to learn them.
+- Arousal gets the same normalization and flip.
+
+**3. Masked sequence**: only sentiment words can be masked; other words have probability 0. Each sentiment word is masked by Bernoulli sampling:
+
+```text
+P_mask(x_n) = Bernoulli(β · P_V(x_n)) × Bernoulli(β · P_A(x_n))
+```
+
+β is the initial masking probability (a hyperparameter) that stops every sentiment word in a sentence from being masked, which would leave nothing to learn from. The result is `X' = [<CLS>, mn_1, …, mn_N, <EOS>]`.
+
+**4. Two-task training**: `X'` goes through BERT to get a hidden vector per position.
+
+| Task | Output used | What it does | Loss |
+|---|---|---|---|
+| VAIE (main) | `h_CLS` | Two linear layers output the sentence's valence and arousal | MSE |
+| RMSWP (auxiliary) | `h` at `[MASK]` positions | Predict which sentiment word was masked | Cross-entropy |
+
+Both losses train together, and all BERT parameters are fine-tuned.
+
+### Data and Compared Models
+
+The data are 2,300 sentences from mental-health social posts in six categories: depressed mood, suicide, insomnia, work and activity, anxiety, and physical symptoms. Each sentence got valence and arousal scores (1–9) from at least 10 annotators; scores beyond ±1.5 standard deviations were dropped before averaging. The data are split 7:1:2 into train, validation, and test sets with five-fold cross-validation.
+
+The paper compares 11 masking setups:
+
+| Model | Masking |
+|---|---|
+| DVA-BERT | Proposed: V and A both flipped, probabilities multiplied |
+| DVA-BERT-VAI | Same but not flipped (higher intensity, more masking) |
+| DVA-BERT-NM | No masking, VAIE only |
+| DVA-BERT-RM | Original BERT random masking |
+| DVA-BERT-MS | Masks sentiment words without intensity-based probability |
+| DVA-BERT-MV / MRV | Valence only, not flipped / flipped |
+| DVA-BERT-MA / MRA | Arousal only, not flipped / flipped |
+| DVA-BERT-VAU / RVAU | V and A probabilities added (union), not flipped / flipped |
+
+The flipped setups, which mask low-intensity words more often, beat the unflipped MV, MA, and VAU.
 
 ## Results
 

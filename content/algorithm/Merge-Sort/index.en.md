@@ -192,3 +192,4 @@ Practice ladder, in order of difficulty:
 - `LC 4051` Count Subarrays with Distant Sums
 - `LC 23` Merge k Sorted Lists
 - `LC 775` Global and Local Inversions
+- `LC 4099` Minimum Operations to Sort With Locked Indices

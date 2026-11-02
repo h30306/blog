@@ -201,3 +201,4 @@ These are mistakes I actually made while practicing:
 - `LC 521` Longest Uncommon Subsequence I
 - `LC 657` Robot Return to Origin
 - `LC 806` Number of Lines To Write String
+- `LC 4097` Minimum Value of Merged Integers

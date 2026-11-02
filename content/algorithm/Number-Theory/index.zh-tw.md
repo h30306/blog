@@ -187,3 +187,4 @@ for i, x in enumerate(nums):
 - `LC 914` X of a Kind in a Deck of Cards
 - `LC 326` Power of Three
 - `LC 507` Perfect Number
+- `LC 4098` Minimize the Maximum Value of GCD-Connected Array

@@ -112,3 +112,6 @@ while riders and riders[0] in canceled:
 - `LC 225` Implement Stack using Queues
 - `LC 232` Implement Queue using Stacks
 - `LC 387` First Unique Character in a String
+- `LC 146` LRU Cache
+- `LC 460` LFU Cache
+- `LC 173` Binary Search Tree Iterator

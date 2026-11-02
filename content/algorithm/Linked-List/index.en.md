@@ -165,3 +165,7 @@ These are mistakes I actually made while practicing:
 - `LC 19` Remove Nth Node From End of List
 - `LC 116` Populating Next Right Pointers in Each Node
 - `LC 705` Design HashSet
+- `LC 25` Reverse Nodes in k-Group
+- `LC 328` Odd Even Linked List
+- `LC 146` LRU Cache
+- `LC 460` LFU Cache

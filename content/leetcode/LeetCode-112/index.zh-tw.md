@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-16
 - 提交紀錄：Runtime Error → Accepted → Wrong Answer → Runtime Error → Accepted
+- 2026-10-27 重寫：Wrong Answer ×2 → Accepted ×3
 
 ## 解題思路
 
@@ -38,6 +39,17 @@ class Solution:
         rest = targetSum - root.val
         return self.hasPathSum(root.left, rest) or self.hasPathSum(root.right, rest)
 ```
+
+## 2026-10 重寫
+
+這次用 BFS，佇列放 `(節點, 到父節點為止的和)`，錯了兩次：
+
+1. 判斷 `curr == targetSum`，`curr` 是**不含自己**的和，根的值從來沒加進去：`[5]`、`targetSum = 5` 回傳 `False`。
+2. 改成 `curr + node.val == targetSum`，但**沒有檢查是不是葉子**：`[1,2]`、`targetSum = 1` 在根就回傳 `True`，答案是 `False`（唯一的路徑是 1→2，和是 3）。
+3. 加上 `not node.left and not node.right` 就過了。
+4. 最後寫一次遞迴版，和上面一樣，一次通過。
+
+第二個錯就是上面「一定要到葉子才算」那一點。
 
 ## 複雜度
 

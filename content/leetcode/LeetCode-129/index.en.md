@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Accepted ×2 → Runtime Error → Accepted
+- 2026-10-28 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -40,6 +41,10 @@ class Solution:
             return dfs(node.left, num) + dfs(node.right, num)
         return dfs(root, 0)
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time I built the number as a string along the path and added `int(curr)` at each leaf. The result is the same, but every level creates a new string; the integer version above with `num * 10 + node.val` is cheaper.
 
 ## Complexity
 

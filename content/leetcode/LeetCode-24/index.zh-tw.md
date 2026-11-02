@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-21
 - 提交紀錄：Time Limit Exceeded → Wrong Answer ×3 → Accepted → Runtime Error → Wrong Answer ×2 → Accepted ×2 → Runtime Error ×3 → Accepted ×2
+- 2026-11-01 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -49,6 +50,10 @@ class Solution:
             prev = a
         return dummy.next
 ```
+
+## 2026-11 重寫
+
+一次通過，2022 年提交了 15 次的題目。這次一開始就用 dummy，`curr` 指向上一組的尾巴，`nxt` 是這組第一個，先用 `tmp` 記住下一組的開頭再改三個指標，就沒有 2022 年「一行交換時指標被先改掉」的問題。
 
 ## 複雜度
 

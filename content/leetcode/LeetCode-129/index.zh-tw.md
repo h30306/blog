@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Accepted ×2 → Runtime Error → Accepted
+- 2026-10-28 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -40,6 +41,10 @@ class Solution:
             return dfs(node.left, num) + dfs(node.right, num)
         return dfs(root, 0)
 ```
+
+## 2026-10 重寫
+
+一次通過。這次把路徑上的數字接成字串，到葉子再 `int(curr)` 加進答案。結果一樣，但每一層都建一個新字串，上面用 `num * 10 + node.val` 的整數寫法比較省。
 
 ## 複雜度
 

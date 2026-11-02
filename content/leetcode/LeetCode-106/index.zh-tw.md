@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-10
 - 提交紀錄：Accepted ×2 → Runtime Error → Accepted
+- 2026-10-29 重寫：Accepted ×3
 
 ## 解題思路
 
@@ -43,6 +44,15 @@ class Solution:
             return root
         return build(0, len(inorder) - 1)
 ```
+
+## 2026-10 重寫
+
+三次都一次通過：
+
+1. 遞迴版：和上面一樣用字典記中序位置，用 `postorder.pop()` 從尾巴取根，先建右子樹再建左子樹。
+2. 兩次 stack 版本：把 LC 105 的 stack 寫法左右對調。從後序尾巴往前讀（根、右、左），中序也從尾巴往前比；堆頂不等於中序目前的值就接成**右**小孩，相等就一直 pop，再把新節點接成最後 pop 出來那個的**左**小孩。
+
+`postorder.pop()` 會改到輸入陣列，面試時最好先說一聲，或像上面一樣用 `reversed` 迭代器。
 
 ## 複雜度
 

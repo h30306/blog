@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Accepted ×2
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -33,6 +34,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res[::-1]
 ```
+
+## 2026-10 重寫
+
+一次通過。這次用佇列、每輪記長度處理一層，最後把結果反轉，和上面的想法一樣。
 
 ## 複雜度
 

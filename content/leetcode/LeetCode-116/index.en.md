@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Runtime Error → Wrong Answer ×2 → Accepted → Wrong Answer → Runtime Error → Accepted ×2
+- 2026-10-24 rewrite: Accepted ×2
 
 ## Approach
 
@@ -47,6 +48,15 @@ class Solution:
             leftmost = leftmost.left
         return root
 ```
+
+## 2026-10 Rewrite
+
+Both versions were accepted on the first try:
+
+1. Recursive: `root.left.next = root.right` and `root.right.next = root.next.left`, then recurse left before right. Since it is pre-order, a parent's `next` is set before its children are processed, and in a perfect tree `root.next.left` always exists. This trick fails on LC 117, where the neighbour may have no children.
+2. BFS: every node except the last in its level gets `node.next = q[0]`.
+
+Both use more space than the iterative walk along `next` above (`O(log n)` recursion, `O(n)` for BFS).
 
 ## Complexity
 

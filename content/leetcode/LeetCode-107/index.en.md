@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Accepted ×2
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -33,6 +34,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res[::-1]
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try, using a queue with the level size recorded each round and reversing the result at the end, the same idea as above.
 
 ## Complexity
 

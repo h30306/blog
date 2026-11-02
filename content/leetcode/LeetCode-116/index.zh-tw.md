@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Runtime Error → Wrong Answer ×2 → Accepted → Wrong Answer → Runtime Error → Accepted ×2
+- 2026-10-24 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -47,6 +48,15 @@ class Solution:
             leftmost = leftmost.left
         return root
 ```
+
+## 2026-10 重寫
+
+兩個版本都一次通過：
+
+1. 遞迴：`root.left.next = root.right`，`root.right.next = root.next.left`，然後先左後右遞迴。因為是前序，處理小孩之前父節點的 `next` 已經接好了；而且完美二元樹裡 `root.next.left` 一定存在。這招在 LC 117 就不行，鄰居可能沒有小孩。
+2. BFS：每層除了最後一個，`node.next = q[0]`。
+
+兩個都比上面沿著 `next` 走的迭代版多用空間（遞迴 `O(log n)`、BFS `O(n)`）。
 
 ## 複雜度
 

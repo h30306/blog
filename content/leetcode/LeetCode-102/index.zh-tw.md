@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Wrong Answer → Runtime Error ×2 → Time Limit Exceeded → Wrong Answer → Runtime Error → Wrong Answer → Accepted → Wrong Answer → Accepted ×4
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -37,6 +38,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 重寫
+
+一次通過。這次佇列裡帶著層號 `(node, level)`，`level >= len(res)` 時開新的一層。不用每輪記佇列長度，但每個節點多存一個整數；用「每輪記佇列長度」或上面「整層換成下一層」的寫法比較常見。
 
 ## 複雜度
 

@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-09-07
 - 提交紀錄：Runtime Error ×2 → Wrong Answer → Accepted ×5
+- 2026-10-21 重寫：Runtime Error → Wrong Answer → Accepted
 
 ## 解題思路
 
@@ -37,6 +38,14 @@ class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
         return len(s) == len(goal) and goal in s + s
 ```
+
+## 2026-10 重寫
+
+2026-10-21 晚上又寫了一次：
+
+1. 交了沒有 `class Solution` 包起來的函式，Runtime Error。
+2. 用的是 2022 年「AC 但其實是錯的」那版長度檢查 `len(goal) < len(s)`，這次 **Wrong Answer** 了：`s = "a"`、`goal = "aa"` 回傳 `True`。看來 LeetCode 後來補了這個測資，上面說的漏洞被抓到了。
+3. 改成 `len(s) == len(goal) and goal in s + s` 就過了。
 
 ## 複雜度
 

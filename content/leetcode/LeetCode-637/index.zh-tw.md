@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-29
 - 提交紀錄：Runtime Error ×2 → Accepted ×2 → Time Limit Exceeded → Runtime Error → Wrong Answer → Accepted ×5
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -37,6 +38,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 重寫
+
+一次通過。這次用佇列，每輪先記長度 `n`，把這層的值加總後除以 `n`，和上面「整層換成下一層」是同一個想法。
 
 ## 複雜度
 

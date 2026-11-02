@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-27
 - Submissions: Wrong Answer ×2 → Accepted ×2 → Runtime Error → Wrong Answer ×2 → Accepted ×2 → Runtime Error ×3 → Wrong Answer ×3 → Accepted ×2 → Wrong Answer → Accepted → Wrong Answer ×3 → Accepted
+- 2026-10-25 rewrite: Wrong Answer → Accepted ×5
 
 ## Approach
 
@@ -45,6 +46,14 @@ class Solution:
             return False
         return same(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
 ```
+
+## 2026-10 Rewrite
+
+Wrong once, then accepted with two approaches:
+
+1. Used `isSubtree` for both "search" and "compare": when the root values matched, it recursed with `isSubtree(root.left, subRoot.left)` and `isSubtree(root.right, subRoot.right)`. Once the values match it never searches for another starting node: with `root = [2,2]`, `subRoot = [2]`, the roots match, comparing `root.left` with `None` fails, and it returns `False`, although the left `2` is the answer.
+2. Splitting it into `isSameTree` and `isSubtree`, the approach above, passed (several times).
+3. Finally, serialization: pre-order with `#` for empty nodes and a `,` before every value, then check `sub_str in tree_str`. The leading `,` keeps `2` from matching part of `12`. `in` is `O(mn)` in the worst case; KMP makes it linear.
 
 ## Complexity
 

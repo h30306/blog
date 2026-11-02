@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-16
 - 提交紀錄：Runtime Error ×5 → Accepted → Runtime Error ×2 → Accepted → Runtime Error → Accepted ×2
+- 2026-10-29 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -38,6 +39,13 @@ class Solution:
             return TreeNode(nums[mid], build(lo, mid - 1), build(mid + 1, hi))
         return build(0, len(nums) - 1)
 ```
+
+## 2026-10 重寫
+
+兩次都一次通過：
+
+1. 先用切片：`nums[:mid]` 和 `nums[mid + 1:]`，這次右半邊有記得 `+ 1`，2022 年的無限遞迴沒有再犯。不過每層切片都會複製，總共 `O(n log n)`。
+2. 再改成上面傳 `left, right` 索引的版本，`O(n)`。
 
 ## 複雜度
 

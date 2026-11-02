@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-02-19
 - Submissions: Runtime Error ×14 → Wrong Answer → Accepted → Runtime Error ×3 → Wrong Answer ×3 → Accepted ×2
+- 2026-11-01 rewrite: Accepted ×2
 
 ## Approach
 
@@ -45,6 +46,15 @@ class Solution:
             l2 = l2.next if l2 else None
         return dummy.next
 ```
+
+## 2026-11 Rewrite
+
+Both submissions passed on the first try:
+
+1. First `while l1 and l2` for the overlapping part, then one loop per list for the longer tail, then the final carry. Correct, but the three loops are nearly identical.
+2. Rewrote it as above: with the condition `l1 or l2 or carry`, one loop handles unequal lengths and the final carry.
+
+My first attempt in February 2022 took 24 submissions; this time both versions were right immediately.
 
 ## Complexity
 

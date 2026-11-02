@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-22
 - 提交紀錄：Runtime Error → Time Limit Exceeded → Accepted ×2
+- 2026-11-01 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -47,6 +48,10 @@ class Solution:
             prev, head = prev.next, head.next
         return True
 ```
+
+## 2026-11 重寫
+
+一次通過，這次直接寫了 `O(1)` 空間的版本：快慢指針找中點、反轉後半段，再從兩頭往中間比到後半段走完。2022 年 AC 的是把值存進 list 的版本，這次第一次就寫出上面的做法。
 
 ## 複雜度
 

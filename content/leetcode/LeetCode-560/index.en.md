@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2025-04-19
 - Total time: 15:00.00 (TLE)
+- 2026-10-28 rewrite: Wrong Answer → Accepted
 
 ## Intuition
 
@@ -74,6 +75,15 @@ class Solution:
         return res
 
 ```
+## 2026-10 Rewrite
+
+Rewritten on 2026-10-28, wrong once:
+
+1. Inside the loop I looked up `count[k - num]` before adding to the prefix sum. That misapplies Two Sum's "look up the complement": the target is a **prefix sum** equal to `curr - k`, not a value equal to `k - num`. `nums = [2,1,1]`, `k = 2` returned 1, the answer is 2 (`[2]` and `[1,1]`).
+2. Doing `curr += num` first, then `res += count[curr - k]`, then `count[curr] += 1` passed.
+
+The order matters: update `curr`, then look up, and only then add the current prefix to the dictionary; otherwise with `k = 0` the empty subarray gets counted too.
+
 ## Findings
 I was initially constrained by the idea of using prefix sums to find the answer. 
 

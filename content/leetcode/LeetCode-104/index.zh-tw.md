@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-02
 - 提交紀錄：Accepted → Runtime Error → Accepted ×2 → Wrong Answer ×2 → Accepted → Runtime Error → Accepted ×3
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -35,6 +36,10 @@ class Solution:
             return 0
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
+
+## 2026-10 重寫
+
+一次通過。這次用帶深度參數的 DFS，只在葉子用 `nonlocal` 更新最大深度。2022 年也寫過帶 `depth` 的版本，當時錯在葉子回傳 0；這次不靠回傳值，而是在葉子更新外面的變數，就沒有這個問題。不過後序回傳值的版本還是最短。
 
 ## 複雜度
 

@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-02-19
 - 提交紀錄：Runtime Error ×14 → Wrong Answer → Accepted → Runtime Error ×3 → Wrong Answer ×3 → Accepted ×2
+- 2026-11-01 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -45,6 +46,15 @@ class Solution:
             l2 = l2.next if l2 else None
         return dummy.next
 ```
+
+## 2026-11 重寫
+
+兩次都一次通過：
+
+1. 先用 `while l1 and l2` 加兩邊都有的部分，再各寫一個迴圈處理比較長的那條，最後補進位。對，但三段迴圈幾乎一樣。
+2. 改成上面的寫法：條件 `l1 or l2 or carry`，一個迴圈處理完長度不同和最後的進位。
+
+2022 年 2 月第一次寫這題提交了 24 次，這次兩版都一次就對。
 
 ## 複雜度
 

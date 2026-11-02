@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Wrong Answer → Time Limit Exceeded → Accepted ×2
+- 2026-10-31 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -48,6 +49,10 @@ class Solution:
             cur = cur.next
         return d[head]
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try with the same two passes and dictionary as above, seeded with `None: None`. The 2022 TLE from forgetting to advance in the second loop did not come back.
 
 ## Complexity
 

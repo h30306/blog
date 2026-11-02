@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2026-04-11
 來源：Day 3 learning note
+2026-10-31 重寫：Accepted（一次通過）
 
 ## 學習脈絡
 
@@ -71,6 +72,12 @@ class Solution:
 
         return list(leaves)
 ```
+
+## 2026-10 重寫
+
+一次通過，一樣是一層一層剪葉子：先把度數 `<= 1` 的點放進佇列，每輪拿掉一整層葉子，`remainings` 減掉這層的數量，剩不到 3 個點時佇列裡的就是答案。和上面的版本差在用 `remainings` 計數、`while remainings > 2` 當停止條件。
+
+有一個小地方：迴圈裡把 `n = len(nodes)` 寫回了參數 `n`。這次因為 `n` 之後沒再用到所以沒出錯，但重用參數名稱很容易埋 bug。
 
 ## 複雜度
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Wrong Answer → Accepted → Wrong Answer → Accepted
+- 2026-10-27 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -47,6 +48,10 @@ class Solution:
         dfs(root, targetSum)
         return res
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time there was no backtracking: each call passed a new list `curr + [node.val]` down and stored it directly at a leaf. No `pop` is needed, but the path is copied at every level. The complexity class is the same with a larger constant; the backtracking version above copies only when it finds an answer.
 
 ## Complexity
 

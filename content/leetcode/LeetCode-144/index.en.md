@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-07-20
 - Submissions: Runtime Error → Wrong Answer ×2 → Runtime Error → Accepted ×4
+- 2026-10-24 rewrite: Accepted ×2
 
 ## Approach
 
@@ -41,6 +42,10 @@ class Solution:
                 stack.append(node.left)
         return res
 ```
+
+## 2026-10 Rewrite
+
+This time I wrote two recursive versions, both accepted on the first try: one concatenates `[root.val] + left + right` (repeated copying on a skewed tree, `O(n^2)` in the worst case), and one appends to an outer `res` during DFS (`O(n)`). The follow-up asks for an iterative version, which is the stack approach above.
 
 ## Complexity
 

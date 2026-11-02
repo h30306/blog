@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-25
 - 提交紀錄：Runtime Error ×5 → Wrong Answer ×3 → Runtime Error → Wrong Answer ×12 → Runtime Error ×2 → Accepted → Time Limit Exceeded → Accepted
+- 2026-10-24 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -46,6 +47,15 @@ class Solution:
         height(root)
         return best
 ```
+
+## 2026-10 重寫
+
+兩次都一次通過：
+
+1. 後序回傳 `(子樹內最長路徑, 高度)`，空節點的高度設成 `-1`，經過自己的路徑是 `左高 + 右高 + 2`。不用外部變數，但 `-1` 和 `+ 2` 要想清楚。
+2. 改成上面的寫法：高度從 0 算、用 `self.diameter` 記答案，經過自己的路徑就是 `左 + 右`。
+
+2022 年錯了 26 次的三種錯（只看根、回傳單邊、節點數當邊數），這次都沒再犯。
 
 ## 複雜度
 

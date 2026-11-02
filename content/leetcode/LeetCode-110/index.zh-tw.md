@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-16
 - 提交紀錄：Wrong Answer → Runtime Error ×2 → Wrong Answer → Runtime Error → Wrong Answer → Runtime Error ×2 → Accepted → Wrong Answer ×2 → Accepted ×2 → Runtime Error → Accepted → Time Limit Exceeded → Accepted ×2 → Wrong Answer → Runtime Error → Wrong Answer → Runtime Error ×2
+- 2026-10-24 重寫：Runtime Error → Wrong Answer → Accepted ×2
 
 ## 解題思路
 
@@ -44,6 +45,17 @@ class Solution:
             return 1 + max(l, r)
         return height(root) >= 0
 ```
+
+## 2026-10 重寫
+
+後序回傳 `(是否平衡, 高度)`，錯了兩次：
+
+1. 葉子回傳 `(True, 0)`，小孩只在存在時才遞迴，但 `left_balanced`、`right_balanced` 沒有預設值。只有一個小孩時另一邊的變數沒被賦值：`[1,2]` UnboundLocalError。
+2. 補上預設值 `True` 和高度 `0`，但**葉子的高度是 0、空的小孩也是 0**，兩者分不出來，高度整整少算一層：`[1,2,null,3]` 回傳 `True`，答案是 `False`（根的左邊高 2、右邊是空的）。
+3. 改成空節點回傳 `(True, 0)`、不再特判葉子，就過了。
+4. 再寫成上面的 `-1` 版本：發現不平衡就回傳 `-1` 一路往上傳，也過了。
+
+教訓和 2022 年一樣：把空節點當成 base case，不要特判葉子，左右兩邊就不用分開處理。
 
 ## 複雜度
 

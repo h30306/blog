@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-27
 - 提交紀錄：Wrong Answer ×2 → Accepted ×2 → Runtime Error → Wrong Answer ×2 → Accepted ×2 → Runtime Error ×3 → Wrong Answer ×3 → Accepted ×2 → Wrong Answer → Accepted → Wrong Answer ×3 → Accepted
+- 2026-10-25 重寫：Wrong Answer → Accepted ×5
 
 ## 解題思路
 
@@ -45,6 +46,14 @@ class Solution:
             return False
         return same(root, subRoot) or self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
 ```
+
+## 2026-10 重寫
+
+錯了一次，接著用兩種方法通過：
+
+1. 把 `isSubtree` 同時當成「找」和「比」：根的值相同時，就改成拿 `root.left` 對 `subRoot.left`、`root.right` 對 `subRoot.right` 繼續呼叫 `isSubtree`。一旦值相同就不會再往下找別的起點：`root = [2,2]`、`subRoot = [2]` 時，根的值相同，接著比 `root.left` 和 `None` 失敗，回傳 `False`，但左邊那個 `2` 就是答案。
+2. 拆成 `isSameTree` 和 `isSubtree` 兩個函式，就是上面的做法，過了（幾次都一樣）。
+3. 最後試了序列化：前序加上 `#` 代表空節點，每個值前面加 `,`，再檢查 `sub_str in tree_str`。前面的 `,` 是為了避免 `2` 配到 `12` 這種部分數字。`in` 最壞是 `O(mn)`，要保證線性可以改用 KMP。
 
 ## 複雜度
 

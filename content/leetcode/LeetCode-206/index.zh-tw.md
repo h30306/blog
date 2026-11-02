@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-21
 - 提交紀錄：Runtime Error → Accepted → Wrong Answer → Accepted ×2
+- 2026-11-01 重寫：Accepted → Wrong Answer → Accepted
 
 ## 解題思路
 
@@ -38,6 +39,28 @@ class Solution:
             prev, cur = cur, nxt
         return prev
 ```
+
+## 2026-11 重寫
+
+11-01 寫了迭代和遞迴兩種：
+
+1. 迭代：一次通過。
+2. 遞迴：第一次把終止條件寫成 `if not head or head.next`，少了一個 `not`，長度 2 以上的串列都直接原樣回傳，例如 `[1,2]` 回傳 `[1,2]`。改成 `not head.next` 就過了。
+
+遞迴版：
+
+```python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        new_head = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return new_head
+```
+
+`head.next` 在反轉後會變成尾巴的前一個，所以 `head.next.next = head` 把自己接在後面，再把 `head.next` 斷開。遞迴深度是 `O(n)`，空間比迭代版多。
 
 ## 複雜度
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-22
 - Submissions: Runtime Error → Time Limit Exceeded → Accepted ×2
+- 2026-11-01 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -47,6 +48,10 @@ class Solution:
             prev, head = prev.next, head.next
         return True
 ```
+
+## 2026-11 Rewrite
+
+Accepted on the first try, going straight to the `O(1)` space version: find the middle with slow and fast pointers, reverse the second half, and compare from both ends until the second half runs out. In 2022 the accepted version copied the values into a list; this time I wrote the approach above directly.
 
 ## Complexity
 

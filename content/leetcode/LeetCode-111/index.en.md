@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-16
 - Submissions: Wrong Answer → Accepted ×3 → Runtime Error → Accepted ×2
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -42,6 +43,12 @@ class Solution:
             return 1 + self.minDepth(root.left or root.right)
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time I used a DFS with a depth parameter and updated the minimum **only at leaves**. That avoids the 2022 mistake by construction: with a single child, the empty side is never visited, so it can never be mistaken for a leaf.
+
+BFS is faster: it can return at the first leaf without visiting the whole tree.
 
 ## Complexity
 

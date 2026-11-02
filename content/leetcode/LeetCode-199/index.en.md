@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Time Limit Exceeded → Accepted → Runtime Error → Accepted ×2
+- 2026-10-24 rewrite: Accepted ×4
 
 ## Approach
 
@@ -37,6 +38,15 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 Rewrite
+
+All four submissions passed on the first try, with two styles:
+
+1. The queue carried `(node, level)` and every node overwrote `res[level] = node.val`. BFS visits a level left to right, so the value left at the end is the rightmost one.
+2. Record the queue length per round; after the inner loop, `node` is the last node of the level, so append it directly.
+
+The second is cleaner, since it does not write the answer once per node.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-16
 - 提交紀錄：Wrong Answer → Accepted ×3 → Runtime Error → Accepted ×2
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -42,6 +43,12 @@ class Solution:
             return 1 + self.minDepth(root.left or root.right)
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
 ```
+
+## 2026-10 重寫
+
+一次通過。這次用帶深度參數的 DFS，**只在葉子**更新最小深度。這樣自然避開了 2022 年的錯：只有一邊有小孩時，空的那一邊根本不會被走到，也就不會被當成葉子。
+
+要更快的話用 BFS，碰到第一個葉子就可以回傳，不用走完整棵樹。
 
 ## 複雜度
 

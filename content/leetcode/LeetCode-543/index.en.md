@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-25
 - Submissions: Runtime Error ×5 → Wrong Answer ×3 → Runtime Error → Wrong Answer ×12 → Runtime Error ×2 → Accepted → Time Limit Exceeded → Accepted
+- 2026-10-24 rewrite: Accepted ×2
 
 ## Approach
 
@@ -46,6 +47,15 @@ class Solution:
         height(root)
         return best
 ```
+
+## 2026-10 Rewrite
+
+Both submissions passed on the first try:
+
+1. A post-order returning `(longest path inside the subtree, height)`, with an empty node's height set to `-1`, so the path through a node is `left + right + 2`. No outer variable, but the `-1` and `+ 2` need care.
+2. Rewrote it as above: heights start at 0, the answer lives in `self.diameter`, and the path through a node is simply `left + right`.
+
+None of the three mistakes behind the 26 submissions in 2022 (only checking the root, returning one side, counting nodes instead of edges) came back.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-16
 - Submissions: Runtime Error ×5 → Accepted → Runtime Error ×2 → Accepted → Runtime Error → Accepted ×2
+- 2026-10-29 rewrite: Accepted ×2
 
 ## Approach
 
@@ -38,6 +39,13 @@ class Solution:
             return TreeNode(nums[mid], build(lo, mid - 1), build(mid + 1, hi))
         return build(0, len(nums) - 1)
 ```
+
+## 2026-10 Rewrite
+
+Both submissions passed on the first try:
+
+1. First with slices, `nums[:mid]` and `nums[mid + 1:]`. This time the right half had the `+ 1`, so the 2022 infinite recursion did not come back. Each level copies its slices, though, for `O(n log n)` in total.
+2. Then the index version above, passing `left, right`, which is `O(n)`.
 
 ## Complexity
 

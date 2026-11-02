@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-09-07
 - Submissions: Runtime Error ×2 → Wrong Answer → Accepted ×5
+- 2026-10-21 rewrite: Runtime Error → Wrong Answer → Accepted
 
 ## Approach
 
@@ -37,6 +38,14 @@ class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
         return len(s) == len(goal) and goal in s + s
 ```
+
+## 2026-10 Rewrite
+
+I wrote it again on the evening of 2026-10-21:
+
+1. Submitted the function without a `class Solution` wrapper, a Runtime Error.
+2. Used the 2022 length check `len(goal) < len(s)` from the "accepted but actually wrong" version, and this time it got **Wrong Answer**: `s = "a"`, `goal = "aa"` returned `True`. LeetCode has evidently added that test, so the hole described above is now caught.
+3. `len(s) == len(goal) and goal in s + s` passed.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Wrong Answer → Accepted → Wrong Answer → Accepted
+- 2026-10-27 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -47,6 +48,10 @@ class Solution:
         dfs(root, targetSum)
         return res
 ```
+
+## 2026-10 重寫
+
+一次通過。這次不用回溯，每次往下傳一個新的串列 `curr + [node.val]`，到葉子時直接存。寫起來不用 `pop`，但每一層都複製一次路徑。複雜度的量級一樣，只是常數比較大；上面的回溯版只在找到答案時才複製。
 
 ## 複雜度
 

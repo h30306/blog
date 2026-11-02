@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-22
 - 提交紀錄：Runtime Error ×3 → Accepted ×2
+- 2026-10-28 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -43,6 +44,10 @@ class Solution:
         dfs(root, [])
         return res
 ```
+
+## 2026-10 重寫
+
+一次通過，寫法和上面一樣：往下傳一個新的路徑串列，到葉子時用 `->` 接起來。這次記得先 `str(node.val)`，2022 年的 TypeError 沒有再犯。
 
 ## 複雜度
 

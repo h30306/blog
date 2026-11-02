@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-22
 - Submissions: Runtime Error ×3 → Accepted ×2
+- 2026-10-28 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -43,6 +44,10 @@ class Solution:
         dfs(root, [])
         return res
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try with the same approach as above: pass a new path list down and join it with `->` at each leaf. This time I converted with `str(node.val)` first, so the 2022 TypeError did not come back.
 
 ## Complexity
 

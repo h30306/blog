@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-10
 - Submissions: Accepted ×2 → Runtime Error → Accepted
+- 2026-10-29 rewrite: Accepted ×3
 
 ## Approach
 
@@ -43,6 +44,15 @@ class Solution:
             return root
         return build(0, len(inorder) - 1)
 ```
+
+## 2026-10 Rewrite
+
+All three submissions passed on the first try:
+
+1. Recursive: as above, a dictionary of in-order positions and `postorder.pop()` to take roots from the end, building the right subtree before the left.
+2. Two stack versions: LC 105's stack approach mirrored. Read post-order from the end (root, right, left) and compare against in-order from its end too; if the stack top differs from the current in-order value, attach a **right** child, otherwise pop while they match and attach the new node as the **left** child of the last popped node.
+
+`postorder.pop()` mutates the input; mention that in an interview, or use a `reversed` iterator as above.
 
 ## Complexity
 

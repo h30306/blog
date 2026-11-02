@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-21
 - Submissions: Accepted → Runtime Error ×2 → Wrong Answer → Accepted ×2 → Wrong Answer → Accepted ×2 → Wrong Answer → Accepted ×2
+- 2026-10-20 rewrite: Runtime Error → Wrong Answer → Accepted
 
 ## Approach
 
@@ -49,6 +50,16 @@ class Solution:
             nums[i], nums[j] = nums[j], nums[i]
         nums[i + 1:] = reversed(nums[i + 1:])
 ```
+
+## 2026-10 Rewrite
+
+This time `i` meant "one past the descent" (`nums[i - 1] < nums[i]`), and I got it wrong twice:
+
+1. The final reversal loop moved `i -= 1; j += 1`, the wrong directions, and ran out of range: `[1,3,2]` raised a Runtime Error.
+2. With the directions fixed, the reversal reused the `j` left over from finding the swap target instead of the array's end, so only part was reversed: `[2,3,1]` returned `[3,2,1]`, the answer is `[3,1,2]`.
+3. Resetting `j = n - 1` before reversing passed.
+
+Both mistakes come from reusing a variable: the same `j` first finds the swap target and then drives the reversal, so it has to be reset in between.
 
 ## Complexity
 

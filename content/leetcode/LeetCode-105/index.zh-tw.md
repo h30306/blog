@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Runtime Error ×4 → Wrong Answer → Accepted ×3 → Runtime Error → Accepted ×2 → Runtime Error → Accepted
+- 2026-10-29 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -47,6 +48,38 @@ class Solution:
             return root
         return build(0, len(inorder) - 1)
 ```
+
+## 2026-10 重寫
+
+兩次都一次通過，這次寫的是**不用遞迴的 stack 版本**：
+
+- stack 存「還在等右小孩」的路徑，`inorder_index` 指向中序裡下一個還沒「完成」的節點。
+- 堆頂不等於 `inorder[inorder_index]`：還沒走到最左邊，新節點是堆頂的**左**小孩。
+- 相等：一直 pop 到不相等為止，最後 pop 出來的那個節點，新節點是它的**右**小孩。
+
+```python
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        if not preorder:
+            return None
+        root = TreeNode(preorder[0])
+        stack = [root]
+        inorder_index = 0
+        for pre_val in preorder[1:]:
+            node = stack[-1]
+            if node.val != inorder[inorder_index]:
+                node.left = TreeNode(pre_val)
+                stack.append(node.left)
+            else:
+                while stack and stack[-1].val == inorder[inorder_index]:
+                    inorder_index += 1
+                    node = stack.pop()
+                node.right = TreeNode(pre_val)
+                stack.append(node.right)
+        return root
+```
+
+時間 `O(n)`，不用中序位置的字典，也不會有遞迴深度的問題。和 LC 889（前序 + 後序）的 stack 寫法是同一個思路。
 
 ## 複雜度
 

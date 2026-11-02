@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2025-07-16
 - Submissions: Accepted (first try)
+- 2026-10-28 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -75,6 +76,10 @@ class Solution:
 ```
 
 Each value is consumed once, so it runs in `O(n)`.
+
+## 2026-10 Rewrite
+
+Accepted on the first try, this time going straight to the recursion with bounds, the `O(n)` approach above. However, I took values with `preorder.pop(0)`, and `list.pop(0)` is `O(n)` each time, so the whole thing is really `O(n^2)` again. With `n <= 100` it makes no difference, but a true `O(n)` version uses an index as above, or `deque.popleft()`.
 
 ## Complexity
 

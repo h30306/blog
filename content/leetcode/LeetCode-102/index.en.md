@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Wrong Answer → Runtime Error ×2 → Time Limit Exceeded → Wrong Answer → Runtime Error → Wrong Answer → Accepted → Wrong Answer → Accepted ×4
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -37,6 +38,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time the queue carried the level, `(node, level)`, and a new level was opened when `level >= len(res)`. That avoids recording the queue length per round at the cost of an extra integer per node; recording the queue length, or swapping whole levels as above, is the more common form.
 
 ## Complexity
 

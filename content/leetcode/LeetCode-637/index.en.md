@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-29
 - Submissions: Runtime Error ×2 → Accepted ×2 → Time Limit Exceeded → Runtime Error → Wrong Answer → Accepted ×5
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -37,6 +38,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time I used a queue, recorded the level size `n` each round, summed the level and divided by `n`; the same idea as swapping whole levels above.
 
 ## Complexity
 

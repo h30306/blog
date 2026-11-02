@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Runtime Error → Wrong Answer ×2 → Accepted ×5 → Wrong Answer ×3 → Accepted ×2
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -42,6 +43,10 @@ class Solution:
                 return cur.val
             cur = cur.right
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try with the same iterative in-order traversal as above, returning the value when the count reaches `k`.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: hard (Biweekly Contest 191 Q4)
 First Attempt: 2026-10-19
 Source: merge sort practice ladder, step 6
+2026-10-20 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -153,6 +154,10 @@ class Solution:
             add(bisect_left(vals, s))          # query before insert keeps L < R
         return n * (n + 1) // 2 - bad
 ```
+
+## 2026-10 Rewrite
+
+On the evening of 2026-10-20 I fixed the two points from the second version above, `bad += r - l` and returning `n(n+1)/2` when `k == 0`, and it passed on the first try; that is the solution above.
 
 ## Complexity
 

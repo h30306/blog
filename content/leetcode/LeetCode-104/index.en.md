@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-02
 - Submissions: Accepted → Runtime Error → Accepted ×2 → Wrong Answer ×2 → Accepted → Runtime Error → Accepted ×3
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -35,6 +36,10 @@ class Solution:
             return 0
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time I used a DFS with a depth parameter and updated the maximum with `nonlocal` at the leaves. In 2022 a depth-parameter version failed because leaves returned 0; this time nothing depends on return values, since leaves update an outer variable. The post-order return-value version is still the shortest.
 
 ## Complexity
 

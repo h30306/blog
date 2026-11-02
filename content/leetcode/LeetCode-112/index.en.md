@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-16
 - Submissions: Runtime Error → Accepted → Wrong Answer → Runtime Error → Accepted
+- 2026-10-27 rewrite: Wrong Answer ×2 → Accepted ×3
 
 ## Approach
 
@@ -38,6 +39,17 @@ class Solution:
         rest = targetSum - root.val
         return self.hasPathSum(root.left, rest) or self.hasPathSum(root.right, rest)
 ```
+
+## 2026-10 Rewrite
+
+This time I used BFS with `(node, sum up to the parent)` in the queue, and got it wrong twice:
+
+1. Checked `curr == targetSum`, where `curr` **excludes the node itself**, so the root's value was never added: `[5]`, `targetSum = 5` returned `False`.
+2. Changed it to `curr + node.val == targetSum` but **did not check for a leaf**: `[1,2]`, `targetSum = 1` returned `True` at the root, the answer is `False` (the only path is 1→2, summing to 3).
+3. Adding `not node.left and not node.right` passed.
+4. Finally the recursive version, the same as above, accepted on the first try.
+
+The second mistake is exactly the "it only counts at a leaf" point above.
 
 ## Complexity
 

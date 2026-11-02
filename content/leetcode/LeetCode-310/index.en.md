@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2026-04-11
 Source: Day 3 learning note
+2026-10-31 rewrite: Accepted (first try)
 
 ## Study Context
 
@@ -71,6 +72,12 @@ class Solution:
 
         return list(leaves)
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try with the same layer-by-layer leaf trimming: put every node with degree `<= 1` in the queue, remove one full layer of leaves per round, subtract that layer from `remainings`, and when at most two nodes remain the queue holds the answer. The difference from the version above is counting with `remainings` and stopping on `while remainings > 2`.
+
+One small thing: inside the loop I assigned `n = len(nodes)`, overwriting the parameter `n`. It was harmless here because `n` is not used afterwards, but reusing a parameter name is an easy way to plant a bug.
 
 ## Complexity
 

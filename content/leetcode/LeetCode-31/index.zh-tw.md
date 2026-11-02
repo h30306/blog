@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-21
 - 提交紀錄：Accepted → Runtime Error ×2 → Wrong Answer → Accepted ×2 → Wrong Answer → Accepted ×2 → Wrong Answer → Accepted ×2
+- 2026-10-20 重寫：Runtime Error → Wrong Answer → Accepted
 
 ## 解題思路
 
@@ -49,6 +50,16 @@ class Solution:
             nums[i], nums[j] = nums[j], nums[i]
         nums[i + 1:] = reversed(nums[i + 1:])
 ```
+
+## 2026-10 重寫
+
+這次 `i` 指的是「下降位置的下一格」（`nums[i - 1] < nums[i]`），錯了兩次：
+
+1. 最後反轉的迴圈寫成 `i -= 1; j += 1`，方向反了，索引超出範圍：`[1,3,2]` Runtime Error。
+2. 方向改對了，但反轉用的 `j` 是前面找交換對象時留下來的位置，不是陣列尾端，只反轉了一部分：`[2,3,1]` 回傳 `[3,2,1]`，答案是 `[3,1,2]`。
+3. 反轉前把 `j` 重設成 `n - 1` 就過了。
+
+兩個錯都是變數重用：同一個 `j` 先用來找交換對象、再用來反轉，第二次用之前要重設。
 
 ## 複雜度
 

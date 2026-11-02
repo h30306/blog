@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Runtime Error ×2 → Wrong Answer ×2 → Runtime Error → Wrong Answer ×2 → Accepted → Wrong Answer → Runtime Error ×3 → Wrong Answer ×3 → Accepted
+- 2026-10-24 重寫：Wrong Answer → Accepted ×2 → Wrong Answer → Accepted
 
 ## 解題思路
 
@@ -41,6 +42,32 @@ class Solution:
                 return False
             return ok(node.left, lo, node.val) and ok(node.right, node.val, hi)
         return ok(root, float("-inf"), float("inf"))
+```
+
+## 2026-10 重寫
+
+這次寫了三種，錯了兩次：
+
+1. 又犯了 2022 年的錯：後序遞迴，**只比較節點和左右小孩**。`[5,4,6,null,null,3,7]` 每對父子都對，但 3 在 5 的右子樹裡卻比 5 小，回傳 `True`，答案是 `False`。
+2. 改成後序回傳 `(是否合法, 子樹最小值, 子樹最大值)`，檢查 `左子樹最大 < 節點 < 右子樹最小`，過了。
+3. 再寫一次上面的上下界版本，也過了。
+4. 迭代中序版：`prev` 存的是上一個**值**，條件寫成 `if prev and curr.val <= prev`。上一個值剛好是 0 的時候 `prev` 是 falsy，檢查被跳過：`[0,null,0]` 回傳 `True`，答案是 `False`。
+5. 改成 `prev` 存**節點**（節點物件一定是 truthy）就過了；更直接的寫法是 `prev is not None`。
+
+```python
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        stack, prev, curr = [], None, root
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            if prev is not None and curr.val <= prev:
+                return False
+            prev = curr.val
+            curr = curr.right
+        return True
 ```
 
 ## 複雜度

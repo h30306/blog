@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Accepted（一次通過）
+- 2026-10-24 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -34,6 +35,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 重寫
+
+一次通過。這次用佇列，每輪先記長度處理一整層，再用層號的奇偶決定要不要反轉這層的值，和上面「只改記錄方向、不改產生下一層的順序」是同一個想法。
 
 ## 複雜度
 

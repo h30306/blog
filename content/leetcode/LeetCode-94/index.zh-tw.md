@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-07-20
 - 提交紀錄：Wrong Answer ×2 → Runtime Error ×2 → Accepted → Runtime Error ×2 → Accepted → Runtime Error → Accepted ×3
+- 2026-10-24 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -45,6 +46,15 @@ class Solution:
             cur = cur.right
         return res
 ```
+
+## 2026-10 重寫
+
+這次寫了兩個遞迴版本，都一次通過：
+
+1. `return left + [root.val] + right`：每一層都把子樹的結果接成新的 list，樹很歪的時候會一直複製，最差 `O(n^2)`。
+2. 外面放一個 `res`，DFS 時 `append`，`O(n)`。
+
+遞迴版很直接，但題目的 follow-up 是要迭代版，所以上面的 stack 寫法還是要會。
 
 ## 複雜度
 

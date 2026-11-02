@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Accepted (first try)
+- 2026-10-24 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -34,6 +35,10 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 Rewrite
+
+Accepted on the first try. This time I used a queue, processed one level per round by recording its length, and used the level's parity to decide whether to reverse its values. It is the same idea as above: change only the recorded order, never the order the next level is generated in.
 
 ## Complexity
 

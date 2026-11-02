@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-21
 - Submissions: Time Limit Exceeded → Wrong Answer ×3 → Accepted → Runtime Error → Wrong Answer ×2 → Accepted ×2 → Runtime Error ×3 → Accepted ×2
+- 2026-11-01 rewrite: Accepted (first try)
 
 ## Approach
 
@@ -49,6 +50,10 @@ class Solution:
             prev = a
         return dummy.next
 ```
+
+## 2026-11 Rewrite
+
+Accepted on the first try; in 2022 this took 15 submissions. This time I started with a dummy, `curr` at the previous pair's tail and `nxt` at the pair's first node, saved the next pair's start in `tmp` before changing the three pointers, which avoids the 2022 problem of a one-line swap overwriting a pointer before it is read.
 
 ## Complexity
 

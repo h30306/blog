@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-26
 - Submissions: Accepted ×2 → Wrong Answer → Accepted
+- 2026-11-01 rewrite: Accepted ×3
 
 ## Approach
 
@@ -43,6 +44,16 @@ class Solution:
             pre.next = nxt
         return dummy.next
 ```
+
+## 2026-11 Rewrite
+
+All three submissions passed on the first try. This time I used the idea that failed in 2022, "cut, reverse the middle, reconnect", without a dummy:
+
+- `first` is the node before `left` (`None` when `left = 1`), and `tail` is the segment's original first node, which becomes its tail after reversing.
+- After reversing `right - left + 1` nodes, `curr` is the new head and `nxt` is the first node after the segment.
+- `tail.next = nxt`; if `first` exists, `first.next = curr` and return `head`, otherwise `curr` is the new head.
+
+In 2022 I reconnected the segment's original first node to the front; this time I connected the reversed head `curr`, which is correct. The dummy plus head-insertion version above still has less to get wrong, since it never checks whether `first` is `None`.
 
 ## Complexity
 

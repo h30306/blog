@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Wrong Answer → Time Limit Exceeded → Accepted ×2
+- 2026-10-31 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -48,6 +49,10 @@ class Solution:
             cur = cur.next
         return d[head]
 ```
+
+## 2026-10 重寫
+
+一次通過，和上面一樣是兩次走訪加字典，字典裡先放 `None: None`。2022 年第二個迴圈忘了前進造成 TLE，這次沒有再犯。
 
 ## 複雜度
 

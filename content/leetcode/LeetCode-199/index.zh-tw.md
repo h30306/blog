@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Time Limit Exceeded → Accepted → Runtime Error → Accepted ×2
+- 2026-10-24 重寫：Accepted ×4
 
 ## 解題思路
 
@@ -37,6 +38,15 @@ class Solution:
             level = [c for n in level for c in (n.left, n.right) if c]
         return res
 ```
+
+## 2026-10 重寫
+
+四次都一次通過，試了兩種寫法：
+
+1. 佇列帶著層號 `(node, level)`，每個節點都覆蓋 `res[level] = node.val`。BFS 同一層是由左到右，所以最後留下來的就是最右邊那個。
+2. 每輪記佇列長度處理一層，迴圈結束時的 `node` 就是這層最後一個，直接 `append`。
+
+第二種比較乾淨，不用每個節點都寫一次答案。
 
 ## 複雜度
 

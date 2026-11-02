@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-16
 - Submissions: Wrong Answer → Runtime Error ×2 → Wrong Answer → Runtime Error → Wrong Answer → Runtime Error ×2 → Accepted → Wrong Answer ×2 → Accepted ×2 → Runtime Error → Accepted → Time Limit Exceeded → Accepted ×2 → Wrong Answer → Runtime Error → Wrong Answer → Runtime Error ×2
+- 2026-10-24 rewrite: Runtime Error → Wrong Answer → Accepted ×2
 
 ## Approach
 
@@ -44,6 +45,17 @@ class Solution:
             return 1 + max(l, r)
         return height(root) >= 0
 ```
+
+## 2026-10 Rewrite
+
+A post-order returning `(balanced, height)`, wrong twice:
+
+1. A leaf returned `(True, 0)` and children were only visited when present, but `left_balanced` and `right_balanced` had no defaults. With one child, the other side's variables were never assigned: `[1,2]` raised UnboundLocalError.
+2. Added defaults `True` and height `0`, but **a leaf has height 0 and a missing child also has 0**, so they could not be told apart and every height came out one level short: `[1,2,null,3]` returned `True`, the answer is `False` (the root's left side has height 2, its right side is empty).
+3. Making the empty node the base case `(True, 0)` and dropping the leaf special case passed.
+4. Then the `-1` version above: return `-1` as soon as an imbalance is found and pass it up; also accepted.
+
+The lesson is the same as 2022: make the empty node the base case instead of special-casing leaves, and the two sides need no separate handling.
 
 ## Complexity
 

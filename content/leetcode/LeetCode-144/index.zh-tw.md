@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-07-20
 - 提交紀錄：Runtime Error → Wrong Answer ×2 → Runtime Error → Accepted ×4
+- 2026-10-24 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -41,6 +42,10 @@ class Solution:
                 stack.append(node.left)
         return res
 ```
+
+## 2026-10 重寫
+
+這次寫了兩個遞迴版本，都一次通過：一個是 `[root.val] + 左 + 右` 直接串接（樹很歪時會一直複製，最差 `O(n^2)`），一個是外面放 `res` 再 DFS `append`（`O(n)`）。follow-up 要迭代版，就是上面的 stack 寫法。
 
 ## 複雜度
 

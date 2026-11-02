@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Runtime Error ×4 → Wrong Answer → Accepted ×3 → Runtime Error → Accepted ×2 → Runtime Error → Accepted
+- 2026-10-29 rewrite: Accepted ×2
 
 ## Approach
 
@@ -47,6 +48,38 @@ class Solution:
             return root
         return build(0, len(inorder) - 1)
 ```
+
+## 2026-10 Rewrite
+
+Both submissions passed on the first try. This time I wrote the **stack version without recursion**:
+
+- The stack holds the path of nodes still waiting for a right child, and `inorder_index` points at the next in-order node not yet "finished".
+- If the stack top differs from `inorder[inorder_index]`, the leftmost node has not been reached, so the new node is the top's **left** child.
+- If they are equal, pop while they match; the new node is the **right** child of the last popped node.
+
+```python
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        if not preorder:
+            return None
+        root = TreeNode(preorder[0])
+        stack = [root]
+        inorder_index = 0
+        for pre_val in preorder[1:]:
+            node = stack[-1]
+            if node.val != inorder[inorder_index]:
+                node.left = TreeNode(pre_val)
+                stack.append(node.left)
+            else:
+                while stack and stack[-1].val == inorder[inorder_index]:
+                    inorder_index += 1
+                    node = stack.pop()
+                node.right = TreeNode(pre_val)
+                stack.append(node.right)
+        return root
+```
+
+Time `O(n)`, with no in-order index dictionary and no recursion depth issue. It is the same idea as the stack solution for LC 889 (pre-order + post-order).
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 難易度: hard（Biweekly Contest 191 Q4）
 第一次嘗試：2026-10-19
 來源：Merge sort 練習梯子，第 6 階
+2026-10-20 重寫：Accepted（一次通過）
 
 ## 解題思路
 
@@ -153,6 +154,10 @@ class Solution:
             add(bisect_left(vals, s))          # 先查再插入，保證 L < R
         return n * (n + 1) // 2 - bad
 ```
+
+## 2026-10 重寫
+
+2026-10-20 晚上照上面第二版的兩點修好：`bad += r - l`，以及 `k == 0` 時直接回傳 `n(n+1)/2`，一次通過，就是上面的正確解法。
 
 ## 複雜度
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-07-20
 - Submissions: Wrong Answer ×2 → Runtime Error ×2 → Accepted → Runtime Error ×2 → Accepted → Runtime Error → Accepted ×3
+- 2026-10-24 rewrite: Accepted ×2
 
 ## Approach
 
@@ -45,6 +46,15 @@ class Solution:
             cur = cur.right
         return res
 ```
+
+## 2026-10 Rewrite
+
+This time I wrote two recursive versions, both accepted on the first try:
+
+1. `return left + [root.val] + right`: every level concatenates the subtree results into a new list, which keeps copying on a skewed tree, `O(n^2)` in the worst case.
+2. One outer `res` that the DFS appends to, `O(n)`.
+
+Recursion is straightforward, but the follow-up asks for an iterative version, so the stack approach above is still the one to know.
 
 ## Complexity
 

@@ -303,3 +303,17 @@ def build(lo, hi):                       # 中序的範圍
 - `LC 606` Construct String from Binary Tree
 - `LC 116` Populating Next Right Pointers in Each Node
 - `LC 109` Convert Sorted List to Binary Search Tree
+- `LC 99` Recover Binary Search Tree
+- `LC 117` Populating Next Right Pointers in Each Node II
+- `LC 124` Binary Tree Maximum Path Sum
+- `LC 173` Binary Search Tree Iterator
+- `LC 297` Serialize and Deserialize Binary Tree
+- `LC 314` Binary Tree Vertical Order Traversal
+- `LC 331` Verify Preorder Serialization of a Binary Tree
+- `LC 429` N-ary Tree Level Order Traversal
+- `LC 437` Path Sum III
+- `LC 449` Serialize and Deserialize BST
+- `LC 450` Delete Node in a BST
+- `LC 515` Find Largest Value in Each Tree Row
+- `LC 652` Find Duplicate Subtrees
+- `LC 687` Longest Univalue Path

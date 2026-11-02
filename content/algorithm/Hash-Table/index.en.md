@@ -196,3 +196,4 @@ These are mistakes I actually made while practicing:
 - `LC 1122` Relative Sort Array
 - `LC 697` Degree of an Array
 - `LC 1128` Number of Equivalent Domino Pairs
+- `LC 652` Find Duplicate Subtrees

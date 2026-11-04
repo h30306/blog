@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-29
 - 提交紀錄：Runtime Error ×3 → Wrong Answer ×2 → Runtime Error → Wrong Answer ×2 → Runtime Error → Accepted → Time Limit Exceeded → Accepted ×3
+- 2026-11-02 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -52,6 +53,14 @@ class Solution:
             first.next, second.next = second, n1
             first, second = n1, n2
 ```
+
+## 2026-11 重寫
+
+2026-11-02 一次 AC。2022 年卡住的三個地方（找中點、切斷、反轉）這次都寫對了。
+
+找中點這次寫成 `while fast.next and fast.next.next`。偶數長度時兩半一樣長，上面的 `while fast and fast.next` 則會把 `[1,2,3,4]` 切成 `[1,2,3]` 和 `[4]`。兩種都對，因為合併時只要後半段不比前半段長就行。這個寫法要求 `head` 不是空的，題目保證至少有一個節點。
+
+第二次提交只多了 `return head`。題目要求原地修改、不用回傳，多回傳不影響結果，但可以拿掉。
 
 ## 複雜度
 

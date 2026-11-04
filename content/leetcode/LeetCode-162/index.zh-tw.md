@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-11
 - 提交紀錄：Runtime Error → Wrong Answer → Runtime Error → Accepted → Runtime Error → Accepted ×2 → Wrong Answer → Accepted
+- 2026-11-03 重寫：Accepted
 
 ## 解題思路
 
@@ -45,6 +46,16 @@ class Solution:
                 r = mid
         return l
 ```
+
+## 2026-11 重寫
+
+2026-11-03 一次 AC，用左閉右閉找第一個 True，條件 `valid(mid)` 是：`mid` 是最後一個，或 `nums[mid] > nums[mid + 1]`（往右是下坡）。
+
+這個條件**不是單調的**，例如 `[1, 3, 2, 4, 1]` 是 F T F T T，但二分還是會回傳山峰（這個例子回傳 3）。因為迴圈一直維持兩件事：
+- `left - 1` 往右是上坡，或 `left == 0`。
+- `right + 1` 往右是下坡，或它是最後一個。
+
+結束時 `left == right + 1`：`left` 的左邊是上坡，自己往右是下坡，所以是山峰。找到的不一定是第一個 True，但一定是山峰。上面的 `while l < r` 寫法講的是同一件事。
 
 ## 複雜度
 

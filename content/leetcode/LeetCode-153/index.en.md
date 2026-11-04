@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-28
 - Submissions: Wrong Answer → Accepted ×2 → Wrong Answer ×6 → Accepted → Wrong Answer ×2 → Accepted ×4
+- 2026-11-03 rewrite: Accepted ×4
 
 ## Approach
 
@@ -45,6 +46,16 @@ class Solution:
                 r = mid
         return nums[l]
 ```
+
+## 2026-11 Rewrite
+
+Four submissions on 2026-11-03, all accepted:
+1. `return min(nums)`. That is `O(n)` and the problem asks for `O(log n)`, so it does not count.
+2. Closed interval: `right = mid - 1` when `nums[mid] <= nums[-1]`, else `left = mid + 1`, then return `nums[left]`.
+3. The same predicate with `while left < right` and `right = mid`. The answer is always inside the range, so `right` can start at `n - 1`.
+4. Version 2 again.
+
+This time the comparison is against `nums[-1]` rather than `nums[r]` above. Read left to right, `nums[i] <= nums[-1]` is False…False True…True: the left segment is entirely greater than `nums[-1]`, the right segment is not. So the first True is the minimum and the first-True template applies directly. The new LC 33 version uses the same segment test.
 
 ## Complexity
 

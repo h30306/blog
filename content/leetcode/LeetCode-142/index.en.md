@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-14
 - Submissions: Accepted ×2
+- 2026-11-02 rewrite: Runtime Error → Accepted ×2
 
 ## Approach
 
@@ -39,6 +40,15 @@ class Solution:
                 return slow
         return None
 ```
+
+## 2026-11 Rewrite
+
+On 2026-11-02 I wrote a set version first, then fast/slow pointers:
+1. The set version looped on `while curr.next`. For an empty list `curr` itself is `None`: `head = []` raised AttributeError.
+2. Changing it to `while curr` passed. This version uses `O(n)` space.
+3. Then the fast/slow pointers above, accepted on the first try.
+
+The fast/slow version wrote the meeting check as `while slow == fast:`. It always `return`s inside, so it works, but it is really an `if`. A `while` suggests the block runs many times; write `if`.
 
 ## Complexity
 

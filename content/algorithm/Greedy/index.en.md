@@ -207,3 +207,5 @@ These are mistakes I actually made while practicing:
 - `LC 1005` Maximize Sum Of Array After K Negations
 - `LC 3074` Apple Redistribution into Boxes
 - `LC 3075` Maximize Happiness of Selected Children
+- `LC 452` Minimum Number of Arrows to Burst Balloons
+- `LC 763` Partition Labels

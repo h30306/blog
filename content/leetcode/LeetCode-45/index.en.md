@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2026-05-01
 Source: Day 16 learning note
+- 2026-11-03 rewrite: Wrong Answer ×2 → Accepted
 
 ## Study Context
 
@@ -95,6 +96,15 @@ class Solution:
 
         return jumps
 ```
+
+## 2026-11 Rewrite
+
+On 2026-11-03 I skipped the greedy above and went straight to DP: `dp[j]` is the fewest jumps to reach `j`, and each `i` relaxes every position it can reach. Wrong twice:
+1. Sized the array `n + 1` and returned `dp[n] - 1`, treating "jump past the end, minus one" as reaching the last index. For `[0]`, position 1 is unreachable, so it returned `inf`; the answer is 0.
+2. Added `return 0` for `n == 1`, but "reach `n`, minus one" is wrong in itself: a jump that can pass the end can also land on the last index, so it is not an extra jump. `[3, 3]` reaches `n` from 0 in one jump, `dp[2] = 1`, and it returned 0; the answer is 1.
+3. Going back to size `n` and returning `dp[n - 1]` passed, in 1672 ms.
+
+The DP is `O(n^2)`, exactly the mistake listed in the May note: reaching for DP when a linear greedy exists. It passes because `n <= 10^4`, but in an interview write the BFS-layer greedy above, `O(n)`.
 
 ## Complexity
 

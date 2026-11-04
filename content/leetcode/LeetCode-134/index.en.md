@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-11
 - Submissions: Accepted ×2
+- 2026-11-04 rewrite: Accepted
 
 ## Approach
 
@@ -45,6 +46,16 @@ class Solution:
                 start, tank = i + 1, 0
         return start
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-04, same as above. This time I also worked out why the final `start` has enough fuel after wrapping around.
+
+Prefix sums make it clearest. Let `P[i]` be the sum of `gas[0..i]` minus `cost[0..i]`. Starting at `s` shifts the whole prefix curve up by `-P[s-1]`. For every point to stay at or above 0, the **lowest point** must be lifted to 0, so the start is the station right after the minimum of the prefix sums.
+
+On the wrapped part the tank holds `P[n-1] + P[k] - P[s-1]`. `P[n-1]` is the total, which is not negative, and `P[s-1]` is the minimum, so `P[k] - P[s-1]` is not negative either. The sum is not negative, so the fuel is enough. The greedy above resets whenever the tank goes negative, and the `start` it ends with is exactly the station after that minimum.
+
+For example, `gas = [1,2,3,4,5]`, `cost = [3,4,5,1,2]`: the prefix sums are `-2, -4, -6, -3, 0`, the minimum is at index 2, and the answer is 3.
 
 ## Complexity
 

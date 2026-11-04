@@ -17,6 +17,7 @@ draft: false
 Difficulty: easy
 First Attempt: 2022-08-20
 - Submissions: Runtime Error ×2 → Wrong Answer → Time Limit Exceeded → Runtime Error ×7 → Accepted ×2 → Wrong Answer ×2 → Accepted ×2 → Runtime Error → Time Limit Exceeded → Accepted ×2
+- 2026-11-02 rewrite: Accepted
 
 ## Approach
 
@@ -40,6 +41,10 @@ class Solution:
             b = b.next if b else headA
         return a
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-02 with exactly the head-switching walk above. The 2022 bug `b = b.next if b else b` did not come back: after finishing one list, switch to the head of the **other** one.
 
 ## Complexity
 

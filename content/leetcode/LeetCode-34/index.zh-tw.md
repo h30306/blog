@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-21
 - 提交紀錄：Time Limit Exceeded ×5 → Runtime Error ×2 → Wrong Answer ×3 → Runtime Error → Wrong Answer ×2 → Accepted ×4 → Wrong Answer → Accepted ×2
+- 2026-11-03 重寫：Wrong Answer → Accepted ×2
 
 ## 解題思路
 
@@ -53,6 +54,15 @@ class Solution:
             return [-1, -1]
         return [start, lower(target + 1) - 1]
 ```
+
+## 2026-11 重寫
+
+2026-11-03 錯了一次，之後用兩種區間寫法各 AC 一次：
+1. 用左閉右開的 `while left < right`、`right = mid`，但 `right` 初始化成 `n - 1`。搜尋範圍變成 `[0, n - 1)`，找結尾的那次永遠回傳不了 `n`。target 是最後一個元素時，第一個 `> target` 的位置應該是 `n`：`[3]`、`target = 3` 回傳 `[0, -1]`，答案是 `[0, 0]`。
+2. `right` 改成 `n` 就過了。
+3. 下午改用左閉右閉的 `while left <= right`、`right = mid - 1` 再寫一次，結尾直接用 `right`（最後一個 `<= target` 的位置），也過了。
+
+規則跟 [Binary Search]({{< relref "/algorithm/Binary-Search" >}}) 的「兩種區間寫法不能混用」一樣：左閉右開時 `right = n`，左閉右閉時 `right = n - 1`。
 
 ## 複雜度
 

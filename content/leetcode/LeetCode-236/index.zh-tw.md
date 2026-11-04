@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-18
 - 提交紀錄：Runtime Error → Wrong Answer → Accepted ×6
+- 2026-11-02 重寫：Accepted ×2
 
 ## 解題思路
 
@@ -43,6 +44,14 @@ class Solution:
             return root
         return left or right
 ```
+
+## 2026-11 重寫
+
+2026-11-02 寫了兩次，都一次 AC，都是上面的遞迴回傳值：
+1. 用 `root.val == p.val` 判斷是不是 `p`、`q`。這題保證節點值都不同，所以會過，但比的是值，不是節點。
+2. 改成 `root == p`，直接比節點。`TreeNode` 沒有定義 `__eq__`，所以 `==` 跟 `is` 一樣。
+
+最後一行寫成 `(root if left and right else None) or left or right`，一行處理完三種情況，但比上面拆開的 `if` 難讀，面試時寫拆開的版本。
 
 ## 複雜度
 

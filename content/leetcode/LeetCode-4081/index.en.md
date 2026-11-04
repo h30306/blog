@@ -17,6 +17,7 @@ draft: false
 Difficulty: hard
 First Attempt: 2026-10-13
 - Submissions: Accepted → Wrong Answer ×2 → Accepted ×9 (the later ones were practicing different versions)
+- 2026-11-02 rewrite: Accepted
 
 ## Approach
 
@@ -60,6 +61,14 @@ class Solution:
                 return best[j]
         return []
 ```
+
+## 2026-11 Rewrite
+
+Rewrote it on 2026-11-02 and passed on the first try with the same approach: a linear sieve plus 0/1 knapsack, primes added from largest to smallest, and `>=` so a tie switches to the combination with the smaller first element.
+
+Two differences from the version above:
+- The sieve also marks primes with `is_composite[i] = True`. The result is unaffected because each `i` is checked once in the outer loop, but the name now says the opposite of what the code does, so it is better removed.
+- The knapsack array has size `s + 1` instead of `min(s, sum of primes)`. When `s` is much larger than the sum, the extra states can never be reached; they only cost time.
 
 ## Complexity
 

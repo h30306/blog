@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-21
 - Submissions: Wrong Answer → Accepted → Wrong Answer → Accepted → Wrong Answer → Accepted → Wrong Answer ×4 → Accepted → Wrong Answer ×2 → Accepted → Wrong Answer → Accepted → Runtime Error → Accepted ×4
+- 2026-11-03 rewrite: Accepted ×2
 
 ## Approach
 
@@ -56,6 +57,38 @@ class Solution:
                     r = mid - 1
         return -1
 ```
+
+## 2026-11 Rewrite
+
+Wrote it a new way on 2026-11-03 and passed on the first try (resubmitted the same code in the afternoon). Instead of deciding which half is sorted, define a monotone predicate `valid(mid)` and binary-search for the first True:
+
+- `nums[-1]` splits the array into two segments: values `> nums[-1]` form the left segment, values `<= nums[-1]` the right one.
+- If `mid` and `target` are in different segments: return True when `mid` is in the right segment (the target is in the left one, so the answer is left of `mid`), otherwise False.
+- If they are in the same segment, that segment is sorted: return `nums[mid] >= target`.
+
+Read left to right, `valid` is False…False True…True, so the first True is where the target belongs; finally check `nums[left] == target`.
+
+```python
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        def valid(mid):
+            mid_right = nums[mid] <= nums[-1]
+            target_right = target <= nums[-1]
+            if mid_right != target_right:
+                return mid_right
+            return nums[mid] >= target
+
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if valid(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+        return left if left < len(nums) and nums[left] == target else -1
+```
+
+The binary search itself is pure template; all the thinking goes into the predicate. The dozen-plus WAs in 2022 were all wrong directions while splitting into halves, and this version has none of those branches. With no rotation every element is in the right segment and the predicate becomes a plain lower bound.
 
 ## Complexity
 

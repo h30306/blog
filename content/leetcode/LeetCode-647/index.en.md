@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-01
 - Submissions: Accepted (first try)
+- 2026-11-02 rewrite: Accepted
 
 ## Approach
 
@@ -39,6 +40,14 @@ class Solution:
                 l, r = l - 1, r + 1
         return count
 ```
+
+## 2026-11 Rewrite
+
+On 2026-11-02 I switched to interval DP and passed on the first try ([Interval DP]({{< relref "/algorithm/Interval-DP" >}})): `dp[i][j]` says whether `s[i..j]` is a palindrome. If `s[i] == s[j]` and the inner part `dp[i+1][j-1]` is a palindrome, so is `s[i..j]`; for length 2 or less, equal ends are enough. `dp[i][j]` reads row `i + 1`, so `i` runs from large to small.
+
+Compared with center expansion above, the time is the same `O(n^2)`, but the DP needs `O(n^2)` space while center expansion needs `O(1)`. Lead with center expansion in an interview.
+
+The outer loop was also written as `range(n, -1, -1)`, which runs one extra round starting at `n`. Its inner loop is empty so nothing broke, but it should start at `n - 1`.
 
 ## Complexity
 

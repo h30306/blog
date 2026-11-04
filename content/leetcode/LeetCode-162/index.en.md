@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-11
 - Submissions: Runtime Error → Wrong Answer → Runtime Error → Accepted → Runtime Error → Accepted ×2 → Wrong Answer → Accepted
+- 2026-11-03 rewrite: Accepted
 
 ## Approach
 
@@ -45,6 +46,16 @@ class Solution:
                 r = mid
         return l
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-03 with a closed-interval first-True search, where `valid(mid)` is: `mid` is the last index, or `nums[mid] > nums[mid + 1]` (downhill to the right).
+
+The predicate is **not monotone**. `[1, 3, 2, 4, 1]` gives F T F T T, yet the search still returns a peak (3 here), because the loop keeps two facts:
+- going right from `left - 1` is uphill, or `left == 0`;
+- going right from `right + 1` is downhill, or it is the last index.
+
+At the end `left == right + 1`: uphill into `left` and downhill out of it, so it is a peak. It is not necessarily the first True, but it is always a peak. The `while l < r` version above says the same thing.
 
 ## Complexity
 

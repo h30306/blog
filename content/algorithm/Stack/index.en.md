@@ -165,3 +165,4 @@ These are all mistakes I actually made while practicing:
 - `LC 71` Simplify Path
 - `LC 227` Basic Calculator II
 - `LC 402` Remove K Digits
+- `LC 32` Longest Valid Parentheses

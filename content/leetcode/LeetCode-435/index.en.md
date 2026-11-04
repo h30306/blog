@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-16
 - Submissions: Wrong Answer → Accepted → Wrong Answer ×2 → Runtime Error → Wrong Answer → Accepted
+- 2026-11-03 rewrite: Wrong Answer → Accepted ×2 → Wrong Answer → Accepted ×2
 
 ## Approach
 
@@ -44,6 +45,17 @@ class Solution:
                 end = b
         return len(intervals) - kept
 ```
+
+## 2026-11 Rewrite
+
+Wrong twice on 2026-11-03, partly on purpose while checking when the `min` is actually needed:
+1. Sorted by start and, on overlap, only counted without updating the kept end, so the earlier interval always stayed. `[[1,6],[2,3],[3,5]]` returned 2; the answer is 1 (just remove `[1,6]`).
+2. Adding `prev_end = min(end, prev_end)` on overlap keeps the one with the smaller end; accepted (submitted twice).
+3. Removed the `min` to see what happens and got WA again: `[[3,4],[2,6],[4,8]]` meets `[2,6]` first after sorting and returns 2; the answer is 1.
+4. Sorted by end and kept the `min`; accepted.
+5. Sorted by end without the `min`; also accepted.
+
+Conclusion: **when sorting by end the `min` is redundant**, since later ends are never smaller and the kept one is already the smaller; **when sorting by start the `min` is required**. It is the same point I got wrong in 2022 (with `max` back then).
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-28
 - 提交紀錄：Wrong Answer → Accepted ×2 → Wrong Answer ×6 → Accepted → Wrong Answer ×2 → Accepted ×4
+- 2026-11-03 重寫：Accepted ×4
 
 ## 解題思路
 
@@ -45,6 +46,16 @@ class Solution:
                 r = mid
         return nums[l]
 ```
+
+## 2026-11 重寫
+
+2026-11-03 交了四次，都 AC：
+1. `return min(nums)`。這是 `O(n)`，題目要求 `O(log n)`，不算數。
+2. 左閉右閉：`nums[mid] <= nums[-1]` 就 `right = mid - 1`，否則 `left = mid + 1`，最後回傳 `nums[left]`。
+3. 同一個條件改用 `while left < right`、`right = mid`。答案一定在範圍內，所以 `right` 從 `n - 1` 開始就可以。
+4. 再寫一次第 2 版。
+
+這次是跟 `nums[-1]` 比，不是上面的 `nums[r]`。`nums[i] <= nums[-1]` 從左到右是 False…False True…True：左段都比 `nums[-1]` 大，右段都不比它大。所以第一個 True 就是最小值，可以直接套找第一個 True 的模板。LC 33 的新寫法用的也是這個分段條件。
 
 ## 複雜度
 

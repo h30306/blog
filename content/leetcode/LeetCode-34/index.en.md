@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-21
 - Submissions: Time Limit Exceeded ×5 → Runtime Error ×2 → Wrong Answer ×3 → Runtime Error → Wrong Answer ×2 → Accepted ×4 → Wrong Answer → Accepted ×2
+- 2026-11-03 rewrite: Wrong Answer → Accepted ×2
 
 ## Approach
 
@@ -53,6 +54,15 @@ class Solution:
             return [-1, -1]
         return [start, lower(target + 1) - 1]
 ```
+
+## 2026-11 Rewrite
+
+Wrong once on 2026-11-03, then accepted once with each interval style:
+1. Used the half-open `while left < right` with `right = mid`, but initialized `right` to `n - 1`. The search range became `[0, n - 1)`, so the end search could never return `n`. When the target is the last element, the first position `> target` is `n`: `[3]`, `target = 3` returned `[0, -1]`; the answer is `[0, 0]`.
+2. Setting `right` to `n` passed.
+3. In the afternoon I rewrote it with the closed `while left <= right` and `right = mid - 1`, taking the end directly from `right` (the last position `<= target`); also accepted.
+
+It is the rule from "do not mix the two interval styles" in [Binary Search]({{< relref "/algorithm/Binary-Search" >}}): `right = n` for half-open, `right = n - 1` for closed.
 
 ## Complexity
 

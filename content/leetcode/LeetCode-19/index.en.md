@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-20
 - Submissions: Accepted → Runtime Error → Accepted ×2 → Runtime Error ×2 → Wrong Answer ×4 → Accepted → Runtime Error
+- 2026-11-02 rewrite: Accepted
 
 ## Approach
 
@@ -40,6 +41,12 @@ class Solution:
         slow.next = slow.next.next
         return dummy.next
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-02, but with two passes: count the length, then walk `length - n` steps from the dummy and delete the next node. With the dummy, the 2022 trouble with deleting the head did not come back.
+
+Two passes is still `O(n)`, but the usual follow-up is "can you do it in one pass?", and the answer is the fast/slow pointers above. The `if curr and curr.next` check is also unnecessary: since `1 <= n <= length`, `curr.next` always exists after `length - n` steps.
 
 ## Complexity
 

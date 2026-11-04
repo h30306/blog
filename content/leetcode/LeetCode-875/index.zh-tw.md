@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-28
 - 提交紀錄：Wrong Answer ×9 → Runtime Error → Wrong Answer ×3 → Accepted ×2 → Wrong Answer → Accepted ×3
+- 2026-11-03 重寫：Runtime Error → Accepted
 
 ## 解題思路
 
@@ -49,6 +50,14 @@ class Solution:
                 l = mid + 1
         return l
 ```
+
+## 2026-11 重寫
+
+2026-11-03 用左閉右閉對答案二分：
+1. 下界設成 `left = 0`。`right` 一路往左縮之後，`mid` 會變成 0，`pile / 0` 就報錯：`piles = [6]`、`h = 6` 時，`mid` 依序是 3、1、0，出現 ZeroDivisionError。
+2. 改成 `left = 1` 就過了。速度至少是 1，也就是上面寫的範圍 `[1, max(piles)]`。
+
+這版用 `math.ceil(pile / mid)`，先算浮點數再取整數。這題的數字範圍不會有誤差，但上面的整數寫法 `(p + mid - 1) // mid` 比較保險，數字大時也不用擔心浮點誤差。
 
 ## 複雜度
 

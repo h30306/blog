@@ -233,3 +233,4 @@ These are all mistakes I actually made while practicing:
 - `LC 981` Time Based Key-Value Store
 - `LC 540` Single Element in a Sorted Array
 - `LC 744` Find Smallest Letter Greater Than Target
+- `LC 1011` Capacity To Ship Packages Within D Days

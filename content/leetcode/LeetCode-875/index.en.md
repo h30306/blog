@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-28
 - Submissions: Wrong Answer ×9 → Runtime Error → Wrong Answer ×3 → Accepted ×2 → Wrong Answer → Accepted ×3
+- 2026-11-03 rewrite: Runtime Error → Accepted
 
 ## Approach
 
@@ -49,6 +50,14 @@ class Solution:
                 l = mid + 1
         return l
 ```
+
+## 2026-11 Rewrite
+
+On 2026-11-03, a closed-interval binary search on the answer:
+1. The lower bound was `left = 0`. After `right` shrinks far enough `mid` becomes 0 and `pile / 0` fails: with `piles = [6]`, `h = 6`, `mid` goes 3, 1, 0 and raises ZeroDivisionError.
+2. `left = 1` passed. The speed is at least 1, which is the range `[1, max(piles)]` above.
+
+This version used `math.ceil(pile / mid)`, computing a float and rounding up. The numbers in this problem are small enough to be exact, but the integer form `(p + mid - 1) // mid` above is safer and needs no thought about floating-point error.
 
 ## Complexity
 

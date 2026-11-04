@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2026-05-01
 Source: Day 16 learning note
+- 2026-11-03 rewrite: Accepted
 
 ## Study Context
 
@@ -86,6 +87,10 @@ class Solution:
             farthest = max(farthest, i + jump)
         return True
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-03, the same as the version above: keep `max_reach` and return `False` as soon as an index lies beyond it.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-11-18
 - Submissions: Runtime Error → Wrong Answer → Accepted ×6
+- 2026-11-02 rewrite: Accepted ×2
 
 ## Approach
 
@@ -43,6 +44,14 @@ class Solution:
             return root
         return left or right
 ```
+
+## 2026-11 Rewrite
+
+Wrote it twice on 2026-11-02, both first-try passes with the recursive return value above:
+1. Checked `root.val == p.val` to detect `p` and `q`. Node values are guaranteed distinct, so it passes, but it compares values, not nodes.
+2. Changed it to `root == p` to compare the nodes themselves. `TreeNode` defines no `__eq__`, so `==` behaves like `is`.
+
+The last line was `(root if left and right else None) or left or right`, which handles all three cases in one line but is harder to read than the split `if` above. Write the split version in an interview.
 
 ## Complexity
 

@@ -17,6 +17,7 @@ draft: false
 難易度: easy
 第一次嘗試：2022-08-20
 - 提交紀錄：Runtime Error ×2 → Wrong Answer → Time Limit Exceeded → Runtime Error ×7 → Accepted ×2 → Wrong Answer ×2 → Accepted ×2 → Runtime Error → Time Limit Exceeded → Accepted ×2
+- 2026-11-02 重寫：Accepted
 
 ## 解題思路
 
@@ -40,6 +41,10 @@ class Solution:
             b = b.next if b else headA
         return a
 ```
+
+## 2026-11 重寫
+
+2026-11-02 一次 AC，跟上面的換頭走一模一樣。2022 年 21 次提交裡寫錯的 `b = b.next if b else b` 這次沒有再犯：走完一條就換到**另一條**的頭。
 
 ## 複雜度
 

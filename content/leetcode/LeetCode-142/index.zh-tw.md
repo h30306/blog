@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-11-14
 - 提交紀錄：Accepted ×2
+- 2026-11-02 重寫：Runtime Error → Accepted ×2
 
 ## 解題思路
 
@@ -39,6 +40,15 @@ class Solution:
                 return slow
         return None
 ```
+
+## 2026-11 重寫
+
+2026-11-02 先用集合，再寫快慢指針：
+1. 集合版寫成 `while curr.next`，空串列時 `curr` 本身就是 `None`：`head = []` 報 AttributeError。
+2. 改成 `while curr` 就過了。這版要 `O(n)` 空間。
+3. 再寫上面的快慢指針，一次 AC。
+
+快慢指針那版把相遇後的判斷寫成 `while slow == fast:`。裡面一定會 `return`，所以沒出錯，但它其實就是 `if`。寫成 `while` 會讓人以為那裡要跑很多次，應該改回 `if`。
 
 ## 複雜度
 

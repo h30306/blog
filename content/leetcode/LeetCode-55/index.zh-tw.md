@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2026-05-01
 來源：Day 16 learning note
+- 2026-11-03 重寫：Accepted
 
 ## 學習脈絡
 
@@ -86,6 +87,10 @@ class Solution:
             farthest = max(farthest, i + jump)
         return True
 ```
+
+## 2026-11 重寫
+
+2026-11-03 一次 AC，跟上面的版本一樣：維護 `max_reach`，走到 `max_reach` 外面就回傳 `False`。
 
 ## 複雜度
 

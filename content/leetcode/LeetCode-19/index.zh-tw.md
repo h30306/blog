@@ -17,6 +17,7 @@ draft: false
 難易度: medium
 第一次嘗試：2022-10-20
 - 提交紀錄：Accepted → Runtime Error → Accepted ×2 → Runtime Error ×2 → Wrong Answer ×4 → Accepted → Runtime Error
+- 2026-11-02 重寫：Accepted
 
 ## 解題思路
 
@@ -40,6 +41,12 @@ class Solution:
         slow.next = slow.next.next
         return dummy.next
 ```
+
+## 2026-11 重寫
+
+2026-11-02 一次 AC，但用的是兩趟：先數長度，再從 dummy 走 `長度 - n` 步，刪掉下一個節點。有 dummy，所以 2022 年刪頭節點的問題沒有再出現。
+
+兩趟也是 `O(n)`，不過這題常被追問「能不能只走一趟」，答案就是上面的快慢指針。另外 `if curr and curr.next` 這個檢查是多的：題目保證 `1 <= n <= 長度`，走完 `長度 - n` 步後 `curr.next` 一定存在。
 
 ## 複雜度
 

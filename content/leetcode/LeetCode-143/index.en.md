@@ -17,6 +17,7 @@ draft: false
 Difficulty: medium
 First Attempt: 2022-10-29
 - Submissions: Runtime Error ×3 → Wrong Answer ×2 → Runtime Error → Wrong Answer ×2 → Runtime Error → Accepted → Time Limit Exceeded → Accepted ×3
+- 2026-11-02 rewrite: Accepted ×2
 
 ## Approach
 
@@ -52,6 +53,14 @@ class Solution:
             first.next, second.next = second, n1
             first, second = n1, n2
 ```
+
+## 2026-11 Rewrite
+
+Passed on the first try on 2026-11-02. The three places that tripped me up in 2022 (finding the middle, cutting, reversing) were all right this time.
+
+The middle search was `while fast.next and fast.next.next`. For even lengths the two halves come out equal, while `while fast and fast.next` above splits `[1,2,3,4]` into `[1,2,3]` and `[4]`. Both work, because the merge only needs the second half to be no longer than the first. This version needs a non-empty `head`, which the constraints guarantee.
+
+The second submission only added `return head`. The function is supposed to modify the list in place and return nothing; the extra return does no harm but can go.
 
 ## Complexity
 
